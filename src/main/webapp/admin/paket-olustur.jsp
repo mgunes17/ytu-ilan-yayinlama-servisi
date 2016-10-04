@@ -53,7 +53,7 @@
                                             <c:out value="${item.unitName}"/>
                                         </option>
                                     </c:forEach>
-                                    </select></br></td>
+                                    </select></td>
                             </tr>
                             <tr>
                                 <td>Paketin son kullanım tarihini giriniz yyyy-aa-gg ss:dd</td>

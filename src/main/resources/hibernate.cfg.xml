@@ -21,5 +21,7 @@
     <mapping class="org.db.model.UserType"/>
     <mapping class="org.db.model.Currency"/>
     <mapping class="org.db.model.DonationAcceptUnit"/>
+    <mapping class="org.db.model.AnnouncementPacket"/>
+    <mapping class="org.db.model.BankAccountInfo"/>
   </session-factory>
 </hibernate-configuration>

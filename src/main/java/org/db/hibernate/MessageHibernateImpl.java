@@ -7,7 +7,6 @@ import org.db.model.Message;
 import org.hibernate.Session;
 
 public class MessageHibernateImpl extends AbstractDAO implements MessageDAO {
-	private Session session;
 	
 	public List<Message> readMessages() {
 		List<Message> messageList = (List<Message>) getAllRows(Message.class);

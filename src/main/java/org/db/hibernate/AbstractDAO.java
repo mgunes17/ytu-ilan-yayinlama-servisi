@@ -16,7 +16,25 @@ public abstract class AbstractDAO {
 			return true;
 		}
 		catch(Exception ex) {
-			System.err.println("Kayıt işlemi edilemedi"); // logla 
+			System.err.println("Kayıt işlemi başarısız"); // logla 
+			session.getTransaction().rollback();
+			return false;
+		}
+		finally {
+			session.close();
+		}
+	}
+	
+	public boolean delete(Object o) {
+		try {
+			session = HibernateSessionFactory.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.delete(o);
+			session.getTransaction().commit();
+			return true;
+		}
+		catch(Exception ex) {
+			System.err.println("Silme işlemi başarısız"); // logla 
 			session.getTransaction().rollback();
 			return false;
 		}
@@ -33,7 +51,7 @@ public abstract class AbstractDAO {
 
 		}
 		catch(Exception ex) {
-			System.err.println("Kayıt işlemi edilemedi"); // logla 
+			System.err.println("Veriler okunamadı"); // logla 
 			session.getTransaction().rollback();
 			return null;
 		}
