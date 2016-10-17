@@ -16,7 +16,7 @@ public abstract class AbstractDAO {
 			return true;
 		}
 		catch(Exception ex) {
-			System.err.println("Kayıt işlemi başarısız"); // logla 
+			System.err.println("Kayıt işlemi başarısız "+ ex.getMessage()); // logla 
 			session.getTransaction().rollback();
 			return false;
 		}

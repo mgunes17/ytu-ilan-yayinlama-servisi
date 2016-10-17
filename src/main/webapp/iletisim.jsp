@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,21 +35,21 @@
                 <h4>Sistem Yöneticisine Mesaj Gönderin</h4>
                 <form class="form-inline" role="form"  method="post" action="sendmessageservlet">
                     <div class="form-group">
-                        Konu</br>
+                        Konu
                         <input type="text" name="title" pattern=".{5,30}" 
-                        required title="Başlık 5-30 karakter aralığında olmalı"/></br>
-                    </div></br>
+                        required title="Başlık 5-30 karakter aralığında olmalı"/>
+                    </div>
                     <div class="form-group">
-                        Mesajınız </br>
+                        Mesajınız 
                         <textarea name="message" pattern=".{10,300}"
                         required title="Mesajınız 10-300 karakter aralığında olmalı"> 
-                        </textarea></br>
-                    </div></br>
+                        </textarea>
+                    </div>
                     <div class="form-group">
                         Mail adresiniz
-                        </br><input type="email" name="mail" 
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/></br>
-                    </div></br>
+                        <input type="email" name="mail" 
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
+                    </div>
                    <input type ="submit" value="Mesajı Gönder">
                 </form>
                 <c:choose>

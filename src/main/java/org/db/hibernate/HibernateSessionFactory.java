@@ -17,7 +17,8 @@ public class HibernateSessionFactory {
           return c.buildSessionFactory();
       }
       catch(Throwable ex) {
-          System.err.println("yaratılamadı");
+          System.err.println("yaratılamadı:" + ex.getMessage());
+          ex.getCause().printStackTrace();
           throw new ExceptionInInitializerError(ex);
       }
     }

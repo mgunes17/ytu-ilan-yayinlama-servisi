@@ -22,6 +22,12 @@
     <mapping class="org.db.model.Currency"/>
     <mapping class="org.db.model.DonationAcceptUnit"/>
     <mapping class="org.db.model.AnnouncementPacket"/>
+    <mapping class="org.db.model.AnnouncementState"/>
+    <mapping class="org.db.model.Announcement"/>
+    <mapping class="org.db.model.AnnouncementType"/>
     <mapping class="org.db.model.BankAccountInfo"/>
+    <mapping class="org.db.model.CommunicationWay"/>
+    <mapping class="org.db.model.Department"/> 
+    <mapping class="org.db.model.Donation"/>
   </session-factory>
 </hibernate-configuration>

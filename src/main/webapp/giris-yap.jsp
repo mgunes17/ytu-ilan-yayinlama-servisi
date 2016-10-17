@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,12 +18,18 @@
 </head>
 <body>
     <jsp:include page="html/header.html"></jsp:include>
+    
     <div class="container text-center">
+    	<h3>Giriş Yap</h3>
         <form action="logincontrolservlet" method="post">
-            Kullanıcı Adı</br>
-            <input type="text" name="username"/></br>
-            Parola</br>
-            <input type="password" name="password"/></br>
+        	<div class="form-group">
+        		<label for="username">Kullanıcı Adı</label>
+        		<input type="text" name="username" id="username"/>
+        	</div>
+        	<div class="form-group">
+        		<label for="password">Parola</label>
+        		<input type="password" name="password" id="password"/>
+        	</div>
             <input type="submit" value="Giriş Yap"/>
         </form>
     </div>

@@ -31,6 +31,7 @@ public class SendMessageServlet extends HttpServlet {
         readRequest(request);
 
         MessageDAO messageDAO = new MessageHibernateImpl();
+        System.out.println("-------------------------------"+message.getMessageBody());
         messageDAO.sendMessage(message);
         
         HttpSession httpSession = request.getSession();

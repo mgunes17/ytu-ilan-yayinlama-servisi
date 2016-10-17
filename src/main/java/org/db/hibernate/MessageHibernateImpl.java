@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.db.dao.MessageDAO;
 import org.db.model.Message;
-import org.hibernate.Session;
 
 public class MessageHibernateImpl extends AbstractDAO implements MessageDAO {
 	

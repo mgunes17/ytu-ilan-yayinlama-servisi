@@ -1,6 +1,8 @@
 package org.servlet.company;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,14 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.db.compositePK.CommunicationWayPK;
 import org.db.dao.CompanyDAO;
 import org.db.hibernate.CompanyHibernateImpl;
+import org.db.model.CommunicationWay;
 import org.db.model.Company;
 
 @WebServlet(name = "CompanySaveServlet", urlPatterns = {"/companysaveservlet"})
 public class CompanySaveServlet extends HttpServlet {
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
     }
@@ -25,17 +34,38 @@ public class CompanySaveServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         
-        Company company = new Company(
-            request.getParameter("mersis_no"),
-            request.getParameter("company_name"),
-            request.getParameter("location"),
-            request.getParameter("user_name"),
-            request.getParameter("password")
-        );
-        
+        Company company = readRequestParameter(request);
         CompanyDAO companyDAO = new CompanyHibernateImpl();
-        companyDAO.saveCompany(company);
+        
+        if(companyDAO.saveCompany(company))
+        	//islem basarılı
+        
+        System.out.println("----" + company.getCommWays().size());
         response.sendRedirect("index.jsp");
+    }
+    
+    private Company readRequestParameter(HttpServletRequest request) {
+    	Company company = new Company();
+    	company.setUserName(request.getParameter("username"));
+    	company.setPassword(request.getParameter("password"));
+    	company.setCompanyName(request.getParameter("company_name"));
+    	
+    	List<CommunicationWay> commWays = new ArrayList<CommunicationWay>();
+    	CommunicationWayPK cwpk = new CommunicationWayPK();
+    	
+    	cwpk.setCommType("telefon");
+    	cwpk.setCommValue(request.getParameter("telephone_number"));
+    	commWays.add(new CommunicationWay(cwpk));
+    	
+    	CommunicationWayPK cwpk1 = new CommunicationWayPK();
+    	cwpk1.setCommType("mail");
+    	cwpk1.setCommValue(request.getParameter("email"));
+    	commWays.add(new CommunicationWay(cwpk1));
+    	
+    	company.setCommWays(commWays);
+
+    	return company;
+   
     }
 
 }

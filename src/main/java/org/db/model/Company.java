@@ -12,34 +12,20 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name="user_name")
 public class Company extends User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-    @Column(name="mersis_no", unique=true, nullable=false)
-    private String mersisNo;
     
     @Column(name="company_name", nullable=false)
     private String companyName;
     
-    @Column(name="location", nullable=false)
+    @Column(name="location", nullable=true)
     private String location;
 
-    public Company(String mersisNo, String companyName, String location, String
-            username, String password) {
+    public Company(String mersisNo, String companyName, String username, String password) {
         super(username, password, 2);
-        this.mersisNo = mersisNo;
         this.companyName = companyName;
-        this.location = location;
     }
 
     public Company(){}
     
-    public String getMersisNo() {
-        return mersisNo;
-    }
-
-    public void setMersisNo(String mersisNo) {
-        this.mersisNo = mersisNo;
-    }
-
     public String getCompanyName() {
         return companyName;
     }
