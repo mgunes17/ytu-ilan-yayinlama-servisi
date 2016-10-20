@@ -55,7 +55,8 @@
                 <c:choose>
                     <c:when test="${gonderildi eq 1}">
                        <div class="alert alert-success">
-                            <strong>Success!</strong> Indicates a successful or positive action.
+                            <strong>Başarılı!</strong> Mesaj başarıyla iletildi. Sizinle vermiş olduğunuz 
+                            mail adresi üzerinden iletişime geçilecektir.
                         </div>
                     </c:when>
                 </c:choose>
