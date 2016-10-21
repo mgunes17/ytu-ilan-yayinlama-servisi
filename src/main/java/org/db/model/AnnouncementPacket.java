@@ -22,21 +22,29 @@ public class AnnouncementPacket implements Serializable {
     @Column(name="packet_id")
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int packetId;
-    @Column(name="title")
+    
+	@Column(name="title")
     private String title;
-    @Column(name="announcement_count", nullable=false)
+   
+	@Column(name="announcement_count", nullable=false)
     private int announcementCount;
-    @Column(name="price", nullable=false)
+   
+	@Column(name="price", nullable=false)
     private int price;
-    @Column(name="last_date_used", nullable=false)
+   
+	@Column(name="last_date_used", nullable=false)
     private Date lastDateUsed;
-    @Column(name="active_time", nullable=false)
+   
+	@Column(name="active_time", nullable=false)
     private int activeTime;
-    @Column(name="currency", nullable=false)
+   
+	@Column(name="currency", nullable=false)
     private int currency;
-    @Column(name="condition", nullable=false)
+   
+	@Column(name="condition", nullable=false)
     private String condition;
-    @Column(name="donate_accept_unit", nullable=false)
+   
+	@Column(name="donate_accept_unit", nullable=false)
     private String donateAcceptUnit;
 
     public AnnouncementPacket(){

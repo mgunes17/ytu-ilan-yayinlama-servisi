@@ -1,9 +1,12 @@
 package org.db.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -18,8 +21,11 @@ public class Company extends User implements Serializable {
     
     @Column(name="location", nullable=true)
     private String location;
+    
+    @OneToMany(cascade=CascadeType.ALL)
+    private List<Announcement> announcements;
 
-    public Company(String mersisNo, String companyName, String username, String password) {
+	public Company(String mersisNo, String companyName, String username, String password) {
         super(username, password, 2);
         this.companyName = companyName;
     }
@@ -33,12 +39,20 @@ public class Company extends User implements Serializable {
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
+    
+    public String getLocation() {
+		return location;
+	}
 
-    public String getLocaiton() {
-        return location;
-    }
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
-    public void setLocaiton(String locaiton) {
-        this.location = locaiton;
-    }
+	public List<Announcement> getAnnouncements() {
+		return announcements;
+	}
+
+	public void setAnnouncements(List<Announcement> announcements) {
+		this.announcements = announcements;
+	}
 }

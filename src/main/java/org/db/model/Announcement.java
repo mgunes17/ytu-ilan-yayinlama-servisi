@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,20 +16,29 @@ public class Announcement {
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
+    
     @Column(name="title")
     private String title;
+    
     @Column(name="brief", nullable=false)
     private String brief;
+    
     @Column(name="content", nullable=false)
     private String content;
+    
     @Column(name="number_of_page_views")
     private int numberOfPageViews;
+    
     @Column(name="state")
     private int state; // ilan durumu oluşturulunca pasif, şikayette beklenen, aktif vs
-    @Column(name="owner_company", nullable=false)
-    private String ownerCompany; 
+    
+    @ManyToOne  
+    @JoinColumn(name = "owner_company", nullable=false)
+    private Company ownerCompany; 
+    
     @Column(name="owner_packet")
     private int ownerPacket;
+    
     @Column(name="announcement_type", nullable=false)
     private int announcementType; //staj, freelance, part time, full time
     
@@ -89,11 +100,11 @@ public class Announcement {
         this.state = state;
     }
 
-    public String getOwnerCompany() {
+    public Company getOwnerCompany() {
         return ownerCompany;
     }
 
-    public void setOwnerCompany(String ownerCompany) {
+    public void setOwnerCompany(Company ownerCompany) {
         this.ownerCompany = ownerCompany;
     }
 

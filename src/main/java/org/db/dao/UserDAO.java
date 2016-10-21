@@ -4,4 +4,5 @@ import org.db.model.User;
 
 public interface UserDAO {
 	User getUser(String username);
+	boolean update(User user);
 }

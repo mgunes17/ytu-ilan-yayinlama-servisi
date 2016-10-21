@@ -8,4 +8,5 @@ public class CompanyHibernateImpl extends AbstractDAO implements CompanyDAO {
 	public boolean saveCompany(Company c) {
 		return save(c);
 	}
+	
 }

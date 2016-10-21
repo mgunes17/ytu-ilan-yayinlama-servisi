@@ -3,8 +3,10 @@
     Created on : 22.Nis.2016, 13:55:41
     Author     : must
 --%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +20,7 @@
     </form>
     <h4><a href="../directcompanymainpageservlet">Anasayfa</a></h4>
     <h1>Yeni İlanınızı Oluşturun</h1>
-    <form method="POST" action="newannouncementservlet">
+    <form method="POST" action="../announcementcreateservlet">
         İlan Başlığı</br>
         <input type="text" name="title"/></br>
         Kısa Açıklama</br>
@@ -37,6 +39,21 @@
         <input type="submit" value="Oluştur"/>
     </form>
     
+    <c:choose>
+    	<c:when test="${olusturuldu eq 1}">
+    		<div class="alert alert-success">
+                <strong>Oluşturuldu!</strong> İlanınız başarıyla oluşturuldu. 
+                İlanınızı <a href="company/ilanlarim">burdan</a> düzenleyebili veya
+                aktif hale getirebilirsiniz.
+            </div>
+    	</c:when>
+    	<c:when test="${olusturuldu eq 2}">
+    		<div class="alert alert-danger">
+                <strong>Oluşturulamadı!</strong> İlan oluşturulurken bir hata
+                meydana geldi. Lütfen tekrar deneyiniz.
+            </div>
+    	</c:when>
+    </c:choose>
     
 </body>
 </html>

@@ -24,5 +24,22 @@ public class UserHibernateImpl extends AbstractDAO implements UserDAO {
 			session.close();
 		}
 	}
-
+	
+	public boolean update(User user) {
+		try {
+			session = HibernateSessionFactory.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.update(user);
+			session.getTransaction().commit();
+			return true;
+		}
+		catch(Exception ex) {
+			System.out.println("kullanıcı bilgileri güncellenemedi");
+			session.getTransaction().rollback();
+			return false;
+		}
+		finally {
+			session.close();
+		}
+	}
 }
