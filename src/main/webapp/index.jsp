@@ -20,7 +20,7 @@
             eğitimlerine katkıda bulunmak ister misiniz?
         </h3>
         <h3>
-            <a href="nasilcalisir.jsp">Nasıl Çalışır?</a> sayfamızdan detayları öğrenebilirsiniz
+            <a href="nasil-calisir.jsp">Nasıl Çalışır?</a> sayfamızdan detayları öğrenebilirsiniz
         </h3>
     </div>
        

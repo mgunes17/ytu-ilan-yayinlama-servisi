@@ -30,6 +30,13 @@
         		<label for="password">Parola</label>
         		<input type="password" name="password" id="password"/>
         	</div>
+        	<c:choose>
+				<c:when test="${giris eq 0}">
+					<div class="alert alert-danger">
+						<strong>Başarısız!</strong> Lütfen kullanıcı adı ve parolanızı kontrol edin.
+					</div>
+				</c:when>
+	        </c:choose>
             <input type="submit" value="Giriş Yap"/>
         </form>
     </div>

@@ -22,7 +22,7 @@
     <div class="text-center">
         <h3>Şirketler</h3>
         <h3>
-            Sisteme <a href="sirketkayit.jsp"> buradan </a>kayıt olun.
+            Sisteme <a href="sirket-kayit.jsp"> buradan </a>kayıt olun.
             İlanınızı hazırlayın.
             Yönetici tarafından tanımlanan ilan paketlerinden istediğiniz bir 
             tanesine bağış karşılığı sahip olun.
@@ -30,7 +30,7 @@
         </h3>
         <h3>Öğrenciler</h3>
         <h3>
-            Sisteme <a href="ogrencikayit.jsp"> buradan </a>kayıt olun.
+            Sisteme <a href="ogrenci-kayit.jsp"> buradan </a>kayıt olun.
             CV'nizi hazırlayın. İstediğiniz kriterlere göre ilan arayın ve
             istediğiniz ilana başvurun. Şirketler sizinle iletişime geçsin.
         </h3>

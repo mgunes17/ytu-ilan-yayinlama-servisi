@@ -1,4 +1,4 @@
-package org.servlet.main;
+package org.servlet.login;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

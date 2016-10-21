@@ -34,13 +34,15 @@ public class CompanySaveServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         
+        //sirket maili onayladıktan sonra status admin onayı bekleniyor olacak
         Company company = readRequestParameter(request);
+        company.setUserTypeNo(2);
+        company.setStatus(0); //mail onayı bekleniyor
         CompanyDAO companyDAO = new CompanyHibernateImpl();
         
         if(companyDAO.saveCompany(company))
         	//islem basarılı
         
-        System.out.println("----" + company.getCommWays().size());
         response.sendRedirect("index.jsp");
     }
     

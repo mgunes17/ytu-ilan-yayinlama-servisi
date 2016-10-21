@@ -29,5 +29,6 @@
     <mapping class="org.db.model.CommunicationWay"/>
     <mapping class="org.db.model.Department"/> 
     <mapping class="org.db.model.Donation"/>
+    <mapping class="org.db.model.MembershipStatus"/>
   </session-factory>
 </hibernate-configuration>

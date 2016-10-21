@@ -1,4 +1,4 @@
-package org.servlet.main;
+package org.servlet.login;
 
 import java.io.IOException;
 
@@ -19,7 +19,12 @@ import org.db.model.UserType;
 @WebServlet("/logincontrolservlet")
 public class LoginControlServlet extends HttpServlet {
     
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
@@ -32,23 +37,23 @@ public class LoginControlServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        // user ı getir user null ise kullanıcı bulunamadı yazdır
-        //, user ın paswwword u ile burdakini kıyasla doğruysa  user tipini getir respnsa getmain page, değilse aynı sayfa,
-        //kullanıcı adı veya parola yanlış
-        
         UserDAO userDAO = new UserHibernateImpl();
         User user = (User) userDAO.getUser(username);
         
-        if(user == null) { } // kullanıcı bulunamadı
-        else if(user.getPassword().equals(password)) {
+        //giriste membership status kontrol edilecek
+        if(user == null || !user.getPassword().equals(password)) {
+        	HttpSession httpSession = request.getSession();
+        	httpSession.setAttribute("giris", 0);
+        	response.sendRedirect("giris-yap.jsp");
+        } 
+        else {
         	UserTypeDAO userTypeDAO = new UserTypeHibernateImpl();
         	UserType userType = userTypeDAO.getUserType(user.getUserTypeNo()); // bunu sadece get main page olarak değiştir
         	HttpSession httpSession = request.getSession();
         	httpSession.setAttribute("user",user);
+        	httpSession.setAttribute("status", user.getStatus());
         	response.sendRedirect(userType.getMain_page());
         }
-        else {
-        	// parola yanlış //ileride bunu kullanıcı adı veya parola yanlış olarak düzelt
-        }
+
     }
 }

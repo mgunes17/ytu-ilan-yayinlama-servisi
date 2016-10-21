@@ -31,13 +31,15 @@ public class User implements Serializable {
     @Column(name="user_type_no")
     private int userTypeNo;
 
+    @Column(name="membership_status")
+    private int status;
+    
     @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "users_communication_ways", joinColumns =
     @JoinColumn(name = "user_name"),
     inverseJoinColumns = {
     @JoinColumn(name = "comm_type"),
     @JoinColumn(name = "comm_value")})
-    
     private List<CommunicationWay> commWays = new ArrayList<CommunicationWay>();
 
 	public User (){}
@@ -79,5 +81,12 @@ public class User implements Serializable {
     public void setUserTypeNo(int userTypeNo) {
         this.userTypeNo = userTypeNo;
     }
+    
+    public void setStatus(int id) {
+    	status = id;
+    }
    
+    public int getStatus() {
+    	return status;
+    }
 }

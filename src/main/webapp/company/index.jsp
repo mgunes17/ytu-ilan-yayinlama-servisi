@@ -28,5 +28,12 @@
     <a href="#">Sahip olduğum ilan paketlerini gör</a></br>
     <a href="../displaypacketstocompany">İlan paketlerini gör</a></br>
     <a href="#">Profilimi düzenle</a></br>
+    
+    <c:choose>
+    	<c:when test="${user.status eq 0 }">
+    		lütfen mail üzerinden hesabınızı aktif hale getiriniz
+    	</c:when>
+    </c:choose>
+    
 </body>
 </html>

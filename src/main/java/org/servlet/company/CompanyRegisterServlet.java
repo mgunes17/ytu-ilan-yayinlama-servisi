@@ -22,7 +22,7 @@ public class CompanyRegisterServlet extends HttpServlet {
         
         //sektör vt den çekilecek
         //sektör tablosu-sınıfı-ilgili foreign key ler
-        response.sendRedirect("sirketkayit.jsp");
+        response.sendRedirect("sirket-kayit.jsp");
     }
 
 }
