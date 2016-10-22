@@ -28,6 +28,12 @@ public class CompanySaveServlet extends HttpServlet {
 	private static Company company;
 	private static CommunicationWay mail;
 	private static CommunicationWay telephone;
+	
+	public CompanySaveServlet() {
+		company = new Company();
+		mail = new CommunicationWay();
+		telephone = new CommunicationWay();
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -52,22 +58,21 @@ public class CompanySaveServlet extends HttpServlet {
 			httpSession.setAttribute("kurumAdi", request.getParameter("company_name"));
 			httpSession.setAttribute("telefonNumarasi", request.getParameter("telephone_number"));
 			httpSession.setAttribute("mail", request.getParameter("email"));
-		} else if (companyDAO.saveCompany(company, mail, telephone)) { // başarıyla
-																		// kaydedildi
+			response.sendRedirect("sirket-kayit.jsp");
+		} else if (companyDAO.saveCompany(company, mail, telephone)) { // başarıyla kaydedildi
 			httpSession.setAttribute("kayit", 1);
+			response.sendRedirect("companysaveinitializeservlet");
 		} else { // bir hata meydana geldi
 			httpSession.setAttribute("kayit", 3);
 			httpSession.setAttribute("kullaniciAdi", request.getParameter("username"));
 			httpSession.setAttribute("kurumAdi", request.getParameter("company_name"));
 			httpSession.setAttribute("telefonNumarasi", request.getParameter("telephone_number"));
 			httpSession.setAttribute("mail", request.getParameter("email"));
+			response.sendRedirect("sirket-kayit.jsp");
 		}
-
-		response.sendRedirect("sirket-kayit.jsp");
 	}
 
 	private void prepareObjects(HttpServletRequest request) {
-		Company company = new Company();
 		company.setUserName(request.getParameter("username"));
 		company.setPassword(request.getParameter("password"));
 		company.setCompanyName(request.getParameter("company_name"));
@@ -76,7 +81,6 @@ public class CompanySaveServlet extends HttpServlet {
 
 		company.setStatus(0); // mail onayı bekleniyor
 
-		CommunicationWay telephone = new CommunicationWay();
 		CommunicationWayPK telephonePK = new CommunicationWayPK();
 
 		telephonePK.setCommType("telefon");
@@ -84,13 +88,15 @@ public class CompanySaveServlet extends HttpServlet {
 		telephone.setPk(telephonePK);
 		telephone.setUser(company);
 
-		CommunicationWay mail = new CommunicationWay();
 		CommunicationWayPK mailPK = new CommunicationWayPK();
 
 		mailPK.setCommType("mail");
 		mailPK.setCommValue(request.getParameter("email"));
 		mail.setPk(mailPK);
 		mail.setUser(company);
+		
+		company.getCommWays().add(mail);
+		company.getCommWays().add(telephone);
 	}
 
 }

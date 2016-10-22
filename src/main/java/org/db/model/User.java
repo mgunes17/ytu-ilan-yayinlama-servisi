@@ -1,11 +1,13 @@
 package org.db.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -31,8 +33,11 @@ public class User implements Serializable {
 	@Column(name = "membership_status")
 	private int status;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<CommunicationWay> commWays;
+	//@OneToMany
+	@OneToMany(mappedBy="user",  
+            targetEntity=CommunicationWay.class, 
+    fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<CommunicationWay> commWays = new ArrayList<CommunicationWay>();
 
 	public User() {
 	}
