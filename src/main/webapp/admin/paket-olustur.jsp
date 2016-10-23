@@ -30,6 +30,11 @@
                                  <strong>Başarılı!</strong>Paket başarıyla oluşturuldu.
                             </div>
                         </c:when>
+                        <c:when test="${olusturuldu eq 2}">
+                        	<div class ="alert alert-danger">
+                        		<strong>Başarısız</strong>Bir hata meydana geldi. Lütfen daha sonra tekrar deneyiniz.
+                        	</div>
+                        </c:when>
                     </c:choose>
                 
                     <h2>Yeni İlan Paketi Oluştur</h2>

@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -38,17 +40,19 @@ public class AnnouncementPacket implements Serializable {
 	@Column(name="active_time", nullable=false)
     private int activeTime;
    
-	@Column(name="currency", nullable=false)
-    private int currency;
+	@ManyToOne
+	@JoinColumn(name="currency", nullable=false)
+    private Currency currency;
    
 	@Column(name="condition", nullable=false)
     private String condition;
    
-	@Column(name="donate_accept_unit", nullable=false)
-    private String donateAcceptUnit;
+	@ManyToOne
+	@JoinColumn(name="donate_accept_unit", nullable=false)
+    private DonationAcceptUnit donateAcceptUnit;
 
     public AnnouncementPacket(){
-        
+        super();
     }
     
     public int getPacketId() {
@@ -91,11 +95,11 @@ public class AnnouncementPacket implements Serializable {
         this.activeTime = activeTime;
     }
 
-    public int getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
-    public void setCurrency(int currency) {
+    public void setCurrency(Currency currency) {
         this.currency = currency;
     }
 
@@ -107,11 +111,11 @@ public class AnnouncementPacket implements Serializable {
         this.condition = condition;
     }
 
-    public String getDonateAcceptUnit() {
+    public DonationAcceptUnit getDonateAcceptUnit() {
         return donateAcceptUnit;
     }
 
-    public void setDonateAcceptUnit(String donateAcceptUnit) {
+    public void setDonateAcceptUnit(DonationAcceptUnit donateAcceptUnit) {
         this.donateAcceptUnit = donateAcceptUnit;
     }
     

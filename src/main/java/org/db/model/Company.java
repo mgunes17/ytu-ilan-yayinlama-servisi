@@ -30,7 +30,9 @@ public class Company extends User implements Serializable {
         this.companyName = companyName;
     }
 
-    public Company(){}
+    public Company(){
+    	super();
+    }
     
     public String getCompanyName() {
         return companyName;
