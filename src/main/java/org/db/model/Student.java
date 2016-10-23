@@ -24,7 +24,7 @@ public class Student extends User implements Serializable {
     private String department;
 
     public Student(){
-        
+        super();
     }
 
     public String getName() {

@@ -33,11 +33,7 @@ public class CompanySaveInitializeServlet extends HttpServlet {
 
 		HttpSession httpSession = request.getSession();
 		httpSession.setAttribute("kayit", 0);
-		httpSession.removeAttribute("kullaniciAdi");
-		httpSession.removeAttribute("kurumAdi");
-		httpSession.removeAttribute("telefonNumarasi");
-		httpSession.removeAttribute("mail");
-
+		
 		response.sendRedirect("sirket-kayit.jsp");
 	}
 

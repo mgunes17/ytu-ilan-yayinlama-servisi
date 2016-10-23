@@ -59,9 +59,9 @@ public class CompanySaveServlet extends HttpServlet {
 			httpSession.setAttribute("telefonNumarasi", request.getParameter("telephone_number"));
 			httpSession.setAttribute("mail", request.getParameter("email"));
 			response.sendRedirect("sirket-kayit.jsp");
-		} else if (companyDAO.saveCompany(company, mail, telephone)) { // başarıyla kaydedildi
+		} else if (companyDAO.saveCompany(company)) { // başarıyla kaydedildi
 			httpSession.setAttribute("kayit", 1);
-			response.sendRedirect("companysaveinitializeservlet");
+			response.sendRedirect("companyremoveformattributesservlet");
 		} else { // bir hata meydana geldi
 			httpSession.setAttribute("kayit", 3);
 			httpSession.setAttribute("kullaniciAdi", request.getParameter("username"));
