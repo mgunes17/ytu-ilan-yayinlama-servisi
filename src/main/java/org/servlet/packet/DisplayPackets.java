@@ -17,7 +17,12 @@ import org.db.model.AnnouncementPacket;
 @WebServlet(name = "DisplayPackets", urlPatterns = {"/displaypackets"})
 public class DisplayPackets extends HttpServlet {
 
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
