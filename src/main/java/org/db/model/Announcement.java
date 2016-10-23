@@ -1,5 +1,7 @@
 package org.db.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +13,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="announcement")
-public class Announcement {
-    @Id
+public class Announcement implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
@@ -39,16 +46,17 @@ public class Announcement {
     @Column(name="owner_packet")
     private int ownerPacket;
     
-    @Column(name="announcement_type", nullable=false)
-    private int announcementType; //staj, freelance, part time, full time
+    @ManyToOne
+    @JoinColumn(name="announcement_type", nullable=false)
+    private AnnouncementType announcementType; //staj, freelance, part time, full time
     
     public Announcement(){}
 
-    public int getAnnouncementType() {
+    public AnnouncementType getAnnouncementType() {
         return announcementType;
     }
 
-    public void setAnnouncementType(int announcementType) {
+    public void setAnnouncementType(AnnouncementType announcementType) {
         this.announcementType = announcementType;
     }
 

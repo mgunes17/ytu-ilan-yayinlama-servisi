@@ -30,7 +30,7 @@ public abstract class AbstractDAO {
 			return session.createCriteria(c).list();
 
 		} catch (Exception ex) {
-			System.err.println("Veriler okunamadı"); // logla
+			System.err.println("Veriler okunamadı: "+ ex.getMessage()); // logla
 			session.getTransaction().rollback();
 			return null;
 		} finally {

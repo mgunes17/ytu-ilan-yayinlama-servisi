@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,12 +16,17 @@
 </head>
 <body>
  
-    <%String userName = (String)session.getAttribute("user");%>
-    <h1>Hoşgeldiniz <%=userName%></h1>
-    <a href="listallannouncementsservlet">Tüm ilanları görüntüle</a>
+    <h1>Hoşgeldiniz ${user.userName}</h1>
+    <a href="../getallannouncementsservlet">Tüm ilanları görüntüle</a>
     <a href="#">İlan Ara</a>
     <a href="#">Başvurularım</a>
     <a href="#">Profilimi Düzenle</a>
     <a href="#">CV mi düzenle</a>
+    
+     <c:choose>
+    	<c:when test="${user.status eq 0 }">
+    		lütfen mail üzerinden hesabınızı aktif hale getiriniz
+    	</c:when>
+    </c:choose>
 </body>
 </html>

@@ -18,4 +18,8 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
 		return save(ann);
 	}
 
+	public List<Announcement> getAllAnnouncements() {
+		return getAllRows(Announcement.class);
+	}
+
 }

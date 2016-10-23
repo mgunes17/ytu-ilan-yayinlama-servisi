@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.db.dao.AnnouncementDAO;
 import org.db.hibernate.AnnouncementHibernateImpl;
 import org.db.model.Announcement;
+import org.db.model.AnnouncementType;
 import org.db.model.Company;
 
 /**
@@ -64,6 +65,9 @@ public class AnnouncementCreateServlet extends HttpServlet {
 		announcement.setTitle(request.getParameter("title"));
 		announcement.setBrief(request.getParameter("brief"));
 		announcement.setContent(request.getParameter("content"));
-		announcement.setAnnouncementType(Integer.parseInt(request.getParameter("type")));
+		
+		AnnouncementType annType = new AnnouncementType();
+		annType.setId(Integer.parseInt(request.getParameter("type")));
+		announcement.setAnnouncementType(annType);
 	}
 }
