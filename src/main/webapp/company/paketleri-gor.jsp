@@ -13,6 +13,20 @@
 <body>
 	<!-- Paket sıralama kriterleri -->
 	<!-- Detaylar tıklanınca açılsın -->
+	
+	<c:choose>
+		<c:when test="${donation_request eq 1}">
+			<div class="alert alert-success">
+				Bağış uyarınız gönderilmiştir.
+			</div>
+		</c:when>
+		<c:when test="${donation_request eq 2}">
+			<div class="alert alert-warning">
+				Bir hata oluştur lütfen tekrar deneyiniz.
+			</div>
+		</c:when>
+	</c:choose>
+	
 	<table class="table table-bordered">
 		<thead>
 			<tr>
@@ -33,6 +47,15 @@
 					<td>${item.price} ${item.currency.title}</td>
 					<td>${item.lastDateUsed}</td>
 					<td>${item.donateAcceptUnit.userName}</td>
+					 <td>
+                        <form method="post">
+                            <input type="hidden" name="packetId" value="${item.packetId}" />
+                            <input 
+                                type="submit" 
+                                value="Bağış Yaptım" 
+                                formaction="../donationrequestservlet">
+                        </form>
+                    </td>
 				</tr>
 			</c:forEach>
 		</tbody>

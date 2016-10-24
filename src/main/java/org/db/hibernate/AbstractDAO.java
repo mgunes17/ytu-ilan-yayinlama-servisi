@@ -1,11 +1,29 @@
 package org.db.hibernate;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
 
 public abstract class AbstractDAO {
 	private Session session;
+	
+	public <T> Object getObject(Class<T> c, Object primaryKey) {
+		try {
+			session = HibernateSessionFactory.getSessionFactory().openSession();
+			session.beginTransaction();
+			Object object = session.get(c, (Serializable) primaryKey);
+			session.getTransaction().commit();
+			return object;
+		} catch(Exception ex) {
+			System.err.println("Obje getirilemedi"); // logla
+			session.getTransaction().rollback();
+			return false;
+		} finally {
+			session.close();
+		}
+		
+	}
 
 	public boolean delete(Object o) {
 		try {

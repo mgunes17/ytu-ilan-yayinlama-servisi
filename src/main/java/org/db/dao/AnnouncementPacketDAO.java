@@ -8,4 +8,5 @@ public interface AnnouncementPacketDAO {
 	boolean savePacket(AnnouncementPacket packet);
 	boolean deletePacket(int packetId);
 	List<AnnouncementPacket> getAllPackets();
+	AnnouncementPacket getPacket(int packetId);
 }
