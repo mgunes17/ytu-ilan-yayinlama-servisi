@@ -22,11 +22,11 @@ public class Company extends User implements Serializable {
     @Column(name="location", nullable=true)
     private String location;
     
-    @OneToMany(mappedBy="company", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="ownerCompany", targetEntity=Announcement.class, cascade=CascadeType.ALL)
     private List<Announcement> announcements;
     
-    @OneToMany(mappedBy="company", cascade=CascadeType.ALL)
-    private List<AnnouncementPacket> packets;
+    @OneToMany(mappedBy="ownerCompany", targetEntity=CompanyOwnPacket.class, cascade=CascadeType.ALL)
+    private List<CompanyOwnPacket> packets;
 
 	public Company(String mersisNo, String companyName, String username, String password) {
         super(username, password, 2);
@@ -61,11 +61,11 @@ public class Company extends User implements Serializable {
 		this.announcements = announcements;
 	}
 	
-	public List<AnnouncementPacket> getPackets() {
+	public List<CompanyOwnPacket> getPackets() {
 		return packets;
 	}
 
-	public void setPackets(List<AnnouncementPacket> packets) {
+	public void setPackets(List<CompanyOwnPacket> packets) {
 		this.packets = packets;
 	}
 

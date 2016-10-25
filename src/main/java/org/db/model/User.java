@@ -33,7 +33,6 @@ public class User implements Serializable {
 	@Column(name = "membership_status")
 	private int status;
 
-	//@OneToMany
 	@OneToMany(mappedBy="user",  
             targetEntity=CommunicationWay.class, 
     fetch=FetchType.EAGER, cascade = CascadeType.ALL)
