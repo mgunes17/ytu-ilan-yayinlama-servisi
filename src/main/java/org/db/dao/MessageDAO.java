@@ -6,5 +6,6 @@ import org.db.model.Message;
 
 public interface MessageDAO {
 	List<Message> readMessages();
-	void sendMessage(Message message);
+	boolean sendMessage(Message message);
+	boolean deleteMessage(Message message);
 }

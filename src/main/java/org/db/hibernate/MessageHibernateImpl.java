@@ -13,7 +13,12 @@ public class MessageHibernateImpl extends AbstractDAO implements MessageDAO {
 	}
 	
 
-	public void sendMessage(Message message) {
-		save(message);
+	public boolean sendMessage(Message message) {
+		return save(message);
 	}
+	
+	public boolean deleteMessage(Message message) {
+		return delete(message);
+	}
+
 }

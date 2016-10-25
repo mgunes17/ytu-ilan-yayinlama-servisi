@@ -59,6 +59,11 @@
                             mail adresi üzerinden iletişime geçilecektir.
                         </div>
                     </c:when>
+                    <c:when test="${gonderildi eq 2}">
+                    	<div class="alert alert-danger">
+                    		<strong>Başarısız</strong> Mesaj iletilemedi. Lütfen tekrar deneyiniz.
+                    	</div>
+                    </c:when>
                 </c:choose>
                 
             </div>

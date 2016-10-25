@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.db.compositePK.MessagePK;
 import org.db.dao.MessageDAO;
 import org.db.hibernate.MessageHibernateImpl;
 import org.db.model.Message;
@@ -21,6 +22,12 @@ public class SendMessageServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Message message;
+	private MessagePK pk;
+	
+	public SendMessageServlet() {
+		message = new Message();
+		pk = new MessagePK();
+	}
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -31,10 +38,13 @@ public class SendMessageServlet extends HttpServlet {
         readRequest(request);
 
         MessageDAO messageDAO = new MessageHibernateImpl();
-        messageDAO.sendMessage(message);
-        
         HttpSession httpSession = request.getSession();
-        httpSession.setAttribute("gonderildi", 1);
+        
+        if(messageDAO.sendMessage(message)) {
+        	httpSession.setAttribute("gonderildi", 1);
+        } else {
+        	httpSession.setAttribute("gonderildi", 2);
+        }
         
         response.sendRedirect("iletisim.jsp");
     }
@@ -42,9 +52,11 @@ public class SendMessageServlet extends HttpServlet {
     private void readRequest(HttpServletRequest request){
         message.setMessageTitle(request.getParameter("title"));
         message.setMessageBody(request.getParameter("message"));
-        message.setMailAddress(request.getParameter("mail"));
-        
         message.setIPAddress(request.getRemoteAddr());
-        message.setDateTime(new Date());
+        
+        pk.setMailAddress(request.getParameter("mail"));
+        pk.setDateTime(new Date());
+ 
+        message.setPk(pk);
     }
 }
