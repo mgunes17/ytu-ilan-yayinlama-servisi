@@ -40,6 +40,7 @@ public class CompanyOwnPacket implements Serializable {
 	@Column(name = "approved")
 	private boolean approved;
 	
+	//isteği onaylayan/reddeden vakıf kullanıcısının kullanıcı adı
 	@Column(name = "user_for_approved")
 	private String usernameForApproed;
 	

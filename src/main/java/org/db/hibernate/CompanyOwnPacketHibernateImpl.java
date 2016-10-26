@@ -9,4 +9,12 @@ public class CompanyOwnPacketHibernateImpl extends AbstractDAO implements Compan
 		return super.save(cop);
 	}
 
+	public boolean updatePacket(CompanyOwnPacket cop) {
+		return saveOrUpdate(cop);
+	}
+
+	public CompanyOwnPacket getPacket(int packetId) {
+		return (CompanyOwnPacket) getObject(CompanyOwnPacket.class, (Object)packetId);
+	}
+
 }

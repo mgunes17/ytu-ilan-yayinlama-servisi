@@ -71,5 +71,21 @@ public abstract class AbstractDAO {
 			session.close();
 		}
 	}
+	
+	public boolean saveOrUpdate(Object o) {
+		try {
+			session = HibernateSessionFactory.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.saveOrUpdate(o);
+			session.getTransaction().commit();
+			return true;
+		} catch (Exception ex) {
+			System.err.println("Güncelleme işlemi başarısız " + ex.getMessage()); // logla
+			session.getTransaction().rollback();
+			return false;
+		} finally {
+			session.close();
+		}
+	}
 
 }

@@ -47,6 +47,6 @@ public class MessageTest {
 	@Test
 	public void listMessages() {
 		MessageDAO messageDAO = new MessageHibernateImpl();
-		assertEquals(5, messageDAO.readMessages().size());
+		assertEquals(8, messageDAO.readMessages().size());
 	}
 }
