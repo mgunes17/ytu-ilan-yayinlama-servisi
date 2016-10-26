@@ -12,10 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import org.db.dao.AnnouncementPacketDAO;
 import org.db.dao.CurrencyDAO;
-import org.db.dao.UserDAO;
+import org.db.dao.DonationAcceptUnitDAO;
 import org.db.hibernate.AnnouncementPacketHibernateImpl;
 import org.db.hibernate.CurrencyHibernateImpl;
-import org.db.hibernate.UserHibernateImpl;
+import org.db.hibernate.DauHibernateImpl;
 import org.db.model.AnnouncementPacket;
 import org.db.model.Currency;
 import org.db.model.DonationAcceptUnit;
@@ -53,8 +53,8 @@ public class CreateAnnouncementPackageServlet extends HttpServlet {
         /*String date = request.getParameter("last_date_used");
         Date expired = new Date(); //düzeltilecek*/
         
-        UserDAO userDAO = new UserHibernateImpl();
-        dau = (DonationAcceptUnit) userDAO.getUser((String) request.getParameter("unit"));
+        DonationAcceptUnitDAO dauDAO = new DauHibernateImpl();
+        dau = (DonationAcceptUnit) dauDAO.getUnit(request.getParameter("unit"));
         
         CurrencyDAO currencyDAO = new CurrencyHibernateImpl();
         currency = currencyDAO.getCurrency(Integer.parseInt(request.getParameter("currency")));

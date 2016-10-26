@@ -11,4 +11,5 @@ public interface DonationAcceptUnitDAO {
 	boolean saveBankAccount(BankAccountInfo bai);
 	List<DonationAcceptUnit> getAllUnits();
 	List<CompanyOwnPacket> getWaitingDonation(String dauUsername);
+	DonationAcceptUnit getUnit(String unitName);
 }

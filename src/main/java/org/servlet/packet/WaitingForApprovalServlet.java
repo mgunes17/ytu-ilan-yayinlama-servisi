@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.db.dao.DonationAcceptUnitDAO;
 import org.db.hibernate.DauHibernateImpl;
 import org.db.model.CompanyOwnPacket;
-import org.db.model.User;
+import org.db.model.DauUser;
 
 /**
  * Servlet implementation class WaitingForApprovalServlet
@@ -43,8 +43,8 @@ public class WaitingForApprovalServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DonationAcceptUnitDAO dauDAO = new DauHibernateImpl();
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-		List<CompanyOwnPacket> packet = dauDAO.getWaitingDonation(user.getUserName());
+		DauUser user = (DauUser) session.getAttribute("user");
+		List<CompanyOwnPacket> packet = dauDAO.getWaitingDonation(user.getDau().getUnitName());
 		session.setAttribute("packet", packet);
 		session.setAttribute("onaylandi", 0);
 		response.sendRedirect("dau/bagis-onaylari.jsp");

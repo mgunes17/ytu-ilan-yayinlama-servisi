@@ -24,12 +24,12 @@ public class DauHibernateImpl extends AbstractDAO implements DonationAcceptUnitD
 		return getAllRows(DonationAcceptUnit.class);
 	}
 
-	public List<CompanyOwnPacket> getWaitingDonation(String dauUsername) {
+	public List<CompanyOwnPacket> getWaitingDonation(String unitName) {
 		try {
 			String query = 
 					"select id, owner_company, packet, used_announcements, approved, user_for_approved, time_to_request, time_to_approved " +
 					"from company_own_packet cop, announcement_packet ap " +
-					"where cop.packet=ap.packet_id and ap.donate_accept_unit = '" + dauUsername + "' ";
+					"where cop.packet=ap.packet_id and ap.donate_accept_unit = '" + unitName + "' ";
 			session = HibernateSessionFactory.getSessionFactory().openSession();
 			session.beginTransaction();
 			SQLQuery sqlQuery = session.createSQLQuery(query);
@@ -48,6 +48,10 @@ public class DauHibernateImpl extends AbstractDAO implements DonationAcceptUnitD
 			session.close();
 		}
 		
+	}
+
+	public DonationAcceptUnit getUnit(String unitName) {
+		return (DonationAcceptUnit) getObject(DonationAcceptUnit.class, unitName);
 	}
 
 }

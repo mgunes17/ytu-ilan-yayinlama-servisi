@@ -54,7 +54,7 @@
                               <td>Kazancın ilişkilendirileceği bağış kabul birimini seçiniz</td>
                               <td> <select name="unit">
                                     <c:forEach var="item" items="${dau}">
-                                        <option value="${item.userName}">
+                                        <option value="${item.unitName}">
                                             <c:out value="${item.unitName}"/>
                                         </option>
                                     </c:forEach>

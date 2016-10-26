@@ -46,7 +46,7 @@
 					<td>${item.activeTime}</td>
 					<td>${item.price} ${item.currency.title}</td>
 					<td>${item.lastDateUsed}</td>
-					<td>${item.donateAcceptUnit.userName}</td>
+					<td>${item.donateAcceptUnit.unitName}</td>
 					<td>
                         <form method="post">
                             <input type="hidden" name="packetId" value="${item.packetId}" />

@@ -7,10 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.db.dao.DonationAcceptUnitDAO;
 import org.db.hibernate.DauHibernateImpl;
-import org.db.model.BankAccountInfo;
 import org.db.model.DonationAcceptUnit;
 
 /**
@@ -44,29 +44,26 @@ public class CreateDonationUnitServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//okunan form bilgisi Türkçe karaktere uygun hale getirildi
         request.setCharacterEncoding("UTF-8");
-        
+        HttpSession httpSession  = request.getSession();
+       
         //Bağış kabul birimi özelliklerini oku
         DonationAcceptUnit dau = new DonationAcceptUnit();
         dau.setUnitName(request.getParameter("unit_name"));
-        dau.setUserName(request.getParameter("user_name"));
-        dau.setPassword(request.getParameter("password"));
-        dau.setUserTypeNo(1);
         dau.setBalance(0);
         
-        //Banka hesap bilgisi özelliklerini oku
-        BankAccountInfo bai  = new BankAccountInfo();
-        bai.setBankAccountNumber(Integer.parseInt(request.getParameter("account_number")));
-        bai.setBankName(request.getParameter("bank_name"));
-        bai.setBranchBankName(request.getParameter("name_of_branch"));
-        bai.setCurrency(Integer.parseInt(request.getParameter("currency")));
-        bai.setIban(request.getParameter("iban"));
-        bai.setOwnerUnitName(dau.getUnitName());
-        
         DonationAcceptUnitDAO dauDAO = new DauHibernateImpl();
-        dauDAO.saveDonationAcceptUnit(dau);
-        dauDAO.saveBankAccount(bai);
         
-        response.sendRedirect("admin/success.jsp");
+        if(dauDAO.saveDonationAcceptUnit(dau)) {
+        	httpSession.setAttribute("vakifolusturuldu", 1);
+        	httpSession.setAttribute("dau", dau);
+        } else {
+        	httpSession.setAttribute("vakifolusturuldu", 2);
+        }
+        
+        httpSession.setAttribute("hesapeklendi", 0);
+        httpSession.setAttribute("kullanicieklendi", 0);
+        
+        response.sendRedirect("admin/vakif-olustur.jsp");
 	}
 
 }

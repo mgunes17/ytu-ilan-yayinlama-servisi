@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,11 +18,12 @@ public class BankAccountInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @Column(name="owner_unit_name")
-    private String ownerUnitName;
-    
-    @Column(name="iban")
+	@Column(name="iban")
     private String iban;
+
+	@ManyToOne
+    @JoinColumn(name="owner_unit_name")
+    private DonationAcceptUnit ownerUnitName;
     
     @Column(name="bank_name", nullable = false)
     private String bankName;
@@ -34,7 +37,7 @@ public class BankAccountInfo implements Serializable {
     @Column(name="currency", nullable = false)
     private int currency;
 
-    public int getCurrency() {
+	public int getCurrency() {
         return currency;
     }
 
@@ -42,11 +45,11 @@ public class BankAccountInfo implements Serializable {
         this.currency = currency;
     }
 
-    public String getOwnerUnitName() {
+    public DonationAcceptUnit getOwnerUnitName() {
         return ownerUnitName;
     }
 
-    public void setOwnerUnitName(String ownerUnitName) {
+    public void setOwnerUnitName(DonationAcceptUnit ownerUnitName) {
         this.ownerUnitName = ownerUnitName;
     }
 
