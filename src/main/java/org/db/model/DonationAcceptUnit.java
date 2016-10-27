@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 
 @Entity
 @Table(name = "donation_accept_unit")
@@ -27,14 +30,32 @@ public class DonationAcceptUnit implements Serializable {
     
     
     @OneToMany(mappedBy="dau",  
-            targetEntity=DauUser.class, cascade = CascadeType.ALL)
+            targetEntity=DauUser.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     List<DauUser> dauUser = new ArrayList<DauUser>();
     
-    @OneToMany(mappedBy="ownerUnitName",  
+    @OneToMany(mappedBy="ownerUnitName", fetch = FetchType.EAGER, 
     	    targetEntity=BankAccountInfo.class, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     List<BankAccountInfo> account = new ArrayList<BankAccountInfo>();
 
-    public DonationAcceptUnit(){
+    public List<DauUser> getDauUser() {
+		return dauUser;
+	}
+
+	public void setDauUser(List<DauUser> dauUser) {
+		this.dauUser = dauUser;
+	}
+
+	public List<BankAccountInfo> getAccount() {
+		return account;
+	}
+
+	public void setAccount(List<BankAccountInfo> account) {
+		this.account = account;
+	}
+
+	public DonationAcceptUnit(){
         super();
     }
     

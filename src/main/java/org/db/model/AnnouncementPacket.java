@@ -48,10 +48,10 @@ public class AnnouncementPacket implements Serializable {
     private String condition;
    
 	@ManyToOne
-	@JoinColumn(name="donate_accept_unit", nullable=false)
-    private DonationAcceptUnit donateAcceptUnit;
+	@JoinColumn(name="bank_account_info", nullable=false)
+    private BankAccountInfo accountInfo;
 
-    public AnnouncementPacket(){
+	public AnnouncementPacket(){
         super();
     }
     
@@ -111,12 +111,12 @@ public class AnnouncementPacket implements Serializable {
         this.condition = condition;
     }
 
-    public DonationAcceptUnit getDonateAcceptUnit() {
-        return donateAcceptUnit;
+    public BankAccountInfo getDonateAcceptUnit() {
+        return accountInfo;
     }
 
-    public void setDonateAcceptUnit(DonationAcceptUnit donateAcceptUnit) {
-        this.donateAcceptUnit = donateAcceptUnit;
+    public void setDonateAcceptUnit(BankAccountInfo donateAcceptUnit) {
+        this.accountInfo = donateAcceptUnit;
     }
     
     public String getTitle() {
@@ -126,4 +126,13 @@ public class AnnouncementPacket implements Serializable {
     public void setTitle(String condition) {
         this.condition = condition;
     }
+    
+    public BankAccountInfo getAccountInfo() {
+		return accountInfo;
+	}
+
+	public void setAccountInfo(BankAccountInfo accountInfo) {
+		this.accountInfo = accountInfo;
+	}
+
 }

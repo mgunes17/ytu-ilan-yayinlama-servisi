@@ -135,15 +135,15 @@
                         <table id="formTable" class="table">
                             <tbody>
                                 <tr>
-                              <td>Banka Adı</br></td>
+                              <td>Banka Adı</td>
                               <td><input type="text" name="bank_name"/></td>
                             </tr>
                             <tr>
-                              <td>Şube Adı</br></td>
+                              <td>Şube Adı</td>
                               <td><input type="text" name="name_of_branch"/></td>
                             </tr>
                             <tr>
-                              <td>Hesap No</br></td>
+                              <td>Hesap No<td>
                               <td><input type="text" name="account_number"/></td>
                             </tr>
                             <tr>
@@ -154,7 +154,7 @@
                                             <c:out value="${item.title}"/>
                                         </option>
                                     </c:forEach>
-                                </select></br></td>
+                                </select></td>
                             </tr>
                             <tr>
                                 <td>IBAN</td>

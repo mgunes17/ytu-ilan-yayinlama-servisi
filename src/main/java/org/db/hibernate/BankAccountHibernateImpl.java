@@ -9,4 +9,8 @@ public class BankAccountHibernateImpl extends AbstractDAO implements BankAccount
 		return save(bai);
 	}
 
+	public BankAccountInfo getAccount(String iban) {
+		return (BankAccountInfo) getObject(BankAccountInfo.class, iban);
+	}
+
 }
