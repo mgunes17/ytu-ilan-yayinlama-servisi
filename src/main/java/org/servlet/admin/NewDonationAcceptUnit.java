@@ -44,6 +44,15 @@ public class NewDonationAcceptUnit extends HttpServlet {
         List<Currency> currency = currencyDAO.getAllCurrencies();
         HttpSession session = request.getSession();
         session.setAttribute("curr", currency);
+        
+        if(session.getAttribute("dau") != null) {
+        	session.removeAttribute("dau");
+        }
+        
+        session.setAttribute("kullanicieklendi", 0);
+        session.setAttribute("hesapeklendi", 0);
+        session.setAttribute("vakifolusturuldu", 0);
+        
         response.sendRedirect("admin/vakif-olustur.jsp");
 	}
 

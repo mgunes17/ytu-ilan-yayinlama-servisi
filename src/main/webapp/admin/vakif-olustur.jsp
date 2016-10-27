@@ -43,7 +43,8 @@
                           <tbody>
                             <tr>
                               <td>Birimin Adı</td>
-                              <td><input type="text" name="unit_name"/></td>
+                              <td><input type="text" name="unit_name"
+                              	pattern=".{3,40}" required title="Vakıf adı 3-40 karakter aralığında olmalıdır"/></td>
                             </tr>
                             <tr><td colspan="2"><button type="submit" class="btn btn-default">Vakıf Oluştur</button></td></tr>
                           </tbody>
@@ -65,6 +66,13 @@
                                 <strong>Başarısız!</strong> Bu kullanıcı adı zaten alınmış.
                             </div>
                         </c:when>
+                        <c:when test="${kullanicieklendi eq 4}">
+                        	<div id="alert" class="alert alert-warning">
+                                <strong>Vakıf yok!</strong> Lütfen önce vakıf tanımlayın.
+                                Tanımlanmış bir vakıf için <a href="admin/vakiflari-duzenle">buradan</a>
+                                kullanıcı ekleyebilirsiniz.
+                            </div>
+                        </c:when>
                     </c:choose>
                     <h3>Kullanıcı Ekleyin
                         <c:choose>
@@ -77,12 +85,21 @@
                         <table id="formTable" class="table">
                             <tbody>
                                 <tr>
-                                    <td>Kullanıcı Adı</br></td>
-                                    <td><input type="text" name="user_name"/></td>
+                                    <td>Kullanıcı Adı</td>
+                                    <td><input type="text" name="user_name"
+                                    	pattern=".{3,20}" required title="Kullanıcı adı 3-40 karakter aralığında olmalıdır"/></td>
                                 </tr>
                                 <tr>
                                   <td>Geçici Parola</td>
-                                  <td><input type="text" name="password"/></td>
+                                  <td><input type="password" name="password"
+                                  	pattern=".{6,16}"                               	
+                                    required title="Parola en az 6 an fazla 16 karakter olabilir."/></td>
+                                </tr>
+                                <tr>
+                                  <td>Geçici Parola(Tekrar)</td>
+                                  <td><input type="password" name="password"
+                                  	pattern=".{6,16}"                               	
+                                    required title="Parola en az 6 an fazla 16 karakter olabilir."/></td>
                                 </tr>
                                 <tr><td colspan="2"><button type="submit" class="btn btn-default">Kullanıcı Ekle</button></td></tr>
                             </tbody>
@@ -97,6 +114,13 @@
                         <c:when test="${hesapeklendi eq 2}">
                            <div id="alert" class="alert alert-danger">
                                 <strong>Başarısız!</strong> Banka hesabı eklenemedi
+                            </div>
+                        </c:when>
+                        <c:when test="${hesapeklendi eq 4}">
+                        	<div id="alert" class="alert alert-warning">
+                                <strong>Vakıf yok!</strong> Lütfen önce vakıf tanımlayın.
+                                Tanımlanmış bir vakıf için <a href="admin/vakiflari-duzenle">buradan</a>
+                                banka hesabı ekleyebilirsiniz.
                             </div>
                         </c:when>
                     </c:choose>

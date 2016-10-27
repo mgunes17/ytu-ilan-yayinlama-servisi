@@ -56,7 +56,9 @@ public class AddDauUserServlet extends HttpServlet {
         DauUserDAO dauUserDAO = new DauUserHibernateImpl();
         UserDAO userDAO = new UserHibernateImpl();
         
-        if(userDAO.isUserExist(dauUser.getUserName())) {
+        if(httpSession.getAttribute("dau") == null) {
+        	httpSession.setAttribute("kullanicieklendi", 4);
+        } else if(userDAO.isUserExist(dauUser.getUserName())) {
         	httpSession.setAttribute("kullanicieklendi", 3);
         } else if(dauUserDAO.saveDauUser(dauUser)) {
         	httpSession.setAttribute("kullanicieklendi", 1);

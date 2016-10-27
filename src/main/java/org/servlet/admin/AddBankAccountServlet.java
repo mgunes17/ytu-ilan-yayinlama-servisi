@@ -56,7 +56,9 @@ public class AddBankAccountServlet extends HttpServlet {
         
         BankAccountDAO baiDAO = new BankAccountHibernateImpl();
         
-        if(baiDAO.saveBankAccount(bai)) {
+        if(httpSession.getAttribute("dau") == null) {
+        	httpSession.setAttribute("hesapeklendi", 4);
+        } else if(baiDAO.saveBankAccount(bai)) {
         	httpSession.setAttribute("hesapeklendi", 1);
         } else {
         	httpSession.setAttribute("hesapeklendi", 2);
