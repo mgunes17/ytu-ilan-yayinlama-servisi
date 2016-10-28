@@ -34,7 +34,7 @@ public class DonationAcceptUnit implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     List<DauUser> dauUser = new ArrayList<DauUser>();
     
-    @OneToMany(mappedBy="ownerUnitName", fetch = FetchType.EAGER, 
+    @OneToMany(mappedBy="ownerUnit", fetch = FetchType.EAGER, 
     	    targetEntity=BankAccountInfo.class, cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
     List<BankAccountInfo> account = new ArrayList<BankAccountInfo>();

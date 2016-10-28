@@ -19,6 +19,9 @@
 			<div class="alert alert-success">
 				Talebi başarıyla onayladınız.
 			</div>
+			<div class="alert alert-info">
+				Vakfınız adına onaylanmış paketlere <a href="onaylanmis-paketler.jsp">buradan</a> ulaşabilirsiniz.
+			</div>
 		</c:when>
 		<c:when test="${onaylandi eq 2}">
 			<div class="alert alert-danger">

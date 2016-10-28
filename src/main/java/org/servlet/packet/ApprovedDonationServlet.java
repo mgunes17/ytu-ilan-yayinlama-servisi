@@ -2,6 +2,7 @@ package org.servlet.packet;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.db.dao.CompanyOwnPacketDAO;
+import org.db.dao.DonationAcceptUnitDAO;
 import org.db.hibernate.CompanyOwnPacketHibernateImpl;
+import org.db.hibernate.DauHibernateImpl;
 import org.db.model.CompanyOwnPacket;
+import org.db.model.DauUser;
 import org.db.model.User;
 
 /**
@@ -53,6 +57,12 @@ public class ApprovedDonationServlet extends HttpServlet {
 		
 		if(copDAO.updatePacket(cop)) {
 			session.setAttribute("onaylandi", 1);
+			
+			//listeyi güncelle
+			DauUser dauUser = (DauUser) session.getAttribute("user");
+			DonationAcceptUnitDAO dauDAO = new DauHibernateImpl();
+			List<CompanyOwnPacket> packet = dauDAO.getWaitingDonation(dauUser.getDau().getUnitName());
+			session.setAttribute("packet", packet);
 		} else {
 			session.setAttribute("onaylandi", 2);
 		}

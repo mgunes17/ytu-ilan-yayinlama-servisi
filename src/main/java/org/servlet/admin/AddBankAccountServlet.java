@@ -52,7 +52,7 @@ public class AddBankAccountServlet extends HttpServlet {
         
         HttpSession httpSession = request.getSession();
         DonationAcceptUnit dau = (DonationAcceptUnit) httpSession.getAttribute("dau");
-        bai.setOwnerUnitName(dau);
+        bai.setOwnerUnit(dau);
         
         BankAccountDAO baiDAO = new BankAccountHibernateImpl();
         

@@ -28,7 +28,7 @@ public class BankAccountInfo implements Serializable {
 
 	@ManyToOne
     @JoinColumn(name="owner_unit_name")
-    private DonationAcceptUnit ownerUnitName;
+    private DonationAcceptUnit ownerUnit;
     
     @Column(name="bank_name", nullable = false)
     private String bankName;
@@ -62,12 +62,12 @@ public class BankAccountInfo implements Serializable {
         this.currency = currency;
     }
 
-    public DonationAcceptUnit getOwnerUnitName() {
-        return ownerUnitName;
+    public DonationAcceptUnit getOwnerUnit() {
+        return ownerUnit;
     }
 
-    public void setOwnerUnitName(DonationAcceptUnit ownerUnitName) {
-        this.ownerUnitName = ownerUnitName;
+    public void setOwnerUnit(DonationAcceptUnit ownerUnitName) {
+        this.ownerUnit = ownerUnitName;
     }
 
     public String getBankName() {

@@ -143,7 +143,7 @@
                               <td><input type="text" name="name_of_branch"/></td>
                             </tr>
                             <tr>
-                              <td>Hesap No<td>
+                              <td>Hesap No</td>
                               <td><input type="text" name="account_number"/></td>
                             </tr>
                             <tr>
