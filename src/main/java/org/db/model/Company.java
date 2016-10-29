@@ -6,9 +6,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name="company")
@@ -22,10 +26,14 @@ public class Company extends User implements Serializable {
     @Column(name="location", nullable=true)
     private String location;
     
-    @OneToMany(mappedBy="ownerCompany", targetEntity=Announcement.class, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="ownerCompany", targetEntity=Announcement.class, 
+    		fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Announcement> announcements;
     
-    @OneToMany(mappedBy="ownerCompany", targetEntity=CompanyOwnPacket.class, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="ownerCompany", targetEntity=CompanyOwnPacket.class, 
+    		fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<CompanyOwnPacket> packets;
 
 	public Company(String mersisNo, String companyName, String username, String password) {

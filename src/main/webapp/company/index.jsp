@@ -24,8 +24,8 @@
     <a href="../newannouncementcontrolservlet">İlan Oluştur</a>
     <a href="../listallannouncementsservlet">Tüm ilanları Görüntüle</a>
     <%--Aktif ve Pasif ilanların filtrelenmesi ayrımı o sayfa icinde olacak--%>
-    <a href="../listmyannouncementservlet">İlanlarımı görüntüle</a>
-    <a href="#">Sahip olduğum ilan paketlerini gör</a>
+    <a href="../listmyannouncementsservlet">İlanlarımı görüntüle</a>
+    <a href="../listmypacketsservlet">Sahip olduğum ilan paketlerini gör</a>
     <a href="../displaypacketstocompany">İlan paketlerini gör</a>
     <a href="#">Profilimi düzenle</a>
     

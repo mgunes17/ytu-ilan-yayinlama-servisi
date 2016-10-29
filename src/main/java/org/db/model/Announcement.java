@@ -36,15 +36,17 @@ public class Announcement implements Serializable {
     @Column(name="number_of_page_views")
     private int numberOfPageViews;
     
-    @Column(name="state")
-    private int state; // ilan durumu oluşturulunca pasif, şikayette beklenen, aktif vs
+    @ManyToOne
+    @JoinColumn(name="state")
+    private AnnouncementState state; // ilan durumu oluşturulunca pasif, şikayette beklenen, aktif vs
     
     @ManyToOne  
     @JoinColumn(name = "owner_company", nullable=false)
     private Company ownerCompany; 
     
-    @Column(name="owner_packet")
-    private int ownerPacket;
+    @ManyToOne
+    @JoinColumn(name="owner_packet")
+    private CompanyOwnPacket ownerPacket;
     
     @ManyToOne
     @JoinColumn(name="announcement_type", nullable=false)
@@ -100,11 +102,11 @@ public class Announcement implements Serializable {
         this.numberOfPageViews = numberOfPageViews;
     }
 
-    public int getState() {
+    public AnnouncementState getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(AnnouncementState state) {
         this.state = state;
     }
 
@@ -116,11 +118,11 @@ public class Announcement implements Serializable {
         this.ownerCompany = ownerCompany;
     }
 
-    public int getOwnerPacket() {
+    public CompanyOwnPacket getOwnerPacket() {
         return ownerPacket;
     }
 
-    public void setOwnerPacket(int ownerPacket) {
+    public void setOwnerPacket(CompanyOwnPacket ownerPacket) {
         this.ownerPacket = ownerPacket;
     }
 }
