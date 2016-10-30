@@ -103,7 +103,7 @@ create table announcement (
 	brief text NOT NULL,
 	content text NOT NULL,
 	number_of_page_views int,
-	state int not null,
+	state int REFERENCES announcement_state(id),
 	owner_company varchar(30) REFERENCES company(user_name),
 	owner_packet int,
 	announcement_type int not null
@@ -117,7 +117,7 @@ create table announcement_packet (
 	active_time int not null,
 	currency int not null,
 	condition text not null,
-	donate_accept_unit varchar(30) not null
+	bank_account_info varchar(30) REFERENCES bank_account_info(iban)
 );
 
 create table currency (

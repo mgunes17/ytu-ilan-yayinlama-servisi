@@ -42,7 +42,7 @@ public class CompanyOwnPacket implements Serializable {
 	
 	//isteği onaylayan/reddeden vakıf kullanıcısının kullanıcı adı
 	@Column(name = "user_for_approved")
-	private String usernameForApproed;
+	private String usernameForApproved;
 	
 	@Column(name = "time_to_request", nullable = false)
 	private Date timeToRequest;
@@ -94,12 +94,12 @@ public class CompanyOwnPacket implements Serializable {
 		this.approved = approved;
 	}
 
-	public String getUsernameForApproed() {
-		return usernameForApproed;
+	public String getUsernameForApproved() {
+		return usernameForApproved;
 	}
 
-	public void setUsernameForApproed(String usernameForApproed) {
-		this.usernameForApproed = usernameForApproed;
+	public void setUsernameForApproved(String usernameForApproed) {
+		this.usernameForApproved = usernameForApproed;
 	}
 
 	public Date getTimeToRequest() {

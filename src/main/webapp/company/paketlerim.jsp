@@ -7,43 +7,57 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+	<jsp:include page="html/head.html"/>	
 	<title>Paketlerim</title>
 </head>
 	<body>
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Durumu</th>
-					<th>Paket Başlığı</th>
-					<th>Kalan İlan Sayısı</th>
-					<th>Alınan Tarih(Onay Zamanı)<th>
-					<th>Son kullanım tarihi</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="item" items="${packets}">
-					<tr>
-						<td>
-							<c:choose>
-								<c:when test="${item.approved eq true }">
-									Onaylandı
-								</c:when>
-									<c:when test="${empty item.usernameForApproed}">
-										Onay Bekleniyor
-									</c:when>
-									<c:otherwise>
-										Reddedildi
-									</c:otherwise>
-							</c:choose>
-						</td>
-						<td>${item.packet.title}</td>
-						<td>${item.packet.announcementCount}</td>
-						<td>${item.timeToApproved}</td>
-						<td>${item.packet.lastDateUsed}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+		<div class="container-fluid">
+			<div class="row">
+				<jsp:include page="html/header.html"></jsp:include>
+			</div>
+			<div class="row">
+				<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
+				<div class="col-md-9">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Durumu</th>
+								<th>Paket Başlığı</th>
+								<th>Kalan İlan Sayısı</th>
+								<th>Alınan Tarih(Onay Zamanı)</th>
+								<th>Son kullanım tarihi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="item" items="${packets}">
+								<tr>
+									<td>
+										<c:choose>
+											<c:when test="${item.approved eq true }">
+												Onaylandı
+											</c:when>
+											<c:when test="${empty item.usernameForApproved}">
+												Onay Bekleniyor
+											</c:when>
+											<c:otherwise>
+												Reddedildi
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td>${item.packet.title}</td>
+									<td>${item.packet.announcementCount}</td>
+									<td>${item.timeToApproved}</td>
+									<td>${item.packet.lastDateUsed}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			<div class="row">
+				<jsp:include page="../html/footer.html"></jsp:include>
+			</div>
+		</div>
+	</div>
+		
 	</body>
 </html>

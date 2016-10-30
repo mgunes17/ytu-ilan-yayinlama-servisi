@@ -11,29 +11,24 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <jsp:include page="html/head.html"/>
     <title>JSP Page</title>
 </head>
 <body>
-    <h4><a href="../directcompanymainpageservlet">Anasayfa</a></h4>
-    <form action="../logoutservlet" method="post">
-         Çıkış Yap</br>
-	<input type="submit" value="Logout">
-    </form>
-               
+    
     <h1>Hoşgeldiniz ${user.userName}</h1>
-    <a href="../newannouncementcontrolservlet">İlan Oluştur</a>
-    <a href="../listallannouncementsservlet">Tüm ilanları Görüntüle</a>
-    <%--Aktif ve Pasif ilanların filtrelenmesi ayrımı o sayfa icinde olacak--%>
-    <a href="../listmyannouncementsservlet">İlanlarımı görüntüle</a>
-    <a href="../listmypacketsservlet">Sahip olduğum ilan paketlerini gör</a>
-    <a href="../displaypacketstocompany">İlan paketlerini gör</a>
-    <a href="#">Profilimi düzenle</a>
+    
+    <jsp:include page="html/header.html"></jsp:include>
+    <jsp:include page="html/menu.html"></jsp:include>
     
     <c:choose>
     	<c:when test="${user.status eq 0 }">
-    		lütfen mail üzerinden hesabınızı aktif hale getiriniz
+    		<div class="alert alert-warning">
+    			Lütfen mail üzerinden hesabınızı aktif hale getiriniz.
+    		</div>
     	</c:when>
     </c:choose>
-    
+
+	<jsp:include page="../html/footer.html"></jsp:include>
 </body>
 </html>

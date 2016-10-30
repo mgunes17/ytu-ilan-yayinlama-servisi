@@ -52,7 +52,7 @@ public class AnnouncementCreateServlet extends HttpServlet {
 		readForm(request);
 		
 		AnnouncementStateDAO stateDAO = new AnnouncementStateHibernateImpl();
-		AnnouncementState state = stateDAO.getState(0);
+		AnnouncementState state = stateDAO.getState(1);
 		announcement.setState(state);
 		announcement.setOwnerCompany((Company)session.getAttribute("user"));
 		//announcement.setOwnerPacket(-1);

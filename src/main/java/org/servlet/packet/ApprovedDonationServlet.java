@@ -53,7 +53,7 @@ public class ApprovedDonationServlet extends HttpServlet {
 		
 		cop.setApproved(true);
 		cop.setTimeToApproved(new Date());
-		cop.setUsernameForApproed(user.getUserName());
+		cop.setUsernameForApproved(user.getUserName());
 		
 		if(copDAO.updatePacket(cop)) {
 			session.setAttribute("onaylandi", 1);
