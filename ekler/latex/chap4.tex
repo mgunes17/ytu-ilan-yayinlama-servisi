@@ -17,7 +17,7 @@ Görevler, kullanıcının rolü gereği, sistemin işleyişi için
 yerine getirmesi gereken işlevler olarak tanımlanabilir. Bir nevi sistemin amacına
 yönelik işlevlerdir denebilir. Kullanıcıların bu gerekli işlevler dışında da sistemde
 yetkileri kapsamında gerçekleştirebilecek işlevleri söz konusudur. Bu görevler ve
-işlevler Tablo 4.1’de belirtilmiştir.
+işlevler Tablo 4.12’de belirtilmiştir.
 
 % Please add the following required packages to your document preamble:
 % \usepackage{graphicx}
@@ -40,9 +40,9 @@ BKB               & \begin{tabular}[c]{@{}l@{}}Yapılan bağışları onaylama\\
 \section{Kodlama Standartları}
 Uygulama geliştirme süresince Java EE altında yazılacak kodlar için isimlendirme,
 girintilendirme gibi kod gelenekleri olarak Java Code Conventions kitapçığı ile
-belirlenen kurallara uyulmasına[43] karar verilmiştir. Veri tabanındaki isimlendirme
+belirlenen kurallara uyulmasına\cite{codeConventions} karar verilmiştir. Veri tabanındaki isimlendirme
 kuralları için alınan karar ise şu şekildedir: Tablo ve sütun isimleri tamamen küçük
-harflerden oluşacak, birden fazla kelime içeren isimler \'\_ \'ile ayrılacaktır. Tip belirten
+harflerden oluşacak, birden fazla kelime içeren isimler \_ ile ayrılacaktır. Tip belirten
 SQL komutları dışındakiler tamamen büyük harflerle yazılacaktır. Birden fazla satır
 içeren bloklarda açılış parantezi blok başlangıç satırının sonunda, kapanış parantezi en
 alt satırda tek başına olacaktır. Her virgül kullanımında ya bir karakterlik boşluk
@@ -50,7 +50,7 @@ bırakılacak ya da bir alt satıra geçilecektir.
 
 \section{Kullanım Şeması}
 Proje, kullanım şeması ile analiz edildiğinde 4 insan (yönetici, şirket, öğrenci, vakıf) 2 de insan dışı (muhasebe, ilan)
-varlık ortaya çıkmıştır. Bu varlıklar arasındaki ilişki Şekil 4.2' de detaylı olarak incelenebilir
+varlık ortaya çıkmıştır. Bu varlıklar arasındaki ilişkiler Şekil 4.2' de detaylı olarak incelenebilir.
 
 \begin{figure}[]
     \centering
@@ -61,7 +61,7 @@ varlık ortaya çıkmıştır. Bu varlıklar arasındaki ilişki Şekil 4.2' de 
 
 \section{Sınıf Diyagramı}
 Kullanım şemasıyla belirlenen varlıklar ve eylemler, sınıf şemasında 1-1 ve 1-N ilişkiler ile gösterilmiştir. 
-Bu ilişkiler bağlılık, parça-bütün ve kalıtım içermektedir. Projete aşt sınıf diyagramı Şekil 4.3'te incelenebilir.
+Bu ilişkiler bağlılık, parça-bütün ve kalıtım içermektedir. Projeye ait sınıf diyagramı Şekil 4.3'te incelenebilir.
 
 \begin{figure}[]
     \centering

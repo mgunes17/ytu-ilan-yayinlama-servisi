@@ -23,14 +23,14 @@ itibariyle Java teknolojileri kullanılacaktır.
 Geliştirme Süreci \\
 Uygulama Java EE kullanılarak MVC mimarisine uygun bir şekilde geliştirilmesi
 planlanmıştır. MVC mimarisi yazılımda yeniden kullanılabilirliği artırır ve yazılımın
-değişikliklere daha esnek hale gelmesini sağlar[9]. Java EE’ ye en uygun alternatif
+değişikliklere daha esnek hale gelmesini sağlar\cite{mvc}. Java EE’ ye en uygun alternatif
 ASP.NET MVC' dir. ASP.NET platform bağımlı olması hem geliştirme hem de
 uygulamayı çalıştırma sürecinde kısıtlayıcı rol oynayacaktır. Java teknolojilerinin tercih
 edilmesinin temel sebebi ise, Java'nın açık kaynak kodlu, platform bağımsız, taşınabilir
-ve (ilkel veri tipleri hariç) nesne yönelimli bir dil olmasıdır [7]. Her ne kadar sahibi
+ve (ilkel veri tipleri hariç) nesne yönelimli bir dil olmasıdır\cite{javaNesne}. Her ne kadar sahibi
 Oracle olarak görülse de hem açık kaynak kodlu olması hem de gelişmelerin Oracle' ın6
 tekelinde değil de JCP tarafından dünyanın her yerinden yazılımcıların katılımıyla
-demokratik olarak sağlanması Java programlama dilini tercih edilir kılmıştır [8].
+demokratik olarak sağlanması Java programlama dilini tercih edilir kılmıştır\cite{jcp}.
 Java Servlet ve JSP birlikte MVC mimarisine uygun bir geliştirme imkanı
 sağlamaktadır. Servlet ve JSP sunucu tarafında çalışır. Sevlet controller olarak, JSP ise
 view olarak görev yapar. Her ikisi de sunum katmanındadır. Uygulama katmanında ise
@@ -47,47 +47,47 @@ değerler
 kullandığından
 görünümler
 farklılaşabilmektedir. . Bu noktada, görsel tasarımın ortaklığını sağlamak amacıyla Eric
-Meyer tarafından oluşturulan reset.css dosyası[20] kullanılacaktır.
+Meyer tarafından oluşturulan reset.css dosyası\cite{resetCSS} kullanılacaktır.
 \\
 IDE olarak Netbeans tercih edilmiştir. Netbeans' e alternatif olarak Eclipse ve IntelliJ
 Idea gösterilebilir. Netbeans' in seçilme sebepleri ise şu şekilde sıralanabilir: Oracle gibi
 güçlü bir geliştiricinin destek vermesi dolayısıyla Java SE ve EE yeni sürümlerinde
 herhangi bir uyum sorununun yaşanmaması, arayüzünün swing ile geliştirilmesi
 sebebiyle kaliteli bir kullanım sunması, web uygulamaları geliştirmede kullanılacak
-diğer dillerle de ( JavaScript, HTML 5, CSS) uyumlu olması [10]. Netbeans 8.1
+diğer dillerle de ( JavaScript, HTML 5, CSS) uyumlu olması\cite{nedenNetbeans}. Netbeans 8.1
 geliştirme amacıyla kullanılabilmesi için JRE 7 veya 8 ile, JDK 7 veya 8 üzerine ihtiyaç
-duymaktadır[24].
+duymaktadır\cite{netbeansJDKGereksinim}.
 \\
 Uygulama sunucusu olarak GlassFish seçilmiştir. Sunucu yazılımı tercih noktasında en
 önemli alternatif Apache Tomcat olsa da, Tomcat sadece Servlet Container olarak görev
-yapar, Java EE uygulama sunucusu olarak yetersizdir[11].
+yapar, Java EE uygulama sunucusu olarak yetersizdir\cite{tomcat}.
 \\
 Veritabanı tercihi ilişkisel veritabanından yana kullanılmış ve PostgreSql seçilmiştir.
 Veritabanı arayüzü için ise pgadmin III kullanılacaktır. PostgreSql 9.5 sürümü ile
-birlikte çok daha kararlı, güvenli ve performanslı hale gelmiştir [15]. Bu sürümün
+birlikte çok daha kararlı, güvenli ve performanslı hale gelmiştir\cite{postgres}. Bu sürümün
 getirdikleri PostgreSql'i diğer seçenekler arasından öne çıkarmıştır. PostgreSql arayüzü
-için çok fazla seçenek bulunmaktadır [16]. Bunlar arasından pgadmin, karakter desteği,
+için çok fazla seçenek bulunmaktadır\cite{postgresGUI}. Bunlar arasından pgadmin, karakter desteği,
 yeterli dokümantasyona sahip olması ve sağladığı rutin bakımlar sebebiyle kullanılmak
-üzere seçilmiştir [17].
+üzere seçilmiştir\cite{pgAdmin}.
 \\
 Geliştirme sürecinde veritabanı işlemleri için Nesne-İlişkisel Eşlemeden (ORM)
 faydalanılacaktır. Bununla veri tabanı işlemlerinin daha hızlı, performanslı ve düzenli
-bir kod ile halledilmesi amaçlanmıştır [12]. Aynı zamanda veri tipi uyumsuzluklarının7
-da önüne geçilecektir. Java Community Process tarafından geliştirilen[13] JPA(Java
+bir kod ile halledilmesi amaçlanmıştır\cite{ormNedir}. Aynı zamanda veri tipi uyumsuzluklarının7
+da önüne geçilecektir. Java Community Process tarafından geliştirilen\cite{jpa} JPA(Java
 Persistance API) arayüzü ve bunun Hibernate implementasyonu tercih edilecektir.
 Native Hibernate, JPA arayüzünden önce geliştirilmiş, JPA arayüzü tanımlanınca onu
 da destekler halde getirilmiştir. JPA' nın kalıtım desteği ve yeni sorgu metotlarını
-destekler aynı zamanda yüksek performans, kararlılık ve ölçeklenebilirlik sergiler[14].
+destekler aynı zamanda yüksek performans, kararlılık ve ölçeklenebilirlik sergiler\cite{hibernateOrm}.
 Geliştirme sürecinde ayrıca, Git sürüm kontrol sistemi ve Junit Java Test Çatısı'ndan
 yararlanılacaktır. Sürüm kontrol sisteminin kullanılma amacı, yazılım sürecindeki
 gelişmeleri takip edebilmek, gerekirse yapılan değişiklikleri geri alabilmek, yeni bir
 özellik eklerken çalışmayı bozmayacak şekilde yan dallarla çalışma imkanı bulmaktır.
 Merkezi sürüm kontrol sistemi yerine dağıtık bir sürüm kontrol sistemi olan Git' in
-tercih edilme sebebi, hem yerel hem uzak depo avantajlarından faydalanmaktır [21].
+tercih edilme sebebi, hem yerel hem uzak depo avantajlarından faydalanmaktır\cite{git}.
 Uygulamanın geliştirileceği işletim sistemi olarak Ubuntu seçilmiştir. Ubuntu geniş bir
 topluluk tarafından desteklenen Linux çekirdeğini kullanmaktadır ve her 6 ayda bir yeni
 sürüm çıkarma politikasına sahiptir. Ayrıca bu sürümlere 9 ay boyunca güvenlik ve hata
-yamalarıyla beraber güncelleme desteği sunmaktadır[22].
+yamalarıyla beraber güncelleme desteği sunmaktadır\cite{ubuntuSurum}.
 Geliştirme ve çalıştırma süreçlerinde farklı işletim sistemleri tercih edilecektir. Bunun
 sebebi şöyle açıklanabilir. Ubuntu son kullanıcıya yönelik bir işletim sistemidir.
 Yazılım geliştiricilerin bir yandan yazılımı geliştirirken diğer yandan mail
@@ -100,10 +100,10 @@ tasarlanmıştır, son kullanıcı isteklerini yüksek performansta gerçekleşt
 Çalıştırma Süreci\\
 Çalıştırma sürecinde, geliştirme sürecinde olduğu gibi PostgreSQL ile ilişkisel
 veritabanı yönetim sistemi ve Glassfish uygulama sunucusu kullanılacaktır. Güvenlik,
-kararlılık, donanımı performanslı kullanma gibi sebeplerden dolayı[18] Linux tabanlı
+kararlılık, donanımı performanslı kullanma gibi sebeplerden dolayı\cite{serverKarsilastirma} Linux tabanlı
 bir sunucu işletim sistemi kullanma kararı alınmıştır. Ayrıca açık kaynak kodlu olması
 bir diğer avantajıdır. Paket yönetim kolaylığı, bakım periyodunun az olması ve Red Hat'
-in geliştirme desteği gibi sebeplerle[19] Centos işletim sisteminde karar kılınmıştır.
+in geliştirme desteği gibi sebeplerle\cite{centos} Centos işletim sisteminde karar kılınmıştır.
 
 Kullanma Süreci\\
 Geliştirilen uygulama bir web uygulaması olduğundan dolayı, uygulamaya erişim için
@@ -126,17 +126,17 @@ Geliştirme Süreci\\
 \begin{tabular}{|c|c|c|c|}
 \hline
 Yazılım Ürünü   & İşlemci                                                                                & Bellek  & Disk Alanı \\ \hline
-Netbeans        & \begin{tabular}[c]{@{}c@{}}800 MHz Intel \\ Pentium III ya da \\ eşdeğeri\end{tabular} & 512 MB  & 750 MB     \\ \hline
-Java EE         & Özel bir şart yok                                                                      & 1024 MB & 250 MB     \\ \hline
-Glassfish       & Özel bir şart yok                                                                      & 1024 MB & 250 MB     \\ \hline
-Ubuntu          & 1024 MHz                                                                               & 1536 MB & 7168 MB    \\ \hline
-En yüksek değer & 1024 MHz                                                                               & 4 GB    & 8418 MB    \\ \hline
+Netbeans\cite{netbeansJDKGereksinim}        & \begin{tabular}[c]{@{}c@{}}800 MHz Intel \\ Pentium III ya da \\ eşdeğeri\end{tabular} & 512 MB  & 750 MB     \\ \hline
+Java EE\cite{javaEEGereksinim}         & Özel bir şart yok                                                                      & 1024 MB & 250 MB     \\ \hline
+Glassfish\cite{glassfishGereksinim}       & Özel bir şart yok                                                                      & 1024 MB & 250 MB     \\ \hline
+Ubuntu\cite{ubuntuGereksinim}          & 1024 MHz                                                                               & 1536 MB & 7168 MB    \\ \hline
+En düşük gereksinim & 1024 MHz                                                                               & 4 GB    & 8418 MB    \\ \hline
 \end{tabular}
 \end{table}
 
-Tablo 3.1’de görüldüğü üzere geliştirme sürecinde kullanılacak yazılımların gerekli
+Tablo 3.2’de görüldüğü üzere geliştirme sürecinde kullanılacak yazılımların gerekli
 donanım özellikleri piyasada bulunan standart değerlerin altındadır. Bu yüzden
-tarafımca önerilen değerler Tablo 3.2’de belirtilmiştir.
+tarafımca önerilen değerler Tablo 3.3’te belirtilmiştir.
 
 \begin{table}[]
 \centering
@@ -152,8 +152,8 @@ tarafımca önerilen değerler Tablo 3.2’de belirtilmiştir.
 Çalıştırma Süreci \\
 Çalıştırma sürecinde öncelikle sistemin kullanıcı sayısı tespit edilmeye çalışılmıştır. Ön
 inceleme bölümünde 4 tip kullanıcı olduğu belirtilmişti. YTÜ Öğrenci İşleri Daire
-Başkanlığı’nın internet sayfasındaki rapora göre [ ] 2015-2016 Bahar Yarıyılı için YTÜ’
-ne kayıtlı 35361 öğrenci vardır. YTÜ Teknopark’ a kayıtlı şirket sayısı ise 340’ tır[ ].
+Başkanlığı’nın internet sayfasındaki rapora göre \cite{ogrenciIstatistik} 2015-2016 Bahar Yarıyılı için YTÜ’
+ne kayıtlı 35361 öğrenci vardır. YTÜ Teknopark’ a kayıtlı şirket sayısı ise 340’ tır\cite{teknoparkSirketler}.
 Sistem yöneticisi ve BKB kullanıcıları bu rakamlar yanında ihmal edilebilir.
 
 İhtiyaç duyulan disk kapasitesi kullanıcı profillerinin ve ilanların toplam boyutu düşünülerek 
@@ -305,16 +305,16 @@ Ekonomik Fizibilite bölümünde ele alınmıştır.
 \begin{tabular}{|c|c|}
 \hline
 Yazılım Ürünü & Lisansı                                     \\ \hline
-Netbeans      & Common Development And Distribution License \\ \hline
-Glassfish     & Common Development And Distribution License \\ \hline
-Ubuntu        & General Public License                      \\ \hline
-Centos        & General Public License                      \\ \hline
-Java EE       & Java Development License                    \\ \hline
+Netbeans\cite{netbeansLisans} & Common Development And Distribution License\cite{cddl} \\ \hline
+Glassfish\cite{glassfishLisans}     & Common Development And Distribution License\cite{cddl} \\ \hline
+Ubuntu\cite{ubuntuLisans}        & General Public License{gpl}                      \\ \hline
+Centos        & General Public License\cite{gpl}                      \\ \hline
+Java EE       & Java Development License\cite{jdl}                    \\ \hline
 \end{tabular}
 \end{table}
 
 
-Gelir Vergisi Kanunu’ nun 89/2 maddesine göre[xxx], şirket kazancının \%5’ ini
+Gelir Vergisi Kanunu’ nun 89/2 maddesine göre\cite{vergi}, şirket kazancının \%5’ ini
 geçmemek kaydıyla ve makbuz karşılığı yapılan bağışlar vergiden düşülür. Bu
 bağışların yapılabileceği kurumlar arasında üniversitemiz bilimsel araştırma yapılan
 kurumlar dahilinde olup, söz konusu olan makbuz şartını, bağış kabul eden birimlerince
@@ -328,27 +328,27 @@ karşılığında sorumluluk kabul edilmez.
 
 \section{Ekonomik Fizibilite}
 Öncelikle teknik, yasal ve ekonomik fizibilitelerin kendi içerisinde maliyet hesaplamaları yapılmış, sonrasında ise
-toplam maliyet çıkarılmıştır
+toplam maliyet çıkarılmıştır.
 
 \subsection{Teknik Fizibiliteden Doğacak Giderler}
 Yazılım fizibilitesi kapsamında kullanılması belirlenen yazılımlardan sadece MS Visio
-2016 ücretli olup, bu ücret 999 TL’dir [ ].
+2016 ücretli olup, bu ücret 999 TL’dir\cite{visio}.
 Donanım fizibilitesi kapsamında ise bir sunucu ihtiyacı tespit edilmiş olup, bu sunucu
 satın alınabilir ya da bir hosting firması üzerinden kiralanabilir.
 Sunucu satın alma seçeneği için yapılan araştırmalar sonucu IBM ' ait bir sunucu
 kullanılmasına karar verilmiştir. Bunun temel sebebi aynı özellikteki çeşitli sunucuların
 karşılaştırılması sonucunda fiyat/performans olarak IBM sunucuların daha iyi olmasıdır.
-[31] Buradan görüleceği gibi HP, Intel, Power 8 ve IBM'in yer aldığı karşılaştırmada
+\cite{ibmKarsilastirma} Buradan görüleceği gibi HP, Intel, Power 8 ve IBM'in yer aldığı karşılaştırmada
 IBM \$21.88 ile en iyisidir. Bir diğer karşılaştırma IBM ve Oracle arasında yapılmıştır.
-Bu karşılaştırma sonucunda Oracle çeşitli zayıflıkları [32](Dosya yönetimi, bulut
+Bu karşılaştırma sonucunda Oracle çeşitli zayıflıkları \cite{ibmvsOracle}(Dosya yönetimi, bulut
 entegrasyonu, B2B bütünlüğü vs) sebebiyle seçenekler arasından elenmiştir. IBM
 sunucuları arasından ihtiyaçlarımız doğrultusunda seçenekler taranmış, sistemin
 genişleyebileceği düşünülerek karar verilmiştir. Bu karar IBM SRV 7383K7G ürünü
 lehindedir. Bu ürün genel olarak şu özelliklere sahiptir: İşlemci: Intel Xeon E5 2.1 GHz,
-Bellek 8GB( artırılabilir), Disk 3*300 GB(artırılabilir)[33]. Seçilen IBM sunucu için
-ödenecek ücret ise 7.663,17 TL'dir[33].
+Bellek 8GB( artırılabilir), Disk 3*300 GB(artırılabilir)\cite{ibmFiyat}. Seçilen IBM sunucu için
+ödenecek ücret ise 7.663,17 TL'dir\cite{ibmFiyat}.
 Hosting kiralama seçeneği için farklı firmaların sunduğu hizmetler incelenmiş ve Tablo
-3.8’ de karşılaştırılmıştır. Buna göre İsim Tescil firmasından alanı adı, Reseller Hosting
+3.9’ da karşılaştırılmıştır. Buna göre İsim Tescil firmasından alanı adı, Reseller Hosting
 firmasından ise hosting temini en uygun seçimdir.
 
 % Please add the following required packages to your document preamble:
@@ -361,10 +361,10 @@ firmasından ise hosting temini en uygun seçimdir.
 \begin{tabular}{|c|r|c|c|c|c|}
 \hline
 Firma Adı        & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Fiyat (TL)\\ (Yıllık)\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Web Alanı\\ (GB)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Trafik(Aylık)\\ (GB)\end{tabular} & \begin{tabular}[c]{@{}c@{}}E Posta\\ Depolama Miktarı\\ (GB)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Alan Adı\\ Kullanabilme Adedi\end{tabular} \\ \hline
-Reseller Hosting & 99.99                                                                              & 60                                                       & 60                                                           & Sınırsız                                                                  & Sınırsız                                                              \\ \hline
-Natro            & 278,35                                                                             & Sınırsız                                                 & Sınırsız                                                     & Sınırsız                                                                  & 10                                                                    \\ \hline
-Strato           & 111,35                                                                             & 250                                                      & Sınırsız                                                     & 40                                                                        & 1                                                                     \\ \hline
-İsim Tescil      & 695,96                                                                             & 100                                                      & Trafik                                                       & 6 (Alan Adı Başına)                                                       & 100                                                                   \\ \hline
+Reseller Hosting\cite{reseller} & 99.99                                                                              & 60                                                       & 60                                                           & Sınırsız                                                                  & Sınırsız                                                              \\ \hline
+Natro\cite{natro}            & 278,35                                                                             & Sınırsız                                                 & Sınırsız                                                     & Sınırsız                                                                  & 10                                                                    \\ \hline
+Strato\cite{strato}           & 111,35                                                                             & 250                                                      & Sınırsız                                                     & 40                                                                        & 1                                                                     \\ \hline
+İsim Tescil\cite{isimtescil}      & 695,96                                                                             & 100                                                      & Trafik                                                       & 6 (Alan Adı Başına)                                                       & 100                                                                   \\ \hline
 \end{tabular}%
 }
 \end{table}
@@ -376,6 +376,7 @@ Yasal fizibiliteden doğacak herhangi bir gider bulunmamıştır.
 Projede görev alacak çalışanlar, sayıları, günlük ve toplam ücretleri Tablo 3.10’ da
 verilmiştir.
 
+Projenin toplam maliyeti Tablo 3.11' de görüleceği üzere 10.257,35 TL olarak hesaplanmıştır.
 \begin{table}[]
 \centering
 \caption{Görev-zaman-ücret-hesabı}
