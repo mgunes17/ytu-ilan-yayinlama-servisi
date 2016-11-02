@@ -36,11 +36,6 @@ public class Company extends User implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<CompanyOwnPacket> packets;
 
-	public Company(String mersisNo, String companyName, String username, String password) {
-        super(username, password, 2);
-        this.companyName = companyName;
-    }
-
     public Company(){
     	super();
     }

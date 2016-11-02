@@ -12,10 +12,13 @@ import javax.servlet.http.HttpSession;
 import org.db.compositePK.CommunicationWayPK;
 import org.db.dao.StudentDAO;
 import org.db.dao.UserDAO;
+import org.db.dao.UserTypeDAO;
 import org.db.hibernate.StudentHibernateImpl;
 import org.db.hibernate.UserHibernateImpl;
+import org.db.hibernate.UserTypeHibernateImpl;
 import org.db.model.CommunicationWay;
 import org.db.model.Student;
+import org.db.model.UserType;
 
 @WebServlet(name = "StudentSaveServlet", urlPatterns = {"/studentsaveservlet"})
 public class StudentSaveServlet extends HttpServlet {
@@ -44,7 +47,11 @@ public class StudentSaveServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         HttpSession httpSession = request.getSession();
         readParameters(request);
-        student.setUserTypeNo(3); 
+        
+        UserTypeDAO typeDAO = new UserTypeHibernateImpl();
+        UserType type  = typeDAO.getUserType(3);
+        
+        student.setUserTypeNo(type); 
         
         StudentDAO studentDAO = new StudentHibernateImpl();
         UserDAO userDAO = new UserHibernateImpl();

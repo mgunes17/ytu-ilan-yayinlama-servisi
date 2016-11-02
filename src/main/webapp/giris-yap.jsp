@@ -34,6 +34,11 @@
 						<strong>Başarısız!</strong> Lütfen kullanıcı adı ve parolanızı kontrol edin.
 					</div>
 				</c:when>
+				<c:when test="${giris eq 1}">
+					<div class="alert alert-warning">
+						Erişim için giriş yapmak zorundasınız.
+					</div>
+				</c:when>
 	        </c:choose>
             <input type="submit" value="Giriş Yap"/>
         </form>

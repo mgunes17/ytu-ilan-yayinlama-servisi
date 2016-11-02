@@ -12,10 +12,13 @@ import javax.servlet.http.HttpSession;
 import org.db.compositePK.CommunicationWayPK;
 import org.db.dao.CompanyDAO;
 import org.db.dao.UserDAO;
+import org.db.dao.UserTypeDAO;
 import org.db.hibernate.CompanyHibernateImpl;
 import org.db.hibernate.UserHibernateImpl;
+import org.db.hibernate.UserTypeHibernateImpl;
 import org.db.model.CommunicationWay;
 import org.db.model.Company;
+import org.db.model.UserType;
 
 @WebServlet(name = "CompanySaveServlet", urlPatterns = { "/companysaveservlet" })
 public class CompanySaveServlet extends HttpServlet {
@@ -76,7 +79,11 @@ public class CompanySaveServlet extends HttpServlet {
 		company.setUserName(request.getParameter("username"));
 		company.setPassword(request.getParameter("password"));
 		company.setCompanyName(request.getParameter("company_name"));
-		company.setUserTypeNo(2); // sirket maili onayladıktan sonra status
+		
+		UserTypeDAO typeDAO = new UserTypeHibernateImpl();
+        UserType type  = typeDAO.getUserType(2);
+        
+		company.setUserTypeNo(type); // sirket maili onayladıktan sonra status
 									// admin onayı bekleniyor olacak
 
 		company.setStatus(0); // mail onayı bekleniyor

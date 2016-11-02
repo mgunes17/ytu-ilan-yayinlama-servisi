@@ -17,7 +17,12 @@ import org.db.model.DonationAcceptUnit;
 @WebServlet(name = "DisplayDauServlet", urlPatterns = {"/displaydauservlet"})
 public class DisplayDauServlet extends HttpServlet {
 
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);

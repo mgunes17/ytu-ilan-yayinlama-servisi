@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,8 +29,9 @@ public class User implements Serializable {
 	@Column(name = "passwordFor", nullable = true)
 	private String password;
 
-	@Column(name = "user_type_no")
-	private int userTypeNo;
+	@ManyToOne
+	@JoinColumn(name = "user_type_no")
+	private UserType userType;
 
 	@Column(name = "membership_status")
 	private int status;
@@ -41,10 +44,10 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(String userName, String password, int userTypeNo) {
+	public User(String userName, String password, UserType userType) {
 		this.userName = userName;
 		this.password = password;
-		this.userTypeNo = userTypeNo;
+		this.userType = userType;
 	}
 
 	public List<CommunicationWay> getCommWays() {
@@ -63,8 +66,8 @@ public class User implements Serializable {
 		return userName;
 	}
 
-	public int getUserTypeNo() {
-		return userTypeNo;
+	public UserType getUserType() {
+		return userType;
 	}
 
 	public void setCommWays(List<CommunicationWay> commWays) {
@@ -83,7 +86,7 @@ public class User implements Serializable {
 		this.userName = userName;
 	}
 
-	public void setUserTypeNo(int userTypeNo) {
-		this.userTypeNo = userTypeNo;
+	public void setUserTypeNo(UserType userType) {
+		this.userType = userType;
 	}
 }

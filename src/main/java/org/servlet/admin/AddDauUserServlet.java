@@ -11,10 +11,13 @@ import javax.servlet.http.HttpSession;
 
 import org.db.dao.DauUserDAO;
 import org.db.dao.UserDAO;
+import org.db.dao.UserTypeDAO;
 import org.db.hibernate.DauUserHibernateImpl;
 import org.db.hibernate.UserHibernateImpl;
+import org.db.hibernate.UserTypeHibernateImpl;
 import org.db.model.DauUser;
 import org.db.model.DonationAcceptUnit;
+import org.db.model.UserType;
 
 /**
  * Servlet implementation class AddDauUserServlet
@@ -48,7 +51,11 @@ public class AddDauUserServlet extends HttpServlet {
 		DauUser dauUser = new DauUser();
 		dauUser.setUserName(request.getParameter("user_name"));
         dauUser.setPassword(request.getParameter("password"));
-        dauUser.setUserTypeNo(1);
+        
+        UserTypeDAO typeDAO = new UserTypeHibernateImpl();
+        UserType type  = typeDAO.getUserType(1);
+        
+        dauUser.setUserTypeNo(type);
         
         DonationAcceptUnit dau = (DonationAcceptUnit) httpSession.getAttribute("dau");
         dauUser.setDau(dau);

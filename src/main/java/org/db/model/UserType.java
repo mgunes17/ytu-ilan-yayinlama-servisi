@@ -1,5 +1,7 @@
 package org.db.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,8 +9,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="user_type")
-public class UserType {
-    @Id
+public class UserType implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Column(name="type_no")
     private int typeNo;
     
@@ -17,8 +24,15 @@ public class UserType {
     
     @Column(name="main_page")
     private String mainPage;
+    
+    @Column(name = "unauthorized_page")
+    private String unauthorizedPage;
 
-    public int getType_no() {
+    public String getUnauthorizedPage() {
+		return unauthorizedPage;
+	}
+
+	public int getTypeNo() {
         return typeNo;
     }
 
@@ -26,7 +40,7 @@ public class UserType {
         this.typeNo = typeNo;
     }
 
-    public String getType_name() {
+    public String getTypeName() {
         return typeName;
     }
 
@@ -34,11 +48,11 @@ public class UserType {
         this.typeName = typeNo;
     }
 
-    public String getMain_page() {
+    public String getMainPage() {
         return mainPage;
     }
 
-    public void setMain_page(String main_page) {
+    public void setMainPage(String main_page) {
         this.mainPage = main_page;
     }
 }

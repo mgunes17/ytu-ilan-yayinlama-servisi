@@ -10,11 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.db.dao.UserDAO;
-import org.db.dao.UserTypeDAO;
 import org.db.hibernate.UserHibernateImpl;
-import org.db.hibernate.UserTypeHibernateImpl;
 import org.db.model.User;
-import org.db.model.UserType;
 
 @WebServlet("/logincontrolservlet")
 public class LoginControlServlet extends HttpServlet {
@@ -47,12 +44,10 @@ public class LoginControlServlet extends HttpServlet {
         	response.sendRedirect("giris-yap.jsp");
         } 
         else {
-        	UserTypeDAO userTypeDAO = new UserTypeHibernateImpl();
-        	UserType userType = userTypeDAO.getUserType(user.getUserTypeNo()); // bunu sadece get main page olarak değiştir
         	HttpSession httpSession = request.getSession();
         	httpSession.setAttribute("user",user);
         	httpSession.setAttribute("status", user.getStatus());
-        	response.sendRedirect(userType.getMain_page());
+        	response.sendRedirect(user.getUserType().getMainPage());
         }
 
     }
