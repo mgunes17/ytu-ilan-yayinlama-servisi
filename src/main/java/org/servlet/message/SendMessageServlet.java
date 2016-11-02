@@ -50,6 +50,8 @@ public class SendMessageServlet extends HttpServlet {
     }
 
     private void readRequest(HttpServletRequest request){
+    	message.setSenderName(request.getParameter("name"));
+    	message.setSenderSurname(request.getParameter("surname"));
         message.setMessageTitle(request.getParameter("title"));
         message.setMessageBody(request.getParameter("message"));
         message.setIPAddress(request.getRemoteAddr());

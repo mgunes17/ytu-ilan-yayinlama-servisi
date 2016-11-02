@@ -26,14 +26,15 @@
             <div class="col-md-3"><jsp:include page="html/menu.html"/></div>
             <div class="col-md-9">
                 <h1>Mesajları okuyun</h1>
-                <table border="1">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Mesaj No</th>
                             <th>Başlık</th>
-                            <th>Mesaj</th>
+                            <th>Gönderen</th>
                             <th>Zaman</th>
                             <th>Okundu</th>
+                            <th>İşlem</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,9 +42,18 @@
                             <tr>
                                 <td>${item.messageNo}</td>
                                 <td>${item.messageTitle}</td>
-                                <td>${item.messageBody}</td>
-                                <td><fmt:formatDate value="${item.dateTime}" /></td> 
+                                <td>${item.senderName} ${item.senderSurname}</td>
+                                <td><fmt:formatDate value="${item.pk.dateTime}" /></td> 
                                 <td>${item.isRead}</td>
+                                <td>
+			                        <form method="post">
+			                            <input type="hidden" name="messagePK" value="${item.messageNo}" />
+			                            <input 
+			                                type="submit" 
+			                                value="Mesajı Görüntüle" formaction="../messagedetail">
+			                                <input type="submit" value="Sil" formaction="#">
+			                        </form>
+			                    </td>
                             </tr>
                         </c:forEach>
                     </tbody>

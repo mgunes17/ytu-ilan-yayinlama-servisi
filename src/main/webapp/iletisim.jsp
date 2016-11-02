@@ -12,9 +12,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html">
         <jsp:include page="html/head.html"></jsp:include>
         <title>İletişim</title>
+        <meta charset="UTF-8">
 </head>
 <body>
     <jsp:include page="html/header.html"></jsp:include>
@@ -30,26 +31,8 @@
                 Ayrıca arama motorlarında 'lorem ipsu
             </div>
             <div class="col-md-6">
-                <h4>Sistem Yöneticisine Mesaj Gönderin</h4>
-                <form class="form-inline" role="form"  method="post" action="sendmessageservlet">
-                    <div class="form-group">
-                        Konu
-                        <input type="text" name="title" pattern=".{5,30}" 
-                        required title="Başlık 5-30 karakter aralığında olmalı"/>
-                    </div>
-                    <div class="form-group">
-                        Mesajınız 
-                        <textarea name="message" pattern=".{10,300}"
-                        required title="Mesajınız 10-300 karakter aralığında olmalı"> 
-                        </textarea>
-                    </div>
-                    <div class="form-group">
-                        Mail adresiniz
-                        <input type="email" name="mail" 
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
-                    </div>
-                   <input type ="submit" value="Mesajı Gönder">
-                </form>
+                <h4>İletişime geçmek için lütfen bilgileri eksiksiz doldurun</h4>
+                <h5>(Verdiğiniz bilgiler 3. şahıslarla paylaşılmaz)</h5>
                 <c:choose>
                     <c:when test="${gonderildi eq 1}">
                        <div class="alert alert-success">
@@ -63,7 +46,35 @@
                     	</div>
                     </c:when>
                 </c:choose>
-                
+                <form method="post" action="sendmessageservlet" accept-charset="UTF-8">
+                	<div class="form-group">
+                		<label for="name">Adınız</label>
+                		<input type="text" class="form-control" name="name" id="name" 
+                		required title="Lütfen isminizi giriniz" pattern="[a-zA-Z]{1,30}">
+                	</div>
+                	<div class="form-group">
+                		<label for="surname">Soyadınız</label>
+                		<input type="text" class="form-control" name="surname" id="surname"
+                		required title="Lütfen soyadınızı giriniz" pattern="[a-zA-ZğĞüÜşŞıİöÖçÇ]{1,30}">
+                	</div>
+                    <div class="form-group">
+	                    <label for="title">Konu</label>
+	                    <input type="text" class="form-control" name="title" pattern=".{5,30}" id="title"
+	                    required title="Başlık 5-30 karakter aralığında olmalı"/>
+                    </div>
+                    <div class="form-group">
+                    	<label for="message">Mesajınız</label>
+                        <textarea class="form-control" name="message" pattern=".{10,300}" id="message"
+                        required title="Mesajınız 10-300 karakter aralığında olmalı"> 
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                    	<label for="mail">Mail Adresiniz</label>
+                        <input type="email" name="mail" class="form-control"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"/>
+                    </div>
+                    <button type="submit" class="btn btn-default">Mesajı Gönder</button>
+                </form>
             </div>
         </div>
     </div>

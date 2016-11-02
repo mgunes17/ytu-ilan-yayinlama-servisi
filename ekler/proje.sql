@@ -87,6 +87,8 @@ CREATE TABLE department (
 
 CREATE TABLE message (
 	message_no serial,
+	sender_name varchar(30) NOT NULL,
+	sender_surname varchar(30) NOT NULL,
 	message_title varchar(30) NOT NULL,
 	message_body text NOT NULL,
 	sender_email_address varchar(50) NOT NULL,

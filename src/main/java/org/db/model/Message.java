@@ -20,11 +20,16 @@ public class Message implements Serializable {
 	private MessagePK pk;
 	
     @Column(name="message_no", columnDefinition="serial")
-    //@GenericGenerator(name="fieldGenerator", strategy="sequence")
     @Generated(GenerationTime.INSERT)     
     private int messageNo;
     
-    @Column(name="message_title", nullable=false)
+    @Column(name = "sender_name", nullable = false)
+    private String senderName;
+    
+    @Column(name = "sender_surname", nullable = false)
+    private String senderSurname;
+
+	@Column(name="message_title", nullable=false)
     private String messageTitle;
     
     @Column(name="message_body", nullable=false)
@@ -36,7 +41,11 @@ public class Message implements Serializable {
     @Column(name="sender_ip_address", nullable=false)
     private String IPAddress;
     
+    public Message() {
+    	super();
+    }
     
+    //getter-setter
     public String getIPAddress() {
         return IPAddress;
     }
@@ -45,7 +54,7 @@ public class Message implements Serializable {
         this.IPAddress = IPAddress;
     }
 
-    public boolean isIsRead() {
+    public boolean getIsRead() {
         return isRead;
     }
 
@@ -80,5 +89,20 @@ public class Message implements Serializable {
 	public void setPk(MessagePK pk) {
 		this.pk = pk;
 	}
+	
+	public String getSenderName() {
+		return senderName;
+	}
 
+	public void setSenderName(String senderName) {
+		this.senderName = senderName;
+	}
+
+	public String getSenderSurname() {
+		return senderSurname;
+	}
+
+	public void setSenderSurname(String sendersurname) {
+		this.senderSurname = sendersurname;
+	}
 }
