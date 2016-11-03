@@ -32,5 +32,6 @@
     <mapping class="org.db.model.MembershipStatus"/>
     <mapping class="org.db.model.CompanyOwnPacket"/>
     <mapping class="org.db.model.DauUser"/>
+    <mapping class="org.db.model.AnnouncementPacketState"/>
   </session-factory>
 </hibernate-configuration>

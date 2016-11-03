@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.db.dao.AnnouncementPacketDAO;
+import org.db.dao.AnnouncementPacketStateDAO;
 import org.db.dao.CompanyOwnPacketDAO;
 import org.db.hibernate.AnnouncementPacketHibernateImpl;
 import org.db.hibernate.CompanyOwnPacketHibernateImpl;
+import org.db.hibernate.PacketStateHibernateImpl;
 import org.db.model.AnnouncementPacket;
+import org.db.model.AnnouncementPacketState;
 import org.db.model.Company;
 import org.db.model.CompanyOwnPacket;
 
@@ -49,6 +52,9 @@ public class DonationRequestServlet extends HttpServlet {
 		AnnouncementPacketDAO annDAO = new AnnouncementPacketHibernateImpl();
 		AnnouncementPacket packet = annDAO.getPacket(packetId);
 		
+		AnnouncementPacketStateDAO stateDAO = new PacketStateHibernateImpl();
+		AnnouncementPacketState state = stateDAO.getPacketState(1);
+		
 		HttpSession httpSession = request.getSession();
 		Company company = (Company) httpSession.getAttribute("user");
 		
@@ -56,6 +62,7 @@ public class DonationRequestServlet extends HttpServlet {
 		cop.setOwnerCompany(company);
 		cop.setPacket(packet);
 		cop.setTimeToRequest(new Date());
+		cop.setState(state);
 		
 		CompanyOwnPacketDAO copDAO = new CompanyOwnPacketHibernateImpl();
 		

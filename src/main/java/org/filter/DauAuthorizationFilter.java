@@ -18,7 +18,7 @@ import org.db.model.User;
 /**
  * Servlet Filter implementation class DauAuthorizationFilter
  */
-@WebFilter("/dau/*")
+@WebFilter(filterName = "DauAuthorizationFilter")
 public class DauAuthorizationFilter implements Filter {
 
     /**

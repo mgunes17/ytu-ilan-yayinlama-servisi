@@ -17,7 +17,7 @@ import org.db.model.User;
 /**
  * Servlet Filter implementation class StudentAuthorizationFilter
  */
-@WebFilter("/student/*")
+@WebFilter(filterName = "StudentAuthorizationFilter")
 public class StudentAuthorizationFilter implements Filter {
 
     /**

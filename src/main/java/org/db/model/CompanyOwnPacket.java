@@ -34,6 +34,10 @@ public class CompanyOwnPacket implements Serializable {
 	@JoinColumn(name = "packet", nullable = false)
 	private AnnouncementPacket packet;
 	
+	@ManyToOne
+	@JoinColumn(name = "announcement_packet_state")
+	private AnnouncementPacketState state;
+	
 	@Column(name = "used_announcements")
 	private int usedAnnouncements;
 	
@@ -116,5 +120,13 @@ public class CompanyOwnPacket implements Serializable {
 
 	public void setTimeToApproved(Date timeToApproved) {
 		this.timeToApproved = timeToApproved;
+	}
+	
+	public AnnouncementPacketState getState() {
+		return state;
+	}
+
+	public void setState(AnnouncementPacketState state) {
+		this.state = state;
 	}
 }

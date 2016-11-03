@@ -17,4 +17,31 @@
   	<location>/sayfa-bulunamadi.jsp</location>
   </error-page>
   
+  <filter-mapping>
+  	<filter-name>LoginFilter</filter-name>
+  	<url-pattern>/admin/*</url-pattern>
+  	<url-pattern>/dau/*</url-pattern>
+  	<url-pattern>/company/*</url-pattern>
+  	<url-pattern>/student/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+  	<filter-name>AdminAuthorizationFilter</filter-name>
+  	<url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+  	<filter-name>DauAuthorizationFilter</filter-name>
+  	<url-pattern>/dau/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+  	<filter-name>CompanyAuthorizationFilter</filter-name>
+  	<url-pattern>/company/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+  	<filter-name>StudentAuthorizationFilter</filter-name>
+  	<url-pattern>/student/*</url-pattern>
+  </filter-mapping>
 </web-app>

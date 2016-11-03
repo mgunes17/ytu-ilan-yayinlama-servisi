@@ -27,7 +27,7 @@
                     <c:choose>
                         <c:when test="${olusturuldu eq 1}">
                            <div class="alert alert-success">
-                                 <strong>Başarılı!</strong>Paket başarıyla oluşturuldu.
+                                 <strong>Başarılı!</strong> Paket başarıyla oluşturuldu.
                                  Paketi <a href="#">buradan</a> düzenleyebilirsiniz.
                             </div>
                         </c:when>

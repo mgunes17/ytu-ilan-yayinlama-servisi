@@ -18,7 +18,7 @@ import org.db.model.User;
 /**
  * Servlet Filter implementation class AdminAuthorizationFilter
  */
-@WebFilter("/admin/*")
+@WebFilter(filterName = "AdminAuthorizationFilter")
 public class AdminAuthorizationFilter implements Filter {
 
     /**

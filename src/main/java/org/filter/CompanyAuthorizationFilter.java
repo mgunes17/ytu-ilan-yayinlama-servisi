@@ -18,7 +18,7 @@ import org.db.model.User;
 /**
  * Servlet Filter implementation class CompanyAuthorizationFilter
  */
-@WebFilter("/company/*")
+@WebFilter(filterName = "CompanyAuthorizationFilter")
 public class CompanyAuthorizationFilter implements Filter {
 
     /**

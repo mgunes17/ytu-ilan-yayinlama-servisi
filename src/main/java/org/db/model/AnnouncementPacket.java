@@ -134,5 +134,4 @@ public class AnnouncementPacket implements Serializable {
 	public void setAccountInfo(BankAccountInfo accountInfo) {
 		this.accountInfo = accountInfo;
 	}
-
 }

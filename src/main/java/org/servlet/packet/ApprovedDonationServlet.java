@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.db.dao.AnnouncementPacketStateDAO;
 import org.db.dao.CompanyOwnPacketDAO;
 import org.db.dao.DonationAcceptUnitDAO;
 import org.db.hibernate.CompanyOwnPacketHibernateImpl;
 import org.db.hibernate.DauHibernateImpl;
+import org.db.hibernate.PacketStateHibernateImpl;
+import org.db.model.AnnouncementPacketState;
 import org.db.model.CompanyOwnPacket;
 import org.db.model.DauUser;
 import org.db.model.User;
@@ -51,9 +54,13 @@ public class ApprovedDonationServlet extends HttpServlet {
 		CompanyOwnPacketDAO copDAO = new CompanyOwnPacketHibernateImpl();
 		CompanyOwnPacket cop = copDAO.getPacket(Integer.parseInt(request.getParameter("packetId")));
 		
+		AnnouncementPacketStateDAO stateDAO = new PacketStateHibernateImpl();
+		AnnouncementPacketState state = stateDAO.getPacketState(2);
+		
 		cop.setApproved(true);
 		cop.setTimeToApproved(new Date());
 		cop.setUsernameForApproved(user.getUserName());
+		cop.setState(state);
 		
 		if(copDAO.updatePacket(cop)) {
 			session.setAttribute("onaylandi", 1);

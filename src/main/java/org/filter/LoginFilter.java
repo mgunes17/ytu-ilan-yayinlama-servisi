@@ -16,15 +16,14 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class AuthenticationFilter
  */
-//@WebFilter({"/admin/*", "company/*"})
-@WebFilter({"/admin/*", "/company/*", "/dau/*", "/student/*"})
-public class AuthenticationFilter implements Filter {
+@WebFilter(filterName = "LoginFilter", urlPatterns = {"/admin/*", "/company/*", "/dau/*", "/student/*"})
+public class LoginFilter implements Filter {
 	private static final String USER = "user";
 
     /**
      * Default constructor. 
      */
-    public AuthenticationFilter() {
+    public LoginFilter() {
         // TODO Auto-generated constructor stub
     }
 

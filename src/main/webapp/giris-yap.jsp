@@ -22,11 +22,13 @@
         <form action="logincontrolservlet" method="post">
         	<div class="form-group">
         		<label for="username">Kullanıcı Adı</label>
-        		<input type="text" name="username" id="username"/>
+        		<input type="text" name="username" id="username" pattern=".{1,20}"
+        			required title="Lütfen kullanıcı adınızı giriniz"/>
         	</div>
         	<div class="form-group">
         		<label for="password">Parola</label>
-        		<input type="password" name="password" id="password"/>
+        		<input type="password" name="password" id="password" pattern=".{1,16}"
+        			required title="Lütfen paroloanızı giriniz"/>
         	</div>
         	<c:choose>
 				<c:when test="${giris eq 0}">

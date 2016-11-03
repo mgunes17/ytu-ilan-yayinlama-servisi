@@ -46,7 +46,7 @@
                     	</div>
                     </c:when>
                 </c:choose>
-                <form method="post" action="sendmessageservlet" accept-charset="UTF-8">
+                <form id ="form1" method="post" action="sendmessageservlet" accept-charset="UTF-8">
                 	<div class="form-group">
                 		<label for="name">Adınız</label>
                 		<input type="text" class="form-control" name="name" id="name" 
@@ -79,5 +79,5 @@
         </div>
     </div>
     <jsp:include page="html/footer.html"/> 
-</body>
+    </body>
 </html>

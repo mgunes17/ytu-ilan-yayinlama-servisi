@@ -1,7 +1,8 @@
 CREATE TABLE user_type(
 	type_no smallint PRIMARY KEY,
 	type_name varchar(20) UNIQUE,
-	main_page char(50)
+	main_page char(50),
+	unauthorized_page char(50)
 );
 
 CREATE TABLE membership_status (
@@ -16,7 +17,7 @@ CREATE TABLE users (
 	membership_status int REFERENCES membership_status(id)
 );
 
-create table student (
+CREATE TABLE student (
 	user_name varchar(20) references users(user_name),
 	name varchar(30) not null,
 	surname varchar(30) not null,
@@ -24,7 +25,7 @@ create table student (
 	primary key(user_name)
 );
 
-create table company (
+CREATE TABLE company (
 	user_name varchar(20) references users(user_name),
 	company_name varchar(30) not null,
 	location varchar(30),
@@ -53,7 +54,7 @@ CREATE TABLE bank_account_info (
 	PRIMARY KEY(iban)
 );
 
-create table donation (
+CREATE TABLE donation (
 	donation_id int primary key,
 	company_username varchar(30) not null,
 	donate_accept_unit_username varchar(30) not null,
@@ -63,7 +64,7 @@ create table donation (
 	approved boolean default false
 );
 
-create table announcement_state (
+CREATE TABLE announcement_state (
 	id int primary key,
 	title varchar(30) not null
 );
@@ -99,7 +100,7 @@ CREATE TABLE message (
 	--time?
 );
 
-create table announcement (
+CREATE TABLE announcement (
 	id int primary key,
 	title varchar(30),
 	brief text NOT NULL,
@@ -111,7 +112,7 @@ create table announcement (
 	announcement_type int not null
 );
 
-create table announcement_packet (
+CREATE TABLE announcement_packet (
 	packet_id int primary key,
 	announcement_count int not null,
 	price int not null,
@@ -122,15 +123,21 @@ create table announcement_packet (
 	bank_account_info varchar(30) REFERENCES bank_account_info(iban)
 );
 
-create table currency (
+CREATE TABLE currency (
 	id int primary key,
 	title varchar(20) not null
+);
+
+CREATE TABLE announcement_packet_state (
+	id int primary key,
+	title char(50)
 );
 
 CREATE TABLE  company_own_packet (
 	id int primary key,
 	owner_company varchar(30) REFERENCES company(user_name),
 	packet int REFERENCES announcement_packet(packet_id),
+	announcement_packet_state int REFERENCES announcement_packet_state(id),
 	used_announcements int,
 	approved boolean,
 	user_for_approved varchar(30),
@@ -144,11 +151,11 @@ INSERT INTO announcement_type VALUES
 	(3, 'full time'),
 	(4, 'freelance') ;
 	
-INSERT INTO user_type (type_no, type_name, main_page) VALUES
-	(0, 'admin', 'admin/index.jsp'),
-	(1, 'donation_accept_unit', 'dau/index.jsp'),
-	(2, 'company', 'company/index.jsp'),
-	(3, 'student', 'student/index.jsp') ;
+INSERT INTO user_type (type_no, type_name, main_page, unauthorized_page) VALUES
+	(0, 'admin', 'admin/index.jsp', 'admin/erisim-izni-yok.jsp'),
+	(1, 'donation_accept_unit', 'dau/index.jsp', 'dau/erisim-izni-yok.jsp'),
+	(2, 'company', 'company/index.jsp', 'company/erisim-izni-yok.jsp'),
+	(3, 'student', 'student/index.jsp', 'student/erisim-izni-yok.jsp') ;
 	
 INSERT INTO announcement_state VALUES
 	(1, 'passive'),
@@ -168,4 +175,9 @@ INSERT INTO currency VALUES
 	(1, 'Türk Lirası'),
 	(2, 'Euro'),
 	(3, 'Amerikan Doları');
+
+INSERT INTO announcement_packet_state (id, title) VALUES
+	(1, 'Onay Bekleniyor'),
+	(2, 'Kullanılabilir'),
+	(3, 'Kullanım süresi sona erdi');
 

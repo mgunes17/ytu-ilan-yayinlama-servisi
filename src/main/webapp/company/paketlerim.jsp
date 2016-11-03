@@ -31,19 +31,7 @@
 						<tbody>
 							<c:forEach var="item" items="${packets}">
 								<tr>
-									<td>
-										<c:choose>
-											<c:when test="${item.approved eq true }">
-												Onaylandı
-											</c:when>
-											<c:when test="${empty item.usernameForApproved}">
-												Onay Bekleniyor
-											</c:when>
-											<c:otherwise>
-												Reddedildi
-											</c:otherwise>
-										</c:choose>
-									</td>
+									<td>${item.state.title}</td>
 									<td>${item.packet.title}</td>
 									<td>${item.packet.announcementCount}</td>
 									<td>${item.timeToApproved}</td>
