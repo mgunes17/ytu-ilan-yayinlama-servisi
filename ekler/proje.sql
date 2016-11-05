@@ -149,7 +149,8 @@ INSERT INTO announcement_type VALUES
 	(1, 'internship'),
 	(2, 'part time'),
 	(3, 'full time'),
-	(4, 'freelance') ;
+	(4, 'freelance'),
+	(5, 'advertisement') ;
 	
 INSERT INTO user_type (type_no, type_name, main_page, unauthorized_page) VALUES
 	(0, 'admin', 'admin/index.jsp', 'admin/erisim-izni-yok.jsp'),

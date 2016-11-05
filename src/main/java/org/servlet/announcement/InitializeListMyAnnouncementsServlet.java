@@ -1,7 +1,6 @@
 package org.servlet.announcement;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,23 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.db.dao.UserDAO;
-import org.db.hibernate.UserHibernateImpl;
-import org.db.model.Announcement;
-import org.db.model.Company;
-import org.db.model.CompanyOwnPacket;
-
 /**
- * Servlet implementation class ListMyAnnouncementsServlet
+ * Servlet implementation class InitializeListMyAnnouncementsServlet
  */
-@WebServlet("/listmyannouncementsservlet")
-public class ListMyAnnouncementsServlet extends HttpServlet {
+@WebServlet("/initializelistmyannouncements")
+public class InitializeListMyAnnouncementsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListMyAnnouncementsServlet() {
+    public InitializeListMyAnnouncementsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,15 +36,8 @@ public class ListMyAnnouncementsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Company company = (Company) session.getAttribute("user");
-		UserDAO userDAO = new UserHibernateImpl();
-		company = (Company) userDAO.getUser(company.getUserName());
-		List<Announcement> announcements = company.getAnnouncements();
-		List<CompanyOwnPacket> packets = company.getPackets();
-		session.setAttribute("packets", packets);
-		session.setAttribute("announcements", announcements);
-		session.setAttribute("user", company);
-		response.sendRedirect("company/ilanlarim.jsp");
+		session.setAttribute("ilanaktif", 0);
+		response.sendRedirect("listmyannouncementsservlet");
 	}
 
 }

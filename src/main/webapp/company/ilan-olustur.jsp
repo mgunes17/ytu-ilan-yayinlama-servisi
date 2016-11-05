@@ -54,11 +54,11 @@
 			    	<c:when test="${olusturuldu eq 1}">
 			    		<div class="alert alert-success">
 			                <strong>Oluşturuldu!</strong> İlanınız başarıyla oluşturuldu. 
-			                İlanınızı <a href="company/ilanlarim">burdan</a> düzenleyebilir veya
+			                İlanınızı <a href="../listmyannouncementsservlet"><strong>buradan</strong></a> düzenleyebilir veya
 			                aktif hale getirebilirsiniz.
 			            </div>
 			            <div class="alert alert-info">
-			            	Oluşturduğunuz ilanları <a href="../listmyannouncementsservlet">buradan</a> görebilirsiniz.
+			            	Oluşturduğunuz ilanları <a href="../listmyannouncementsservlet"><strong>buradan</strong></a> görebilirsiniz.
 			            </div>
 			    	</c:when>
 			    	<c:when test="${olusturuldu eq 2}">
