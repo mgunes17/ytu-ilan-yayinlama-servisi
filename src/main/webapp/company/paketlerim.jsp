@@ -33,7 +33,7 @@
 								<tr>
 									<td>${item.state.title}</td>
 									<td>${item.packet.title}</td>
-									<td>${item.packet.announcementCount}</td>
+									<td>${item.packet.announcementCount - item.usedAnnouncements}</td>
 									<td>${item.timeToApproved}</td>
 									<td>${item.packet.lastDateUsed}</td>
 								</tr>

@@ -41,7 +41,7 @@
         </c:choose>
         
         <form method="post" action="studentsaveservlet" >
-            <table class="table">
+            <table class="table table-stripped">
               <tbody>
                 <tr>
                   <td>Kullanıcı Adı Belirleyiniz</td>

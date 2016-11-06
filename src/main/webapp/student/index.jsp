@@ -17,7 +17,7 @@
 <body>
  
     <h1>Hoşgeldiniz ${user.userName}</h1>
-    <a href="../getallannouncementsservlet">Tüm ilanları görüntüle</a>
+    <a href="../announcementstostudent">Tüm ilanları görüntüle</a>
     <a href="#">İlan Ara</a>
     <a href="#">Başvurularım</a>
     <a href="#">Profilimi Düzenle</a>

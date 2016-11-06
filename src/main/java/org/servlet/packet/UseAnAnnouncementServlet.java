@@ -58,6 +58,8 @@ public class UseAnAnnouncementServlet extends HttpServlet {
 		CompanyOwnPacket cop = packetDAO.getPacket(packetID);
 		cop.setUsedAnnouncements(cop.getUsedAnnouncements() + 1); //yayına al metodu yap
 		
+		ann.setOwnerPacket(cop);
+		
 		if(announcementDAO.updateAnnouncement(ann) && packetDAO.updatePacket(cop)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("ilanaktif", 1);

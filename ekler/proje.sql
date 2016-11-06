@@ -145,6 +145,15 @@ CREATE TABLE  company_own_packet (
 	time_to_approved timestamp
 );
 
+CREATE TABLE application (
+	application_no serial,
+	username varchar(20) REFERENCES users(user_name),
+	announcement_id int REFERENCES announcement(id),
+	time_to_application timestamp NOT NULL,
+	ip_address char(16) NOT NULL,
+	primary key(username , announcement_id)
+);
+
 INSERT INTO announcement_type VALUES
 	(1, 'internship'),
 	(2, 'part time'),
@@ -181,4 +190,22 @@ INSERT INTO announcement_packet_state (id, title) VALUES
 	(1, 'Onay Bekleniyor'),
 	(2, 'Kullanılabilir'),
 	(3, 'Kullanım süresi sona erdi');
+
+INSERT INTO department (code, name) VALUES 
+	('011', 'Bilgisayar Mühendisliği'),
+	('012', 'Elektrik Mühendisliği'),
+	('014', 'Elektronik ve Haberleşme Mühendisliği'),
+	('015', 'Kontrol ve Otomasyon Mühendisliği'),
+	('021', 'Felsefe'),
+	('022', 'Fizik'),
+	('023', 'İstatistik'),
+	('024', 'Kimya'),
+	('025', 'Matematik'),
+	('026', 'Mütercim-Tercümanlık (Fransızca)'),
+	('027', 'Türk Dili ve Edebiyatı'),
+	('028', 'Moleküler Biyoloji ve Genetik'),
+	('029', 'İnsan ve Toplum Bilimleri'),
+	('02B', 'Sosyoloji'),
+	('02D', 'Kimya (İngilizce)');
+	
 

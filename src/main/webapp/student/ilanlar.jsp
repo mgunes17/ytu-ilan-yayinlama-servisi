@@ -21,6 +21,7 @@
 				<th>İlan Tipi</th>
 				<th>Yayınlayan</th>
 				<th>Görüntülenme Sayısı</th>
+				<th>Detayı Gör</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -31,6 +32,12 @@
 					<td>${item.announcementType.title}</td>
 					<td>${item.ownerCompany.companyName}</td>
 					<td>${item.numberOfPageViews}</td>
+					<td>
+						<form action = "../announcementdetailtostudent" method = "post">
+							<input type = "hidden" name = "announcement" value = "${item.id}"/>
+							<input type = "submit" value  ="Detayı Gör"/>
+						</form>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>

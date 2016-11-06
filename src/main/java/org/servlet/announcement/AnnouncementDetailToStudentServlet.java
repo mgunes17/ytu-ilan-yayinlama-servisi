@@ -1,7 +1,6 @@
 package org.servlet.announcement;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,16 +14,16 @@ import org.db.hibernate.AnnouncementHibernateImpl;
 import org.db.model.Announcement;
 
 /**
- * Servlet implementation class GetAllAnnouncementsServlet
+ * Servlet implementation class AnnouncementDetailToStudentServlet
  */
-@WebServlet("/getallannouncementsservlet")
-public class GetAllAnnouncementsServlet extends HttpServlet {
+@WebServlet("/announcementdetailtostudent")
+public class AnnouncementDetailToStudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetAllAnnouncementsServlet() {
+    public AnnouncementDetailToStudentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,11 +39,21 @@ public class GetAllAnnouncementsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession httpSession = request.getSession();
+		int annID = Integer.parseInt(request.getParameter("announcement"));
 		AnnouncementDAO annDAO = new AnnouncementHibernateImpl();
-		List<Announcement> announcements = annDAO.getAllAnnouncements();
-		httpSession.setAttribute("announcements", announcements);
-		response.sendRedirect("student/ilanlar.jsp");
+		Announcement announcement = annDAO.getAnnouncement(annID);
+		HttpSession session = request.getSession();
+		
+		if(announcement != null) {
+			announcement.setNumberOfPageViews(announcement.getNumberOfPageViews() + 1); //tek metotla 1 artır
+			annDAO.updateAnnouncement(announcement); //aynı kullanıcı için sadece 1 görüntülenme sayılsın
+			session.setAttribute("ilangetir", 1);
+			session.setAttribute("announcement", announcement);
+		} else {
+			session.setAttribute("ilangetir", 1);
+		}
+		
+		response.sendRedirect("student/ilan-detay.jsp");
 	}
 
 }
