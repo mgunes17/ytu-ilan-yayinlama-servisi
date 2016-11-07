@@ -77,15 +77,15 @@
 									<td>
 										<form method="post">
 										    <input type="hidden" name="packetId" value="${item.id}" />
-											    <input 
-											        type="submit" value="Detaya Git" 
-											        formaction="../announcementdetailservlet"/>
-											    <input 
-											        type="submit" value="Yayından kaldır" 
-											        formaction="../"/>
-											       <input 
-											        type="submit" value="Sil" 
-											        formaction="../deleteannouncementservlet"/>
+										    <input 
+										        type="submit" value="Detaya Git" 
+									        	formaction="../announcementdetail"/>
+										    <input 
+										        type="submit" value="Yayından kaldır" 
+										        formaction="../"/>
+									        <input 
+									            type="submit" value="Sil" 
+									            formaction="../deleteannouncementservlet"/>
 											        
 											</form>
 										</td>

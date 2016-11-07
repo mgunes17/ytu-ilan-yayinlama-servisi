@@ -17,6 +17,7 @@ import org.db.hibernate.StudentHibernateImpl;
 import org.db.hibernate.UserHibernateImpl;
 import org.db.hibernate.UserTypeHibernateImpl;
 import org.db.model.CommunicationWay;
+import org.db.model.Department;
 import org.db.model.Student;
 import org.db.model.UserType;
 
@@ -81,7 +82,10 @@ public class StudentSaveServlet extends HttpServlet {
         student.setPassword(request.getParameter("password"));
         student.setName(request.getParameter("name"));
         student.setSurname(request.getParameter("surname"));
-        student.setDepartment(request.getParameter("department"));
+        
+        Department department = new Department();
+        department.setCode(request.getParameter("department"));
+        student.setDepartment(department);
         
         CommunicationWayPK mailPK = new CommunicationWayPK();
         mailPK.setCommType("mail");

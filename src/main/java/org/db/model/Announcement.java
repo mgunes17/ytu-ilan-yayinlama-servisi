@@ -1,15 +1,23 @@
 package org.db.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name="announcement")
@@ -52,7 +60,15 @@ public class Announcement implements Serializable {
     @JoinColumn(name="announcement_type", nullable=false)
     private AnnouncementType announcementType; //staj, freelance, part time, full time
     
-    public Announcement(){}
+    @OneToMany(mappedBy="pk.announcement", targetEntity=Application.class, 
+    		fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Student> appStudentList;
+
+	public Announcement(){
+    	super();
+    	appStudentList = new ArrayList<Student>();
+    }
 
     public AnnouncementType getAnnouncementType() {
         return announcementType;
@@ -125,4 +141,12 @@ public class Announcement implements Serializable {
     public void setOwnerPacket(CompanyOwnPacket ownerPacket) {
         this.ownerPacket = ownerPacket;
     }
+    
+    public List<Student> getAppStudentList() {
+		return appStudentList;
+	}
+
+	public void setAppStudentList(List<Student> appStudentList) {
+		this.appStudentList = appStudentList;
+	}
 }

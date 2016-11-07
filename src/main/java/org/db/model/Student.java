@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -20,8 +22,9 @@ public class Student extends User implements Serializable {
     @Column(name="surname" ,nullable=false)
     private String surname;
     
-    @Column(name="department" ,nullable=false)
-    private String department;
+    @ManyToOne
+    @JoinColumn(name="department" ,nullable=false)
+    private Department department;
 
     public Student(){
         super();
@@ -43,11 +46,11 @@ public class Student extends User implements Serializable {
         this.surname = surname;
     }
 
-    public String getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 }
