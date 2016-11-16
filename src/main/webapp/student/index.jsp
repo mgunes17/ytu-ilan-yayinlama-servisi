@@ -12,20 +12,26 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <jsp:include page="../html/head.html"></jsp:include>
     <title>Öğrenci</title>
 </head>
 <body>
- 
-    <h1>Hoşgeldiniz ${user.userName}</h1>
-    <a href="../announcementstostudent">Tüm ilanları görüntüle</a>
-    <a href="#">İlan Ara</a>
-    <a href="#">Başvurularım</a>
-    <a href="#">Profilimi Düzenle</a>
-    <a href="#">CV mi düzenle</a>
+ 	<div class="container-fluid">
+ 		<div class="row">
+ 			<jsp:include page="html/header.html"></jsp:include>
+ 		</div>
+ 		
+ 		<div class="row">
+ 			<h4>Hoşgeldiniz ${user.userName}</h4>
+ 			<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
+ 		</div>
+ 	</div>
     
      <c:choose>
     	<c:when test="${user.status eq 0 }">
-    		lütfen mail üzerinden hesabınızı aktif hale getiriniz
+    		<div class="alert alert-warning">
+    			Lütfen mail üzerinden hesabınızı aktif hale getiriniz.
+    		</div> 		
     	</c:when>
     </c:choose>
 </body>
