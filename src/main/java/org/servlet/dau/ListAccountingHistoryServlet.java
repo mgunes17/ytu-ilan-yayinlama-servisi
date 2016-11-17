@@ -1,6 +1,7 @@
-package org.servlet.company;
+package org.servlet.dau;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.db.dao.AnnouncementDAO;
-import org.db.hibernate.AnnouncementHibernateImpl;
-import org.db.model.Announcement;
+import org.db.dao.AccountingDAO;
+import org.db.hibernate.AccountingHibernateImpl;
+import org.db.model.Accounting;
+import org.db.model.DauUser;
 
 /**
- * Servlet implementation class AnnouncementDetailServlet
+ * Servlet implementation class ListAccountingHistoryServlet
  */
-@WebServlet("/announcementdetail")
-public class AnnouncementDetailServlet extends HttpServlet {
+@WebServlet("/listaccountinghistory")
+public class ListAccountingHistoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnnouncementDetailServlet() {
+    public ListAccountingHistoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,14 +41,17 @@ public class AnnouncementDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AnnouncementDAO annDAO = new AnnouncementHibernateImpl();
-		Announcement ann = annDAO.getAnnouncement(Integer.parseInt(request.getParameter("packetId"))); //isim yanlış düzeltilecek
-				
-		if(ann != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("announcement", ann);
-			response.sendRedirect("company/ilan-detay.jsp");
-		}
+		HttpSession session = request.getSession();
+		DauUser user = (DauUser) session.getAttribute("user");
+		
+		AccountingDAO accDAO = new AccountingHibernateImpl();
+		List<Accounting> acc = accDAO.getUnitAccountings(user.getDau().getUnitName());
+		
+		
+		
+		session.setAttribute("accounting", acc);
+		
+		response.sendRedirect("dau/muhasebe-kayitlari.jsp");
 	}
 
 }
