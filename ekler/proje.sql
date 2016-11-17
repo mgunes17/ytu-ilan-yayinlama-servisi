@@ -154,6 +154,29 @@ CREATE TABLE application (
 	primary key(username , announcement_id)
 );
 
+CREATE TABLE accounting(
+	unit_name varchar(40) REFERENCES donation_accept_unit(unit_name),
+	user_name varchar(20) REFERENCES dau_user(user_name),
+	date_time timestamp NOT NULL,
+	amount int NOT NULL,
+	primary key(unit_name, date_time)
+);
+
+CREATE OR REPLACE FUNCTION updateUnitBalance()
+RETURNS TRIGGER AS $donation_accept_unit$
+	BEGIN
+		UPDATE donation_accept_unit d
+		SET balance = (select sum(amount) from accounting a group by a.unit_name
+		having d.unit_name = a.unit_name);
+
+		RETURN new;
+	END;
+$donation_accept_unit$ LANGUAGE plpgsql;
+
+CREATE TRIGGER updateBalance 
+AFTER INSERT ON accounting
+FOR EACH ROW EXECUTE PROCEDURE updateUnitBalance();
+
 INSERT INTO announcement_type VALUES
 	(1, 'internship'),
 	(2, 'part time'),

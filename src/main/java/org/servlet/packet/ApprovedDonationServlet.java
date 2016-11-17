@@ -11,12 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.db.compositePK.AccountingPK;
+import org.db.dao.AccountingDAO;
 import org.db.dao.AnnouncementPacketStateDAO;
 import org.db.dao.CompanyOwnPacketDAO;
 import org.db.dao.DonationAcceptUnitDAO;
+import org.db.hibernate.AccountingHibernateImpl;
 import org.db.hibernate.CompanyOwnPacketHibernateImpl;
 import org.db.hibernate.DauHibernateImpl;
 import org.db.hibernate.PacketStateHibernateImpl;
+import org.db.model.Accounting;
 import org.db.model.AnnouncementPacketState;
 import org.db.model.CompanyOwnPacket;
 import org.db.model.DauUser;
@@ -70,6 +74,21 @@ public class ApprovedDonationServlet extends HttpServlet {
 			DonationAcceptUnitDAO dauDAO = new DauHibernateImpl();
 			List<CompanyOwnPacket> packet = dauDAO.getWaitingDonation(dauUser.getDau().getUnitName());
 			session.setAttribute("packet", packet);
+			
+			//parayı ekle -- dau tablosu trigger
+			Accounting accounting = new Accounting();
+			AccountingPK accountingPK = new AccountingPK();
+			
+			accountingPK.setDateTime(new Date());
+			accountingPK.setUnit(dauUser.getDau());
+			
+			accounting.setAccountingPK(accountingPK);
+			accounting.setAmount(cop.getPacket().getPrice());
+			accounting.setDauUser(dauUser);
+			
+			AccountingDAO accountingDAO = new AccountingHibernateImpl();
+			accountingDAO.saveAccounting(accounting);
+			
 		} else {
 			session.setAttribute("onaylandi", 2);
 		}
