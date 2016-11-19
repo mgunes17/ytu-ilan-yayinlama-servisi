@@ -25,16 +25,16 @@ public class SpendingRequest implements Serializable {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "title", nullable = false)
+	@Column(name = "title")
 	private String title;
 	
-	@Column(name = "content", nullable = false)
+	@Column(name = "content")
 	private String content;
 	
-	@Column(name = "amount", nullable = false)
+	@Column(name = "amount")
 	private int amount;
 	
-	@Column(name = "sent_date_time", nullable = false)
+	@Column(name = "sent_date_time")
 	private Date sentDateTime;
 	
 	@Column(name = "updated_date_time")

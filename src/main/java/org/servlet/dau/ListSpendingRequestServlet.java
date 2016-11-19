@@ -1,4 +1,4 @@
-package org.servlet.admin;
+package org.servlet.dau;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,21 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.db.dao.DonationAcceptUnitDAO;
-import org.db.hibernate.DauHibernateImpl;
-import org.db.model.DonationAcceptUnit;
+import org.db.dao.SpendingRequestDAO;
+import org.db.hibernate.SpendingRequestHibernateImpl;
+import org.db.model.DauUser;
+import org.db.model.SpendingRequest;
 
 /**
- * Servlet implementation class CreateSpendingRequestServlet
+ * Servlet implementation class ListSpendingRequestServlet
  */
-@WebServlet("/createspendingrequest")
-public class CreateSpendingRequestServlet extends HttpServlet {
+@WebServlet("/listspendingrequest")
+public class ListSpendingRequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateSpendingRequestServlet() {
+    public ListSpendingRequestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,22 +42,15 @@ public class CreateSpendingRequestServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		DauUser user = (DauUser) session.getAttribute("user");
 		
-		DonationAcceptUnitDAO dauDAO = new DauHibernateImpl();
-		List<DonationAcceptUnit> dauList = dauDAO.getAllUnits();
+		SpendingRequestDAO spendingDAO = new SpendingRequestHibernateImpl();
+		List<SpendingRequest> spendingRequestList = spendingDAO.listSpendingRequest(user.getDau().getUnitName(), 1);
 		
-		if(session.getAttribute("harcamaistegi") != null) {
-			session.setAttribute("harcamaistegi", 0);
-			session.removeAttribute("title");
-			session.removeAttribute("content");
-			session.removeAttribute("amount");
-			session.removeAttribute("toplamistekler");
-			session.removeAttribute("birim");
-		}
+		session.setAttribute("istekguncelle", 0);
+		session.setAttribute("spendingList", spendingRequestList);
 		
-		session.setAttribute("dau", dauList);
-			
-		response.sendRedirect("admin/harcama-istegi-olustur.jsp");
+		response.sendRedirect("dau/harcama-istekleri.jsp");
 	}
 
 }

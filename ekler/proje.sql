@@ -169,10 +169,10 @@ CREATE TABLE spending_request_state (
 
 CREATE TABLE spending_request ( 
 	id int primary key,
-	title char(60) NOT NULL,
-	content text NOT NULL,
-	amount int NOT NULL,
-	sent_date_time timestamp NOT NULL,
+	title char(60),
+	content text,
+	amount int,
+	sent_date_time timestamp,
 	dau varchar(40) REFERENCES donation_accept_unit(unit_name),
 	state int REFERENCES spending_request_state(id),
 	updater varchar(20) REFERENCES dau_user(user_name),
@@ -194,6 +194,21 @@ $donation_accept_unit$ LANGUAGE plpgsql;
 CREATE TRIGGER updateBalance 
 AFTER INSERT ON accounting
 FOR EACH ROW EXECUTE PROCEDURE updateUnitBalance();
+
+CREATE OR REPLACE FUNCTION insertAccounting()
+RETURNS TRIGGER AS $spending_request$
+	BEGIN
+		if new.state = 2 then
+			INSERT INTO accounting (unit_name, user_name, date_time, amount) 
+				VALUES(new.dau, new.updater, new.updated_date_time, -new.amount);
+		end if;
+		RETURN new;
+	END;
+$spending_request$ LANGUAGE plpgsql;
+
+CREATE TRIGGER insertAccounting
+AFTER UPDATE ON spending_request
+FOR EACH ROW EXECUTE PROCEDURE insertAccounting();
 
 INSERT INTO announcement_type VALUES
 	(1, 'internship'),

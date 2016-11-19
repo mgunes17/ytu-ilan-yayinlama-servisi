@@ -36,9 +36,16 @@
 								Harcama isteði ilgili vakýf kullanýcýlarýna gönderildi. Harcama yapýldýðý zaman
 								bilgilendirileceksiniz.
 							</div>
+							
+							<c:if test="${toplamistekler eq 1 }">
+								<div class="alert alert-warning">
+									${birim} biriminin bakiyesi, yapmýþ olduðunuz tüm istekleri karþýlamaya yetmemektedir.
+									<a href="#">Buradan</a> oluþturduðunuz harcama isteklerini düzenleyebilirsiniz. 
+								</div>
+							</c:if>
 						</c:when>
 						<c:when test="${harcamaistegi eq 2 }">
-							<div class="alert alert-warning">
+							<div class="alert alert-danger">
 								<strong>Baþarýsýz! </strong>Seçmiþ olduðunuz vakfýn bakiyesinden daha büyük bir miktarda 
 								harcama isteði yaptýnýz.
 							</div>
@@ -92,16 +99,6 @@
 						
 						<button type="submit" class="btn btn-default">Ýstek Oluþtur</button>
 					</form>
-            		
-            		sonra vakýf kullanýcýsý harcamak isteklerini gör
-            		harcama yapýldý olarak onayla desin, not eklesin, görsel varsa eklesin(fatura)
-            		harcama kaydýnda gerekli düzeltmeyi varsa yapsýn, o düzeltmeye göre para düþecek
-            		
-            		admin bakiyelerin güncellendiðini gördüðü zaman commitle
-            		
-            		istek gönderme bkbde
-            		isteðin iþlenmesi adminde ana sayfada görülecek 
-            		tüm kullanýcýlara bir de tüm olay kayýtlarýný gör seçeneði ekle
             		
             	</div>
            </div>

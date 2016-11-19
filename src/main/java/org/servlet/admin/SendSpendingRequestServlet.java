@@ -76,6 +76,16 @@ public class SendSpendingRequestServlet extends HttpServlet {
 					session.removeAttribute("title");
 					session.removeAttribute("content");
 					session.removeAttribute("amount");
+					
+					int totalSpendingRequest = srDAO.calculateTotalRequestAmount(dau.getUnitName());
+					
+					if(dau.getBalance() < totalSpendingRequest) {
+						session.setAttribute("birim", dau.getUnitName());
+						session.setAttribute("toplamistekler", 1);
+					} else {
+						session.setAttribute("toplamistekler", 0);
+					}
+					
 				}
 				
 				session.setAttribute("harcamaistegi", 1);
