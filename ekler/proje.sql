@@ -162,6 +162,24 @@ CREATE TABLE accounting(
 	primary key(unit_name, date_time)
 );
 
+CREATE TABLE spending_request_state (
+	id int primary key,
+	title char(50)
+);
+
+CREATE TABLE spending_request ( 
+	id int primary key,
+	title char(60) NOT NULL,
+	content text NOT NULL,
+	amount int NOT NULL,
+	sent_date_time timestamp NOT NULL,
+	dau varchar(40) REFERENCES donation_accept_unit(unit_name),
+	state int REFERENCES spending_request_state(id),
+	updater varchar(20) REFERENCES dau_user(user_name),
+	updated_date_time timestamp,
+	answer_from_updater text
+);
+
 CREATE OR REPLACE FUNCTION updateUnitBalance()
 RETURNS TRIGGER AS $donation_accept_unit$
 	BEGIN
@@ -231,4 +249,10 @@ INSERT INTO department (code, name) VALUES
 	('02B', 'Sosyoloji'),
 	('02D', 'Kimya (İngilizce)');
 	
+INSERT INTO spending_request_state (id, title) VALUES 
+	(1, 'Harcama Bekleniyor'),
+	(2, 'Harcama Yapıldı'),
+	(3, 'Harcama İsteği Reddedildi'),
+    (4, 'Yönetici tarafından askıya alındı');
+
 

@@ -36,5 +36,7 @@
     <mapping class="org.db.model.AnnouncementPacketState"/>
     <mapping class="org.db.model.Application"/>
     <mapping class="org.db.model.Accounting"/>
+    <mapping class="org.db.model.SpendingRequestState"/>
+    <mapping class="org.db.model.SpendingRequest"/>
   </session-factory>
 </hibernate-configuration>
