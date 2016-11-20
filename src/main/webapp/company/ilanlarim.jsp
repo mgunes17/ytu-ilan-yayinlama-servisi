@@ -42,7 +42,7 @@
 
 		<div class="row">
 			<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
-			<div class="col-md-8">   
+			<div class="col-md-9">   
 				<c:choose>
 					<c:when test="${ilanaktif eq 1 }">
 						<div class = "alert alert-success">
@@ -57,7 +57,6 @@
 			            <tr>
 			                <th>İlan No</th>
 			                <th>Başlık</th>
-			                <th>Ön Açıklama</th>
 			                <th>Durum</th>
 			                <th>Paket(Varsa)</th>
 			                <th>Başvuru Sayısı</th>
@@ -70,20 +69,19 @@
 								<tr>
 									<td>${item.id}</td>
 									<td>${item.title}</td>
-									<td>${item.brief}</td>
 									<td>${item.state.title}</td>
 									<td>${item.ownerPacket.packet.title}
 									<td>${item.numberOfPageViews}</td>
 									<td>
 										<form method="post">
 										    <input type="hidden" name="packetId" value="${item.id}" />
-										    <input 
+										    <input class="btn btn-success"
 										        type="submit" value="Detaya Git" 
 									        	formaction="../announcementdetail"/>
-										    <input 
+										    <input class="btn btn-warning"
 										        type="submit" value="Yayından kaldır" 
 										        formaction="../"/>
-									        <input 
+									        <input class="btn btn-danger"
 									            type="submit" value="Sil" 
 									            formaction="../deleteannouncementservlet"/>
 											        
@@ -101,7 +99,6 @@
 				            <tr>
 				                <th>İlan No</th>
 				                <th>Başlık</th>
-				                <th>Ön Açıklama</th>
 				                <th>Durum</th>
 				                <th>Paket(Varsa)</th>
 				                <th>Başvuru Sayısı</th>
@@ -115,7 +112,6 @@
 		       	 			<tr>
 								<td>${item.id}</td>
 								<td>${item.title}</td>
-								<td>${item.brief}</td>
 								<td>${item.state.title}</td>
 								<td>${item.ownerPacket.packet.title}
 								<td>${item.numberOfPageViews}</td>
@@ -124,7 +120,7 @@
 								    	<input type="hidden" name="packetId" value="${item.id}" />					
 										<input 
 										    type="submit" value="Detaya Git" class="btn btn-success"
-										    formaction="../announcementdetailservlet"/>					
+										    formaction="../announcementdetail"/>					
 										<a data-id="${item.id }" data-toggle="modal" title="Add this item" class="open-ChoosePacketDialog btn btn-primary" href="#choosePacketDialog">
 											Yayına Al
 										</a>
@@ -198,7 +194,6 @@
 			            <tr>
 			                <th>İlan No</th>
 			                <th>Başlık</th>
-			                <th>Ön Açıklama</th>
 			                <th>Durum</th>
 			                <th>Paket(Varsa)</th>
 			                <th>Başvuru Sayısı</th>
@@ -211,7 +206,6 @@
 			               	 		<tr>
 										<td>${item.id}</td>
 										<td>${item.title}</td>
-										<td>${item.brief}</td>
 										<td>${item.state.title}</td>
 										<td>${item.ownerPacket.packet.title}
 										<td>${item.numberOfPageViews}</td>
@@ -242,7 +236,6 @@
 			            <tr>
 			                <th>İlan No</th>
 			                <th>Başlık</th>
-			                <th>Ön Açıklama</th>
 			                <th>Durum</th>
 			                <th>Paket(Varsa)</th>
 			                <th>Başvuru Sayısı</th>
@@ -255,7 +248,6 @@
 			               	 		<tr>
 										<td>${item.id}</td>
 										<td>${item.title}</td>
-										<td>${item.brief}</td>
 										<td>${item.state.title}</td>
 										<td>${item.ownerPacket.packet.title}
 										<td>${item.numberOfPageViews}</td>

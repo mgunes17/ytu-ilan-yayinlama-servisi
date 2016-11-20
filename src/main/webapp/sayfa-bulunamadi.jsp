@@ -9,10 +9,9 @@
     <title>Giriş Yap</title>
 </head>
 <body>
-    <jsp:include page="html/header.html"></jsp:include>
     
     <div class="container text-center">
-    	Üzgünüm ama böyle bir sayfa mevcut değil.
+    	404 Üzgünüm ama böyle bir sayfa mevcut değil.
     </div>
     <jsp:include page="html/footer.html"/>
 </body>

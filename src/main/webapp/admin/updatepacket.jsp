@@ -15,7 +15,6 @@
     <title>Paket Düzenle</title>
 </head>
 <body>
-    <jsp:include page="adminmain.html"></jsp:include>
     <h1>${packet.packetId} nolu paketi düzenleyin</h1>
     
      <form method="POST" action="../">

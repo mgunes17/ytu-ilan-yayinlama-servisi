@@ -17,7 +17,7 @@
 	        </div>
         	<div class="row">
             	<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
-            	<div class="col-md-4">
+            	<div class="col-md-6">
 					<h4>Bakiye Miktarları</h4>
 					<table class="table table-bordered">
 						<c:forEach var="item" items="${dau}">

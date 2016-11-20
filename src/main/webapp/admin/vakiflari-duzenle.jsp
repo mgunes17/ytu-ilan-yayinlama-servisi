@@ -23,7 +23,7 @@
             <div class="col-md-3"><jsp:include page="html/menu.html"/></div>
             <div class="col-md-9">
                  <h3>Tanımlı Bağış Kabul Edebilecek Birimler</h3>
-                 <table class="displayTable" id="table" border="1">
+                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Birim Adı</th>
@@ -45,7 +45,7 @@
                                 <td><%--say--%></td>
                                 <td>
                                     <form method="post">
-                                        <input type="hidden" name="packetId" value="${item.userName}" />
+                                        <input type="hidden" name="packetId" value="${item.unitName}" />
                                         <input type="submit" value="Detaylar" formaction="../">
                                         <input type="submit" value="Sil" formaction="../">
                                     </form>

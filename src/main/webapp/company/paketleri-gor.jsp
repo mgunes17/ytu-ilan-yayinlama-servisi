@@ -39,9 +39,10 @@
 							<th>Paket Başlığı</th>
 							<th>İlan yayınlama Hakkı</th>
 							<th>Yayın Süresi(Gün)</th>
-							<th>Fiyat</th>
+							<th>Fiyat (TL)</th>
 							<th>Son kullanım tarihi</th>
 							<th>İlişkilendirilen Vakıf</th>
+							<th>İşlem</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -50,7 +51,7 @@
 								<td>${item.title}</td>
 								<td>${item.announcementCount}</td>
 								<td>${item.activeTime}</td>
-								<td>${item.price} ${item.currency.title}</td>
+								<td>${item.price}</td>
 								<td>${item.lastDateUsed}</td>
 								<td>${item.accountInfo.ownerUnit.unitName}</td>
 								<td>

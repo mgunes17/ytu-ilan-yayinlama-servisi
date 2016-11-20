@@ -26,18 +26,15 @@
             <div class="col-md-9">
                 <h1>Tanımlamış Olduğunuz Paketler</h1>
     
-                <table id="table" border="1">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Paket No</th>
                             <th>Paketin Adı</th>
                             <th>İlan Sayısı</th>
                             <th>İlan Yayın Süresi</th>
                             <th>Fiyat</th>
-                            <th>Para Birimi</th>
                             <th>Bağış Birimi</th>
                             <th>Son Kullanma Tarihi</th>
-                            <th>Açıklama</th>
                             <th>İşlemler</th>
                         </tr>
                     </thead>
@@ -45,20 +42,18 @@
 
                         <c:forEach var="item" items="${packets}">
                             <tr>
-                                <td>${item.packetId}</td>
                                 <td>${item.title}</td>
                                 <td>${item.announcementCount}</td>
                                 <td>${item.activeTime}</td>
                                 <td>${item.price}</td>
-                                <td>${item.currency}</td>
-                                <td>${item.donateAcceptUnit}
+                                <td>${item.accountInfo.ownerUnit.unitName}
                                 <td><fmt:formatDate value="${item.lastDateUsed}" /></td>
-                                <td>${item.condition}</td>
                                 <td>
                                     <form method="post">
-                                        <input type="hidden" name="packetId" value="${item.packetId}" />
-                                        <input type="submit" value="Sil" formaction="../deleteannouncementpacket">
-                                        <input type="submit" value="Düzenle" formaction="../updatepacket">
+                                    	<input type="submit" value="Detaya Git" formaction="../packetdetail" class="btn btn-info"/>
+                                    	<input type="submit" value="Düzenle" formaction="../updatepacket" class="btn btn-success"/>  
+                                    	<input type="submit" value="Sil" formaction="../deleteannouncementpacket" class="btn btn-danger"/>                                                                                                   	
+                                        <input type="text" name="packetId" value="${item.packetId}"/>
                                     </form>
                                 </td>
                             </tr>
@@ -66,7 +61,7 @@
                     </tbody>
                 </table>
 
-                <a href="../newannouncementpacketservlet">Yeni Paket Ekle</a>
+                <a href="../newannouncementpacketservlet" class="btn btn-info">Yeni Paket Ekle</a>
             </div>
         </div>
     </div>

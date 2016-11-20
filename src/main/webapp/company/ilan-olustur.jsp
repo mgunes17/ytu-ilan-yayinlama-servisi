@@ -23,34 +23,7 @@
 		<div class="row">
 			<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
 			<div class="col-md-5">
-				<h1>Yeni İlanınızı Oluşturun</h1>
-			    <form method="POST" action="../announcementcreateservlet">
-			    	<div class="form-group">
-			    		<label for="title">İlan Başlığı</label>
-			    		<input type="text" name="title" id="title" class="form-control"/>
-			    	</div>
-			    	<div class="form-group">
-			    		<label for="brief">Kısa Açıklama</label>
-			    		<input type="text" name="brief" id="brief" class="form-control"/>
-			    	</div>
-			    	<div class="form-group">
-			    		<label for="content">İlan Detayları</label>
-			    		<textarea rows="4" cols="50" name="content" id="content" class="form-control"></textarea>
-			    	</div>
-			        <div class="form-group">
-			        	<label for="">İlan Tipi</label>
-			        	<select name="type" class="form-control">
-				            <c:forEach var="item" items="${annType}">
-				                <option value="${item.id}">
-				                    <c:out value="${item.title}"/>
-				                </option>
-				            </c:forEach>
-				        </select>
-			        </div>
-			        <button type="submit" class="btn btn-default">Oluştur</button>
-			    </form>
-			    
-			    <c:choose>
+				<c:choose>
 			    	<c:when test="${olusturuldu eq 1}">
 			    		<div class="alert alert-success">
 			                <strong>Oluşturuldu!</strong> İlanınız başarıyla oluşturuldu. 
@@ -68,6 +41,34 @@
 			            </div>
 			    	</c:when>
 			    </c:choose>
+			    
+				<h1>Yeni İlanınızı Oluşturun</h1>
+			    <form method="POST" action="../announcementcreateservlet">
+			    	<div class="form-group">
+			    		<label for="title">İlan Başlığı</label>
+			    		<input type="text" name="title" id="title" class="form-control" pattern="[A-Za-z0-9]{1,70}" 
+			    			required title="70 karakterden fazla olamaz"/>
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="brief">Kısa Açıklama</label>
+			    		<textarea name="brief" id="brief" class="form-control" rows="2" cols="50"></textarea>
+			    	</div>
+			    	<div class="form-group">
+			    		<label for="content">İlan Detayları</label>
+			    		<textarea rows="10" cols="50" name="content" id="content" class="form-control"></textarea>
+			    	</div>
+			        <div class="form-group">
+			        	<label for="">İlan Tipi</label>
+			        	<select name="type" class="form-control">
+				            <c:forEach var="item" items="${annType}">
+				                <option value="${item.id}">
+				                    <c:out value="${item.title}"/>
+				                </option>
+				            </c:forEach>
+				        </select>
+			        </div>
+			        <button type="submit" class="btn btn-default">Oluştur</button>
+			    </form>
 			</div>
 		</div>
 		<div class="row">

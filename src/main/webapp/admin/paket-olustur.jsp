@@ -104,7 +104,7 @@
 		                            </tr>
 		                            <tr>
 		                                <td>Açıklama giriniz</td>
-		                                <td><input type="text" name="condition"/></td>
+		                                <td><textarea name="condition"></textarea></td>
 		                            </tr>
 		                            <tr><td colspan="2"><button type="submit" class="btn btn-default">Oluştur</button></td></tr>
 		
