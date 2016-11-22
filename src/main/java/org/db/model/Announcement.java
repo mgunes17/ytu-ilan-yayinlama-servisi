@@ -2,6 +2,7 @@ package org.db.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -63,7 +64,7 @@ public class Announcement implements Serializable {
     @OneToMany(mappedBy="pk.announcement", targetEntity=Application.class, 
     		fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
-    private List<Student> appStudentList;
+    private List<Student> appStudentList = new ArrayList<Student>();
     
     @Column(name = "announcement_language")
     private String announcementLanguage;
@@ -71,10 +72,12 @@ public class Announcement implements Serializable {
     @ManyToOne
     @JoinColumn(name = "announcement_category")
     private AnnouncementCategory category;
+    
+    @Column(name = "publish_date")
+    private Date publishDate;
 
 	public Announcement(){
     	super();
-    	appStudentList = new ArrayList<Student>();
     }
 
     public AnnouncementType getAnnouncementType() {
@@ -171,5 +174,13 @@ public class Announcement implements Serializable {
 
 	public void setCategory(AnnouncementCategory category) {
 		this.category = category;
+	}
+	
+	public Date getPublishDate() {
+		return publishDate;
+	}
+
+	public void setPublishDate(Date publishDate) {
+		this.publishDate = publishDate;
 	}
 }

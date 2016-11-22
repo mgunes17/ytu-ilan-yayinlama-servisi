@@ -111,7 +111,8 @@ CREATE TABLE announcement (
 	owner_packet int,
 	announcement_type int not null,
 	announcement_category int REFERENCES announcement_category(id),
-	announcement_language char(20)
+	announcement_language char(20),
+	publish_date timestamp
 );
 
 CREATE TABLE announcement_packet (

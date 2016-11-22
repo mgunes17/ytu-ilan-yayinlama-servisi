@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-9"
     pageEncoding="ISO-8859-9"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html">
 <html>
@@ -31,6 +34,18 @@
  								Lütfen daha sonra tekrar deneyin
  							</div>
  						</c:when>
+ 						<c:when test="${basvuruldu eq 3 }">
+ 							<div class="alert alert-warning">
+ 								Baþvurunuz silindi.
+ 								Ýsterseniz yeniden baþvurabilirsiniz.
+ 							</div>
+ 						</c:when>
+ 						<c:when test="${basvuruldu eq 4 }">
+ 							<div class="alert alert-alert">
+ 								Baþvurunuz silinemedi.
+ 								Lütfen daha sonra tekrar deneyin.
+ 							</div>
+ 						</c:when>
  					</c:choose>
  					<table class="table table-bordered">
  						<tr>
@@ -57,21 +72,26 @@
  						</tr>
  						<tr>
  							<th>Baþvuru sayýsý</th>
- 							<td></td>
+ 							<td>${fn:length(announcement.appStudentList)}</td>
  						</tr>
  						<tr>
 							<th>Kategori</th>
 							<td>${announcement.category.categoryName }</td>
+						</tr>
+						<tr>
+							<th>Yayýnlanma Tarihi</th>
+							<td><fmt:formatDate value="${announcement.publishDate }"/></td>
 						</tr>	
  						<tr>
  							<td colspan="2">
  								<form method = "post">
- 									<input type = "hidden" name = "ann" value = "${announcement.id}" >
+ 									<input type = "hidden" name = "announcement" value = "${announcement.id}" >
  									<c:if test="${basvuruvar eq 1 }">
+ 										<input type="hidden" name="deleteUrl" value="student/ilan-detay.jsp">
  										 <input disabled class="btn btn-primary disabled" type="submit" value="Baþvur">
- 										 <input formaction="#" class="btn btn-warning active" type = "submit" value = "Baþvuruyu Geri Çek">
+ 										 <input formaction="../deleteapplication" class="btn btn-warning active" type = "submit" value = "Baþvuruyu Geri Çek">
  									</c:if>
- 									<c:if test="${basvuruvar eq 2 }">
+ 									<c:if test="${basvuruvar eq 2 }">										
  										 <input type = "submit" value = "Ýlana Baþvur" formaction = "../applicationtoannouncement" class="btn btn-primary active">
  										 <input disabled formaction="#" type = "submit" value = "Baþvuruyu Geri Çek" class="btn btn-warning disabled">
  									</c:if>														

@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.db.dao.AnnouncementDAO;
+import org.db.dao.StudentDAO;
 import org.db.hibernate.AnnouncementHibernateImpl;
+import org.db.hibernate.StudentHibernateImpl;
 import org.db.model.Announcement;
 import org.db.model.Student;
+import org.db.model.User;
 
 /**
  * Servlet implementation class AnnouncementDetailToStudentServlet
@@ -44,12 +47,16 @@ public class AnnouncementDetailToStudentServlet extends HttpServlet {
 		AnnouncementDAO annDAO = new AnnouncementHibernateImpl();
 		Announcement announcement = annDAO.getAnnouncement(annID);
 		HttpSession session = request.getSession();
-		Student student = (Student) session.getAttribute("user");
+		StudentDAO studentDAO = new StudentHibernateImpl();
+		User user = (User) request.getSession().getAttribute("user");
+		Student student = studentDAO.getStudent(user.getUserName());
+		request.getSession().setAttribute("student", student);
 		
 		if(announcement != null) {
 			announcement.setNumberOfPageViews(announcement.getNumberOfPageViews() + 1); //tek metotla 1 artır
 			annDAO.updateAnnouncement(announcement); //aynı kullanıcı için sadece 1 görüntülenme sayılsın
 			session.setAttribute("ilangetir", 1);
+			//session.setAttribute("basvuruldu", 0);
 			
 			if(student.isApplication(announcement.getId())) {
 				session.setAttribute("basvuruvar", 1);
@@ -62,6 +69,7 @@ public class AnnouncementDetailToStudentServlet extends HttpServlet {
 			session.setAttribute("ilangetir", 1);
 		}
 		
+		session.setAttribute("basvuruldu", 0);
 		response.sendRedirect("student/ilan-detay.jsp");
 	}
 

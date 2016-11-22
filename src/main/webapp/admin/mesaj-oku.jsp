@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-9"
     pageEncoding="ISO-8859-9"%>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="html/head.html"/>
-        <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <title>Mesaj Detayları</title>
 </head>
 <body>

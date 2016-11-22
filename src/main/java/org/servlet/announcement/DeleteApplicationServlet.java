@@ -1,35 +1,31 @@
 package org.servlet.announcement;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.db.compositePK.ApplicationPK;
 import org.db.dao.AnnouncementDAO;
 import org.db.dao.ApplicationDAO;
 import org.db.hibernate.AnnouncementHibernateImpl;
 import org.db.hibernate.ApplicationHibernateImpl;
 import org.db.model.Announcement;
-import org.db.model.Application;
 import org.db.model.User;
 
 /**
- * Servlet implementation class ApplicationToAnnouncementServlet
+ * Servlet implementation class DeleteApplicationServlet
  */
-@WebServlet("/applicationtoannouncement")
-public class ApplicationToAnnouncementServlet extends HttpServlet {
+@WebServlet("/deleteapplication")
+public class DeleteApplicationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ApplicationToAnnouncementServlet() {
+    public DeleteApplicationServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,34 +42,27 @@ public class ApplicationToAnnouncementServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int annID = Integer.parseInt(request.getParameter("announcement"));
-		AnnouncementDAO annDAO = new AnnouncementHibernateImpl();
-		Announcement announcement = annDAO.getAnnouncement(annID);
-
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-		
-		ApplicationPK pk = new ApplicationPK();
-		pk.setAnnouncement(announcement);
-		pk.setUser(user);
-				
-		Application app = new Application();
-		app.setPk(pk);
-		app.setTimeToApplication(new Date());
-		app.setIpAddress(request.getRemoteAddr());
+		User user = (User) request.getSession().getAttribute("user");
+		System.out.println("id " + annID);
+		System.out.println("user " + user.getUserName());
+		System.out.println("-------" + (String)request.getParameter("deleteUrl"));
 		
 		ApplicationDAO appDAO = new ApplicationHibernateImpl();
 		
-		if(appDAO.application(app)) {
-			session.setAttribute("basvuruldu", 1);
-			session.setAttribute("basvuruvar", 1);
-			announcement = annDAO.getAnnouncement(annID);
-			session.setAttribute("announcement", announcement);
+		if(appDAO.deleteApplication(user.getUserName(), annID)) {
+			request.getSession().setAttribute("basvuruvar", 2);
+			request.getSession().setAttribute("basvuruldu", 3);
 		} else {
-			session.setAttribute("basvuruvar", 2);
-			session.setAttribute("basvuruldu", 2); //0 atamaya c set ile dene
+			request.getSession().setAttribute("basvuruldu", 4);
 		}
-
-		response.sendRedirect("student/ilan-detay.jsp");
+		
+		AnnouncementDAO annDAO = new AnnouncementHibernateImpl();
+		Announcement announcement = annDAO.getAnnouncement(annID);
+		request.getSession().setAttribute("announcement", announcement);
+		
+		//response.sendRedirect("student/ilan-detay.jsp");
+		
+		response.sendRedirect((String)request.getParameter("deleteUrl"));
 	}
 
 }

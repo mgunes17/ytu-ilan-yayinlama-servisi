@@ -1,6 +1,7 @@
 package org.servlet.packet;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,6 +54,7 @@ public class UseAnAnnouncementServlet extends HttpServlet {
 		Announcement ann = announcementDAO.getAnnouncement(announcementID);
 		ann.getState().setId(2);
 		ann.getState().setTitle("active");
+		ann.setPublishDate(new Date());
 		
 		CompanyOwnPacketDAO packetDAO = new CompanyOwnPacketHibernateImpl();
 		CompanyOwnPacket cop = packetDAO.getPacket(packetID);
