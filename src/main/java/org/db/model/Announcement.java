@@ -64,6 +64,13 @@ public class Announcement implements Serializable {
     		fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Student> appStudentList;
+    
+    @Column(name = "announcement_language")
+    private String announcementLanguage;
+    
+    @ManyToOne
+    @JoinColumn(name = "announcement_category")
+    private AnnouncementCategory category;
 
 	public Announcement(){
     	super();
@@ -148,5 +155,21 @@ public class Announcement implements Serializable {
 
 	public void setAppStudentList(List<Student> appStudentList) {
 		this.appStudentList = appStudentList;
+	}
+	
+	public String getAnnouncementLanguage() {
+		return announcementLanguage;
+	}
+
+	public void setAnnouncementLanguage(String announcementLanguage) {
+		this.announcementLanguage = announcementLanguage;
+	}
+
+	public AnnouncementCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(AnnouncementCategory category) {
+		this.category = category;
 	}
 }

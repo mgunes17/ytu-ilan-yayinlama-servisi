@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-9"
     pageEncoding="ISO-8859-9"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
@@ -16,6 +18,20 @@
 			<div class="row">
  				<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
  				<div class="col-md-4">
+ 					<c:choose>
+ 						<c:when test="${basvuruldu eq 1 }">
+ 							<div class="alert alert-success">
+ 								Başvurunuz gerçekleşti.
+ 								Tüm başvurularınızı <a href="#">buradan</a> görebilirsiniz.
+ 							</div>
+ 						</c:when>
+ 						<c:when test="${basvuruldu eq 2 }">
+ 							<div class="alert alert-danger">
+ 								Başvurunuz alınamadı.
+ 								Lütfen daha sonra tekrar deneyin
+ 							</div>
+ 						</c:when>
+ 					</c:choose>
  					<table class="table table-bordered">
  						<tr>
  							<th>Şirket Adı</th>
@@ -36,14 +52,30 @@
  							<td colspan="2">${announcement.content }</td>
  						</tr>
  						<tr>
- 							<td>Görüntülenme Sayısı</td>
+ 							<th>Görüntülenme Sayısı</th>
  							<td>${announcement.numberOfPageViews}</td>
  						</tr>
  						<tr>
+ 							<th>Başvuru sayısı</th>
+ 							<td></td>
+ 						</tr>
+ 						<tr>
+							<th>Kategori</th>
+							<td>${announcement.category.categoryName }</td>
+						</tr>	
+ 						<tr>
  							<td colspan="2">
- 								<form action = "../applicationtoannouncement" method = "post">
-									<input type = "hidden" name = "ann" value = "${announcement.id}" >
-									<input type = "submit" value = "İlana Başvur">
+ 								<form method = "post">
+ 									<input type = "hidden" name = "ann" value = "${announcement.id}" >
+ 									<c:if test="${basvuruvar eq 1 }">
+ 										 <input disabled class="btn btn-primary disabled" type="submit" value="Başvur">
+ 										 <input formaction="#" class="btn btn-warning active" type = "submit" value = "Başvuruyu Geri Çek">
+ 									</c:if>
+ 									<c:if test="${basvuruvar eq 2 }">
+ 										 <input type = "submit" value = "İlana Başvur" formaction = "../applicationtoannouncement" class="btn btn-primary active">
+ 										 <input disabled formaction="#" type = "submit" value = "Başvuruyu Geri Çek" class="btn btn-warning disabled">
+ 									</c:if>														
+									<input type = "submit" value = "Şikayet Et">
 								</form>
 							</td>
  						</tr>

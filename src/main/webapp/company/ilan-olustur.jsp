@@ -43,10 +43,10 @@
 			    </c:choose>
 			    
 				<h1>Yeni İlanınızı Oluşturun</h1>
-			    <form method="POST" action="../announcementcreateservlet">
+			    <form method="POST" action="../announcementcreate">
 			    	<div class="form-group">
 			    		<label for="title">İlan Başlığı</label>
-			    		<input type="text" name="title" id="title" class="form-control" pattern="[A-Za-z0-9]{1,70}" 
+			    		<input type="text" name="title" id="title" class="form-control" pattern=".{1,70}" 
 			    			required title="70 karakterden fazla olamaz"/>
 			    	</div>
 			    	<div class="form-group">
@@ -65,6 +65,31 @@
 				                    <c:out value="${item.title}"/>
 				                </option>
 				            </c:forEach>
+				        </select>
+			        </div>
+			        <div class="form-group">
+			        	<label for="">İlan Kategorisi</label>
+			        	<p>İlanınız herhangi kategoriye girmiyorsa "root-category" olarak seçin.</p>
+			        	<select name="category" class="form-control">
+				            <c:forEach var="item" items="${categoryList}">
+				            	<c:if test="${item.id ne 0 }">
+				            		<option selected disabled value="${item.id}">
+				                    <c:out value="${item.categoryName} Alt Kategorileri"/>
+					                </option>
+					                <c:forEach var="childItem" items="${item.children}">
+					                	<option value="${childItem.id}">
+					                    	<c:out value="----${childItem.categoryName}"/>
+					                	</option>
+					                </c:forEach>
+				            	</c:if>			                
+				            </c:forEach>
+				        </select>
+			        </div>
+			        <div class="form-group">
+			        	<label for="language">İlanın Dili</label>
+			        	<select name="language" class="form-control" id="language">				    
+			                <option value="Türkçe">Türkçe</option>
+			                <option value="İngilizce">İngilizce</option>
 				        </select>
 			        </div>
 			        <button type="submit" class="btn btn-default">Oluştur</button>

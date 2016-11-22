@@ -64,9 +64,10 @@ public class ApplicationToAnnouncementServlet extends HttpServlet {
 		ApplicationDAO appDAO = new ApplicationHibernateImpl();
 		
 		if(appDAO.application(app)) {
-			session.setAttribute("başvuru", 1);
+			session.setAttribute("basvuruldu", 1);
+			session.setAttribute("basvuruvar", 1);
 		} else {
-			session.setAttribute("başvuru", 2); //0 atamaya c set ile dene
+			session.setAttribute("basvuruldu", 2); //0 atamaya c set ile dene
 		}
 
 		response.sendRedirect("student/ilan-detay.jsp");

@@ -58,7 +58,7 @@
 			                <th>İlan No</th>
 			                <th>Başlık</th>
 			                <th>Durum</th>
-			                <th>Paket(Varsa)</th>
+			                <th>Paket</th>
 			                <th>Başvuru Sayısı</th>
 			                <th>İşlem</th>
 			            </tr>
@@ -100,7 +100,6 @@
 				                <th>İlan No</th>
 				                <th>Başlık</th>
 				                <th>Durum</th>
-				                <th>Paket(Varsa)</th>
 				                <th>Başvuru Sayısı</th>
 				                <th>İşlem</th>
 				            </tr>
@@ -113,7 +112,6 @@
 								<td>${item.id}</td>
 								<td>${item.title}</td>
 								<td>${item.state.title}</td>
-								<td>${item.ownerPacket.packet.title}
 								<td>${item.numberOfPageViews}</td>
 								<td>
 									<form method="post">

@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.db.dao.AnnouncementCategoryDAO;
 import org.db.dao.AnnouncementDAO;
 import org.db.dao.AnnouncementStateDAO;
+import org.db.hibernate.AnnouncementCategoryHibernateImpl;
 import org.db.hibernate.AnnouncementHibernateImpl;
 import org.db.hibernate.AnnouncementStateHibernateImpl;
 import org.db.model.Announcement;
@@ -21,7 +23,7 @@ import org.db.model.Company;
 /**
  * Servlet implementation class AnnouncementCreateServlet
  */
-@WebServlet("/announcementcreateservlet")
+@WebServlet("/announcementcreate")
 public class AnnouncementCreateServlet extends HttpServlet {
 	private Announcement announcement;
 	
@@ -72,9 +74,13 @@ public class AnnouncementCreateServlet extends HttpServlet {
 		announcement.setTitle(request.getParameter("title"));
 		announcement.setBrief(request.getParameter("brief"));
 		announcement.setContent(request.getParameter("content"));
+		announcement.setAnnouncementLanguage(request.getParameter("language"));
 		
 		AnnouncementType annType = new AnnouncementType();
 		annType.setId(Integer.parseInt(request.getParameter("type")));
 		announcement.setAnnouncementType(annType);
+		
+		AnnouncementCategoryDAO categoryDAO = new AnnouncementCategoryHibernateImpl();
+		announcement.setCategory(categoryDAO.getCategory(Integer.parseInt((String)request.getParameter("category"))));
 	}
 }

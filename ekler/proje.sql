@@ -95,21 +95,23 @@ CREATE TABLE message (
 	sender_email_address varchar(50) NOT NULL,
 	sender_ip_address varchar(16) NOT NULL,
 	is_read boolean default false,
-	date_time timestamp not null,
+	date_time timestamp NOT NULL,
 	primary key(sender_email_address, date_time)
 	--time?
 );
 
 CREATE TABLE announcement (
 	id int primary key,
-	title varchar(30),
+	title varchar(70),
 	brief text NOT NULL,
 	content text NOT NULL,
 	number_of_page_views int,
 	state int REFERENCES announcement_state(id),
 	owner_company varchar(30) REFERENCES company(user_name),
 	owner_packet int,
-	announcement_type int not null
+	announcement_type int not null,
+	announcement_category int REFERENCES announcement_category(id),
+	announcement_language char(20)
 );
 
 CREATE TABLE announcement_packet (
@@ -154,7 +156,7 @@ CREATE TABLE application (
 	primary key(username , announcement_id)
 );
 
-CREATE TABLE accounting(
+CREATE TABLE accounting (
 	unit_name varchar(40) REFERENCES donation_accept_unit(unit_name),
 	user_name varchar(20) REFERENCES dau_user(user_name),
 	date_time timestamp NOT NULL,
@@ -178,6 +180,12 @@ CREATE TABLE spending_request (
 	updater varchar(20) REFERENCES dau_user(user_name),
 	updated_date_time timestamp,
 	answer_from_updater text
+);
+
+CREATE TABLE announcement_category (
+	id int primary key,
+	category_name char(70) NOT NULL UNIQUE,
+	parent_category_id int REFERENCES announcement_category(id)
 );
 
 CREATE OR REPLACE FUNCTION updateUnitBalance()
@@ -211,11 +219,11 @@ AFTER UPDATE ON spending_request
 FOR EACH ROW EXECUTE PROCEDURE insertAccounting();
 
 INSERT INTO announcement_type VALUES
-	(1, 'internship'),
-	(2, 'part time'),
-	(3, 'full time'),
+	(1, 'Staj'),
+	(2, 'Yarı zamanlı'),
+	(3, 'Tam zamanlı'),
 	(4, 'freelance'),
-	(5, 'advertisement') ;
+	(5, 'Reklam/Tanıtım/Etkinlik') ;
 	
 INSERT INTO user_type (type_no, type_name, main_page, unauthorized_page) VALUES
 	(0, 'admin', 'admin/index.jsp', 'admin/erisim-izni-yok.jsp'),
@@ -269,5 +277,10 @@ INSERT INTO spending_request_state (id, title) VALUES
 	(2, 'Harcama Yapıldı'),
 	(3, 'Harcama İsteği Reddedildi'),
     (4, 'Yönetici tarafından askıya alındı');
+
+INSERT INTO announcement_category (id, category_name, parent_category_id)  VALUES 
+	(0, 'root-category', 0),
+	(1, 'Diğer', 0),
+	(2, 'Etkinlik', 1);
 
 

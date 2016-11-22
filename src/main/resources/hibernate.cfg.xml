@@ -38,5 +38,6 @@
     <mapping class="org.db.model.Accounting"/>
     <mapping class="org.db.model.SpendingRequestState"/>
     <mapping class="org.db.model.SpendingRequest"/>
+    <mapping class="org.db.model.AnnouncementCategory"/>
   </session-factory>
 </hibernate-configuration>

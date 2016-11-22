@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.db.dao.AnnouncementDAO;
 import org.db.hibernate.AnnouncementHibernateImpl;
 import org.db.model.Announcement;
+import org.db.model.Student;
 
 /**
  * Servlet implementation class AnnouncementDetailToStudentServlet
@@ -43,11 +44,19 @@ public class AnnouncementDetailToStudentServlet extends HttpServlet {
 		AnnouncementDAO annDAO = new AnnouncementHibernateImpl();
 		Announcement announcement = annDAO.getAnnouncement(annID);
 		HttpSession session = request.getSession();
+		Student student = (Student) session.getAttribute("user");
 		
 		if(announcement != null) {
 			announcement.setNumberOfPageViews(announcement.getNumberOfPageViews() + 1); //tek metotla 1 artır
 			annDAO.updateAnnouncement(announcement); //aynı kullanıcı için sadece 1 görüntülenme sayılsın
 			session.setAttribute("ilangetir", 1);
+			
+			if(student.isApplication(announcement.getId())) {
+				session.setAttribute("basvuruvar", 1);
+			} else {
+				session.setAttribute("basvuruvar", 2);
+			}
+			
 			session.setAttribute("announcement", announcement);
 		} else {
 			session.setAttribute("ilangetir", 1);

@@ -43,6 +43,14 @@
 						<td>${announcement.content}</td>
 					</tr>
 					<tr>
+						<th>Kategori</th>
+						<td>${announcement.category.categoryName }</td>
+					</tr>
+					<tr>
+						<th>İlanın Dili</th>
+						<td>${announcement.announcementLanguage}</td>
+					</tr>	
+					<tr>
 						<td><button class="btn btn-default" name ="appList" type="submit">İlanı Düzenle</button></td>
 					<tr>
 				</table>

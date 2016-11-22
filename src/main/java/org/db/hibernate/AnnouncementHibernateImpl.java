@@ -56,7 +56,7 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
 		try {
 			session = HibernateSessionFactory.getSessionFactory().openSession();
 			session.getTransaction().begin();
-			String query = "SELECT id, title, brief, content, number_of_page_views, state, owner_company, owner_packet, announcement_type"
+			String query = "SELECT *"
 							+ " FROM announcement where state = 2;";
 			SQLQuery sqlQuery = session.createSQLQuery(query);
 			sqlQuery.addEntity(Announcement.class);
