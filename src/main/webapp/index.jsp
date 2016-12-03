@@ -10,7 +10,7 @@
 	   	<jsp:include page="html/head.html"></jsp:include>
 	</head>
 <body>
-    <jsp:include page="html/header.html"></jsp:include>
+    <jsp:include page="html/header.jsp"></jsp:include>
     <div class="text-center">
         <h3>Yıldız Teknik Üniversitesi İlan Yayınlama Servisine Hoşgeldiniz!</h3>
         <h3>

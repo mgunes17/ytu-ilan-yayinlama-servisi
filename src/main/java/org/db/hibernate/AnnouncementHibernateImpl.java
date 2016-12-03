@@ -2,6 +2,7 @@ package org.db.hibernate;
 
 import java.util.List;
 
+import org.announcement.SearchCriteria;
 import org.db.dao.AnnouncementDAO;
 import org.db.model.Announcement;
 import org.db.model.AnnouncementType;
@@ -66,6 +67,27 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
 		} catch(Exception ex) {
 			session.getTransaction().rollback();
 			System.out.println("Aktif ilanlar getirilemedi:" + ex.getMessage());
+			return null;
+		} finally {
+			session.close();
+		}
+	}
+
+	public List<Announcement> getByCriteria(SearchCriteria criteria) {
+		try {
+			session = HibernateSessionFactory.getSessionFactory().openSession();
+			session.beginTransaction();
+			String query = "SELECT * FROM announcement " +
+					"WHERE announcement_type = " + criteria.getTypeId() + " AND announcement_category = " + criteria.getCategoryId() + 
+					" AND announcement_language = " + "'" + criteria.getLanguage() + "';";
+			SQLQuery sqlQuery = session.createSQLQuery(query);
+			sqlQuery.addEntity(Announcement.class);
+			List<Announcement> annList = sqlQuery.list();
+			session.getTransaction().commit();
+			return annList;
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			System.out.println("Kritere göre ilan filtreleme işlemi başarısız: " + e.getMessage());
 			return null;
 		} finally {
 			session.close();

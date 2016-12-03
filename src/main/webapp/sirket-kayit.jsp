@@ -15,7 +15,7 @@
         <jsp:include page="html/head.html"></jsp:include>
     </head>
 <body>
-    <jsp:include page="html/header.html"></jsp:include>
+    <jsp:include page="html/header.jsp"></jsp:include>
     <div class="container text-center">
         <h2>Şirket kayıt</h2>
         <p>Lütfen istenen bilgileri eksiksiz giriniz</p> 

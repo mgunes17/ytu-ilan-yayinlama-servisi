@@ -15,7 +15,7 @@
     <title>Nasıl Çalışır</title>
 </head>
 <body>
-    <jsp:include page="html/header.html"></jsp:include>
+    <jsp:include page="html/header.jsp"></jsp:include>
 
     <div class="text-center">
         <h3>Şirketler</h3>

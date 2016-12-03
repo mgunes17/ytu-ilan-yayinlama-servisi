@@ -46,6 +46,7 @@ public class SelectDauForPacketServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession httpSession = request.getSession();
+		request.setCharacterEncoding("UTF-8");
 		
 		DonationAcceptUnitDAO dauDAO = new DauHibernateImpl();
         DonationAcceptUnit dau = (DonationAcceptUnit) dauDAO.getUnit(request.getParameter("unit"));

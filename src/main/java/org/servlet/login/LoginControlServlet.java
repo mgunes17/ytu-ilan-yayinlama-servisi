@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,6 +34,7 @@ public class LoginControlServlet extends HttpServlet {
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String remember = request.getParameter("rememberMe");
         
         UserDAO userDAO = new UserHibernateImpl();
         User user = (User) userDAO.getUser(username);
@@ -44,6 +46,15 @@ public class LoginControlServlet extends HttpServlet {
         	response.sendRedirect("giris-yap.jsp");
         } 
         else {
+        	if(remember != null && Integer.parseInt(remember) == 1) {
+        		Cookie cookieUsername = new Cookie("username", user.getUserName());
+        		Cookie cookiePassword = new Cookie("password", user.getPassword());
+        		cookieUsername.setMaxAge(60*60*2*24);
+        		cookiePassword.setMaxAge(60*60*2*24);
+        		response.addCookie(cookieUsername);
+        		response.addCookie(cookiePassword);
+        	}
+        	
         	HttpSession httpSession = request.getSession();
         	httpSession.setAttribute("user",user);
         	httpSession.setAttribute("status", user.getStatus());

@@ -15,19 +15,19 @@
     <title>Giriş Yap</title>
 </head>
 <body>
-    <jsp:include page="html/header.html"></jsp:include>
+    <jsp:include page="html/header.jsp"></jsp:include>
     
     <div class="container text-center">
     	<h3>Giriş Yap</h3>
         <form action="logincontrolservlet" method="post">
         	<div class="form-group">
         		<label for="username">Kullanıcı Adı</label>
-        		<input type="text" name="username" id="username" pattern=".{1,20}"
+        		<input type="text" name="username" id="username" pattern=".{1,20}" value="${username}"
         			required title="Lütfen kullanıcı adınızı giriniz"/>
         	</div>
         	<div class="form-group">
         		<label for="password">Parola</label>
-        		<input type="password" name="password" id="password" pattern=".{1,16}"
+        		<input type="password" name="password" id="password" pattern=".{1,16}" value="${password}"
         			required title="Lütfen paroloanızı giriniz"/>
         	</div>
         	<c:choose>

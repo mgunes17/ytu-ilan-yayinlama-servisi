@@ -74,7 +74,7 @@
 				            <c:forEach var="item" items="${categoryList}">
 				            	<c:if test="${item.id ne 0 }">
 				            		<option selected disabled value="${item.id}">
-				                    <c:out value="${item.categoryName} Alt Kategorileri"/>
+				                    	<c:out value="${item.categoryName} Alt Kategorileri"/>
 					                </option>
 					                <c:forEach var="childItem" items="${item.children}">
 					                	<option value="${childItem.id}">
