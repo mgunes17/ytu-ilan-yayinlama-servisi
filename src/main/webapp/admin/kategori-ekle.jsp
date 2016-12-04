@@ -131,13 +131,15 @@
                                    data-toggle="modal">
                                     <span style="color:dodgerblue" class="glyphicon glyphicon-pencil"></span>
                                 </a>
-                                <a href="#deleteCategoryDialog"
-                                   title="Sil"
-                                   data-id="${item.id}"
-                                   class="open-deleteCategoryDialog"
-                                   data-toggle="modal">
-                                    <span style="color:red" class="glyphicon glyphicon-remove" title="Sil"></span>
-                                </a>
+                                <c:if test="${item.referencesCount eq 0}">
+                                    <a href="#deleteCategoryDialog"
+                                       title="Sil"
+                                       data-id="${item.id}"
+                                       class="open-deleteCategoryDialog"
+                                       data-toggle="modal">
+                                        <span style="color:red" class="glyphicon glyphicon-remove" title="Sil"></span>
+                                    </a>
+                                </c:if>
                             </h4>
             				<ol>
             					<c:forEach var="childItem" items="${item.children}">
@@ -152,13 +154,15 @@
                                                data-toggle="modal">
                                                 <span style="color:dodgerblue" class="glyphicon glyphicon-pencil"></span>
                                             </a>
-                                            <a href="#deleteCategoryDialog"
-                                               title="Sil"
-                                               data-id="${childItem.id}"
-                                               class="open-deleteCategoryDialog"
-                                               data-toggle="modal">
-                                                <span style="color:red" class="glyphicon glyphicon-remove"></span>
-                                            </a>
+                                            <c:if test="${childItem.referencesCount eq 0}">
+                                                <a href="#deleteCategoryDialog"
+                                                   title="Sil"
+                                                   data-id="${childItem.id}"
+                                                   class="open-deleteCategoryDialog"
+                                                   data-toggle="modal">
+                                                    <span style="color:red" class="glyphicon glyphicon-remove"></span>
+                                                </a>
+                                            </c:if>
                                         </h4>
                                     </li>
             					</c:forEach>

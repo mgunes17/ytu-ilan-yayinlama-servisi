@@ -1,6 +1,9 @@
 package org.db.hibernate;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.db.dao.AccountingDAO;
 import org.db.model.Accounting;
@@ -15,7 +18,8 @@ public class AccountingHibernateImpl extends AbstractDAO implements AccountingDA
 	}
 
 	public List<Accounting> getAllAccountings() {
-		return (List<Accounting>) getAllRows(Accounting.class);
+		String query = "select * from accounting order by date_time";
+		return getRowsBySQLQuery(Accounting.class, query);
 	}
 
 	public List<Accounting> getUnitAccountings(String unitName) {
@@ -35,6 +39,22 @@ public class AccountingHibernateImpl extends AbstractDAO implements AccountingDA
 		} finally {
 			session.close();
 		}
+	}
+
+	public List<Accounting> getAccountingsFilterDate(String start, String end) {
+		String query = "select * from accounting where date_time between '" + start + "' and '" +  end + "' order by date_time";
+		return getRowsBySQLQuery(Accounting.class, query);
+	}
+
+	public List<Accounting> getAccountingsFilterName(String name) {
+		String query = "select * from accounting where unit_name = '" + name + "' order by date_time";
+		return getRowsBySQLQuery(Accounting.class, query);
+	}
+
+	public List<Accounting> getAccountingsFilterDateAndName(String name, String start, String end) {
+		String query = "select * from accounting where date_time between '" + start + "' and '" +  end + "' " +
+				"and unit_name='" + name + "' order by date_time";
+		return getRowsBySQLQuery(Accounting.class, query);
 	}
 
 }

@@ -21,15 +21,10 @@
 <body>
 	<script>
 		$(document).on("click", ".open-ChoosePacketDialog", function (e) {
-		
 			e.preventDefault();
-		
 			var _self = $(this);
-		
 			var myAnnouncementId = _self.data('id');
 			$("#announcementId").val(myAnnouncementId);
-			
-		
 			$(_self.attr('href')).modal('show');
 		});
 	</script>

@@ -1,14 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-9"
-    pageEncoding="ISO-8859-9"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
 		 <jsp:include page="html/head.html"/>
-		<title>Paket Detayları</title>
+		<title>Paket DetaylarÄ±</title>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -18,14 +17,14 @@
 	        <div class="row">
 	            <div class="col-md-3"><jsp:include page="html/menu.html"/></div>
 	            <div class="col-md-4">
-	            	<h3>${packet.packetId} No'lu Paketin Detayları</h3>
+	            	<h3>${packet.packetId} No'lu Paketin DetaylarÄ±</h3>
 	            	<table class="table table-bordered">
 	            		<tr>
-	            			<th>Başlık</th>
+	            			<th>BaÅŸlÄ±k</th>
 	            			<td>${packet.title }</td>
 	            		</tr>
 	            		<tr>
-	            			<th>İlan Sayısı</th>
+	            			<th>Ä°lan SayÄ±sÄ±</th>
 	            			<td>${packet.announcementCount }</td>
 	            		</tr>
 	            		<tr>
@@ -33,19 +32,19 @@
 	            			<td>${packet.price }</td>
 	            		</tr>
 	            		<tr>
-	            			<th>Son Kullanım Tarihi</th>
+	            			<th>Son KullanÄ±m Tarihi</th>
 	            			<td>${packet.lastDateUsed }</td>
 	            		</tr>
 	            		<tr>
-	            			<th>Bir İlan İçin Yayın Süresi</th>
+	            			<th>Bir Ä°lan Ä°Ã§in YayÄ±n SÃ¼resi</th>
 	            			<td>${packet.activeTime }</td>
 	            		</tr>
 	            		<tr>
-	            			<th>Açıklama</th>
+	            			<th>AÃ§Ä±klama</th>
 	            			<td>${packet.condition }</td>
 	            		</tr>
 	            		<tr>
-	            			<th>Tanımlı Banka Adı</th>
+	            			<th>TanÄ±mlÄ± Banka AdÄ±</th>
 	            			<td>${packet.accountInfo.bankName }</td>
 	            		</tr>
 	            		<tr>

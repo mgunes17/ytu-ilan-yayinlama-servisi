@@ -9,9 +9,8 @@
 		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<jsp:include page="html/head.html"></jsp:include>
-		<title>Harcama Ýstekleri</title>
+        <title>Harcama Ýstekleri</title>
 	</head>
 	<body>
 		<script>
@@ -120,7 +119,7 @@
 						<thead>
 							<tr>
 								<th>Baþlýk</th>
-								<th>Mesaj</th>
+								<th style="width:30%">Mesaj</th>
 								<th>Tutar</th>
 								<th>Oluþturulma Tarihi</th>
 								<th>Ýþlem</th> <!-- Modal Box ile yap -->
@@ -130,8 +129,16 @@
 							<c:forEach var="item" items="${spendingList}">
 								<tr>
 									<td>${item.title}</td>
-									<td>${item.content}</td>
-									<td>${item.amount}</td>
+									<td>
+                                        <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#${item.id}">
+                                            <span class="glyphicon glyphicon-collapse-down"></span> Mesajý Oku
+                                        </button>
+                                        <div id="${item.id}" class="collapse">
+                                            ${item.content}
+                                        </div>
+
+									</td>
+									<td align="right">${item.amount}</td>
 									<td><fmt:formatDate type="date" value="${item.sentDateTime}"/></td>
 									<td>
 										<form>

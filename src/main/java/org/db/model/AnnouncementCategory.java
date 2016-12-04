@@ -42,6 +42,9 @@ public class AnnouncementCategory implements Serializable {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<AnnouncementCategory> children = new ArrayList<AnnouncementCategory>();
 
+	@Column(name = "references_count", columnDefinition = "int default 0")
+	private int referencesCount;
+
 	public AnnouncementCategory() {
 		super();
 	}
@@ -81,5 +84,13 @@ public class AnnouncementCategory implements Serializable {
 
 	public void setChildren(List<AnnouncementCategory> children) {
 		this.children = children;
+	}
+
+	public int getReferencesCount() {
+		return referencesCount;
+	}
+
+	public void setReferencesCount(int referencesCount) {
+		this.referencesCount = referencesCount;
 	}
 }

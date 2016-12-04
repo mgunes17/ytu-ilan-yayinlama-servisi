@@ -34,7 +34,7 @@ CREATE TABLE company (
 
 CREATE TABLE donation_accept_unit (
 	unit_name varchar(40),
-	balance int,
+	balance int DEFAULT 0,
 	primary key(unit_name)
 );
 
@@ -186,6 +186,7 @@ CREATE TABLE spending_request (
 CREATE TABLE announcement_category (
 	id int primary key,
 	category_name char(70) NOT NULL UNIQUE,
+	references_count int DEFAULT 0,
 	parent_category_id int REFERENCES announcement_category(id)
 );
 
@@ -218,6 +219,21 @@ $spending_request$ LANGUAGE plpgsql;
 CREATE TRIGGER insertAccounting
 AFTER UPDATE ON spending_request
 FOR EACH ROW EXECUTE PROCEDURE insertAccounting();
+
+CREATE OR REPLACE FUNCTION countReferenceForCategory()
+RETURNS TRIGGER AS $announcement$
+	BEGIN
+		update announcement_category ac
+		set references_count = (
+		select count(a.announcement_category) from announcement a group by a.announcement_category
+		having ac.id = a.announcement_category);
+	END;
+$announcement$ LANGUAGE plpgsql;
+
+CREATE TRIGGER isDeleteable
+AFTER INSERT OR UPDATE OR DELETE ON announcement
+FOR EACH ROW EXECUTE PROCEDURE countReferenceForCategory();
+
 
 INSERT INTO announcement_type VALUES
 	(1, 'Staj'),

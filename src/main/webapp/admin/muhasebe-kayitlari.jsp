@@ -1,14 +1,50 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-9"
-    pageEncoding="ISO-8859-9"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
-		<title>Muhasebe Kayıtları</title>
+		<title>Muhasebe KayÄ±tlarÄ±</title>
 		<jsp:include page="html/head.html"/>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="/resources/demos/style.css">
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="../js/datePicker.js" charset="UTF-8"></script>
+		<script>
+			$( function() {
+				var dateFormat = "dd/mm/yy",
+						from = $( "#from" )
+								.datepicker({
+									defaultDate: "+1w",
+									changeMonth: true,
+									numberOfMonths: 2
+								})
+								.on( "change", function() {
+									to.datepicker( "option", "minDate", getDate( this ) );
+								}),
+						to = $( "#to" ).datepicker({
+							defaultDate: "+1w",
+							changeMonth: true,
+							numberOfMonths: 2
+						})
+								.on( "change", function() {
+									from.datepicker( "option", "maxDate", getDate( this ) );
+								});
+
+				function getDate( element ) {
+					var date;
+					try {
+						date = $.datepicker.parseDate( dateFormat, element.value );
+					} catch( error ) {
+						date = null;
+					}
+
+					return date;
+				}
+			} );
+		</script>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -17,40 +53,77 @@
 	        </div>
         	<div class="row">
             	<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
-            	<div class="col-md-6">
-					<h4>Bakiye Miktarları</h4>
+				<div class="col-md-2">
+					<h4>Arama YapÄ±n</h4>
+					<form action="../filterbalance">
+						<div class="form-group">
+							<label for="from">BaÅŸlangÄ±Ã§ Tarihi</label>
+							<input type="text" id="from" name="from" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="to">BitiÅŸ Tarihi</label>
+							<input type="text" id="to" name="to" class="form-control">
+						</div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="" name="allDate">TÃ¼m Tarihleri Getir</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="dau">BKB SeÃ§</label>
+                            <select name="department" id="dau">
+                                <c:forEach var="item" items="${dau}">
+                                    <option value="${item.unitName}">
+                                        <c:out value="${item.unitName}"/>
+                                    </option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="" name="allDau">TÃ¼m Birimleri Getir</label>
+                        </div>
+						<button type="submit">KayÄ±tlarÄ± Getir</button>
+					</form>
+				</div>
+				<div class="col-md-2">
+					<h4>Bakiye MiktarlarÄ±</h4>
 					<table class="table table-bordered">
 						<c:forEach var="item" items="${dau}">
-							<tr>
-								<th>${item.unitName}</th>
-								<td>${item.balance}</td>
-							<tr>
-						</c:forEach>
-					</table>
-					
-					<h4>İşlem Kayıtları</h4>
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>Birim Adı</th>
-								<th>İşlemi yapan kullanıcı</th>
-								<th>İşlem tarihi</th>
-								<th>Miktar</th>
-							</tr>	
-						</thead>
-						<tbody>
-							<c:forEach var="item" items="${accounting }">
-								<tr>
-									<td>${item.dauUser.dau.unitName }</td>
-									<td>${item.dauUser.userName }</td>
-									<td><fmt:formatDate type="date" value="${item.accountingPK.dateTime}"/></td>
-									<td>${item.amount}</td>
-								</tr>
+						<tr>
+							<th>${item.unitName}</th>
+							<td align="right">${item.balance}</td>
+						<tr>
 							</c:forEach>
-						</tbody>
 					</table>
 				</div>
             </div>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<h4>Ä°ÅŸlem KayÄ±tlarÄ±</h4>
+					<table class="table table-hover">
+						<thead>
+						<tr>
+							<th>Birim AdÄ±</th>
+							<th>Onay veren kullanÄ±cÄ±</th>
+							<th>Ä°ÅŸlem tarihi</th>
+							<th>Miktar (TL)</th>
+                            <th>AÃ§Ä±klama</th>
+						</tr>
+						</thead>
+						<tbody>
+						<c:forEach var="item" items="${accounting }">
+							<tr>
+								<td>${item.dauUser.dau.unitName }</td>
+								<td>${item.dauUser.userName }</td>
+								<td><fmt:formatDate type="date" value="${item.accountingPK.dateTime}"/></td>
+								<td align="right">${item.amount}</td>
+                                <td></td>
+							</tr>
+						</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-4"></div>
+			</div>
         </div>
 	</body>
 </html>
