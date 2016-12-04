@@ -1,4 +1,4 @@
-package org.servlet.announcement;
+package org.servlet.category;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,16 +15,16 @@ import org.db.hibernate.AnnouncementCategoryHibernateImpl;
 import org.db.model.AnnouncementCategory;
 
 /**
- * Servlet implementation class AddCategoryServlet
+ * Servlet implementation class SaveCategoryServlet
  */
-@WebServlet("/addcategory")
-public class AddCategoryServlet extends HttpServlet {
+@WebServlet("/savecategory")
+public class SaveCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddCategoryServlet() {
+    public SaveCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,15 +40,28 @@ public class AddCategoryServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		AnnouncementCategoryDAO categoryDAO = new AnnouncementCategoryHibernateImpl();
-		List<AnnouncementCategory> categoryList = categoryDAO.getParentCategories();
-		AnnouncementCategory root = categoryList.get(0);
-		
 		HttpSession session = request.getSession();
-		session.setAttribute("categoryList", categoryList);
-		session.setAttribute("kategorieklendi", 0);
-		session.setAttribute("rootCategory", root);
+		AnnouncementCategory category = new AnnouncementCategory();
+		category.setCategoryName(request.getParameter("categoryName"));
+		category.setParentCategory(Integer.parseInt(request.getParameter("parentCategory")));
 		
+		if(categoryDAO.isCategoryNameExist(request.getParameter("categoryName"))) {
+			session.setAttribute("kategorieklendi", 3);
+			session.setAttribute("kategoriadi", request.getParameter("categoryName"));
+		} else if(categoryDAO.saveCategory(category)) {
+			session.setAttribute("kategorieklendi", 1);
+			List<AnnouncementCategory> categoryList = categoryDAO.getParentCategories();
+			AnnouncementCategory root = categoryList.get(0);
+			session.setAttribute("rootCategory", root);
+			session.setAttribute("categoryList", categoryList);
+		} else {
+			session.setAttribute("kategorieklendi", 2);
+		}
+
+		session.setAttribute("kategorisil", 0);
 		response.sendRedirect("admin/kategori-ekle.jsp");
 	}
 

@@ -50,7 +50,7 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
 	}
 
 	public boolean updateAnnouncement(Announcement ann) {
-		return saveOrUpdate(ann);
+		return save(ann);
 	}
 
 	public List<Announcement> getActiveAnnouncements() {

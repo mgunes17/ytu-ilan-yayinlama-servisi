@@ -66,14 +66,16 @@
   					<div class="modal-body">
    						<p>Değiştirmek istediğiniz bilgiler..</p>
    						<form method="post" action="../updatedepartment">
-                            <input type="text" name="oldCode" id="oldCode">
+                            <input type="hidden" name="oldCode" id="oldCode">
    							<div class="form-group">
    								<label for="codeChange">Bölüm Kodu</label>
-   								<input type="text" name="codeChange" id="codeChange" class="form-control">
+   								<input type="text" name="codeChange" id="codeChange" class="form-control"
+									   maxlength="3" required title="Bölüm kodu 3 karakter olmalıdır.">
    							</div>
    							<div class="form-group">
    								<label for="name">Bölüm Adı</label>
-   								<input type="text" name="name" id="name" class="form-control">
+   								<input type="text" name="name" id="name" class="form-control"
+                                    maxlength="70" required title="Bölüm adı 1-50 karakter uzunluğunda olmalı">
    							</div>
    							<input type="submit" class="btn btn-default" value="Güncelle">
    						</form>
@@ -175,11 +177,13 @@
             		<form method="post" action="../adddepartment">
             			<div class="form-group">
             				<label for="dcode">Bölüm Kodu</label>
-            				<input type="text" name="dcode" id="dcode" class="form-control">
+            				<input type="text" name="dcode" id="dcode" class="form-control"
+                                   maxlength="3" required title="Bölüm kodu 3 karakter olmalıdır.">
             			</div>
             			<div class="form-group">
             				<label for="dname">Bölüm Adı</label>
-            				<input type="text" name="dname" id="dname" class="form-control">
+            				<input type="text" name="dname" id="dname" class="form-control"
+                                   maxlength="70" required title="Bölüm adı 1-50 karakter uzunluğunda olmalı">
             			</div>
             			<button type="submit" class="btn btn-default">Ekle</button>
             		</form>

@@ -10,4 +10,6 @@ public interface AnnouncementCategoryDAO {
 	boolean saveCategory(AnnouncementCategory category);
 	AnnouncementCategory getCategory(int id);
 	boolean isCategoryNameExist(String name);
+	boolean deleteCategory(int id);
+	boolean updateCategory(int id, String name);
 }

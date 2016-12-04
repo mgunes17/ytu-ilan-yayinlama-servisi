@@ -10,7 +10,7 @@ public class CompanyOwnPacketHibernateImpl extends AbstractDAO implements Compan
 	}
 
 	public boolean updatePacket(CompanyOwnPacket cop) {
-		return saveOrUpdate(cop);
+		return save(cop);
 	}
 
 	public CompanyOwnPacket getPacket(int packetId) {

@@ -1,22 +1,20 @@
 package org.db.hibernate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.db.dao.AnnouncementCategoryDAO;
 import org.db.model.AnnouncementCategory;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
 
 public class AnnouncementCategoryHibernateImpl extends AbstractDAO implements AnnouncementCategoryDAO {
-	private Session session;
-
 	public List<AnnouncementCategory> getAllCategories() {
 		return (List<AnnouncementCategory>) getAllRows(AnnouncementCategory.class);
 	}
 
 	public boolean saveCategory(AnnouncementCategory category) {
 		// TODO Auto-generated method stub
-		return saveOrUpdate(category);
+		return save(category);
 	}
 
 	public AnnouncementCategory getCategory(int id) {
@@ -24,41 +22,36 @@ public class AnnouncementCategoryHibernateImpl extends AbstractDAO implements An
 	}
 
 	public boolean isCategoryNameExist(String name) {
-		try {
-			session = HibernateSessionFactory.getSessionFactory().openSession();
-			session.getTransaction().begin();
-			String query = "SELECT * FROM announcement_category WHERE category_name = " + "'" + name + "';";
-			SQLQuery sqlQuery = session.createSQLQuery(query);
-			sqlQuery.addEntity(AnnouncementCategory.class);
-			if(sqlQuery.list().isEmpty())
-				return false;
-			else
-				return true;
-		} catch(Exception ex) {
-			session.getTransaction().rollback();
-			System.out.println("İsim kontrolü yapılırken hata: " + ex.getMessage());
-			return true;
-		} finally {
-			session.close();
-		}
+        String query = "from AnnouncementCategory where categoryName = :name";
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        parameter.put("name", name);
+        List<AnnouncementCategory> row = getRowsByQuery(AnnouncementCategory.class, query, parameter);
+
+        if(row.isEmpty())
+            return false;
+        else
+            return true;
 	}
 
-	public List<AnnouncementCategory> getParentCategories() {
-		try {
-			session = HibernateSessionFactory.getSessionFactory().openSession();
-			session.getTransaction().begin();
-			String query = "SELECT * FROM announcement_category WHERE parent_category_id = 0";
-			SQLQuery sqlQuery = session.createSQLQuery(query);
-			sqlQuery.addEntity(AnnouncementCategory.class);
-			List<AnnouncementCategory> parent = (List<AnnouncementCategory>) sqlQuery.list();
-			return parent;
-		} catch(Exception ex) {
-			session.getTransaction().rollback();
-			System.out.println("İsim kontrolü yapılırken hata: " + ex.getMessage());
-			return null;
-		} finally {
-			session.close();
-		}	
+    public boolean deleteCategory(int id) {
+       return deleteByQuery(AnnouncementCategory.class, "AnnouncementCategory", "id", id);
+    }
+
+    public boolean updateCategory(int id, String name) {
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        parameter.put("name", name);
+        parameter.put("id", id);
+
+        String query = "update AnnouncementCategory set categoryName = :name where id = :id";
+        return updateByQuery(AnnouncementCategory.class, query, parameter);
+    }
+
+    public List<AnnouncementCategory> getParentCategories() {
+        String query = "from AnnouncementCategory where parentCategory = :id";
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        parameter.put("id", 0);
+        List<AnnouncementCategory> parent = getRowsByQuery(AnnouncementCategory.class, query, parameter);
+        return parent;
 	}
 		
 }

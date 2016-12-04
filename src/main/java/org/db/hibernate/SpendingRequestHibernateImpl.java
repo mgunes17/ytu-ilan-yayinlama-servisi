@@ -13,7 +13,7 @@ public class SpendingRequestHibernateImpl extends AbstractDAO implements Spendin
 	private Session session;
 
 	public boolean sendRequest(SpendingRequest sr) {
-		return saveOrUpdate(sr);
+		return save(sr);
 	}
 
 	public int calculateTotalRequestAmount(String unitName) {
@@ -58,7 +58,7 @@ public class SpendingRequestHibernateImpl extends AbstractDAO implements Spendin
 	}
 
 	public boolean updateRequest(SpendingRequest sr) {
-		return update(sr);
+		return save(sr);
 	}
 
 	public List<SpendingRequest> listSpendingRequest(String unitName, int state) {

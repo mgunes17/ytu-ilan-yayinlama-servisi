@@ -2,13 +2,15 @@ package org.db.hibernate;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public abstract class AbstractDAO {
 	private Session session;
 	
-	public <T> Object getObject(Class<T> c, Object primaryKey) {
+	protected <T> Object getObject(Class<T> c, Object primaryKey) {
 		try {
 			session = HibernateSessionFactory.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -25,7 +27,7 @@ public abstract class AbstractDAO {
 		
 	}
 
-	public boolean delete(Object o) {
+	protected boolean delete(Object o) {
 		try {
 			session = HibernateSessionFactory.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -41,7 +43,7 @@ public abstract class AbstractDAO {
 		}
 	}
 
-	public <T> List<T> getAllRows(Class<T> c) {
+	protected <T> List<T> getAllRows(Class<T> c) {
 		try {
 			session = HibernateSessionFactory.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -56,11 +58,53 @@ public abstract class AbstractDAO {
 		}
 	}
 
-	public boolean save(Object o) {
+	protected <T> boolean deleteByQuery(Class<T> c, String tableName, String pkColumnName, Object pk) {
+		try {
+			session = HibernateSessionFactory.getSessionFactory().openSession();
+			String query = "delete from " + tableName + " where " + pkColumnName + " = :id";
+			session.getTransaction().begin();
+			Query hqlQuery = session.createQuery(query);
+			hqlQuery.setParameter("id", pk);
+			hqlQuery.executeUpdate();
+			session.getTransaction().commit();
+			return true;
+		} catch (Exception ex) {
+			session.getTransaction().rollback();
+			System.out.println("Silme işlemi başarısız:"  + ex.getMessage());
+			return false;
+		} finally {
+			session.close();
+		}
+	}
+
+	protected <T> List<T> getRowsByQuery(Class<T> c, String hqlQuery, Map<String, Object> parameterList) {
 		try {
 			session = HibernateSessionFactory.getSessionFactory().openSession();
 			session.beginTransaction();
-			session.save(o);
+			Query query = session.createQuery(hqlQuery);
+
+			for(String columnName: parameterList.keySet()) {
+				query.setParameter(columnName, parameterList.get(columnName));
+			}
+
+			List<T> rows = query.list();
+			session.getTransaction().commit();
+			return rows;
+
+		} catch(Exception ex) {
+			System.err.println("Sorguya göre veri çekme işlemi başarısız: "+ ex.getMessage()); // logla
+			session.getTransaction().rollback();
+			return null;
+		} finally {
+			session.close();
+		}
+	}
+
+	protected boolean save(Object o) {
+		try {
+			session = HibernateSessionFactory.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.saveOrUpdate(o);
 			session.getTransaction().commit();
 			return true;
 		} catch (Exception ex) {
@@ -71,37 +115,28 @@ public abstract class AbstractDAO {
 			session.close();
 		}
 	}
-	
-	public boolean saveOrUpdate(Object o) {
-		try {
-			session = HibernateSessionFactory.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.saveOrUpdate(o);
-			session.getTransaction().commit();
-			return true;
-		} catch (Exception ex) {
-			System.err.println("Güncelleme işlemi başarısız " + ex.getMessage()); // logla
-			session.getTransaction().rollback();
-			return false;
-		} finally {
-			session.close();
-		}
-	}
-	
-	public boolean update(Object o) {
-		try {
-			session = HibernateSessionFactory.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.saveOrUpdate(o);
-			session.getTransaction().commit();
-			return true;
-		} catch (Exception ex) {
-			System.err.println("Güncelleme işlemi başarısız " + ex.getMessage()); // logla
-			session.getTransaction().rollback();
-			return false;
-		} finally {
-			session.close();
-		}
-	}
+
+	protected <T> boolean updateByQuery(Class<T> c, String hqlQuery, Map<String, Object> parameterList) {
+        try {
+            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session.beginTransaction();
+
+            Query query = session.createQuery(hqlQuery);
+
+            for(String columnName: parameterList.keySet()) {
+                query.setParameter(columnName, parameterList.get(columnName));
+            }
+
+            System.out.println("sorgu-" +query.executeUpdate());
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception ex) {
+            System.err.println("Güncelleme işlemi başarısız " + ex.getMessage()); // logla
+            session.getTransaction().rollback();
+            return false;
+        } finally {
+            session.close();
+        }
+    }
 
 }
