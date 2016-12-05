@@ -11,8 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.db.dao.AccountingDAO;
 import org.db.dao.SpendingRequestDAO;
+import org.db.hibernate.AccountingHibernateImpl;
 import org.db.hibernate.SpendingRequestHibernateImpl;
+import org.db.hibernate.UserHibernateImpl;
+import org.db.model.Accounting;
 import org.db.model.DauUser;
 import org.db.model.SpendingRequest;
 import org.db.model.SpendingRequestState;
@@ -48,6 +52,8 @@ public class AcceptSendingRequestServlet extends HttpServlet {
 		int requestId = Integer.parseInt((String)request.getParameter("requestId"));
 		String answer = request.getParameter("description");
 		DauUser dauUser = (DauUser) session.getAttribute("user");
+		dauUser = (DauUser) new UserHibernateImpl().getUser(dauUser.getUserName());
+		session.setAttribute("user", dauUser);
 		
 		SpendingRequestDAO requestDAO = new SpendingRequestHibernateImpl();
 		

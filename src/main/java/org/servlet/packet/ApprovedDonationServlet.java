@@ -16,10 +16,7 @@ import org.db.dao.AccountingDAO;
 import org.db.dao.AnnouncementPacketStateDAO;
 import org.db.dao.CompanyOwnPacketDAO;
 import org.db.dao.DonationAcceptUnitDAO;
-import org.db.hibernate.AccountingHibernateImpl;
-import org.db.hibernate.CompanyOwnPacketHibernateImpl;
-import org.db.hibernate.DauHibernateImpl;
-import org.db.hibernate.PacketStateHibernateImpl;
+import org.db.hibernate.*;
 import org.db.model.Accounting;
 import org.db.model.AnnouncementPacketState;
 import org.db.model.CompanyOwnPacket;
@@ -71,9 +68,11 @@ public class ApprovedDonationServlet extends HttpServlet {
 			
 			//listeyi güncelle
 			DauUser dauUser = (DauUser) session.getAttribute("user");
+			dauUser = (DauUser) new UserHibernateImpl().getUser(dauUser.getUserName());
 			DonationAcceptUnitDAO dauDAO = new DauHibernateImpl();
 			List<CompanyOwnPacket> packet = dauDAO.getWaitingDonation(dauUser.getDau().getUnitName());
 			session.setAttribute("packet", packet);
+			session.setAttribute("user", dauUser);
 			
 			//parayı ekle -- dau tablosu trigger
 			Accounting accounting = new Accounting();

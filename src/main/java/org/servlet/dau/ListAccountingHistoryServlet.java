@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.db.dao.AccountingDAO;
 import org.db.hibernate.AccountingHibernateImpl;
+import org.db.hibernate.UserHibernateImpl;
 import org.db.model.Accounting;
 import org.db.model.DauUser;
 
@@ -43,13 +44,12 @@ public class ListAccountingHistoryServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		DauUser user = (DauUser) session.getAttribute("user");
+		user = (DauUser) new UserHibernateImpl().getUser(user.getUserName());
 		
 		AccountingDAO accDAO = new AccountingHibernateImpl();
 		List<Accounting> acc = accDAO.getUnitAccountings(user.getDau().getUnitName());
-		
-		
-		
 		session.setAttribute("accounting", acc);
+        session.setAttribute("user", user);
 		
 		response.sendRedirect("dau/muhasebe-kayitlari.jsp");
 	}
