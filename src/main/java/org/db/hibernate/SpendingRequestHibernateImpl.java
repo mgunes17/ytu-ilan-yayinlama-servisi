@@ -84,4 +84,12 @@ public class SpendingRequestHibernateImpl extends AbstractDAO implements Spendin
 		return (SpendingRequest) getObject(SpendingRequest.class, (Object)id);
 	}
 
+	public List<SpendingRequest> getAllSpendingRequest() {
+		return getAllRows(SpendingRequest.class);
+	}
+
+	public List<SpendingRequest> getSpendingRequestByQuery(String query) {
+		return getRowsBySQLQuery(SpendingRequest.class, query);
+	}
+
 }

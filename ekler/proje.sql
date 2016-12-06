@@ -180,7 +180,9 @@ CREATE TABLE spending_request (
 	state int REFERENCES spending_request_state(id),
 	updater varchar(20) REFERENCES dau_user(user_name),
 	updated_date_time timestamp,
-	answer_from_updater text
+	answer_from_updater text,
+	pdf_path varchar(100),
+	image_path varchar(100)
 );
 
 CREATE TABLE announcement_category (
@@ -196,6 +198,9 @@ RETURNS TRIGGER AS $donation_accept_unit$
 		UPDATE donation_accept_unit d
 		SET balance = (select sum(amount) from accounting a group by a.unit_name
 		having d.unit_name = a.unit_name);
+
+		UPDATE donation_accept_unit
+		SET balance = 0 WHERE balance is null;
 
 		RETURN new;
 	END;

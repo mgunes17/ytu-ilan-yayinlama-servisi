@@ -10,4 +10,6 @@ public interface SpendingRequestDAO {
 	int calculateTotalRequestAmount(String unitName);
 	List<SpendingRequest> listSpendingRequest(String unitName, int state);
 	SpendingRequest getSpendingRequest(int id);
+	List<SpendingRequest> getAllSpendingRequest();
+	List<SpendingRequest> getSpendingRequestByQuery(String query);
 }

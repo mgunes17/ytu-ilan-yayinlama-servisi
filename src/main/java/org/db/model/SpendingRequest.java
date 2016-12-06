@@ -55,6 +55,12 @@ public class SpendingRequest implements Serializable {
 	@Column(name = "answer_from_updater")
 	private String answerFromUpdater;
 
+	@Column(name = "pdf_path")
+	private String pdfPath;
+
+	@Column(name = "image_path")
+	private String imagePath;
+
 	public SpendingRequest() {
 		super();
 	}
@@ -119,5 +125,17 @@ public class SpendingRequest implements Serializable {
 	}
 	public void setAnswerFromUpdater(String answerFromUpdater) {
 		this.answerFromUpdater = answerFromUpdater;
+	}
+	public String getPdfPath() {
+		return pdfPath;
+	}
+	public void setPdfPath(String pdfPath) {
+		this.pdfPath = pdfPath;
+	}
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 }
