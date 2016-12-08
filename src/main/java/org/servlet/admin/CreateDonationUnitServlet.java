@@ -1,6 +1,7 @@
 package org.servlet.admin;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,6 +51,7 @@ public class CreateDonationUnitServlet extends HttpServlet {
         DonationAcceptUnit dau = new DonationAcceptUnit();
         dau.setUnitName(request.getParameter("unit_name"));
         dau.setBalance(0);
+        dau.setCreatedDate(new Date());
         
         DonationAcceptUnitDAO dauDAO = new DauHibernateImpl();
         

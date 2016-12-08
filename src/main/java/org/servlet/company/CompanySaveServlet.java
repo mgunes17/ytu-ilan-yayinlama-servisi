@@ -61,6 +61,10 @@ public class CompanySaveServlet extends HttpServlet {
 			httpSession.setAttribute("kurumAdi", request.getParameter("company_name"));
 			httpSession.setAttribute("telefonNumarasi", request.getParameter("telephone_number"));
 			httpSession.setAttribute("mail", request.getParameter("email"));
+			httpSession.setAttribute("name", request.getParameter("name"));
+			httpSession.setAttribute("surname", request.getParameter("surname"));
+            httpSession.setAttribute("contactMail", request.getParameter("contactMail"));
+            httpSession.setAttribute("contactTel", request.getParameter("contactTel"));
 			response.sendRedirect("sirket-kayit.jsp");
 		} else if (companyDAO.saveCompany(company)) { // başarıyla kaydedildi
 			httpSession.setAttribute("kayit", 1);
@@ -71,6 +75,10 @@ public class CompanySaveServlet extends HttpServlet {
 			httpSession.setAttribute("kurumAdi", request.getParameter("company_name"));
 			httpSession.setAttribute("telefonNumarasi", request.getParameter("telephone_number"));
 			httpSession.setAttribute("mail", request.getParameter("email"));
+			httpSession.setAttribute("name", request.getParameter("name"));
+			httpSession.setAttribute("surname", request.getParameter("surname"));
+            httpSession.setAttribute("contactMail", request.getParameter("contactMail"));
+            httpSession.setAttribute("contactTel", request.getParameter("contactTel"));
 			response.sendRedirect("sirket-kayit.jsp");
 		}
 	}
@@ -79,6 +87,10 @@ public class CompanySaveServlet extends HttpServlet {
 		company.setUserName(request.getParameter("username"));
 		company.setPassword(request.getParameter("password"));
 		company.setCompanyName(request.getParameter("company_name"));
+		company.setName(request.getParameter("name"));
+		company.setSurname(request.getParameter("surname"));
+        company.setContactMail(request.getParameter("contactMail"));
+        company.setContactTel(request.getParameter("contactTel"));
 		
 		UserTypeDAO typeDAO = new UserTypeHibernateImpl();
         UserType type  = typeDAO.getUserType(2);

@@ -102,21 +102,21 @@
 					<table class="table table-hover">
 						<thead>
 						<tr>
+							<th>İşlem tarihi</th>
+                            <th>Açıklama</th>
 							<th>Birim Adı</th>
 							<th>Onay veren kullanıcı</th>
-							<th>İşlem tarihi</th>
 							<th>Miktar (TL)</th>
-                            <th>Açıklama</th>
 						</tr>
 						</thead>
 						<tbody>
 						<c:forEach var="item" items="${accounting }">
 							<tr>
+                                <td><fmt:formatDate type="date" value="${item.accountingPK.dateTime}"/></td>
+                                <td></td>
 								<td>${item.dauUser.dau.unitName }</td>
 								<td>${item.dauUser.userName }</td>
-								<td><fmt:formatDate type="date" value="${item.accountingPK.dateTime}"/></td>
 								<td align="right">${item.amount}</td>
-                                <td></td>
 							</tr>
 						</c:forEach>
 						</tbody>

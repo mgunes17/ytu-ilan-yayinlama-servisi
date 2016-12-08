@@ -37,6 +37,7 @@ public class DisplayDauServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         session.setAttribute("dauList", dauList);
+        session.setAttribute("bkbsil", 0);
         
         response.sendRedirect("admin/vakiflari-duzenle.jsp");
     }

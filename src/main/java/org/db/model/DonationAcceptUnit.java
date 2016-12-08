@@ -2,6 +2,7 @@ package org.db.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -27,7 +28,9 @@ public class DonationAcceptUnit implements Serializable {
 	
     @Column(name="balance")
     private int balance;
-    
+
+    @Column(name="created_date")
+    private Date createdDate;
     
     @OneToMany(mappedBy="dau",  
             targetEntity=DauUser.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -73,5 +76,13 @@ public class DonationAcceptUnit implements Serializable {
 
     public void setBalance(int balance) {
         this.balance = balance;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 }

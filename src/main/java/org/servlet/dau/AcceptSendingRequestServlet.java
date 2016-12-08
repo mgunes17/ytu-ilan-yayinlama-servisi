@@ -34,6 +34,7 @@ public class AcceptSendingRequestServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+        request.setCharacterEncoding("UTF-8");
 		
 		int requestId = Integer.parseInt(request.getParameter("requestId"));
 		String answer = request.getParameter("description");
@@ -58,15 +59,15 @@ public class AcceptSendingRequestServlet extends HttpServlet {
 
         if(request.getPart("file") != null) {
             filePart = request.getPart("file");
-            fileName = getFileName(filePart);
-            fileName += "_" + new Date().toString();
+            fileName += new Random().nextInt(10000) + "_";
+            fileName += getFileName(filePart);
             filePath = request.getServletContext().getInitParameter("pdfFilePath");
         }
 
         if(request.getPart("image") != null) {
             imagePart = request.getPart("image");
-            imageName = getFileName(imagePart);
-            imageName += "_" + new Date().toString();
+            imageName += new Random().nextInt(10000) + "_";
+            imageName += getFileName(imagePart);
             imagePath = request.getServletContext().getInitParameter("imageFilePath");
         }
 
@@ -87,7 +88,7 @@ public class AcceptSendingRequestServlet extends HttpServlet {
                     out.write(bytes, 0, read);
                 }
 
-                spendingRequest.setPdfPath(filePath + fileName);
+                spendingRequest.setPdfPath(fileName);
             }
 
             if(request.getPart("image") != null) {
@@ -102,7 +103,7 @@ public class AcceptSendingRequestServlet extends HttpServlet {
                     out.write(bytes, 0, read);
                 }
 
-                spendingRequest.setImagePath(imagePath + imageName);
+                spendingRequest.setImagePath(imageName);
             }
 
             if(requestDAO.updateRequest(spendingRequest)) {

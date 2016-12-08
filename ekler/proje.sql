@@ -35,12 +35,15 @@ CREATE TABLE company (
 CREATE TABLE donation_accept_unit (
 	unit_name varchar(40),
 	balance int DEFAULT 0,
-	primary key(unit_name)
+	primary key(unit_name),
+	created_date timestamp
 );
 
 CREATE TABLE dau_user ( 
 	user_name varchar(20) REFERENCES users(user_name),
 	unit_name varchar(40) REFERENCES donation_accept_unit(unit_name), 
+	name varchar(40) NOT NULL,
+	surname varchar(40) NOT NULL,
 	primary key(user_name)
 );
 

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-9"
-    pageEncoding="ISO-8859-9"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -9,8 +8,9 @@
 		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script rel="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 		<jsp:include page="html/head.html"></jsp:include>
-        <title>Harcama İstekleri</title>
+        <title>Harcama Ä°stekleri</title>
 	</head>
 	<body>
 		<script>
@@ -23,7 +23,7 @@
 				$(_self.attr('href')).modal('show');
 			});
 		</script>
-		
+
 		 <!-- Modal -->
 		  <div class="modal fade" id="acceptModal" role="dialog">
 		    <div class="modal-dialog">
@@ -32,18 +32,26 @@
 		      <div class="modal-content">
 		        <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title">Harcama Kaydı Gir</h4>
+		          <h4 class="modal-title">Harcama KaydÄ± Gir</h4>
 		        </div>
 		        <div class="modal-body">
-		          <p>Yapılan harcama ile ilgili bilgileri giriniz.</p>
-		          <p>Varsa fatura/ödeme bilgisine ait görüntü veya pdf ekleyiniz.</p>
+		          <p>YapÄ±lan harcama ile ilgili bilgileri giriniz.</p>
+		          <p>Varsa fatura/Ã¶deme bilgisine ait gÃ¶rÃ¼ntÃ¼ veya pdf ekleyiniz.</p>
 		          
-		          <form method="post" action="../acceptsendingrequest">
+		          <form method="post" action="../acceptsendingrequest" enctype="multipart/form-data">
 		          		<div class="form-group">
-		          			<textarea rows="10" cols="40" name="description">Açıklama..</textarea>
+		          			<textarea rows="10" cols="40" name="description">AÃ§Ä±klama..</textarea>
 		          		</div>
-		          		<input type="hidden" id="requestId" name="requestId"/>
-		          		<button type="submit" class="btn btn-default">Gönder</button>	          	
+                      <div class="form-group">
+                          <label for="file1">Dosya YÃ¼kleyin</label>
+                          <input type="file" name="file" id="file1"/>
+                      </div>
+                      <div class="form-group">
+                          <label for="image1">GÃ¶rÃ¼ntÃ¼ YÃ¼kleyin</label>
+                          <input type="file" name="image" id="image1" accept="image/*"/>
+                      </div>
+                            <input type="hidden" id="requestId" name="requestId"/>
+					  <button type="submit" class="btn btn-default">GÃ¶nder</button>
 		          </form>
 		        </div>
 		        <div class="modal-footer">
@@ -62,16 +70,16 @@
 		      <div class="modal-content">
 		        <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title">Harcamayı Reddet</h4>
+		          <h4 class="modal-title">HarcamayÄ± Reddet</h4>
 		        </div>
 		        <div class="modal-body">
-		          <p>Harcamayı neden yap(a)madığınıza dair açıklamanız:</p>
+		          <p>HarcamayÄ± neden yap(a)madÄ±ÄŸÄ±nÄ±za dair aÃ§Ä±klamanÄ±z:</p>
 		          <form method="post" action="../rejectsendingrequest">
 		          		<div class="form-group">
-		          			<textarea rows="10" cols="40" name="description">Açıklama..</textarea>
+		          			<textarea rows="10" cols="40" name="description">AÃ§Ä±klama..</textarea>
 		          		</div>
 		          		<input type="hidden" name="requestId" id="requestId2"/>
-		          		<button type="submit" class="btn btn-default">Gönder</button>	          	
+		          		<button type="submit" class="btn btn-default">GÃ¶nder</button>	          	
 		          </form>
 		        </div>
 		        <div class="modal-footer">
@@ -94,35 +102,35 @@
 					<c:choose>
 						<c:when test="${istekguncelle eq 1 }">
 							<div class="alert alert-success">
-								İstek başarıyla onaylandı.
+								Ä°stek baÅŸarÄ±yla onaylandÄ±.
 							</div>
 						</c:when>
 						<c:when test="${istekguncelle eq 2 }">
 							<div class="alert alert-danger">
-								İstek onaylanırken bir hata meydana geldi.
-								Lütfen tekrar deneyin.
+								Ä°stek onaylanÄ±rken bir hata meydana geldi.
+								LÃ¼tfen tekrar deneyin.
 							</div>
 						</c:when>
 						<c:when test="${istekguncelle eq 3 }">
 							<div class="alert alert-warning">
-								İstek reddedildi.
+								Ä°stek reddedildi.
 							</div>
 						</c:when>
 						<c:when test="${istekguncelle eq 4 }">
 							<div class="alert alert-danger">
-								İstek reddedilirken bir hata meydana geldi.
-								Lütfen tekrar deneyin.
+								Ä°stek reddedilirken bir hata meydana geldi.
+								LÃ¼tfen tekrar deneyin.
 							</div>
 						</c:when>
 					</c:choose>
 					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<th>Başlık</th>
+								<th>BaÅŸlÄ±k</th>
 								<th style="width:30%">Mesaj</th>
 								<th>Tutar</th>
-								<th>Oluşturulma Tarihi</th>
-								<th>İşlem</th> <!-- Modal Box ile yap -->
+								<th>OluÅŸturulma Tarihi</th>
+								<th>Ä°ÅŸlem</th> <!-- Modal Box ile yap -->
 							</tr>
 						</thead>
 						<tbody>
@@ -131,7 +139,7 @@
 									<td>${item.title}</td>
 									<td>
                                         <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#${item.id}">
-                                            <span class="glyphicon glyphicon-collapse-down"></span> Mesajı Oku
+                                            <span class="glyphicon glyphicon-collapse-down"></span> MesajÄ± Oku
                                         </button>
                                         <div id="${item.id}" class="collapse">
                                             ${item.content}
@@ -142,22 +150,22 @@
 									<td><fmt:formatDate type="date" value="${item.sentDateTime}"/></td>
 									<td>
 										<form>
-											<a data-id="${item.id }" 
-												data-toggle="modal" 
-												title="Add this item" 
-												class="open-writeReply btn btn-primary" 
+											<a data-id="${item.id }"
+												data-toggle="modal"
+												title="Add this item"
+												class="open-writeReply btn btn-primary"
 												href="#acceptModal">
-												Harcama Kaydı Gir
+												Harcama KaydÄ± Gir
 											</a>
-											<a data-id="${item.id }" 
-												data-toggle="modal" 
-												title="Add this item" 
-												class="open-writeReply btn btn-danger" 
+											<a data-id="${item.id }"
+												data-toggle="modal"
+												title="Add this item"
+												class="open-writeReply btn btn-danger"
 												href="#rejectModal">
-												Harcamayı Redddet
+												HarcamayÄ± Redddet
 											</a>
 										</form>
-									</td>						
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>

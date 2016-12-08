@@ -36,6 +36,22 @@ public class Company extends User implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<CompanyOwnPacket> packets;
 
+	@Column(name = "name")
+	private String name;
+
+	@Column(name = "surname")
+	private String surname;
+
+    @Column(name = "contact_mail")
+    private String contactMail;
+
+    public String getContactMail() {
+        return contactMail;
+    }
+
+    @Column(name = "contact_tel")
+    private String contactTel;
+
     public Company(){
     	super();
     }
@@ -71,5 +87,29 @@ public class Company extends User implements Serializable {
 	public void setPackets(List<CompanyOwnPacket> packets) {
 		this.packets = packets;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+    public void setContactMail(String contactMail) {
+        this.contactMail = contactMail;
+    }
+
+    public String getContactTel() {
+        return contactTel;
+    }
+
+    public void setContactTel(String contactTel) {
+        this.contactTel = contactTel;
+    }
 
 }

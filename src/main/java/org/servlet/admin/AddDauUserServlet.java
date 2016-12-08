@@ -49,8 +49,12 @@ public class AddDauUserServlet extends HttpServlet {
 		HttpSession httpSession = request.getSession();
 		
 		DauUser dauUser = new DauUser();
-		dauUser.setUserName(request.getParameter("user_name"));
+		dauUser.setUserName(request.getParameter("username"));
         dauUser.setPassword(request.getParameter("password"));
+        dauUser.setName(request.getParameter("name"));
+        dauUser.setSurname(request.getParameter("surname"));
+        dauUser.setContactMail(request.getParameter("contactMail"));
+        dauUser.setContactTel(request.getParameter("contactTel"));
         
         UserTypeDAO typeDAO = new UserTypeHibernateImpl();
         UserType type  = typeDAO.getUserType(1);

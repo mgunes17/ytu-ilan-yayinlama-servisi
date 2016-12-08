@@ -12,4 +12,5 @@ public interface DonationAcceptUnitDAO {
 	List<DonationAcceptUnit> getAllUnits();
 	List<CompanyOwnPacket> getWaitingDonation(String dauUsername);
 	DonationAcceptUnit getUnit(String unitName);
+	boolean deleteDau(String unitName);
 }

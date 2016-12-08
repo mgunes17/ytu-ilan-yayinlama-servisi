@@ -22,7 +22,7 @@
         </div>
         <div class="row">
             <div class="col-md-4"><jsp:include page="html/menu.html"/></div>
-            <div class="col-md-8">
+            <div class="col-md-5">
                 <div class="text-centers">
                     <c:choose>
                         <c:when test="${vakifolusturuldu eq 1}">
@@ -43,7 +43,7 @@
                           <tbody>
                             <tr>
                               <td>Birimin Adı</td>
-                              <td><input type="text" name="unit_name"
+                              <td><input type="text" name="unit_name" class="form-control"
                               	pattern=".{3,40}" required title="Vakıf adı 3-40 karakter aralığında olmalıdır"/></td>
                             </tr>
                             <tr><td colspan="2"><button type="submit" class="btn btn-default">Vakıf Oluştur</button></td></tr>
@@ -86,20 +86,47 @@
                             <tbody>
                                 <tr>
                                     <td>Kullanıcı Adı</td>
-                                    <td><input type="text" name="user_name"
-                                    	pattern=".{3,20}" required title="Kullanıcı adı 3-40 karakter aralığında olmalıdır"/></td>
+                                    <td><input type="text" name="username" class="form-control"
+                                    	pattern=".{3,20}" required title="Kullanıcı adı 3-20 karakter aralığında olmalıdır"/></td>
                                 </tr>
                                 <tr>
-                                  <td>Geçici Parola</td>
-                                  <td><input type="password" name="password"
-                                  	pattern=".{6,16}"                               	
-                                    required title="Parola en az 6 an fazla 16 karakter olabilir."/></td>
+                                <tr>
+                                    <td>Geçici Parola</td>
+                                    <td><input type="password" name="password"
+                                               pattern=".{6,16}" class="form-control"
+                                               required title="Parola en az 6 an fazla 16 karakter olabilir."/></td>
                                 </tr>
                                 <tr>
-                                  <td>Geçici Parola(Tekrar)</td>
-                                  <td><input type="password" name="password"
-                                  	pattern=".{6,16}"                               	
-                                    required title="Parola en az 6 an fazla 16 karakter olabilir."/></td>
+                                    <td>Geçici Parola(Tekrar)</td>
+                                    <td><input type="password" name="password"
+                                               pattern=".{6,16}" class="form-control"
+                                               required title="Parola en az 6 an fazla 16 karakter olabilir."/></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Yetkilinin:</b></td>
+                                </tr>
+                                    <td>Adı</td>
+                                    <td><input type="text" name="name" class="form-control"
+                                       pattern=".{3,40}" required title="İsim 3-40 karakter aralığında olmalıdır"></td>
+                                </tr>
+                                <tr>
+                                    <td>Soyadı</td>
+                                    <td><input type="text" name="surname" class="form-control"
+                                           pattern=".{3,20}" required title="Soyisim 3-40 karakter aralığında olmalıdır"></td>
+                                </tr>
+                                <tr>
+                                    <td>Mail Adresi</td>
+                                    <td>
+                                        <input type="email" name="contactMail" id="contactMail" class="form-control" value="${contactMail}"
+                                               pattern=".{3,40}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Telefon Numarası</td>
+                                    <td>
+                                        <input type="text" name="contactTel" id="contactTel" class="form-control" value="${contactTel}"
+                                               pattern=".{11,11}" required title="Telefon numarası 11 karakter aralığında olmalıdır">
+                                    </td>
                                 </tr>
                                 <tr><td colspan="2"><button type="submit" class="btn btn-default">Kullanıcı Ekle</button></td></tr>
                             </tbody>
@@ -136,19 +163,19 @@
                             <tbody>
                                 <tr>
                               <td>Banka Adı</td>
-                              <td><input type="text" name="bank_name"/></td>
+                              <td><input type="text" name="bank_name" class="form-control"/></td>
                             </tr>
                             <tr>
                               <td>Şube Adı</td>
-                              <td><input type="text" name="name_of_branch"/></td>
+                              <td><input type="text" name="name_of_branch" class="form-control"/></td>
                             </tr>
                             <tr>
                               <td>Hesap No</td>
-                              <td><input type="text" name="account_number"/></td>
+                              <td><input type="text" name="account_number" class="form-control"/></td>
                             </tr>
                             <tr>
                               <td>Para Birimi</td>
-                              <td> <select name="currency">
+                              <td> <select name="currency" class="form-control">
                                     <c:forEach var="item" items="${curr}">
                                         <option value="${item.id}">
                                             <c:out value="${item.title}"/>

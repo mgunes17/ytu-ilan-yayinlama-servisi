@@ -57,4 +57,8 @@ public class DauHibernateImpl extends AbstractDAO implements DonationAcceptUnitD
 		return (DonationAcceptUnit) getObject(DonationAcceptUnit.class, unitName);
 	}
 
+	public boolean deleteDau(String unitName) {
+		return deleteByQuery(DonationAcceptUnit.class, "DonationAcceptUnit", "unitName", unitName);
+	}
+
 }
