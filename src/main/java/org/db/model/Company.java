@@ -36,7 +36,7 @@ public class Company extends User implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<CompanyOwnPacket> packets;
 
-	@Column(name = "name")
+    @Column(name = "name")
 	private String name;
 
 	@Column(name = "surname")
@@ -91,6 +91,10 @@ public class Company extends User implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    public String getName() {
+        return name;
+    }
 
 	public String getSurname() {
 		return surname;

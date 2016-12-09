@@ -121,6 +121,24 @@ public abstract class AbstractDAO {
         }
     }
 
+    protected <T> boolean updateBySQLQuery(Class<T> c ,String query) {
+    	try {
+			session = HibernateSessionFactory.getSessionFactory().openSession();
+			session.beginTransaction();
+			SQLQuery q = session.createSQLQuery(query);
+			q.addEntity(c);
+			q.executeUpdate();
+			session.getTransaction().commit();
+			return true;
+		} catch(Exception ex) {
+			System.err.println("Silme işlemi başarısız: "+ ex.getMessage()); // logla
+			session.getTransaction().rollback();
+			return false;
+		} finally {
+			session.close();
+		}
+	}
+
 	protected boolean save(Object o) {
 		try {
 			session = HibernateSessionFactory.getSessionFactory().openSession();

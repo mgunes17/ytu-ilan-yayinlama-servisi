@@ -122,7 +122,7 @@
                                 </c:when>
                                 <c:when test="${bolumguncelle eq 2 }">
                                     <div class="alert alert-danger">
-                                        Bir hata meydana geldi. Lütfen daha sonra tekrar deneyiniz.
+                                        Güncelleme işlemi başarısız. Lütfen daha sonra tekrar deneyiniz.
                                     </div>
                                 </c:when>
             				</c:choose>
@@ -139,14 +139,14 @@
             									title="Düzenle"
             									class="open-changeDepartmentDialog btn btn-info"
             									href="#changeDepartmentDialog">
-            									Düzenle
+            									<span class="glyphicon glyphicon-pencil"></span>
             								</a>
 											<a data-id="${item.code }" 
 												data-toggle="modal" 
 												title="Sil" 
 												class="open-deleteDepartmentDialog btn btn-danger"
 												href="#deleteDepartmentDialog">
-												Sil
+												<span class="glyphicon glyphicon-trash"></span>
 											</a>            							
 										</form>
             						<td>

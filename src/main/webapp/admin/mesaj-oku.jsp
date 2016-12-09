@@ -25,7 +25,7 @@
             	</div>
             </c:if>
                 <h1>Mesajları okuyun</h1>
-                <table class="table table-bordered">
+                <table class="table table-hover">
                 	<tr>
                 		<td>Mesaj No</td>
                 		<td>${message.messageNo}</td>

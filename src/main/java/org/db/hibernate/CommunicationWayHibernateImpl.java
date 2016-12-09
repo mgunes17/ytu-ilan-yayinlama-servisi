@@ -30,4 +30,12 @@ public class CommunicationWayHibernateImpl extends AbstractDAO implements Commun
 		}
 	}
 
+	public boolean updateCommWay(String username, String oldType, String oldValue, String newType, String newValue) {
+		String sql = "UPDATE communication_way " +
+				" SET comm_type = '" + newType + "' , comm_value = '" + newValue +"+' " +
+				" WHERE comm_type = '" + oldType + "' and comm_value = '" + oldValue + "' ";
+
+		return updateBySQLQuery(CommunicationWay.class, sql);
+	}
+
 }
