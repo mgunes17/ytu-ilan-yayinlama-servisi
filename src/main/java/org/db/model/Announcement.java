@@ -22,7 +22,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name="announcement")
-public class Announcement implements Serializable {
+public class Announcement implements Serializable, Comparable<Announcement> {
     /**
 	 * 
 	 */
@@ -78,6 +78,15 @@ public class Announcement implements Serializable {
 
 	public Announcement(){
     	super();
+    }
+
+    public int compareTo(Announcement a) {
+        if(getPublishDate() == null)
+            return -1;
+        else if(a.getPublishDate() == null)
+            return 1;
+        else
+            return getPublishDate().compareTo(a.getPublishDate());
     }
 
     public AnnouncementType getAnnouncementType() {

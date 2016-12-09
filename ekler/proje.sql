@@ -235,6 +235,11 @@ RETURNS TRIGGER AS $announcement$
 		set references_count = (
 		select count(a.announcement_category) from announcement a group by a.announcement_category
 		having ac.id = a.announcement_category);
+		
+		update announcement_category set references_count = 0 WHERE references_count is null;
+
+		return new;
+
 	END;
 $announcement$ LANGUAGE plpgsql;
 

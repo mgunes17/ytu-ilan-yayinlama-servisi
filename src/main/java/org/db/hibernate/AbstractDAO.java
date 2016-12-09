@@ -155,6 +155,22 @@ public abstract class AbstractDAO {
 		}
 	}
 
+	protected boolean justSave(Object o) {
+		try {
+			session = HibernateSessionFactory.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.save(o);
+			session.getTransaction().commit();
+			return true;
+		} catch (Exception ex) {
+			System.err.println("Kayıt işlemi başarısız " + ex.getMessage()); // logla
+			session.getTransaction().rollback();
+			return false;
+		} finally {
+			session.close();
+		}
+	}
+
 	protected <T> boolean updateByQuery(Class<T> c, String hqlQuery, Map<String, Object> parameterList) {
         try {
             session = HibernateSessionFactory.getSessionFactory().openSession();

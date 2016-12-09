@@ -46,12 +46,12 @@
 			    <form method="POST" action="../announcementcreate">
 			    	<div class="form-group">
 			    		<label for="title">İlan Başlığı</label>
-			    		<input type="text" name="title" id="title" class="form-control" pattern=".{1,70}" 
-			    			required title="70 karakterden fazla olamaz"/>
+			    		<input type="text" name="title" id="title" class="form-control" pattern=".{1,30}"
+			    			required title="1-30 karakter aralığında olmalı"/>
 			    	</div>
 			    	<div class="form-group">
 			    		<label for="brief">Kısa Açıklama</label>
-			    		<textarea name="brief" id="brief" class="form-control" rows="2" cols="50"></textarea>
+			    		<textarea name="brief" id="brief" class="form-control"  rows="2" cols="50"></textarea>
 			    	</div>
 			    	<div class="form-group">
 			    		<label for="content">İlan Detayları</label>
@@ -60,11 +60,13 @@
 			        <div class="form-group">
 			        	<label for="">İlan Tipi</label>
 			        	<select name="type" class="form-control">
-				            <c:forEach var="item" items="${annType}">
-				                <option value="${item.id}">
-				                    <c:out value="${item.title}"/>
-				                </option>
-				            </c:forEach>
+                            <c:forEach var="item" items="${annType}">
+                                <c:if test="${item.id ne 6}">
+                                    <option value="${item.id}">
+                                        <c:out value="${item.title}"/>
+                                    </option>
+                                </c:if>
+                            </c:forEach>
 				        </select>
 			        </div>
 			        <div class="form-group">
@@ -72,7 +74,7 @@
 			        	<p>İlanınız herhangi kategoriye girmiyorsa "root-category" olarak seçin.</p>
 			        	<select name="category" class="form-control">
 				            <c:forEach var="item" items="${categoryList}">
-				            	<c:if test="${item.id ne 0 }">
+				            	<c:if test="${item.id ne 0 && item.id ne 3}">
 				            		<option selected disabled value="${item.id}">
 				                    	<c:out value="${item.categoryName} Alt Kategorileri"/>
 					                </option>
@@ -88,8 +90,8 @@
 			        <div class="form-group">
 			        	<label for="language">İlanın Dili</label>
 			        	<select name="language" class="form-control" id="language">				    
-			                <option value="Türkçe">Türkçe</option>
-			                <option value="İngilizce">İngilizce</option>
+			                <option value="türkçe">Türkçe</option>
+			                <option value="ingilizce">İngilizce</option>
 				        </select>
 			        </div>
 			        <button type="submit" class="btn btn-default">Oluştur</button>

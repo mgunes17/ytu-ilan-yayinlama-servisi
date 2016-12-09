@@ -1,16 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-9"
-    pageEncoding="ISO-8859-9"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
 		<jsp:include page="../html/head.html"></jsp:include>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<title>İlan Ara</title>
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+		<title>Ä°lan Ara</title>
+        <style>
+            .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
+        </style>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -20,30 +23,32 @@
 			
 			<div class="row">
 				<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
-				<div class="col-md-7">
-					<p>Kayıtlı Kriterlerime Göre Ara</p>
+				<div class="col-md-4">
+					<p>KayÄ±tlÄ± Kriterlerime GÃ¶re Ara</p>
 					
-					<p>Seçim yap</p>
+					<p>SeÃ§im yap</p>
 					<form action="../searchannouncement">
 						<div class="form-group">
-							<label>İlan Kategorisi</label>
+							<label>Ä°lan Kategorisi</label>
 							<select name="category" class="form-control">
 					            <c:forEach var="item" items="${categoryList}">
 					            	<c:if test="${item.id ne 0 }">
-					            		<option selected disabled value="${item.id}">
-					                    <c:out value="${item.categoryName} Alt Kategorileri"/>
-						                </option>
-						                <c:forEach var="childItem" items="${item.children}">
-						                	<option value="${childItem.id}">
-						                    	<c:out value="----${childItem.categoryName}"/>
-						                	</option>
-						                </c:forEach>
-					            	</c:if>			                
+                                        <c:if test="${item.parentCategory eq 0}">
+                                            <option selected value="${item.id}">
+                                                <b><c:out value="${item.categoryName}"/></b>
+                                            </option>
+                                            <c:forEach var="childItem" items="${item.children}">
+                                                <option value="${childItem.id}">
+                                                    <c:out value="----${childItem.categoryName}"/>
+                                                </option>
+                                            </c:forEach>
+                                        </c:if>
+					            	</c:if>
 					            </c:forEach>
 					        </select>
 						</div>
 						<div class="form-group">
-							<label>İlan Tipi</label>
+							<label>Ä°lan Tipi</label>
 							<select name="type" class="form-control">
 					            <c:forEach var="item" items="${annType}">
 					                <option value="${item.id}">
@@ -53,17 +58,20 @@
 					        </select>
 						</div>
 						<div class="form-group">
-							<label>İlanın Dili</label>
-							<select name="language" class="form-control" id="language">				    
-				                <option value="türkçe">Türkçe</option>
-				                <option value="ingilizce">İngilizce</option>
+							<label>Ä°lanÄ±n Dili</label>
+							<select name="language" class="form-control" id="language">
+                                <option value="alllanguages">TÃ¼m Diller</option>
+				                <option value="tÃ¼rkÃ§e">TÃ¼rkÃ§e</option>
+				                <option value="ingilizce">Ä°ngilizce</option>
 					        </select>
 						</div>
 						<div class="form-group">
 							<label for="keyword">Anahtar Kelimeler</label>
-							<p>Kelimeler arasında virgül bırakın.(Ör: java,hibernate,css)</p>
+							<p>Kelimeler arasÄ±nda virgÃ¼l bÄ±rakÄ±n.(Ã–r: java,hibernate,css)</p>
 							<input type="text" name="keywords" placeholder="Anahtar Kelimeler" class="form-control" id="keyword">
-							<input type="checkbox" name="rememberMe" value="1">Anahtar Kelime Kullan
+                            <br/>
+							<input type="checkbox" name="usekw" checked data-toggle="toggle" id="toggle-one" data-style="slow"
+                                   data-onstyle="primary" data-offstyle="danger" value="1" data-on="Evet" data-off="HayÄ±r">Anahtar Kelime Kullan
 						</div>
 						
 						<button type="submit" class="btn btn-default">Ara</button>

@@ -25,21 +25,9 @@ import org.db.model.Company;
  */
 @WebServlet("/announcementcreate")
 public class AnnouncementCreateServlet extends HttpServlet {
-	private Announcement announcement;
-	
+	private Announcement announcement = new Announcement();
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AnnouncementCreateServlet() {
-        super();
-        announcement = new Announcement();
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doPost(request, response);
@@ -58,9 +46,8 @@ public class AnnouncementCreateServlet extends HttpServlet {
 		announcement.setState(state);
 		announcement.setOwnerCompany((Company)session.getAttribute("user"));
 		//announcement.setOwnerPacket(-1);
-		AnnouncementDAO annDAO = new AnnouncementHibernateImpl();
-		
-		if(annDAO.saveAnnouncement(announcement)) {
+
+		if(new AnnouncementHibernateImpl().saveAnnouncement(announcement)) {
 			session.setAttribute("olusturuldu", 1);
 		}
 		else {

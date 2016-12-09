@@ -1,6 +1,7 @@
 package org.db.hibernate;
 
 import java.util.List;
+import java.util.Map;
 
 import org.announcement.SearchCriteria;
 import org.db.dao.AnnouncementDAO;
@@ -9,17 +10,17 @@ import org.db.model.AnnouncementType;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
+import javax.servlet.http.HttpSession;
+
 public class AnnouncementHibernateImpl extends AbstractDAO implements AnnouncementDAO {
 	private Session session;
 
 	public List<AnnouncementType> getAllAnnouncementsTypes() {
-		// TODO Auto-generated method stub
 		return getAllRows(AnnouncementType.class);
 	}
 
 	public boolean saveAnnouncement(Announcement ann) {
-		// TODO Auto-generated method stub
-		return save(ann);
+		return justSave(ann);
 	}
 
 	public List<Announcement> getAllAnnouncements() {
@@ -92,6 +93,25 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
 		} finally {
 			session.close();
 		}
+	}
+
+	public List<Announcement> getBySQLCriteria(String query) {
+		return getRowsBySQLQuery(Announcement.class, query);
+	}
+
+	public List<Announcement> getByCriteria(Map<String, Object> parameter) {
+	    String sql = "SELECT * from announcement";
+
+	    if(parameter.size() != 0) {
+            sql += " WHERE";
+            for(String s: parameter.keySet()) {
+                sql += " " + s + " = " + parameter.get(s) + " and ";
+            }
+
+            sql = sql.substring(0, sql.length() - 4); //son and i sil
+        }
+
+		return getRowsBySQLQuery(Announcement.class, sql);
 	}
 
 }
