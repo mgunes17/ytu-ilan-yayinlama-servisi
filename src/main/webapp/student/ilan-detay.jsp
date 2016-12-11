@@ -5,14 +5,90 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<!DOCTYPE html">
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
 		<title>İlan Detay</title>
 		<jsp:include page="../html/head.html"></jsp:include>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 	<body>
+        <script>
+            $(document).on("click", ".open-complaintDialog", function (e) {
+                e.preventDefault();
+                var _self = $(this);
+                var code = _self.data('id');
+                $("#announcementID").val(code);
+                $(_self.attr('href')).modal('show');
+            });
+
+            $(document).on("click", ".delete-complaintDialog", function (e) {
+                e.preventDefault();
+                var _self = $(this);
+                var code = _self.data('id');
+                $("#announcementID2").val(code);
+                $(_self.attr('href')).modal('show');
+            });
+        </script>
+
+		<div class="modal fade" id="complaintDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">İlanı Şikayet Et</h4>
+					</div>
+					<div class="modal-body">
+						<p>Lütfen şikayet etme sebebinizi yazınız.</p>
+                        <br/>
+						<form>
+							<input type="hidden" name="announcementId" id="announcementID">
+                            <textarea name="complaintDescription" class="form-control" rows="3"></textarea>
+                            <br/>
+							<input formaction="../complaintannouncement" type="submit" class="btn btn-default" value="Gönder">
+						</form>
+					</div>
+					<div class="modal-footer">
+						<p>Asılsız şikayetler ceza puanı almanıza neden olur.</p>
+                        <p>Şikayetinizi, yönetici değerlendirmeden önce geri çekebilirsiniz.</p>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+        <div class="modal fade" id="deleteComplaintDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Şikayeti Geri Çek</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Şikayeti geri çekmek istediğinize emin misiniz?</p>
+                        <br/>
+                        <form>
+                            <form>
+                                <input type="hidden" name="announcementId" id="announcementID2">
+                                <input formaction="../deletecomplaint" type="submit" class="btn btn-default" value="Evet">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Hayır</button>
+                            </form>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <p>Onaylamanız durumunda şikayet veri tabanından silinir.</p>
+                        <p>İsterseniz daha sonra tekrar şikayet edebilirsiniz.</p>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 		<div class="container-fluid">
 			<div class="row">
 				<jsp:include page="html/header.html"></jsp:include>
@@ -46,6 +122,30 @@
  								Lütfen daha sonra tekrar deneyin.
  							</div>
  						</c:when>
+                        <c:when test="${sikayetedildi eq 1}">
+                            <div class="alert alert-success">
+                                Şikayet kaydınız oluşturuldu.
+                                Tüm şikayetlerinizi <a href="../listmycomplaints">buradan</a> görebilirsiniz.
+                            </div>
+                        </c:when>
+                        <c:when test="${sikayetedildi eq 2}">
+                            <div class="alert alert-success">
+                                Şikayet kaydı oluşturulurken bir hata meydane geldi.
+                                Lütfen daha sonra tekrar deneyiniz.
+                            </div>
+                        </c:when>
+                        <c:when test="${ilangericek eq 1}">
+                            <div class="alert alert-warning">
+                                Şikayetiniz geri çekildi.
+                                Diğer şikayetlerinizi <a href="../listmycomplaints">buradan</a> görebilirsiniz.
+                            </div>
+                        </c:when>
+                        <c:when test="${ilangericek eq 2}">
+                            <div class="alert alert-danger">
+                                Şikayetiniz geri çekilemedi.
+                                Lütfen daha sonra tekrar deneyiniz.
+                            </div>
+                        </c:when>
  					</c:choose>
  					<table class="table table-bordered">
  						<tr>
@@ -94,16 +194,28 @@
  									<c:if test="${basvuruvar eq 2 }">										
  										 <input type = "submit" value = "İlana Başvur" formaction = "../applicationtoannouncement" class="btn btn-primary active">
  										 <input disabled formaction="#" type = "submit" value = "Başvuruyu Geri Çek" class="btn btn-warning disabled">
- 									</c:if>														
-									<input type = "submit" value = "Şikayet Et">
+ 									</c:if>
+
+                                    <c:choose>
+                                        <c:when test="${sikayetvar eq 2}">
+                                            <a href="#complaintDialog"
+                                               data-toggle="modal"
+                                               class="open-complaintDialog btn btn-danger"
+                                               data-id="${announcement.id}">Şikayet Et</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="#deleteComplaintDialog"
+                                               data-toggle="modal"
+                                               class="delete-complaintDialog btn btn-warning"
+                                               data-id="${announcement.id}">Şikayeti Geri Çek</a>
+                                        </c:otherwise>
+                                    </c:choose>
 								</form>
 							</td>
  						</tr>
  					</table>
  				</div>
  			</div>
-		</div>	
-	
-	
+		</div>
 	</body>
 </html>

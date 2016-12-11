@@ -53,7 +53,7 @@
 										<td>
 											<form action = "../announcementdetailtostudent" method = "post">
 												<input type = "hidden" name = "announcement" value = "${item.id}"/>
-												<input type = "submit" value  ="Detayı Gör"/>
+												<input type = "submit" class="btn btn-default" value  ="Detayı Gör"/>
 											</form>
 										</td>
 									</tr>

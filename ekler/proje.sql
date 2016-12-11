@@ -195,6 +195,14 @@ CREATE TABLE announcement_category (
 	parent_category_id int REFERENCES announcement_category(id)
 );
 
+CREATE TABLE complaint (
+	id int primary key,
+	student varchar(20) REFERENCES student (user_name),
+	announcement int REFERENCES announcement (id),
+	description text NOT NULL,
+	complaint_time timestamp 
+);
+
 CREATE OR REPLACE FUNCTION updateUnitBalance()
 RETURNS TRIGGER AS $donation_accept_unit$
 	BEGIN

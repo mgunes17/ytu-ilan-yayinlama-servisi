@@ -39,6 +39,11 @@ public class Student extends User implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Application> myApplications = new ArrayList<Application>();
 
+    @OneToMany(mappedBy="student", targetEntity=Complaint.class,
+            fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Complaint> complaintList = new ArrayList<Complaint>();
+
 	public Student(){
         super();
     }
@@ -56,6 +61,22 @@ public class Student extends User implements Serializable {
 		
 		return application;
 	}
+
+	public boolean isComplaint(int annId) {
+	    boolean is = false;
+        int i = 0;
+
+        while(i < complaintList.size() && is == false) {
+            if(complaintList.get(i).getAnnouncement().getId() == annId) {
+                is = true;
+            }
+
+            i++;
+        }
+
+        return is;
+
+    }
 	
 	//getter-setter
     public String getName() {
@@ -89,4 +110,12 @@ public class Student extends User implements Serializable {
 	public void setMyApplications(List<Application> myApplications) {
 		this.myApplications = myApplications;
 	}
+
+    public List<Complaint> getComplaintList() {
+        return complaintList;
+    }
+
+    public void setComplaintList(List<Complaint> complaintList) {
+        this.complaintList = complaintList;
+    }
 }

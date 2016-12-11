@@ -64,7 +64,11 @@ public class Announcement implements Serializable, Comparable<Announcement> {
     @OneToMany(mappedBy="pk.announcement", targetEntity=Application.class, 
     		fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
-    private List<Student> appStudentList = new ArrayList<Student>();
+    private List<Application> appStudentList = new ArrayList<Application>();
+
+    @OneToMany(mappedBy = "announcement", targetEntity = Complaint.class,
+            fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    private List<Complaint> complaintList = new ArrayList<Complaint>();
     
     @Column(name = "announcement_language")
     private String announcementLanguage;
@@ -161,11 +165,11 @@ public class Announcement implements Serializable, Comparable<Announcement> {
         this.ownerPacket = ownerPacket;
     }
     
-    public List<Student> getAppStudentList() {
+    public List<Application> getAppStudentList() {
 		return appStudentList;
 	}
 
-	public void setAppStudentList(List<Student> appStudentList) {
+	public void setAppStudentList(List<Application> appStudentList) {
 		this.appStudentList = appStudentList;
 	}
 	
@@ -192,4 +196,12 @@ public class Announcement implements Serializable, Comparable<Announcement> {
 	public void setPublishDate(Date publishDate) {
 		this.publishDate = publishDate;
 	}
+
+    public List<Complaint> getComplaintList() {
+        return complaintList;
+    }
+
+    public void setComplaintList(List<Complaint> complaintList) {
+        this.complaintList = complaintList;
+    }
 }

@@ -63,12 +63,20 @@ public class AnnouncementDetailToStudentServlet extends HttpServlet {
 			} else {
 				session.setAttribute("basvuruvar", 2);
 			}
+
+			if(student.isComplaint(annID)) {
+                session.setAttribute("sikayetvar", 1);
+            } else {
+                session.setAttribute("sikayetvar", 2);
+            }
 			
 			session.setAttribute("announcement", announcement);
 		} else {
 			session.setAttribute("ilangetir", 1);
 		}
-		
+
+		session.setAttribute("sikayetedildi", 0);
+        session.setAttribute("ilangericek", 0);
 		session.setAttribute("basvuruldu", 0);
 		response.sendRedirect("student/ilan-detay.jsp");
 	}
