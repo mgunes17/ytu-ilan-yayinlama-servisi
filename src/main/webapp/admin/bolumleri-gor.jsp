@@ -5,6 +5,9 @@
 <html>
 	<head>
 		<jsp:include page="html/head.html"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<meta http-equiv="Content-Type" content="text/html">
 		<meta charset="UTF-8">
 		<title>Bölümler</title>

@@ -16,6 +16,7 @@ public interface AnnouncementDAO {
 	List<Announcement> getByCriteria(SearchCriteria criteria);
 	List<Announcement> getBySQLCriteria(String query);
     List<Announcement> getByCriteria(Map<String, Object> parameter);
+	List<Announcement> getComplaintAnnouncement();
 	Announcement getAnnouncement(int id);
 	boolean updateAnnouncement(Announcement ann);
 }

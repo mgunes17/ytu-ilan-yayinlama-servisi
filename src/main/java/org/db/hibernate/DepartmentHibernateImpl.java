@@ -1,5 +1,6 @@
 package org.db.hibernate;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.db.dao.DepartmentDAO;
@@ -10,7 +11,8 @@ public class DepartmentHibernateImpl extends AbstractDAO implements DepartmentDA
 	private Session session;
 
 	public List<Department> getAllDepartments() {
-		List<Department> departments = getAllRows(Department.class);
+		String hql = "FROM Department ORDER BY code";
+		List<Department> departments = getRowsByQuery(Department.class, hql, new HashMap<String, Object>());
 		return departments;
 	}
 

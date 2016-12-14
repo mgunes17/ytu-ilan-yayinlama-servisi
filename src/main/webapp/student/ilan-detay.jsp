@@ -1,15 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-9"
-    pageEncoding="ISO-8859-9"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
-		<title>İlan Detay</title>
+		<title>Ä°lan Detay</title>
 		<jsp:include page="../html/head.html"></jsp:include>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -40,21 +38,21 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">İlanı Şikayet Et</h4>
+						<h4 class="modal-title">Ä°lanÄ± Åikayet Et</h4>
 					</div>
 					<div class="modal-body">
-						<p>Lütfen şikayet etme sebebinizi yazınız.</p>
+						<p>LÃ¼tfen ÅŸikayet etme sebebinizi yazÄ±nÄ±z.</p>
                         <br/>
 						<form>
 							<input type="hidden" name="announcementId" id="announcementID">
                             <textarea name="complaintDescription" class="form-control" rows="3"></textarea>
                             <br/>
-							<input formaction="../complaintannouncement" type="submit" class="btn btn-default" value="Gönder">
+							<input formaction="../complaintannouncement" type="submit" class="btn btn-default" value="GÃ¶nder">
 						</form>
 					</div>
 					<div class="modal-footer">
-						<p>Asılsız şikayetler ceza puanı almanıza neden olur.</p>
-                        <p>Şikayetinizi, yönetici değerlendirmeden önce geri çekebilirsiniz.</p>
+						<p>AsÄ±lsÄ±z ÅŸikayetler ceza puanÄ± almanÄ±za neden olur.</p>
+                        <p>Åikayetinizi, yÃ¶netici deÄŸerlendirmeden Ã¶nce geri Ã§ekebilirsiniz.</p>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
 					</div>
 				</div>
@@ -67,22 +65,22 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Şikayeti Geri Çek</h4>
+                        <h4 class="modal-title">Åikayeti Geri Ã‡ek</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Şikayeti geri çekmek istediğinize emin misiniz?</p>
+                        <p>Åikayeti geri Ã§ekmek istediÄŸinize emin misiniz?</p>
                         <br/>
                         <form>
                             <form>
                                 <input type="hidden" name="announcementId" id="announcementID2">
                                 <input formaction="../deletecomplaint" type="submit" class="btn btn-default" value="Evet">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Hayır</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">HayÄ±r</button>
                             </form>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <p>Onaylamanız durumunda şikayet veri tabanından silinir.</p>
-                        <p>İsterseniz daha sonra tekrar şikayet edebilirsiniz.</p>
+                        <p>OnaylamanÄ±z durumunda ÅŸikayet veri tabanÄ±ndan silinir.</p>
+                        <p>Ä°sterseniz daha sonra tekrar ÅŸikayet edebilirsiniz.</p>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
                     </div>
                 </div>
@@ -100,64 +98,64 @@
  					<c:choose>
  						<c:when test="${basvuruldu eq 1 }">
  							<div class="alert alert-success">
- 								Başvurunuz gerçekleşti.
- 								Tüm başvurularınızı <a href="#">buradan</a> görebilirsiniz.
+ 								BaÅŸvurunuz gerÃ§ekleÅŸti.
+ 								TÃ¼m baÅŸvurularÄ±nÄ±zÄ± <a href="#">buradan</a> gÃ¶rebilirsiniz.
  							</div>
  						</c:when>
  						<c:when test="${basvuruldu eq 2 }">
  							<div class="alert alert-danger">
- 								Başvurunuz alınamadı.
- 								Lütfen daha sonra tekrar deneyin
+ 								BaÅŸvurunuz alÄ±namadÄ±.
+ 								LÃ¼tfen daha sonra tekrar deneyin
  							</div>
  						</c:when>
  						<c:when test="${basvuruldu eq 3 }">
  							<div class="alert alert-warning">
- 								Başvurunuz silindi.
- 								İsterseniz yeniden başvurabilirsiniz.
+ 								BaÅŸvurunuz silindi.
+ 								Ä°sterseniz yeniden baÅŸvurabilirsiniz.
  							</div>
  						</c:when>
  						<c:when test="${basvuruldu eq 4 }">
  							<div class="alert alert-alert">
- 								Başvurunuz silinemedi.
- 								Lütfen daha sonra tekrar deneyin.
+ 								BaÅŸvurunuz silinemedi.
+ 								LÃ¼tfen daha sonra tekrar deneyin.
  							</div>
  						</c:when>
                         <c:when test="${sikayetedildi eq 1}">
                             <div class="alert alert-success">
-                                Şikayet kaydınız oluşturuldu.
-                                Tüm şikayetlerinizi <a href="../listmycomplaints">buradan</a> görebilirsiniz.
+                                Åikayet kaydÄ±nÄ±z oluÅŸturuldu.
+                                TÃ¼m ÅŸikayetlerinizi <a href="../listmycomplaints">buradan</a> gÃ¶rebilirsiniz.
                             </div>
                         </c:when>
                         <c:when test="${sikayetedildi eq 2}">
                             <div class="alert alert-success">
-                                Şikayet kaydı oluşturulurken bir hata meydane geldi.
-                                Lütfen daha sonra tekrar deneyiniz.
+                                Åikayet kaydÄ± oluÅŸturulurken bir hata meydane geldi.
+                                LÃ¼tfen daha sonra tekrar deneyiniz.
                             </div>
                         </c:when>
                         <c:when test="${ilangericek eq 1}">
                             <div class="alert alert-warning">
-                                Şikayetiniz geri çekildi.
-                                Diğer şikayetlerinizi <a href="../listmycomplaints">buradan</a> görebilirsiniz.
+                                Åikayetiniz geri Ã§ekildi.
+                                DiÄŸer ÅŸikayetlerinizi <a href="../listmycomplaints">buradan</a> gÃ¶rebilirsiniz.
                             </div>
                         </c:when>
                         <c:when test="${ilangericek eq 2}">
                             <div class="alert alert-danger">
-                                Şikayetiniz geri çekilemedi.
-                                Lütfen daha sonra tekrar deneyiniz.
+                                Åikayetiniz geri Ã§ekilemedi.
+                                LÃ¼tfen daha sonra tekrar deneyiniz.
                             </div>
                         </c:when>
  					</c:choose>
  					<table class="table table-bordered">
  						<tr>
- 							<th>Şirket Adı</th>
+ 							<th>Åirket AdÄ±</th>
  							<td>${announcement.ownerCompany.companyName}</td>
  						</tr>
  						<tr>
- 							<th>İlan Başlığı</th>
+ 							<th>Ä°lan BaÅŸlÄ±ÄŸÄ±</th>
  							<td>${announcement.title}</td>
  						</tr>
  						<tr>
- 							<th>Kısa Açıklama</th>
+ 							<th>KÄ±sa AÃ§Ä±klama</th>
  							<td>${announcement.brief}</td>
  						</tr>
  						<tr>
@@ -167,11 +165,11 @@
  							<td colspan="2">${announcement.content }</td>
  						</tr>
  						<tr>
- 							<th>Görüntülenme Sayısı</th>
+ 							<th>GÃ¶rÃ¼ntÃ¼lenme SayÄ±sÄ±</th>
  							<td>${announcement.numberOfPageViews}</td>
  						</tr>
  						<tr>
- 							<th>Başvuru sayısı</th>
+ 							<th>BaÅŸvuru sayÄ±sÄ±</th>
  							<td>${fn:length(announcement.appStudentList)}</td>
  						</tr>
  						<tr>
@@ -179,7 +177,7 @@
 							<td>${announcement.category.categoryName }</td>
 						</tr>
 						<tr>
-							<th>Yayınlanma Tarihi</th>
+							<th>YayÄ±nlanma Tarihi</th>
 							<td><fmt:formatDate value="${announcement.publishDate }"/></td>
 						</tr>	
  						<tr>
@@ -188,12 +186,12 @@
  									<input type = "hidden" name = "announcement" value = "${announcement.id}" >
  									<c:if test="${basvuruvar eq 1 }">
  										<input type="hidden" name="deleteUrl" value="student/ilan-detay.jsp">
- 										 <input disabled class="btn btn-primary disabled" type="submit" value="Başvur">
- 										 <input formaction="../deleteapplication" class="btn btn-warning active" type = "submit" value = "Başvuruyu Geri Çek">
+ 										 <input disabled class="btn btn-primary disabled" type="submit" value="BaÅŸvur">
+ 										 <input formaction="../deleteapplication" class="btn btn-warning active" type = "submit" value = "BaÅŸvuruyu Geri Ã‡ek">
  									</c:if>
  									<c:if test="${basvuruvar eq 2 }">										
- 										 <input type = "submit" value = "İlana Başvur" formaction = "../applicationtoannouncement" class="btn btn-primary active">
- 										 <input disabled formaction="#" type = "submit" value = "Başvuruyu Geri Çek" class="btn btn-warning disabled">
+ 										 <input type = "submit" value = "Ä°lana BaÅŸvur" formaction = "../applicationtoannouncement" class="btn btn-primary active">
+ 										 <input disabled formaction="#" type = "submit" value = "BaÅŸvuruyu Geri Ã‡ek" class="btn btn-warning disabled">
  									</c:if>
 
                                     <c:choose>
@@ -201,13 +199,13 @@
                                             <a href="#complaintDialog"
                                                data-toggle="modal"
                                                class="open-complaintDialog btn btn-danger"
-                                               data-id="${announcement.id}">Şikayet Et</a>
+                                               data-id="${announcement.id}">Åikayet Et</a>
                                         </c:when>
                                         <c:otherwise>
                                             <a href="#deleteComplaintDialog"
                                                data-toggle="modal"
                                                class="delete-complaintDialog btn btn-warning"
-                                               data-id="${announcement.id}">Şikayeti Geri Çek</a>
+                                               data-id="${announcement.id}">Åikayeti Geri Ã‡ek</a>
                                         </c:otherwise>
                                     </c:choose>
 								</form>

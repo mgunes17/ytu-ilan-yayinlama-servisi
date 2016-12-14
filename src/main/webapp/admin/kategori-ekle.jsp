@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib tagdir="/WEB-INF/tags"  prefix="template" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -8,6 +9,9 @@
 		<jsp:include page="html/head.html"/>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
 		<title>Kategori İşlemleri</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 <body>
     <script>
@@ -131,7 +135,7 @@
                                    data-toggle="modal">
                                     <span style="color:dodgerblue" class="glyphicon glyphicon-pencil"></span>
                                 </a>
-                                <c:if test="${item.referencesCount eq 0}">
+                                <c:if test="${item.referencesCount eq 0 && fn:length(item.children) eq 0 && item.id ne 3}">
                                     <a href="#deleteCategoryDialog"
                                        title="Sil"
                                        data-id="${item.id}"

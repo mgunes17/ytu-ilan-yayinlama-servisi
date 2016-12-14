@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,73 @@
 			$("#announcementId").val(myAnnouncementId);
 			$(_self.attr('href')).modal('show');
 		});
+
+        $(document).on("click", ".complaint-message", function (e) {
+            e.preventDefault();
+            var _self = $(this);
+            var mes = _self.data('message');
+            document.getElementById("message").innerHTML = mes;
+            $(_self.attr('href')).modal('show');
+        });
+
+        $(document).on("click", ".open-detail", function (e) {
+            e.preventDefault();
+            var _self = $(this);
+
+            var title = _self.data('title');
+            var content = _self.data('content');
+            var brief = _self.data('brief');
+            var publish = _self.data('publish');
+
+            document.getElementById("title1").innerHTML = title;
+            document.getElementById("content1").innerHTML = content;
+            document.getElementById("publish1").innerHTML = publish;
+            document.getElementById("brief1").innerHTML = brief;
+
+            $(_self.attr('href')).modal('show');
+        });
 	</script>
+
+    <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4>İlan Detayları</h4>
+
+                    <p><b>Başlık</b></p>
+                    <p id="title1"></p>
+
+                    <p><b>Kısa Açıklama</b></p>
+                    <p id="brief1"></p>
+
+                    <p><b>İçerik</b></p>
+                    <p id="content1"></p>
+
+                    <p><b>Şirket Adı</b></p>
+                    <p id="company1"></p>
+
+                    <p><b>Yayınlanma Tarihi</b></p>
+                    <p id="publish1"></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="complaintMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4>İlanın Kaldırılmasına Yönelik Yönetici Mesajı:</h4>
+                    <br/>
+                    <p id="message"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 	<div class="container-fluid">
 	
@@ -52,9 +119,9 @@
 			            <tr>
 			                <th>İlan No</th>
 			                <th>Başlık</th>
-			                <th>Durum</th>
 			                <th>Paket</th>
-			                <th>Başvuru Sayısı</th>
+			                <th>Görüntülenme Sayısı</th>
+                            <th>Başvuru Sayısı</th>
 			                <th>İşlem</th>
 			            </tr>
 			        </thead>
@@ -64,9 +131,9 @@
 								<tr>
 									<td>${item.id}</td>
 									<td>${item.title}</td>
-									<td>${item.state.title}</td>
 									<td>${item.ownerPacket.packet.title}
 									<td>${item.numberOfPageViews}</td>
+                                    <td>${fn: length(item.appStudentList)}</td>
 									<td>
 										<form method="post">
 										    <input type="hidden" name="packetId" value="${item.id}" />
@@ -77,9 +144,7 @@
 										        type="submit" value="Yayından kaldır" 
 										        formaction="../"/>
 									        <input class="btn btn-danger"
-									            type="submit" value="Sil" 
-									            formaction="../deleteannouncementservlet"/>
-											        
+									            type="submit" value="Pasif"/>
 										</form>
 									</td>
 								</tr>
@@ -211,9 +276,7 @@
 											    <input 
 											        type="submit" value="Tekrar Yayınla" 
 											        formaction="../"/>
-											       <input 
-											        type="submit" value="Sil" 
-											        formaction="../deleteannouncementservlet"/>
+
 											        
 											</form>
 										</td>
@@ -231,7 +294,7 @@
 			                <th>Başlık</th>
 			                <th>Durum</th>
 			                <th>Paket(Varsa)</th>
-			                <th>Başvuru Sayısı</th>
+			                <th>Şikayet Sayısı</th>
 			                <th>İşlem</th>
 			            </tr>
 			        </thead>
@@ -243,21 +306,23 @@
 										<td>${item.title}</td>
 										<td>${item.state.title}</td>
 										<td>${item.ownerPacket.packet.title}
-										<td>${item.numberOfPageViews}</td>
+										<td>${fn: length(item.complaintList)}</td>
 										<td>
-											<form method="post">
-											    <input type="hidden" name="packetId" value="${item.id}" />
-											    <input 
-											        type="submit" value="Detaya Git" 
-											        formaction="../announcementdetailservlet"/>
-											    <input 
-											        type="submit" value="Yayından kaldır" 
-											        formaction="../"/>
-											       <input 
-											        type="submit" value="Sil" 
-											        formaction="../deleteannouncementservlet"/>
-											        
-											</form>
+                                            <a  href="#detail"
+                                                data-toggle="modal"
+                                                data-title="${item.title}"
+                                                data-content="${item.content}"
+                                                data-brief="${item.state.title}"
+                                                data-publish="${item.publishDate}"
+                                                class="open-detail btn btn-success">
+                                                İlan Detay
+                                            </a>
+                                            <a  href="#complaintMessage"
+                                                data-toggle="modal"
+                                                class="complaint-message btn btn-warning"
+                                                data-message="${item.complaintList[0].resultReply}">
+                                                Ceza Sebebi
+                                            </a>
 										</td>
 									</tr>
 			               	 	</c:if>

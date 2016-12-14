@@ -200,7 +200,10 @@ CREATE TABLE complaint (
 	student varchar(20) REFERENCES student (user_name),
 	announcement int REFERENCES announcement (id),
 	description text NOT NULL,
-	complaint_time timestamp 
+	complaint_time timestamp,
+	result char(40),
+	result_time timestamp,
+	result_reply text,
 );
 
 CREATE OR REPLACE FUNCTION updateUnitBalance()

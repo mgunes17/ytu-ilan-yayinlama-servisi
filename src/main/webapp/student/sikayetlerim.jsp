@@ -49,7 +49,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h4>İstek Detayları</h4>
+                    <h4>İlan Detayları</h4>
 
                     <p><b>Başlık</b></p>
                     <p id="title1"></p>
@@ -139,7 +139,7 @@
                                 <td>${item.description}</td>
                                 <td><fmt:formatDate type="date" value="${item.complaintTime}"/></td>
                                 <td>
-                                    <a href="#detail"
+                                    <a  href="#detail"
                                         data-toggle="modal"
                                         data-title="${item.announcement.title}"
                                         data-content="${item.announcement.content}"

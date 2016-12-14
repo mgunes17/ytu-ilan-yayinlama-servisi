@@ -31,10 +31,18 @@ public class Complaint implements Serializable {
     @Column(name = "complaint_time")
     private Date complaintTime;
 
+    @Column(name = "result")
+    private String result;
+
+    @Column(name = "result_time")
+    private Date resultTime;
+
+    @Column(name = "result_reply")
+    private String resultReply;
+
     public Complaint() {
         super();
     }
-
 
     //getter-setter
     public int getId() {
@@ -75,5 +83,29 @@ public class Complaint implements Serializable {
 
     public void setComplaintTime(Date complaintTime) {
         this.complaintTime = complaintTime;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public Date getResultTime() {
+        return resultTime;
+    }
+
+    public void setResultTime(Date resultTime) {
+        this.resultTime = resultTime;
+    }
+
+    public String getResultReply() {
+        return resultReply;
+    }
+
+    public void setResultReply(String resultReply) {
+        this.resultReply = resultReply;
     }
 }
