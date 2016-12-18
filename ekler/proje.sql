@@ -22,6 +22,7 @@ CREATE TABLE student (
 	name varchar(30) not null,
 	surname varchar(30) not null,
 	department varchar(30) not null,
+	penalty_point int DEFAULT 0,
 	primary key(user_name)
 );
 
@@ -115,7 +116,8 @@ CREATE TABLE announcement (
 	announcement_type int not null,
 	announcement_category int REFERENCES announcement_category(id),
 	announcement_language char(20),
-	publish_date timestamp
+	publish_date timestamp,
+	proper_complaint boolean DEFAULT TRUE
 );
 
 CREATE TABLE announcement_packet (

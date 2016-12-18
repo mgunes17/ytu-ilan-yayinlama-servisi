@@ -47,6 +47,15 @@
                 $("#annid").val(id);
                 $(_self.attr('href')).modal('show');
             });
+
+            $(document).on("click", ".false-complaint", function (e) {
+                e.preventDefault();
+                var _self = $(this);
+                var id = _self.data('id');
+
+                $("#annid2").val(id);
+                $(_self.attr('href')).modal('show');
+            });
         </script>
 
         <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" >
@@ -101,6 +110,35 @@
             </div>
         </div>
 
+        <div class="modal fade" id="falseComplaint" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Şikayetleri Reddet!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Şikayetlerin yanlış olduğuna kanaat getirdiniz</h4>
+                        <p>Lütfen bu düşüncenizin nedenini açıklayın.</p>
+                        <form method="post" action="../rejectcomplaint">
+                            <textarea cols="40" rows="10" name="resultReply" class="form-control"></textarea>
+                            <br/>
+                            <button type="submit" class="btn btn-default"class="form-control">Gönder</button>
+                            <input type="hidden" id="annid2" name="annID">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <p>Yazmış olduğunuz açıklama şikayet eden öğrencilere iletilecektir.</p>
+                        <p>İlanı şikayet eden öğrencilere ceza puanı eklenecektir.</p>
+                        <p>İlan tekrar şikayet edilemez durumda olacaktır. </p>
+                        <p>Kararınızı değiştirirseniz ilanlar sayfasından ilanı yayından kaldırabilirsiniz.</p>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="container-fluid">
             <div class="row">
                 <jsp:include page="html/header.html"/>
@@ -115,6 +153,17 @@
                             </div>
                         </c:when>
                         <c:when test="${ceza eq 2}">
+                            <div class="alert alert-danger">
+                                Bir hata meydana geldi.
+                                Lütfen daha sonra tekrar deneyiniz.
+                            </div>
+                        </c:when>
+                        <c:when test="${ret eq 1}">
+                            <div class="alert alert-success">
+                                Şikayetler reddedildi.
+                            </div>
+                        </c:when>
+                        <c:when test="${ret eq 2}">
                             <div class="alert alert-danger">
                                 Bir hata meydana geldi.
                                 Lütfen daha sonra tekrar deneyiniz.
@@ -155,8 +204,10 @@
                                             class="true-complaint btn btn-warning">
                                             Şikayetler Doğru
                                         </a>
-                                        <a  href="#"
-                                            class="btn btn-danger">
+                                        <a  href="#falseComplaint"
+                                            data-toggle="modal"
+                                            data-id="${item.id}"
+                                            class="false-complaint btn btn-danger">
                                             Şikayetler Yanlış
                                         </a>
                                         <div id="${item.id}" class="collapse">

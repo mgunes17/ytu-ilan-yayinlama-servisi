@@ -9,4 +9,5 @@ public interface ComplaintDAO {
     boolean saveComplaint(Complaint complaint);
     boolean deleteComplaint(String username, int announcementID);
     boolean punishAnnouncement(int annID, String result, String resultReply);
+    boolean rejectComplaint(int annID, String result, String resultReply);
 }

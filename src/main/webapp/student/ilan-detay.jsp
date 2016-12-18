@@ -194,20 +194,22 @@
  										 <input disabled formaction="#" type = "submit" value = "Başvuruyu Geri Çek" class="btn btn-warning disabled">
  									</c:if>
 
-                                    <c:choose>
-                                        <c:when test="${sikayetvar eq 2}">
-                                            <a href="#complaintDialog"
-                                               data-toggle="modal"
-                                               class="open-complaintDialog btn btn-danger"
-                                               data-id="${announcement.id}">Şikayet Et</a>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <a href="#deleteComplaintDialog"
-                                               data-toggle="modal"
-                                               class="delete-complaintDialog btn btn-warning"
-                                               data-id="${announcement.id}">Şikayeti Geri Çek</a>
-                                        </c:otherwise>
-                                    </c:choose>
+									<c:if test="${announcement.properComplaint eq true}">
+										<c:choose>
+											<c:when test="${sikayetvar eq 2}">
+												<a href="#complaintDialog"
+												   data-toggle="modal"
+												   class="open-complaintDialog btn btn-danger"
+												   data-id="${announcement.id}">Şikayet Et</a>
+											</c:when>
+											<c:otherwise>
+												<a href="#deleteComplaintDialog"
+												   data-toggle="modal"
+												   class="delete-complaintDialog btn btn-warning"
+												   data-id="${announcement.id}">Şikayeti Geri Çek</a>
+											</c:otherwise>
+										</c:choose>
+									</c:if>
 								</form>
 							</td>
  						</tr>

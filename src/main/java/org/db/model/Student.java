@@ -44,6 +44,9 @@ public class Student extends User implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Complaint> complaintList = new ArrayList<Complaint>();
 
+    @Column(name = "penalty_point")
+    private int penaltyPoint;
+
 	public Student(){
         super();
     }
@@ -117,5 +120,13 @@ public class Student extends User implements Serializable {
 
     public void setComplaintList(List<Complaint> complaintList) {
         this.complaintList = complaintList;
+    }
+
+    public int getPenaltyPoint() {
+        return penaltyPoint;
+    }
+
+    public void setPenaltyPoint(int penaltyPoint) {
+        this.penaltyPoint = penaltyPoint;
     }
 }

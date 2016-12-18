@@ -120,7 +120,7 @@
                         </div>
                     </c:when>
                 </c:choose>
-                <h4>Şikayet Ettiğiniz İlanlar</h4>
+                <h4>Şikayet Durumu Sonuçlanmayanlar</h4>
                 <table class="table table-stripped">
                     <thead>
                         <tr>
@@ -133,31 +133,61 @@
                     </thead>
                     <tbody>
                         <c:forEach var="item" items="${user.complaintList}">
+                            <c:if test="${empty item.result}">
+                                <tr>
+                                    <td>${item.announcement.title}</td>
+                                    <td>${item.announcement.ownerCompany.companyName}</td>
+                                    <td>${item.description}</td>
+                                    <td><fmt:formatDate type="date" value="${item.complaintTime}"/></td>
+                                    <td>
+                                        <a  href="#detail"
+                                            data-toggle="modal"
+                                            data-title="${item.announcement.title}"
+                                            data-content="${item.announcement.content}"
+                                            data-brief="${item.announcement.state.title}"
+                                            data-company="${item.announcement.ownerCompany.companyName}"
+                                            data-publish="${item.announcement.publishDate}"
+                                            class="open-detail btn btn-info">
+                                            İlan Detay
+                                        </a>
+                                        <a href="#delete"
+                                           data-toggle="modal"
+                                           data-id="${item.announcement.id}"
+                                           class="open-delete btn btn-danger">
+                                            Şikayeti Geri Çek
+                                        </a>
+                                    </td>
+                                </tr>
+                            </c:if>
+                        </c:forEach>
+                    </tbody>
+                </table>
+
+                <h4>Şikayet Durumu Sonuçlananlar</h4>
+                <table class="table table-stripped">
+                    <thead>
+                    <tr>
+                        <td>İlan Adı</td>
+                        <td>Firma Adı</td>
+                        <td>Şikayet Nedeni</td>
+                        <td>Şikayet Zamanı</td>
+                        <td>Sonuç</td>
+                        <td>Açıklama</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="item" items="${user.complaintList}">
+                        <c:if test="${not empty item.result}">
                             <tr>
                                 <td>${item.announcement.title}</td>
                                 <td>${item.announcement.ownerCompany.companyName}</td>
                                 <td>${item.description}</td>
                                 <td><fmt:formatDate type="date" value="${item.complaintTime}"/></td>
-                                <td>
-                                    <a  href="#detail"
-                                        data-toggle="modal"
-                                        data-title="${item.announcement.title}"
-                                        data-content="${item.announcement.content}"
-                                        data-brief="${item.announcement.state.title}"
-                                        data-company="${item.announcement.ownerCompany.companyName}"
-                                        data-publish="${item.announcement.publishDate}"
-                                        class="open-detail btn btn-info">
-                                        İlan Detay
-                                    </a>
-                                    <a href="#delete"
-                                        data-toggle="modal"
-                                        data-id="${item.announcement.id}"
-                                        class="open-delete btn btn-danger">
-                                        Şikayeti Geri Çek
-                                    </a>
-                                </td>
+                                <td>${item.result}</td>
+                                <td>${item.description}</td>
                             </tr>
-                        </c:forEach>
+                        </c:if>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>

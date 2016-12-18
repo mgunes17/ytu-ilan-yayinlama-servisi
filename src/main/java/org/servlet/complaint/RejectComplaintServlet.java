@@ -15,27 +15,27 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by mgunes on 14.12.2016.
+ * Created by mgunes on 18.12.2016.
  */
-@WebServlet(name = "AcceptComplaintServlet", urlPatterns = {"/acceptcomplaint"})
-public class AcceptComplaintServlet extends HttpServlet {
+@WebServlet(name = "RejectComplaintServlet", urlPatterns = {"/rejectcomplaint"})
+public class RejectComplaintServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session  = request.getSession();
-        session.setAttribute("ret", 0);
+        session.setAttribute("ceza", 0);
         request.setCharacterEncoding("UTF-8");
 
         int annId = Integer.parseInt(request.getParameter("annID"));
-        String result = "Olumlu";
+        String result = "Olumsuz";
         String resultReply = request.getParameter("resultReply");
 
         ComplaintDAO complaintDAO = new ComplaintHibernateImpl();
 
-        if(complaintDAO.punishAnnouncement(annId, result, resultReply)) {
-            session.setAttribute("ceza", 1);
+        if(complaintDAO.rejectComplaint(annId, result, resultReply)) {
+            session.setAttribute("ret", 1);
             List<Announcement> complaintAnnouncementList = new AnnouncementHibernateImpl().getComplaintAnnouncement();
             session.setAttribute("sikayetilan", complaintAnnouncementList);
         } else {
-            session.setAttribute("ceza", 2);
+            session.setAttribute("ret", 2);
         }
 
         response.sendRedirect("admin/sikayet-edilen-ilanlar.jsp");

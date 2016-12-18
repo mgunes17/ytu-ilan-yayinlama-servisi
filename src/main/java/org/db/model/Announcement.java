@@ -80,6 +80,9 @@ public class Announcement implements Serializable, Comparable<Announcement> {
     @Column(name = "publish_date")
     private Date publishDate;
 
+    @Column(name = "proper_complaint")
+    private boolean properComplaint;
+
 	public Announcement(){
     	super();
     }
@@ -203,5 +206,13 @@ public class Announcement implements Serializable, Comparable<Announcement> {
 
     public void setComplaintList(List<Complaint> complaintList) {
         this.complaintList = complaintList;
+    }
+
+    public boolean isProperComplaint() {
+        return properComplaint;
+    }
+
+    public void setProperComplaint(boolean properComplaint) {
+        this.properComplaint = properComplaint;
     }
 }
