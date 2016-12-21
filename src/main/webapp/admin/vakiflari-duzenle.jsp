@@ -51,13 +51,11 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <jsp:include page="html/menu.html"/>
+    <div class="jumbotron container-fluid">
         <div class="row">
-            <jsp:include page="html/header.html"/>
-        </div>
-        <div class="row">
-            <div class="col-md-3"><jsp:include page="html/menu.html"/></div>
-            <div class="col-md-6">
+            <div class="col-md-2"></div>
+            <div class="col-md-7">
                 <c:choose>
                     <c:when test="${bkbsil eq 1}">
                         <div class="alert alert-success">
@@ -116,7 +114,6 @@
             </div>
         </div>
 
-    <jsp:include page="../html/footer.html"></jsp:include> 
-    
-</body>
+        <jsp:include page="html/footer.html"/>
+    </body>
 </html>

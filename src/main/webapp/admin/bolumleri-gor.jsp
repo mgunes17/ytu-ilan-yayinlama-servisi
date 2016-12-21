@@ -4,12 +4,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<jsp:include page="html/head.html"/>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<meta http-equiv="Content-Type" content="text/html">
 		<meta charset="UTF-8">
+		<jsp:include page="html/head.html"/>
 		<title>Bölümler</title>
 	</head>
 	<body>
@@ -90,15 +87,14 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="container-fluid">
-	        <div class="row">
-	            <jsp:include page="html/header.html"/>
-	        </div>
+
+        <jsp:include page="html/menu.html"/>
+
+		<div class="jumbotron container-fluid">
         	<div class="row">
-            	<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
+                <div class="col-md-2"></div>
             	<div class="col-md-5">
-            		<table class="table table-stripped">
+            		<table class="table table-hover">
             			<thead>
             				<tr>
             					<th>Bölüm Kodu</th>
@@ -158,6 +154,7 @@
             			</tbody>
             		</table>
             	</div>
+                <div class="col-md-1"></div>
             	<div class="col-md-2">
             		<c:choose>
             			<c:when test="${bolumekle eq 1 }">
@@ -176,22 +173,28 @@
             				</div>
             			</c:when>
             		</c:choose>
-            		<h3>Bölüm Ekle</h3>
-            		<form method="post" action="../adddepartment">
-            			<div class="form-group">
-            				<label for="dcode">Bölüm Kodu</label>
-            				<input type="text" name="dcode" id="dcode" class="form-control"
-                                   maxlength="3" required title="Bölüm kodu 3 karakter olmalıdır.">
-            			</div>
-            			<div class="form-group">
-            				<label for="dname">Bölüm Adı</label>
-            				<input type="text" name="dname" id="dname" class="form-control"
-                                   maxlength="70" required title="Bölüm adı 1-50 karakter uzunluğunda olmalı">
-            			</div>
-            			<button type="submit" class="btn btn-default">Ekle</button>
-            		</form>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Bölüm Ekle</div>
+                        <div class="panel-body">
+                            <form method="post" action="../adddepartment">
+                                <div class="form-group">
+                                    <label for="dcode">Bölüm Kodu</label>
+                                    <input type="text" name="dcode" id="dcode" class="form-control"
+                                           maxlength="3" required title="Bölüm kodu 3 karakter olmalıdır.">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dname">Bölüm Adı</label>
+                                    <input type="text" name="dname" id="dname" class="form-control"
+                                           maxlength="70" required title="Bölüm adı 1-50 karakter uzunluğunda olmalı">
+                                </div>
+                                <button type="submit" class="btn btn-default">Ekle</button>
+                            </form>
+                        </div>
+                    </div>
             	</div>
            	</div>
         </div>
+
+        <jsp:include page="html/footer.html"/>
 	</body>
 </html>

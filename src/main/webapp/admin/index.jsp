@@ -12,11 +12,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="html/head.html"/>
         <title>Yönetici Anasayfa</title>
-</head>
-<body>
-   <jsp:include page="html/header.html"></jsp:include>
-   <jsp:include page="html/menu.html"></jsp:include>
-   <jsp:include page="../html/footer.html"></jsp:include>
-   
-</body>
+    </head>
+    <body>
+        <jsp:include page="html/menu.html"/>
+
+        <div class="jumbotron">
+            <div class="container text-center">
+                <p>Üst menüden seçiminizi yapabilirsiniz.</p>
+            </div>
+        </div>
+
+        <jsp:include page="html/footer.html"/>
+    </body>
 </html>

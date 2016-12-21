@@ -19,4 +19,7 @@ public interface AnnouncementDAO {
 	List<Announcement> getComplaintAnnouncement();
 	Announcement getAnnouncement(int id);
 	boolean updateAnnouncement(Announcement ann);
+	List<Announcement> getSuspendedAnnouncements();
+	List<Announcement> getSuspendedOrderByName();
+    List<Announcement> getSuspendedOrderByDate();
 }

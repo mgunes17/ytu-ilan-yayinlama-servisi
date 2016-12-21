@@ -14,9 +14,6 @@
     <head>
         <title>Şikayet Edilen İlanlar</title>
         <jsp:include page="html/head.html"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
         <script>
@@ -139,12 +136,10 @@
         </div>
 
 
-        <div class="container-fluid">
+        <jsp:include page="html/menu.html"/>
+        <div class="jumbotron container-fluid">
             <div class="row">
-                <jsp:include page="html/header.html"/>
-            </div>
-            <div class="row">
-                <div class="col-md-3"><jsp:include page="html/menu.html"/></div>
+                <div class="col-md-2"></div>
                 <div class="col-md-7">
                     <c:choose>
                         <c:when test="${ceza eq 1}">
@@ -224,5 +219,6 @@
                 </div>
             </div>
         </div>
+        <jsp:include page="html/footer.html"/>
     </body>
 </html>

@@ -50,10 +50,6 @@ public class ComplaintHibernateImpl extends AbstractDAO implements ComplaintDAO 
     }
 
     public boolean rejectComplaint(int annID, String result, String resultReply) {
-        //şikayet tablosunda ilgili idli kısımları düzenle
-        //o ilan nolu şikayetleri getir, öğrenci tablosuyla join, eşleşenlerin ceza puanını 5 artır, trigger?
-        //ilanın proper complaint ini false yap, onun da ilan detay da şikayet et butonuna if koy
-
         session = HibernateSessionFactory.getSessionFactory().openSession();
 
         //şikayet tablosunu düzenle

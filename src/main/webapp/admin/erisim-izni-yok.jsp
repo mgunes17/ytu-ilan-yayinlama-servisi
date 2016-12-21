@@ -8,6 +8,10 @@
         <title>Erişim İzni Yok</title>
 </head>
 <body>
-   <p>Erişim izniniz yok</p>
+    <jsp:include page="html/menu.html"/>
+    <div class="page-header text-center">
+        <h3>Bu sayfaya erişim izniniz bulunmamaktadır.</h3>
+    </div>
+    <jsp:include page="html/footer.html"/>
 </body>
 </html>

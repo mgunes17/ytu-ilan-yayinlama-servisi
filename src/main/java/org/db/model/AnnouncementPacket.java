@@ -3,14 +3,7 @@ package org.db.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="announcement_packet")
@@ -22,7 +15,7 @@ public class AnnouncementPacket implements Serializable {
 	
 	@Id
     @Column(name="packet_id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private int packetId;
     
 	@Column(name="title")
@@ -43,7 +36,7 @@ public class AnnouncementPacket implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="currency", nullable=false)
     private Currency currency;
-   
+
 	@Column(name="condition", nullable=false)
     private String condition;
    
@@ -120,11 +113,11 @@ public class AnnouncementPacket implements Serializable {
     }
     
     public String getTitle() {
-        return condition;
+        return title;
     }
 
-    public void setTitle(String condition) {
-        this.condition = condition;
+    public void setTitle(String title) {
+        this.title = title;
     }
     
     public BankAccountInfo getAccountInfo() {

@@ -304,7 +304,7 @@
 			               	 		<tr>
 										<td>${item.id}</td>
 										<td>${item.title}</td>
-										<td>${item.state.title}</td>
+										<td>${item.brief}</td>
 										<td>${item.ownerPacket.packet.title}
 										<td>${fn: length(item.complaintList)}</td>
 										<td>
@@ -312,7 +312,7 @@
                                                 data-toggle="modal"
                                                 data-title="${item.title}"
                                                 data-content="${item.content}"
-                                                data-brief="${item.state.title}"
+                                                data-brief="${item.brief}"
                                                 data-publish="${item.publishDate}"
                                                 class="open-detail btn btn-success">
                                                 İlan Detay

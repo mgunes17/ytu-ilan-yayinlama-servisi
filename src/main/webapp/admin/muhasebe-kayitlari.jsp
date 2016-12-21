@@ -9,7 +9,6 @@
 		<title>Muhasebe Kayıtları</title>
 		<jsp:include page="html/head.html"/>
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<link rel="stylesheet" href="/resources/demos/style.css">
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="../js/datePicker.js" charset="UTF-8"></script>
 		<script>
@@ -48,11 +47,7 @@
 	</head>
 	<body>
 		<div class="container-fluid">
-	        <div class="row">
-	            <jsp:include page="html/header.html"/>
-	        </div>
         	<div class="row">
-            	<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
 				<div class="col-md-2">
 					<h4>Arama Yapın</h4>
 					<form action="../filterbalance">

@@ -1,6 +1,8 @@
 package org.servlet.admin;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -50,14 +52,13 @@ public class CreateAnnouncementPackageServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
-        /*String date = request.getParameter("last_date_used");
-        Date expired = new Date(); //düzeltilecek*/
-                        
+
         CurrencyDAO currencyDAO = new CurrencyHibernateImpl();
-    	currency = currencyDAO.getCurrency(Integer.parseInt(request.getParameter("currency")));
+    	//currency = currencyDAO.getCurrency(Integer.parseInt(request.getParameter("currency")));
+        currency = currencyDAO.getCurrency(1);
         
     	BankAccountDAO accountDAO = new BankAccountHibernateImpl();
-    	accountInfo = accountDAO.getAccount((String) request.getParameter("account"));
+    	accountInfo = accountDAO.getAccount(request.getParameter("account"));
     	
         readParameters(request);
                 
@@ -80,10 +81,17 @@ public class CreateAnnouncementPackageServlet extends HttpServlet {
                 request.getParameter("announcement_number")));
         packet.setPrice(Integer.parseInt(request.getParameter("price")));
         packet.setCondition(request.getParameter("condition"));
-        
         packet.setAccountInfo(accountInfo);
         packet.setCurrency(currency);
 
+        try {
+            String date = request.getParameter("last_date_used");
+            Date expired = new SimpleDateFormat("dd/mm/yyyy").parse(date);
+            packet.setLastDateUsed(expired);
+        } catch (ParseException e) {
+            System.out.println("Son kullanım tarihi okunamadı");
+            e.printStackTrace();
+        }
     }
 
 }

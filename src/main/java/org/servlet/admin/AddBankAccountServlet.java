@@ -47,7 +47,8 @@ public class AddBankAccountServlet extends HttpServlet {
         bai.setBankAccountNumber(Integer.parseInt(request.getParameter("account_number")));
         bai.setBankName(request.getParameter("bank_name"));
         bai.setBranchBankName(request.getParameter("name_of_branch"));
-        bai.setCurrency(Integer.parseInt(request.getParameter("currency")));
+        //bai.setCurrency(Integer.parseInt(request.getParameter("currency")));
+        bai.setCurrency(1);
         bai.setIban(request.getParameter("iban"));
         
         HttpSession httpSession = request.getSession();

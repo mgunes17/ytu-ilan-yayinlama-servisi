@@ -120,7 +120,7 @@
                         </div>
                     </c:when>
                 </c:choose>
-                <h4>Şikayet Durumu Sonuçlanmayanlar</h4>
+                <h4><b>Şikayet Durumu Sonuçlanmayanlar</b></h4>
                 <table class="table table-stripped">
                     <thead>
                         <tr>
@@ -163,7 +163,7 @@
                     </tbody>
                 </table>
 
-                <h4>Şikayet Durumu Sonuçlananlar</h4>
+                <h4><b>Şikayet Durumu Sonuçlananlar</b></h4>
                 <table class="table table-stripped">
                     <thead>
                     <tr>

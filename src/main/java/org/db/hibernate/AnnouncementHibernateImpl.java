@@ -1,5 +1,6 @@
 package org.db.hibernate;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,21 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
 
 	public boolean updateAnnouncement(Announcement ann) {
 		return save(ann);
+	}
+
+    public List<Announcement> getSuspendedAnnouncements() {
+        String hql = "FROM Announcement WHERE state = 4";
+        return getRowsByQuery(Announcement.class, hql, new HashMap<String, Object>());
+    }
+
+	public List<Announcement> getSuspendedOrderByName() {
+		String hql = "FROM Announcement WHERE state = 4 ORDER BY ownerCompany";
+		return getRowsByQuery(Announcement.class, hql, new HashMap<String, Object>());
+	}
+
+	public List<Announcement> getSuspendedOrderByDate() {
+        String hql = "FROM Announcement WHERE state = 4 ORDER BY ownerCompany";
+        return getRowsByQuery(Announcement.class, hql, new HashMap<String, Object>());
 	}
 
 	public List<Announcement> getActiveAnnouncements() {

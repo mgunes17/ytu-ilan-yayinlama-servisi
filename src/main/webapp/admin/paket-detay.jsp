@@ -10,12 +10,10 @@
 		<title>Paket Detayları</title>
 	</head>
 	<body>
-		<div class="container-fluid">
+        <jsp:include page="html/menu.html"/>
+        <div class="jumbotron container-fluid">
 	        <div class="row">
-	            <jsp:include page="html/header.html"/>
-	        </div>
-	        <div class="row">
-	            <div class="col-md-3"><jsp:include page="html/menu.html"/></div>
+                <div class="col-md-4"></div>
 	            <div class="col-md-4">
 	            	<h3>${packet.packetId} No'lu Paketin Detayları</h3>
 	            	<table class="table table-bordered">
@@ -55,5 +53,7 @@
 	            </div>
 	        </div>
 	    </div>
+
+        <jsp:include page="../html/footer.html"></jsp:include>
 	</body>
 </html>
