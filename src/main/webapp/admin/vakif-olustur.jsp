@@ -21,23 +21,23 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-3">
                     <div class="text-centers">
-                        <c:choose>
-                            <c:when test="${vakifolusturuldu eq 1}">
-                               <div id="alert" class="alert alert-success">
-                                    <strong>Başarılı!</strong> Vakıf Oluşturuldu
-                                </div>
-                            </c:when>
-                            <c:when test="${vakifolusturuldu eq 2}">
-                               <div id="alert" class="alert alert-danger">
-                                    <strong>Başarısız!</strong> Vakıf Oluşturulamadı.
-                                </div>
-                            </c:when>
-                        </c:choose>
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4>Yeni Bağış Kabul Birimi Ekleyin</h4>
                             </div>
                             <div class="panel-body">
+                                <c:choose>
+                                    <c:when test="${vakifolusturuldu eq 1}">
+                                        <div id="alert" class="alert alert-success">
+                                            <strong>Başarılı!</strong> Vakıf Oluşturuldu
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${vakifolusturuldu eq 2}">
+                                        <div id="alert" class="alert alert-danger">
+                                            <strong>Başarısız!</strong> Vakıf Oluşturulamadı.
+                                        </div>
+                                    </c:when>
+                                </c:choose>
                                 <form method="post" action="../createdonationunitservlet" >
                                     <table id="formBKBTable" class="table">
                                         <tbody>

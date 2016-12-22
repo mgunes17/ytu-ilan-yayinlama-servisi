@@ -49,7 +49,7 @@ CREATE TABLE dau_user (
 );
 
 CREATE TABLE bank_account_info (
-  owner_unit_name varchar(20),
+  owner_unit_name varchar(40),
   bank_name varchar(30) NOT NULL,
   branch_bank_name varchar(30) NOT NULL,
   bank_account_number numeric(16) NOT NULL,

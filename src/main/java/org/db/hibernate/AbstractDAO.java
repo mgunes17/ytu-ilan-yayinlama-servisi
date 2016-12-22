@@ -59,10 +59,10 @@ public abstract class AbstractDAO {
 		}
 	}
 
-	protected <T> boolean deleteByQuery(Class<T> c, String tableName, String pkColumnName, Object pk) {
+	protected <T> boolean deleteByQuery(Class<T> c, String className, String pkColumnName, Object pk) {
 		try {
 			session = HibernateSessionFactory.getSessionFactory().openSession();
-			String query = "delete from " + tableName + " where " + pkColumnName + " = :id";
+			String query = "delete from " + className + " where " + pkColumnName + " = :id";
 			session.getTransaction().begin();
 			Query hqlQuery = session.createQuery(query);
 			hqlQuery.setParameter("id", pk);
