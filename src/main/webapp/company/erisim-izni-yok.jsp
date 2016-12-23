@@ -7,22 +7,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
         <jsp:include page="html/head.html"/>
-    <title>İlanlarım</title>
-</head>
-<body>
-	<div class="container-fluid">
-		<div class="row">
-			<jsp:include page="html/header.html"></jsp:include>
-		</div>
-		<div class="row">
-			<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
-			<div class="col-md-8">
-				Bu sayfaya erişim izniniz bulunmamaktadır.
+		<title>İlanlarım</title>
+	</head>
+	<body>
+		<jsp:include page="html/menu.html"/>
+		<div class="jumbotron container-fluid">
+			<div class="row">
+				<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
+				<div class="col-md-8">
+					Bu sayfaya erişim izniniz bulunmamaktadır.
+				</div>
+			</div>
+			<div class="row">
+				<jsp:include page="../html/footer.html"></jsp:include>
 			</div>
 		</div>
-		<div class="row">
-			<jsp:include page="../html/footer.html"></jsp:include>
-		</div>
-	</div>
-</body>
+	</body>
 </html>

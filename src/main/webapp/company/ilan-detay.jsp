@@ -5,23 +5,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <jsp:include page="html/head.html"/>
     	<title>İlanlarım</title>
 	</head>
 	<body>
-		<div class="container-fluid">
-		
+		<jsp:include page="html/menu.html"/>
+		<div class="jumbotron container-fluid">
+            <div class="col-md-2"></div>
 			<div class="row">
-				<jsp:include page="html/header.html"></jsp:include>
-			</div>
-	
-			<div class="row">
-				<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
-				<div class="col-md-8">   
+				<div class="col-md-8">
 				
 				<h4>${announcement.id} nolu ilanınızın detayları</h4>
 				
@@ -62,6 +54,7 @@
 							<th>Ad</th>
 							<th>Soyad</th>
 							<th>Bölüm</th>
+                            <th>Başvuru Zamanı</th>
 							<th>İşlem</th>
 						</tr>							
 					</thead>
@@ -71,6 +64,7 @@
 								<td>${item.pk.user.name }</td>
 								<td>${item.pk.user.surname }</td>
 								<td>${item.pk.user.department.name }</td>
+                                <td>${item.timeToApplication}</td>
 								<td>
 									<form action="#"> <!-- CV pdf olarak görüntülensin -->
 										<button class="btn btn-default" name ="studentcv" value="${appList.username}" type="submit">

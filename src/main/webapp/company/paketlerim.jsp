@@ -5,19 +5,17 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<jsp:include page="html/head.html"/>	
-	<title>Paketlerim</title>
-</head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<jsp:include page="html/head.html"/>
+		<title>Paketlerim</title>
+	</head>
 	<body>
-		<div class="container-fluid">
+		<jsp:include page="html/menu.html"/>
+		<div class="jumbotron container-fluid">
 			<div class="row">
-				<jsp:include page="html/header.html"></jsp:include>
-			</div>
-			<div class="row">
-				<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
-				<div class="col-md-9">
+                <div class="col-md-2"></div>
+				<div class="col-md-8">
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -41,11 +39,10 @@
 						</tbody>
 					</table>
 				</div>
+            </div>
 			<div class="row">
 				<jsp:include page="../html/footer.html"></jsp:include>
 			</div>
 		</div>
-	</div>
-		
 	</body>
 </html>
