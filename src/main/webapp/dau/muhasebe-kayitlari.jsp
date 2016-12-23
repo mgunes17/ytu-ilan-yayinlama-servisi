@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-9"
     pageEncoding="ISO-8859-9"%>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
@@ -13,13 +12,9 @@
 		<title>Hesap Ýþlem Geçmiþi</title>
 	</head>
 	<body>
-		<div class="container-fluid">
+		<jsp:include page="html/menu.html"></jsp:include>
+		<div class="jumbotron container-fluid">
 			<div class="row">
-				<jsp:include page="html/header.html"></jsp:include>
-			</div>
-			
-			<div class="row">
-				<div class="col-md-3"><jsp:include page="html/menu.html"></jsp:include></div>
 				<div class="col-md-4">
 					<h2>Ýþlem detaylarý</h2>
 					<h4>Vakýf bakiyesi: ${user.dau.balance}</h4>
