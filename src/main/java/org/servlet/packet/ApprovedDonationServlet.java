@@ -62,7 +62,12 @@ public class ApprovedDonationServlet extends HttpServlet {
 		cop.setTimeToApproved(new Date());
 		cop.setUsernameForApproved(user.getUserName());
 		cop.setState(state);
-		
+
+		long time = new Date().getTime() + cop.getPacket().getActiveTime() * 24 * 60 * 60 * 1000;
+        Date date = new Date();
+        date.setTime(time);
+        cop.setTimeToExpired(date);
+
 		if(copDAO.updatePacket(cop)) {
 			session.setAttribute("onaylandi", 1);
 			

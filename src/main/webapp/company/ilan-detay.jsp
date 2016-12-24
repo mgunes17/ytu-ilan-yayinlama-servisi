@@ -41,7 +41,15 @@
 					<tr>
 						<th>İlanın Dili</th>
 						<td>${announcement.announcementLanguage}</td>
-					</tr>	
+					</tr>
+					<tr>
+                        <th>Yayınlanma Tarihi</th>
+                        <td>${announcement.publishDate}</td>
+                    </tr>
+                    <tr>
+                        <th>Yayın Sonu Tarihi</th>
+                        <td>${announcement.expiredDate}</td>
+                    </tr>
 					<tr>
 						<td><button class="btn btn-default" name ="appList" type="submit">İlanı Düzenle</button></td>
 					<tr>
@@ -85,6 +93,6 @@
 				<jsp:include page="../html/footer.html"></jsp:include>
 			</div>
 		</div>
-	s</body>
+	</body>
 </html>
 	

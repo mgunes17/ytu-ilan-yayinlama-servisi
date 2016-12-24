@@ -8,6 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
     <head>
         <title>Bekleyen İstekler</title>
@@ -21,6 +22,9 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
                     <h3>Bekleyen İstekleriniz</h3>
+                    <c:if test="${fn: length(packetlist) eq 0}">
+                        <p><i>Bekleyen isteğiniz bulunmamaktadır.</i></p>
+                    </c:if>
                     <table class="table table-hovered">
                         <thead>
                             <tr>

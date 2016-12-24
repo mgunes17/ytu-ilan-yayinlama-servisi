@@ -9,4 +9,5 @@ public interface CompanyOwnPacketDAO {
 	boolean updatePacket(CompanyOwnPacket cop);
 	CompanyOwnPacket getPacket(int packetId);
 	List<CompanyOwnPacket> getWaitingPacketsToCompany(String companyUserName);
+	List<CompanyOwnPacket> getAvailablePackets(String companyUserName);
 }

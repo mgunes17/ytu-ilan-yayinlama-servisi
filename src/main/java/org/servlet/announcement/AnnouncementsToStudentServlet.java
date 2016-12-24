@@ -17,7 +17,7 @@ import org.db.model.Announcement;
 /**
  * Servlet implementation class GetAllAnnouncementsServlet
  */
-@WebServlet("/announcementstostudent")
+@WebServlet(name = "AnnouncementsToStudentServlet", urlPatterns = {"/announcementstostudent"})
 public class AnnouncementsToStudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -43,9 +43,8 @@ public class AnnouncementsToStudentServlet extends HttpServlet {
 		HttpSession httpSession = request.getSession();
 		AnnouncementDAO annDAO = new AnnouncementHibernateImpl();
 		List<Announcement> announcements = annDAO.getActiveAnnouncements();
-		//List<Announcement> announcements = annDAO.getAllAnnouncements();
 		httpSession.setAttribute("announcements", announcements);
-		response.sendRedirect("student/ilanlar.jsp");
+		response.sendRedirect("student/ilan-ara.jsp");
 	}
 
 }

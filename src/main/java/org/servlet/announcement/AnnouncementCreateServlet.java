@@ -45,6 +45,7 @@ public class AnnouncementCreateServlet extends HttpServlet {
 		AnnouncementState state = stateDAO.getState(1);
 		announcement.setState(state);
 		announcement.setOwnerCompany((Company)session.getAttribute("user"));
+		announcement.setProperComplaint(true);
 		//announcement.setOwnerPacket(-1);
 
 		if(new AnnouncementHibernateImpl().saveAnnouncement(announcement)) {

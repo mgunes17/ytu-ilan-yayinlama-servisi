@@ -11,13 +11,9 @@
 		<title>İlanlar</title>
 	</head>
 	<body>
+		<jsp:include page="html/menu.html"/>
 		<div class="container-fluid">
 			<div class="row">
-				<jsp:include page="html/header.html"></jsp:include>
-			</div>
-			
-			<div class="row">
- 				<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
  				<div class="col-md-8">
  					<h5><a href="../searchinitialize">Buradan</a> anahtar kelime veya kriter bazında arama yapabilirsiniz</h5>
 					<c:choose>

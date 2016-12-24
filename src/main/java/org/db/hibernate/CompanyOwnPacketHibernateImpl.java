@@ -27,4 +27,10 @@ public class CompanyOwnPacketHibernateImpl extends AbstractDAO implements Compan
 		return getRowsBySQLQuery(CompanyOwnPacket.class, sql);
 	}
 
+	public List<CompanyOwnPacket> getAvailablePackets(String companyUserName) {
+		String query = " SELECT * FROM company_own_packet " +
+                " WHERE now() BETWEEN time_to_approved and time_to_expired AND owner_company = '" + companyUserName + "';";
+		return getRowsBySQLQuery(CompanyOwnPacket.class, query);
+	}
+
 }

@@ -26,6 +26,7 @@ public class DeleteCommWayServlet extends HttpServlet {
         session.setAttribute("iletisimeklendi", 0);
         session.setAttribute("iletisimsil", 0);
         session.setAttribute("iletisimguncelle", 0);
+        session.setAttribute("sirketguncelle", 0);
 
         Company company = (Company) session.getAttribute("user");
 

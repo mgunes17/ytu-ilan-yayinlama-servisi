@@ -204,7 +204,7 @@
 														<tbody>
 															<tr><td>
 															<form action="../useanannouncement" method="post">
-																<c:forEach var="packet" items="${packets}" varStatus="myIndex">
+																<c:forEach var="packet" items="${availablepackets}" varStatus="myIndex">
 																	<c:if test="${packet.packet.announcementCount > packet.usedAnnouncements}">
 
 																	</c:if>

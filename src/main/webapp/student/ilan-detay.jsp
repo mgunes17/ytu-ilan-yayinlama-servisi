@@ -9,9 +9,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
 		<title>İlan Detay</title>
 		<jsp:include page="../html/head.html"></jsp:include>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 	<body>
         <script>
@@ -87,133 +84,140 @@
             </div>
         </div>
 
-		<div class="container-fluid">
+		<jsp:include page="html/menu.html"/>
+		<div class="jumbotron container-fluid">
 			<div class="row">
-				<jsp:include page="html/header.html"></jsp:include>
-			</div>
-			
-			<div class="row">
- 				<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
- 				<div class="col-md-4">
- 					<c:choose>
- 						<c:when test="${basvuruldu eq 1 }">
- 							<div class="alert alert-success">
- 								Başvurunuz gerçekleşti.
- 								Tüm başvurularınızı <a href="#">buradan</a> görebilirsiniz.
- 							</div>
- 						</c:when>
- 						<c:when test="${basvuruldu eq 2 }">
- 							<div class="alert alert-danger">
- 								Başvurunuz alınamadı.
- 								Lütfen daha sonra tekrar deneyin
- 							</div>
- 						</c:when>
- 						<c:when test="${basvuruldu eq 3 }">
- 							<div class="alert alert-warning">
- 								Başvurunuz silindi.
- 								İsterseniz yeniden başvurabilirsiniz.
- 							</div>
- 						</c:when>
- 						<c:when test="${basvuruldu eq 4 }">
- 							<div class="alert alert-alert">
- 								Başvurunuz silinemedi.
- 								Lütfen daha sonra tekrar deneyin.
- 							</div>
- 						</c:when>
-                        <c:when test="${sikayetedildi eq 1}">
-                            <div class="alert alert-success">
-                                Şikayet kaydınız oluşturuldu.
-                                Tüm şikayetlerinizi <a href="../listmycomplaints">buradan</a> görebilirsiniz.
-                            </div>
-                        </c:when>
-                        <c:when test="${sikayetedildi eq 2}">
-                            <div class="alert alert-success">
-                                Şikayet kaydı oluşturulurken bir hata meydane geldi.
-                                Lütfen daha sonra tekrar deneyiniz.
-                            </div>
-                        </c:when>
-                        <c:when test="${ilangericek eq 1}">
-                            <div class="alert alert-warning">
-                                Şikayetiniz geri çekildi.
-                                Diğer şikayetlerinizi <a href="../listmycomplaints">buradan</a> görebilirsiniz.
-                            </div>
-                        </c:when>
-                        <c:when test="${ilangericek eq 2}">
-                            <div class="alert alert-danger">
-                                Şikayetiniz geri çekilemedi.
-                                Lütfen daha sonra tekrar deneyiniz.
-                            </div>
-                        </c:when>
- 					</c:choose>
- 					<table class="table table-bordered">
- 						<tr>
- 							<th>Şirket Adı</th>
- 							<td>${announcement.ownerCompany.companyName}</td>
- 						</tr>
- 						<tr>
- 							<th>İlan Başlığı</th>
- 							<td>${announcement.title}</td>
- 						</tr>
- 						<tr>
- 							<th>Kısa Açıklama</th>
- 							<td>${announcement.brief}</td>
- 						</tr>
- 						<tr>
- 							<th colspan="2">Detay</th>
- 						</tr>
- 						<tr>
- 							<td colspan="2">${announcement.content }</td>
- 						</tr>
- 						<tr>
- 							<th>Görüntülenme Sayısı</th>
- 							<td>${announcement.numberOfPageViews}</td>
- 						</tr>
- 						<tr>
- 							<th>Başvuru sayısı</th>
- 							<td>${fn:length(announcement.appStudentList)}</td>
- 						</tr>
- 						<tr>
-							<th>Kategori</th>
-							<td>${announcement.category.categoryName }</td>
-						</tr>
-						<tr>
-							<th>Yayınlanma Tarihi</th>
-							<td><fmt:formatDate value="${announcement.publishDate }"/></td>
-						</tr>	
- 						<tr>
- 							<td colspan="2">
- 								<form method = "post">
- 									<input type = "hidden" name = "announcement" value = "${announcement.id}" >
- 									<c:if test="${basvuruvar eq 1 }">
- 										<input type="hidden" name="deleteUrl" value="student/ilan-detay.jsp">
- 										 <input disabled class="btn btn-primary disabled" type="submit" value="Başvur">
- 										 <input formaction="../deleteapplication" class="btn btn-warning active" type = "submit" value = "Başvuruyu Geri Çek">
- 									</c:if>
- 									<c:if test="${basvuruvar eq 2 }">										
- 										 <input type = "submit" value = "İlana Başvur" formaction = "../applicationtoannouncement" class="btn btn-primary active">
- 										 <input disabled formaction="#" type = "submit" value = "Başvuruyu Geri Çek" class="btn btn-warning disabled">
- 									</c:if>
+				<div class="col-md-3"></div>
+ 				<div class="col-md-6">
+                    <p><a href="../searchinitialize" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-arrow-left"></span> Listeye Dön
+                    </a></p>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p>İlan Detay</p>
+                        </div>
+                        <div class="panel-body">
+                            <c:choose>
+                                <c:when test="${basvuruldu eq 1 }">
+                                    <div class="alert alert-success">
+                                        Başvurunuz gerçekleşti.
+                                        Tüm başvurularınızı <a href="../myapplications">buradan</a> görebilirsiniz.
+                                    </div>
+                                </c:when>
+                                <c:when test="${basvuruldu eq 2 }">
+                                    <div class="alert alert-danger">
+                                        Başvurunuz alınamadı.
+                                        Lütfen daha sonra tekrar deneyin
+                                    </div>
+                                </c:when>
+                                <c:when test="${basvuruldu eq 3 }">
+                                    <div class="alert alert-warning">
+                                        Başvurunuz silindi.
+                                        İsterseniz yeniden başvurabilirsiniz.
+                                    </div>
+                                </c:when>
+                                <c:when test="${basvuruldu eq 4 }">
+                                    <div class="alert alert-alert">
+                                        Başvurunuz silinemedi.
+                                        Lütfen daha sonra tekrar deneyin.
+                                    </div>
+                                </c:when>
+                                <c:when test="${sikayetedildi eq 1}">
+                                    <div class="alert alert-success">
+                                        Şikayet kaydınız oluşturuldu.
+                                        Tüm şikayetlerinizi <a href="../listmycomplaints">buradan</a> görebilirsiniz.
+                                    </div>
+                                </c:when>
+                                <c:when test="${sikayetedildi eq 2}">
+                                    <div class="alert alert-success">
+                                        Şikayet kaydı oluşturulurken bir hata meydane geldi.
+                                        Lütfen daha sonra tekrar deneyiniz.
+                                    </div>
+                                </c:when>
+                                <c:when test="${ilangericek eq 1}">
+                                    <div class="alert alert-warning">
+                                        Şikayetiniz geri çekildi.
+                                        Diğer şikayetlerinizi <a href="../listmycomplaints">buradan</a> görebilirsiniz.
+                                    </div>
+                                </c:when>
+                                <c:when test="${ilangericek eq 2}">
+                                    <div class="alert alert-danger">
+                                        Şikayetiniz geri çekilemedi.
+                                        Lütfen daha sonra tekrar deneyiniz.
+                                    </div>
+                                </c:when>
+                            </c:choose>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Şirket Adı</th>
+                                    <td>${announcement.ownerCompany.companyName}</td>
+                                </tr>
+                                <tr>
+                                    <th>İlan Başlığı</th>
+                                    <td>${announcement.title}</td>
+                                </tr>
+                                <tr>
+                                    <th>Kısa Açıklama</th>
+                                    <td>${announcement.brief}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">Detay</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">${announcement.content }</td>
+                                </tr>
+                                <tr>
+                                    <th>Görüntülenme Sayısı</th>
+                                    <td>${announcement.numberOfPageViews}</td>
+                                </tr>
+                                <tr>
+                                    <th>Başvuru sayısı</th>
+                                    <td>${fn:length(announcement.appStudentList)}</td>
+                                </tr>
+                                <tr>
+                                    <th>Kategori</th>
+                                    <td>${announcement.category.categoryName }</td>
+                                </tr>
+                                <tr>
+                                    <th>Yayınlanma Tarihi</th>
+                                    <td><fmt:formatDate value="${announcement.publishDate }"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <form method = "post">
+                                            <input type = "hidden" name = "announcement" value = "${announcement.id}" >
+                                            <c:if test="${basvuruvar eq 1 }">
+                                                <input type="hidden" name="deleteUrl" value="student/ilan-detay.jsp">
+                                                <input disabled class="btn btn-primary disabled" type="submit" value="Başvur">
+                                                <input formaction="../deleteapplication" class="btn btn-warning active" type = "submit" value = "Başvuruyu Geri Çek">
+                                            </c:if>
+                                            <c:if test="${basvuruvar eq 2 }">
+                                                <input type = "submit" value = "İlana Başvur" formaction = "../applicationtoannouncement" class="btn btn-primary active">
+                                                <input disabled formaction="#" type = "submit" value = "Başvuruyu Geri Çek" class="btn btn-warning disabled">
+                                            </c:if>
 
-									<c:if test="${announcement.properComplaint eq true}">
-										<c:choose>
-											<c:when test="${sikayetvar eq 2}">
-												<a href="#complaintDialog"
-												   data-toggle="modal"
-												   class="open-complaintDialog btn btn-danger"
-												   data-id="${announcement.id}">Şikayet Et</a>
-											</c:when>
-											<c:otherwise>
-												<a href="#deleteComplaintDialog"
-												   data-toggle="modal"
-												   class="delete-complaintDialog btn btn-warning"
-												   data-id="${announcement.id}">Şikayeti Geri Çek</a>
-											</c:otherwise>
-										</c:choose>
-									</c:if>
-								</form>
-							</td>
- 						</tr>
- 					</table>
+                                            <c:if test="${announcement.properComplaint eq true}">
+                                                <c:choose>
+                                                    <c:when test="${sikayetvar eq 2}">
+                                                        <a href="#complaintDialog"
+                                                           data-toggle="modal"
+                                                           class="open-complaintDialog btn btn-danger"
+                                                           data-id="${announcement.id}">Şikayet Et</a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a href="#deleteComplaintDialog"
+                                                           data-toggle="modal"
+                                                           class="delete-complaintDialog btn btn-warning"
+                                                           data-id="${announcement.id}">Şikayeti Geri Çek</a>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:if>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
  				</div>
  			</div>
 		</div>

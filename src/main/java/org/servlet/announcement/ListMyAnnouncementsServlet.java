@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.db.dao.CompanyOwnPacketDAO;
 import org.db.dao.UserDAO;
+import org.db.hibernate.CompanyOwnPacketHibernateImpl;
 import org.db.hibernate.UserHibernateImpl;
 import org.db.model.Announcement;
 import org.db.model.Company;
@@ -48,7 +50,12 @@ public class ListMyAnnouncementsServlet extends HttpServlet {
 		company = (Company) userDAO.getUser(company.getUserName());
 		List<Announcement> announcements = company.getAnnouncements();
 		List<CompanyOwnPacket> packets = company.getPackets();
+
+        CompanyOwnPacketDAO copDAO = new CompanyOwnPacketHibernateImpl();
+		List<CompanyOwnPacket> availablePackets = copDAO.getAvailablePackets(company.getUserName());
+
 		session.setAttribute("packets", packets);
+        session.setAttribute("availablepackets", availablePackets);
 		session.setAttribute("announcements", announcements);
 		session.setAttribute("user", company);
 		response.sendRedirect("company/ilanlarim.jsp");

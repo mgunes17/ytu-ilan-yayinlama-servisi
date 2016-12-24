@@ -99,13 +99,9 @@
         </div>
     </div>
 
+    <jsp:include page="html/menu.html"/>
     <div class="container-fluid">
         <div class="row">
-            <jsp:include page="html/header.html"></jsp:include>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3"><jsp:include page="html/menu.html"/></div>
             <div class="col-md-6">
                 <c:choose>
                     <c:when test="${sikayetgericek eq 1}">

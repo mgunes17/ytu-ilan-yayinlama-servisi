@@ -27,6 +27,7 @@ public class UpdateCompanyUserServlet extends HttpServlet {
         session.setAttribute("parolaguncelle", 0);
         session.setAttribute("iletisimeklendi", 0);
         session.setAttribute("iletisimsil", 0);
+        session.setAttribute("sirketguncelle", 0);
 
         Company company = (Company) session.getAttribute("user");
         company.setContactMail(request.getParameter("contactMail"));

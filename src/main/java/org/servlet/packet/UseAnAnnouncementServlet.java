@@ -61,6 +61,10 @@ public class UseAnAnnouncementServlet extends HttpServlet {
 		cop.setUsedAnnouncements(cop.getUsedAnnouncements() + 1); //yayına al metodu yap
 		
 		ann.setOwnerPacket(cop);
+        long time = new Date().getTime() + cop.getPacket().getActiveTime() * 24 * 60 * 60 * 1000;
+        Date date = new Date();
+        date.setTime(time);
+        ann.setExpiredDate(date);
 		
 		if(announcementDAO.updateAnnouncement(ann) && packetDAO.updatePacket(cop)) {
 			HttpSession session = request.getSession();

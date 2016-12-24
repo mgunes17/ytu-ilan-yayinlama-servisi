@@ -145,7 +145,7 @@
                             <p>Şirket Bilgileri</p>
                         </div>
                         <div class="panel-body">
-                            <form method="post">
+                            <form method="post" action=../"updatecompanyinfo">
                                 <div class="form-group">
                                     <label for="companyName">Şirket Adı</label>
                                     <input type="text" name="companyName" id="companyName" value="${user.companyName}" class="form-control"
@@ -155,6 +155,7 @@
                                 <input type="text" name="location" id="location" value="${user.location}" class="form-control"
                                        pattern=".{3, 30}" required title="Konum 3-30 karakter aralığında olmalıdır">
                             </form>
+                            <button type="submit" class="btn btn-default">Bilgileri Güncelle</button>
                         </div>
                     </div>
                     <div class="panel panel-primary">

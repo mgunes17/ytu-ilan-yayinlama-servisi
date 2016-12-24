@@ -53,6 +53,9 @@ public class CompanyOwnPacket implements Serializable {
 	
 	@Column(name = "time_to_approved")
 	private Date timeToApproved;
+
+	@Column(name = "time_to_expired")
+	private Date timeToExpired;
 	
 	public CompanyOwnPacket() {
 		super();
@@ -129,4 +132,12 @@ public class CompanyOwnPacket implements Serializable {
 	public void setState(AnnouncementPacketState state) {
 		this.state = state;
 	}
+
+    public Date getTimeToExpired() {
+        return timeToExpired;
+    }
+
+    public void setTimeToExpired(Date timeToExpired) {
+        this.timeToExpired = timeToExpired;
+    }
 }

@@ -124,6 +124,7 @@ CREATE TABLE announcement (
   announcement_category int REFERENCES announcement_category(id),
   announcement_language char(20),
   publish_date timestamp,
+  expired_date timestamp,
   proper_complaint boolean DEFAULT TRUE
 );
 
@@ -157,7 +158,8 @@ CREATE TABLE  company_own_packet (
   approved boolean,
   user_for_approved varchar(30),
   time_to_request timestamp NOT NULL,
-  time_to_approved timestamp
+  time_to_approved timestamp,
+  time_to_expired timestamp
 );
 
 CREATE TABLE application (
@@ -267,7 +269,7 @@ INSERT INTO announcement_type VALUES
   (3, 'Tam zamanlı'),
   (4, 'freelance'),
   (5, '-Duyuru İlanı-'),
-  (6, 'Tüm Tipler');
+  (-1, 'Tüm Tipler');
 
 INSERT INTO user_type (type_no, type_name, main_page, unauthorized_page) VALUES
   (0, 'admin', 'admin/index.jsp', 'admin/erisim-izni-yok.jsp'),
@@ -323,6 +325,7 @@ INSERT INTO spending_request_state (id, title) VALUES
   (4, 'Yönetici tarafından askıya alındı');
 
 INSERT INTO announcement_category (id, category_name, parent_category_id)  VALUES
+  (-1, 'Tüm Kategoriler', 0, 0),
   (0, 'root-category', 0),
   (1, 'Diğer', 0),
   (2, 'Etkinlik', 1);

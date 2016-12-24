@@ -74,8 +74,7 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
 		try {
 			session = HibernateSessionFactory.getSessionFactory().openSession();
 			session.getTransaction().begin();
-			String query = "SELECT *"
-							+ " FROM announcement where state = 2;";
+			String query = "SELECT * FROM announcement WHERE now() BETWEEN publish_date AND expired_date";
 			SQLQuery sqlQuery = session.createSQLQuery(query);
 			sqlQuery.addEntity(Announcement.class);
 			List<Announcement> annList = sqlQuery.list();
@@ -88,6 +87,10 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
 		} finally {
 			session.close();
 		}
+	}
+
+	public List<Announcement> getActiveAnnouncements(String sql) {
+		return  getRowsBySQLQuery(Announcement.class, sql);
 	}
 
 	public List<Announcement> getByCriteria(SearchCriteria criteria) {

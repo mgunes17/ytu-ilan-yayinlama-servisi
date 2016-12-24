@@ -38,46 +38,53 @@ public class SearchAnnouncementServlet extends HttpServlet {
         int annTypeId = Integer.parseInt(request.getParameter("type"));
         String language = request.getParameter("language");
 
-        String sql = "SELECT * FROM announcement ";
+        StringBuilder sql = new StringBuilder();
 
-        AnnouncementCategory category = new AnnouncementCategoryHibernateImpl().getCategory(categoryId);
-        Map<String, Object> parameter = new HashMap<String, Object>();
+        sql.append("SELECT * FROM announcement WHERE now() between publish_date and expired_date ");
 
-        //kategori seç, parent i 0sa, onun tüm alt başıkları da gelecek
-        if(categoryId != 3 && category.getParentCategory() != 0) { //Tüm kategoriler seçilmediyse
-            parameter.put("announcement_category", categoryId);
-        } else if(categoryId != 3 && category.getParentCategory() == 0) { //Alt kategorileriyle beraber getir
-            for(AnnouncementCategory c : category.getChildren()) {
-                parameter.put("announcement_category", c.getId());
+        //İlan tipi seçildiyse sorguya ekle
+        if(annTypeId != -1) {
+            sql.append(" AND announcement_type = " + annTypeId + " ");
+        }
+
+        //ilan kategorisi seçildiyse
+        if(categoryId != -1) {
+            AnnouncementCategory category = new AnnouncementCategoryHibernateImpl().getCategory(categoryId);
+
+            if(category.getParentCategory() == 0) { //ana kategori, alt kategoriler de gelecek
+                sql.append(" AND announcement_category IN " +
+                        "(select id from announcement_category where parent_category_id = " + categoryId + ") ");
+            } else {
+                sql.append(" AND announcement_category = " + categoryId + " ");
             }
         }
 
+        //Dil seçimi
         if(!language.equals("alllanguages")) {
-            parameter.put("announcement_language", "'" + language + "'");
+            sql.append(" AND announcement_language = " + language + " ");
         }
 
-        if(annTypeId != 6) { //Tüm tipler seçilmediyse
-            parameter.put("announcement_type", annTypeId);
+        //anahtar kelimeler varsa parse et
+        if(request.getParameter("keywords") != null) {
+            String[] keywords = request.getParameter("keywords").split(",");
+            sql.append(" AND ( ");
+
+            for(String s: keywords) {
+                s = s.trim();
+                sql.append(" title LIKE '%" + s + "%' OR  brief LIKE '%" + s + "%' OR content LIKE '%" + s + "%' OR ");
+            }
+
+            sql.append(" 1 = 0 )");
         }
 
         AnnouncementDAO annDAO = new AnnouncementHibernateImpl();
-        List<Announcement> annList = annDAO.getByCriteria(parameter);
+        List<Announcement> annList = annDAO.getBySQLCriteria(sql.toString());
 		
 		HttpSession session = request.getSession();
-
-        if(annList == null) {
-            session.setAttribute("size", 0);
-        } else {
-            //anahtar kelime var mı yı dönen sonuçlardan filtrele
-            if(request.getParameter("usekw") != null) {
-                String[] keywords = request.getParameter("keywords").split(",");
-                annList = new FilterAnnouncement().filterByKeywords(annList, keywords);
-            }
-
-            session.setAttribute("announcements", annList);
-        }
+        session.setAttribute("searchannouncementquery", sql.toString());
+        session.setAttribute("announcements", annList);
 		
-		response.sendRedirect("student/ilanlar.jsp");
+		response.sendRedirect("student/ilan-ara.jsp");
 	}
 
 }

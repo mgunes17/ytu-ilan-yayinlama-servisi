@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html">
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-9">
@@ -10,16 +10,12 @@
 		<title>Başvurular</title>
 	</head>
 	<body>
-		<div class="container-fluid">
+		<jsp:include page="html/menu.html"/>
+		<div class="jumbotron container-fluid">
 			<div class="row">
-				<jsp:include page="html/header.html"></jsp:include>
-			</div>
-			
-			<div class="row">
- 				<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
+ 				<div class="col-md-3"></div>
  				<div class="col-md-7">
  					<h4>Yapmış Olduğunuz Başvurular</h4>
- 					
  					<table class="table table-bordered">
  						<thead>
  							<tr>

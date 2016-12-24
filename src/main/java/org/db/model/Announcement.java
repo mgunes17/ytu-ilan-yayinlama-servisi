@@ -80,6 +80,9 @@ public class Announcement implements Serializable, Comparable<Announcement> {
     @Column(name = "publish_date")
     private Date publishDate;
 
+    @Column(name = "expired_date")
+    private Date expiredDate;
+
     @Column(name = "proper_complaint")
     private boolean properComplaint;
 
@@ -214,5 +217,13 @@ public class Announcement implements Serializable, Comparable<Announcement> {
 
     public void setProperComplaint(boolean properComplaint) {
         this.properComplaint = properComplaint;
+    }
+
+    public Date getExpiredDate() {
+        return expiredDate;
+    }
+
+    public void setExpiredDate(Date expiredDate) {
+        this.expiredDate = expiredDate;
     }
 }

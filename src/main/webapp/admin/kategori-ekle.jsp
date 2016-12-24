@@ -212,12 +212,11 @@
                                         </c:forEach>
                                     </select>
                                 </div>
-
                                 <button type="submit" class="btn btn-default">Ekle</button>
                             </form>
-                            <div class="panel-footer">
-                                Ana kategeri eklemek için üst kategori olarak "root-category" 'i seçin.
-                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            Ana kategeri eklemek için üst kategori olarak "root-category" 'i seçin.
                         </div>
                     </div>
 

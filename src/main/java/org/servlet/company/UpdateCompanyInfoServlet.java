@@ -1,9 +1,7 @@
-package org.servlet.commway;
+package org.servlet.company;
 
-import org.db.dao.CommunicationWayDAO;
-import org.db.hibernate.CommunicationWayHibernateImpl;
-import org.db.hibernate.UserHibernateImpl;
-import org.db.model.CommunicationWay;
+import org.db.dao.CompanyDAO;
+import org.db.hibernate.CompanyHibernateImpl;
 import org.db.model.Company;
 
 import javax.servlet.ServletException;
@@ -15,10 +13,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Created by mgunes on 09.12.2016.
+ * Created by mgunes on 24.12.2016.
  */
-@WebServlet(name = "UpdateCommWayServlet", urlPatterns = {"/updatecompanycommway"})
-public class UpdateCommWayServlet extends HttpServlet {
+@WebServlet(name = "UpdateCompanyInfoServlet", urlPatterns = {"/updatecompanyinfo"})
+public class UpdateCompanyInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.setAttribute("guncelle", 0);
@@ -28,21 +26,20 @@ public class UpdateCommWayServlet extends HttpServlet {
         session.setAttribute("iletisimguncelle", 0);
         session.setAttribute("sirketguncelle", 0);
 
+        String companyName = request.getParameter("companyName");
+        String location = request.getParameter("location");
+
         Company company = (Company) session.getAttribute("user");
+        company.setCompanyName(companyName);
+        company.setLocation(location);
 
-        String newCommType = request.getParameter("cway");
-        String newCommValue = request.getParameter("cvalue");
-        String oldCommType = request.getParameter("oldway");
-        String oldCommValue = request.getParameter("oldvalue");
+        CompanyDAO userDAO = new CompanyHibernateImpl();
 
-        CommunicationWayDAO commDAO = new CommunicationWayHibernateImpl();
-
-        if(commDAO.updateCommWay(company.getUserName(),oldCommType, oldCommValue, newCommType, newCommValue)) {
-            session.setAttribute("iletisimguncelle", 1);
-            company = (Company) new UserHibernateImpl().getUser(company.getUserName());
+        if(userDAO.updateCompanyUser(company)) {
+            session.setAttribute("sirketguncelle", 1);
             session.setAttribute("user", company);
         } else {
-            session.setAttribute("iletisimguncelle", 2);
+            session.setAttribute("sirketguncelle", 2);
         }
 
         response.sendRedirect("company/profil-duzenle.jsp");

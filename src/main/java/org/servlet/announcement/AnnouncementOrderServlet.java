@@ -1,5 +1,6 @@
 package org.servlet.announcement;
 
+import org.db.hibernate.AnnouncementHibernateImpl;
 import org.db.model.Announcement;
 
 import javax.servlet.ServletException;
@@ -7,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
@@ -19,11 +21,14 @@ import java.util.List;
 @WebServlet(name = "AnnouncementOrderServlet", urlPatterns = {"/announcementorder"})
 public class AnnouncementOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String orderType  = request.getParameter("condition");
-        List<Announcement> annList = (List<Announcement>) request.getSession().getAttribute("announcements");
-        Collections.sort(annList, new AnnouncementComparator());
+        String order = request.getParameter("condition");
+        String type = request.getParameter("type");
+        String sql = "SELECT * FROM announcement WHERE now() BETWEEN publish_date AND expired_date ORDER BY " + order + " " + type;
+        List<Announcement> annList = new AnnouncementHibernateImpl().getActiveAnnouncements(sql);
 
-        response.sendRedirect("student/ilanlar.jsp");
+        HttpSession session = request.getSession();
+        session.setAttribute("announcements", annList);
+        response.sendRedirect("student/ilan-ara.jsp");
     }
 
     public static class AnnouncementComparator implements Comparator<Announcement> {

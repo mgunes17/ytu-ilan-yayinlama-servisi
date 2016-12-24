@@ -12,27 +12,23 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <jsp:include page="../html/head.html"></jsp:include>
-    <title>Öğrenci</title>
-</head>
-<body>
- 	<div class="container-fluid">
- 		<div class="row">
- 			<jsp:include page="html/header.html"></jsp:include>
- 		</div>
- 		
- 		<div class="row">
- 			<h4>Hoşgeldiniz ${user.userName}</h4>
- 			<div class="col-md-3"><jsp:include page="html/menu.html"/></div>
- 		</div>
- 	</div>
-    
-     <c:choose>
-    	<c:when test="${user.status eq 0 }">
-    		<div class="alert alert-warning">
-    			Lütfen mail üzerinden hesabınızı aktif hale getiriniz.
-    		</div> 		
-    	</c:when>
-    </c:choose>
-</body>
+        <jsp:include page="html/head.html"></jsp:include>
+		<title>Öğrenci</title>
+	</head>
+	<body>
+		<jsp:include page="html/menu.html"/>
+		<div class="jumbotron container-fluid">
+			<div class="row">
+				<h4>Hoşgeldiniz ${user.userName}</h4>
+			</div>
+		</div>
+
+		 <c:choose>
+			<c:when test="${user.status eq 0 }">
+				<div class="alert alert-warning">
+					Lütfen mail üzerinden hesabınızı aktif hale getiriniz.
+				</div>
+			</c:when>
+		</c:choose>
+	</body>
 </html>

@@ -21,6 +21,12 @@ import java.io.IOException;
 public class UpdateCompanyPasswordServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        session.setAttribute("guncelle", 0);
+        session.setAttribute("parolaguncelle", 0);
+        session.setAttribute("iletisimeklendi", 0);
+        session.setAttribute("iletisimsil", 0);
+        session.setAttribute("sirketguncelle", 0);
+
         Company user = (Company) session.getAttribute("user");
 
         String oldPassword = request.getParameter("oldPassword");

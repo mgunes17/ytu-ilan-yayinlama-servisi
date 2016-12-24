@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="ct">İlan Kategorisi</label>
-                                    <h4>İlanınız herhangi kategoriye girmiyorsa "root-category" olarak seçin.</h4>
+                                    <h5>İlanınız herhangi kategoriye girmiyorsa "root-category" olarak seçin.</h5>
                                     <select id="ct" name="category" class="form-control">
                                         <c:forEach var="item" items="${categoryList}">
                                             <c:if test="${item.id ne 0 && item.id ne 3}">
@@ -96,7 +96,7 @@
                                         <option value="ingilizce">İngilizce</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-default">Oluştur</button>
+                                <button type="submit" class="btn btn-success">Oluştur</button>
                             </form>
                         </div>
                     </div>

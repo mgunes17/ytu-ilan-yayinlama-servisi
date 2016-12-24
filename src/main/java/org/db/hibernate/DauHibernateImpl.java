@@ -28,7 +28,8 @@ public class DauHibernateImpl extends AbstractDAO implements DonationAcceptUnitD
 	public List<CompanyOwnPacket> getWaitingDonation(String unitName) {
 		try {
 			String query = 
-					"select id, owner_company, packet, announcement_packet_state, used_announcements, approved, user_for_approved, time_to_request, time_to_approved " +
+					"select id, owner_company, packet, announcement_packet_state, used_announcements, approved, " +
+							" user_for_approved, time_to_request, time_to_approved, time_to_expired " +
 					"from company_own_packet cop, announcement_packet ap, bank_account_info bip " +
 					"where cop.packet=ap.packet_id "
 					+ "and ap.bank_account_info=bip.iban "
