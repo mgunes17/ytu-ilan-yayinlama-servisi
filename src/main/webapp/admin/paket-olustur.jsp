@@ -68,9 +68,11 @@
                                 <label for="dau">Birim Seçiniz</label>
                                 <select id="dau" name="unit" class="form-control">
                                     <c:forEach var="item" items="${dauList}">
-                                        <option value="${item.unitName}">
-                                            <c:out value="${item.unitName}"/>
-                                        </option>
+                                        <c:if test="${item.unitName ne 'Tüm Birimler'}">
+                                            <option value="${item.unitName}">
+                                                <c:out value="${item.unitName}"/>
+                                            </option>
+                                        </c:if>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -130,7 +132,7 @@
                                     </tr>
                                     <tr>
                                         <td>Açıklama giriniz</td>
-                                        <td><textarea name="condition"></textarea></td>
+                                        <td><textarea rows="5" cols="35" name="condition"></textarea></td>
                                     </tr>
                                     <tr><td colspan="2"><button type="submit" class="btn btn-default">Oluştur</button></td></tr>
 

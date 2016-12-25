@@ -1,6 +1,7 @@
 package org.servlet.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -45,14 +46,16 @@ public class DisplayDauAccountingsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		AccountingDAO accDAO = new AccountingHibernateImpl();
-		List<Accounting> acc = accDAO.getAllAccountings();
+		//AccountingDAO accDAO = new AccountingHibernateImpl();
+		//List<Accounting> acc = accDAO.getAllAccountings();
 		
 		DonationAcceptUnitDAO dauDAO = new DauHibernateImpl();
 		List<DonationAcceptUnit> dauList = dauDAO.getAllUnits();
 				
-		session.setAttribute("accounting", acc);
-		session.setAttribute("dau", dauList);
+		//session.setAttribute("accounting", acc);
+		session.setAttribute("dau", new ArrayList<DonationAcceptUnit>());
+        session.setAttribute("accounting", new ArrayList<Accounting>());
+		session.setAttribute("alldau", dauList);
 		
 		response.sendRedirect("admin/muhasebe-kayitlari.jsp");
 		

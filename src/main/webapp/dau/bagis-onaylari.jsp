@@ -59,7 +59,7 @@
 									<td>
 										<form method="post">
 											<input type="hidden" name="packetId" value="${item.id}" />
-											<input
+											<input class="btn-default"
 												type="submit"
 												value="Onayla"
 												formaction="../approveddonationservlet">

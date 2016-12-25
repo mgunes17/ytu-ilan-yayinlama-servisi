@@ -43,6 +43,8 @@ public class AnnouncementsToStudentServlet extends HttpServlet {
 		HttpSession httpSession = request.getSession();
 		AnnouncementDAO annDAO = new AnnouncementHibernateImpl();
 		List<Announcement> announcements = annDAO.getActiveAnnouncements();
+		String query = "SELECT * FROM announcement WHERE now() between publish_date and expired_date";
+		httpSession.setAttribute("searchannouncementquery", query);
 		httpSession.setAttribute("announcements", announcements);
 		response.sendRedirect("student/ilan-ara.jsp");
 	}

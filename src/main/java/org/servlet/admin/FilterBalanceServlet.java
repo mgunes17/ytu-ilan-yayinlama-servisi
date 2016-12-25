@@ -2,7 +2,9 @@ package org.servlet.admin;
 
 import org.db.dao.AccountingDAO;
 import org.db.hibernate.AccountingHibernateImpl;
+import org.db.hibernate.DauHibernateImpl;
 import org.db.model.Accounting;
+import org.db.model.DonationAcceptUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,44 +27,36 @@ public class FilterBalanceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         AccountingDAO accDAO = new AccountingHibernateImpl();
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT * FROM accounting WHERE date_time BETWEEN ");
 
-        String allDate = request.getParameter("allDate");
-        String allDau = request.getParameter("allDau");
+        List<DonationAcceptUnit> dauList = new ArrayList<DonationAcceptUnit>();
 
-        if(allDate != null && allDau != null) {
-            List<Accounting> acc = accDAO.getAllAccountings();
-            session.setAttribute("accounting", acc);
-        } else if(allDate == null && allDau != null) {
+        try {
+            //Date startDate = new SimpleDateFormat("dd/mm/yyyy").parse(request.getParameter("from"));
+            //Date endDate = new SimpleDateFormat("dd/mm/yyyy").parse(request.getParameter("to"));
             String start = request.getParameter("from");
             String end = request.getParameter("to");
 
-            try {
-                Date startDate = new SimpleDateFormat("dd/mm/yyyy").parse(start);
-                Date endDate = new SimpleDateFormat("dd/mm/yyyy").parse(end);
+            query.append(" '" + start + "' AND '" + end + "' ");
 
-                List<Accounting> acc = accDAO.getAccountingsFilterDate(start, end);
-                session.setAttribute("accounting", acc);
-            } catch (ParseException e) {
-                e.printStackTrace();
+            String unitName = request.getParameter("department");
+
+            if(!unitName.equals("Tüm Birimler")) {
+                query.append(" AND unit_name = '" + unitName + "'");
+                DonationAcceptUnit dau = new DauHibernateImpl().getUnit(unitName);
+                dauList.add(dau);
+            } else {
+                dauList = new DauHibernateImpl().getAllUnits();
             }
 
-        } else if(allDate != null && allDau == null) {
-            String departmentName = request.getParameter("department");
-            List<Accounting> acc = accDAO.getAccountingsFilterName(departmentName);
+            List<Accounting> acc = new AccountingHibernateImpl().getAccountingByQuery(query.toString());
+
+            session.setAttribute("accountingquery", query.toString());
+            session.setAttribute("dau", dauList);
             session.setAttribute("accounting", acc);
-        } else if(allDate == null && allDau == null) {
-            String start = request.getParameter("from");
-            String end = request.getParameter("to");
-
-            try {
-                Date startDate = new SimpleDateFormat("dd/mm/yyyy").parse(start);
-                Date endDate = new SimpleDateFormat("dd/mm/yyyy").parse(end);
-                String departmentName = request.getParameter("department");
-                List<Accounting> acc = accDAO.getAccountingsFilterDateAndName(departmentName, start, end);
-                session.setAttribute("accounting", acc);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         response.sendRedirect("admin/muhasebe-kayitlari.jsp");

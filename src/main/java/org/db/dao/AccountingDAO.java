@@ -11,5 +11,6 @@ public interface AccountingDAO {
 	List<Accounting> getUnitAccountings(String unitName);
 	List<Accounting> getAccountingsFilterDate(String start, String end);
 	List<Accounting> getAccountingsFilterName(String name);
+	List<Accounting> getAccountingByQuery(String query);
 	List<Accounting> getAccountingsFilterDateAndName(String name, String start, String end);
 }

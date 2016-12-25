@@ -10,6 +10,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import org.db.compositePK.AccountingPK;
 import org.db.dao.AccountingDAO;
 import org.db.dao.SpendingRequestDAO;
 import org.db.hibernate.AccountingHibernateImpl;
@@ -49,6 +50,17 @@ public class AcceptSendingRequestServlet extends HttpServlet {
 		spendingRequest.setUpdatedDateTime(new Date());
 		spendingRequest.setDauUser(dauUser);
 		spendingRequest.setState(new SpendingRequestState(2));
+
+        AccountingPK pk = new AccountingPK();
+        pk.setDateTime(new Date());
+        pk.setUnit(dauUser.getDau());
+
+        Accounting accounting = new Accounting();
+        accounting.setAccountingPK(pk);
+        accounting.setAmount(spendingRequest.getAmount());
+        accounting.setDauUser(dauUser);
+        accounting.setDescription(spendingRequest.getTitle() + " başlıklı harcama isteği onaylandı.");
+        new AccountingHibernateImpl().saveAccounting(accounting);
 
         Part filePart = null;
         String fileName = "";

@@ -51,6 +51,10 @@ public class AccountingHibernateImpl extends AbstractDAO implements AccountingDA
 		return getRowsBySQLQuery(Accounting.class, query);
 	}
 
+	public List<Accounting> getAccountingByQuery(String query) {
+		return getRowsBySQLQuery(Accounting.class, query);
+	}
+
 	public List<Accounting> getAccountingsFilterDateAndName(String name, String start, String end) {
 		String query = "select * from accounting where date_time between '" + start + "' and '" +  end + "' " +
 				"and unit_name='" + name + "' order by date_time";

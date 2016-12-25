@@ -29,6 +29,9 @@ public class Accounting implements Serializable {
 	
 	@Column(name="amount", nullable=false)
 	private int amount;
+
+	@Column(name = "description")
+	private String description;
 	
 	public Accounting() {
 		super();
@@ -57,5 +60,13 @@ public class Accounting implements Serializable {
 
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

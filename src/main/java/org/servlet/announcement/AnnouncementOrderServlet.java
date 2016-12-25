@@ -21,12 +21,15 @@ import java.util.List;
 @WebServlet(name = "AnnouncementOrderServlet", urlPatterns = {"/announcementorder"})
 public class AnnouncementOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
         String order = request.getParameter("condition");
         String type = request.getParameter("type");
-        String sql = "SELECT * FROM announcement WHERE now() BETWEEN publish_date AND expired_date ORDER BY " + order + " " + type;
-        List<Announcement> annList = new AnnouncementHibernateImpl().getActiveAnnouncements(sql);
+        StringBuilder query = new StringBuilder();
+        query.append(session.getAttribute("searchannouncementquery"));
+        query.append(" ORDER BY " + order + " " + type);
+        List<Announcement> annList = new AnnouncementHibernateImpl().getActiveAnnouncements(query.toString());
 
-        HttpSession session = request.getSession();
         session.setAttribute("announcements", annList);
         response.sendRedirect("student/ilan-ara.jsp");
     }

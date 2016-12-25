@@ -89,6 +89,8 @@ public class ApprovedDonationServlet extends HttpServlet {
 			accounting.setAccountingPK(accountingPK);
 			accounting.setAmount(cop.getPacket().getPrice());
 			accounting.setDauUser(dauUser);
+			accounting.setDescription(cop.getOwnerCompany().getCompanyName() + " şirketinin " + cop.getPacket().getTitle()
+				+ " paketi için yapmış olduğu istek onaylandı." );
 			
 			AccountingDAO accountingDAO = new AccountingHibernateImpl();
 			accountingDAO.saveAccounting(accounting);
