@@ -3,9 +3,11 @@ package org.servlet.admin;
 import org.db.dao.DonationAcceptUnitDAO;
 import org.db.dao.SpendingRequestDAO;
 import org.db.hibernate.DauHibernateImpl;
+import org.db.hibernate.SRStateHibernateImpl;
 import org.db.hibernate.SpendingRequestHibernateImpl;
 import org.db.model.DonationAcceptUnit;
 import org.db.model.SpendingRequest;
+import org.db.model.SpendingRequestState;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,16 +25,19 @@ import java.util.List;
 public class ListSpendingRequestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String query = "SELECT * FROM spending_request";
-        session.setAttribute("harcamasorgu", query);
+        //String query = "SELECT * FROM spending_request";
+        //session.setAttribute("harcamasorgu", query);
 
         SpendingRequestDAO spendingRequestDAO = new SpendingRequestHibernateImpl();
         List<SpendingRequest> spendingRequestList = spendingRequestDAO.getAllSpendingRequest();
-        session.setAttribute("srList", spendingRequestList);
+        //session.setAttribute("srList", spendingRequestList);
 
         DonationAcceptUnitDAO dauDAO  = new DauHibernateImpl();
         List<DonationAcceptUnit> dauList = dauDAO.getAllUnits();
+        List<SpendingRequestState> states = new SRStateHibernateImpl().getAllStates();
+
         session.setAttribute("dauList", dauList);
+        session.setAttribute("stateList", states);
 
         response.sendRedirect("admin/harcama-istekleri.jsp");
     }

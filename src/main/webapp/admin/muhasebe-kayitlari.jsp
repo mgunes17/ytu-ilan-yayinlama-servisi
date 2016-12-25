@@ -56,7 +56,7 @@
 		<div class="jumbotron container-fluid">
         	<div class="row">
                 <div class="col-md-1"></div>
-				<div class="col-md-2">
+				<div class="col-md-3">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <p>Arama Yapın</p>
@@ -86,8 +86,7 @@
                         </div>
                     </div>
 				</div>
-                <div class="col-md-1"></div>
-				<div class="col-md-6">
+				<div class="col-md-7">
                     <c:if test="${fn:length(dau) eq 0}">
                         <p>Lütfen yan menüden seçim yapınız.</p>
                     </c:if>
@@ -131,7 +130,7 @@
                                     <span class="glyphicon glyphicon-arrow-down"></span>
                                 </a>
                             </th>
-                            <th>Onay veren kullanıcı
+                            <th>Kullanıcı
                                 <a href="../accountingorder?condition=user_name&type=asc" title="Artan Sırala">
                                     <span class="glyphicon glyphicon-arrow-up"></span>
                                 </a>
@@ -153,9 +152,9 @@
                         <c:forEach var="item" items="${accounting }">
                             <tr>
                                 <td><fmt:formatDate type="date" value="${item.accountingPK.dateTime}"/></td>
-                                <td>${fn:substring(item.description, 0, 35)}...
+                                <td>${fn:substring(item.description, 0, 20)}...
                                     <a href="#" data-toggle="popover" data-placement="left"
-                                       title="Açıklama" data-content="${item.description}">
+                                       title="Açıklama:${item.description}" data-content="${item.description}">
                                         <span class="glyphicon glyphicon-info-sign "></span>
                                     </a>
                                 </td>

@@ -19,14 +19,27 @@ import java.util.List;
 @WebServlet(name = "SpendingRequestDauServlet", urlPatterns = {"/spendingrequestdau"})
 public class SpendingRequestDauServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
-        String query = "SELECT * FROM spending_request";
-        query += " where dau =  '";
-        query += request.getParameter("department") + "'";
-        session.setAttribute("harcamasorgu", query);
+
+        int state = Integer.parseInt(request.getParameter("state"));
+        String dauName = request.getParameter("department");
+
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT * FROM spending_request WHERE 1 = 1 ");
+
+        if(state != -1) {
+            query.append(" AND state = " + state + " ");
+        }
+
+        if(!dauName.equals("Tüm Birimler")) {
+            query.append(" AND dau = '" + dauName + "' ");
+        }
+
+        session.setAttribute("harcamasorgu", query.toString());
 
         SpendingRequestDAO srDAO = new SpendingRequestHibernateImpl();
-        List<SpendingRequest> srList = srDAO.getSpendingRequestByQuery(query);
+        List<SpendingRequest> srList = srDAO.getSpendingRequestByQuery(query.toString());
 
         session.setAttribute("srList", srList);
         response.sendRedirect("admin/harcama-istekleri.jsp");

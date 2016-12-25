@@ -25,7 +25,8 @@ public class SpendingRequestOrderServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String query = (String) session.getAttribute("harcamasorgu");
         query += " order by ";
-        query += request.getParameter("condition");
+        query += request.getParameter("condition ");
+        query += " " + request.getParameter("type");
 
         SpendingRequestDAO srDAO = new SpendingRequestHibernateImpl();
         List<SpendingRequest> srList = srDAO.getSpendingRequestByQuery(query);

@@ -54,6 +54,7 @@ INSERT INTO department (code, name) VALUES
   ('02D', 'Kimya (İngilizce)');
 
 INSERT INTO spending_request_state (id, title) VALUES
+  (-1, 'Tüm Durumlar'),
   (1, 'Harcama Bekleniyor'),
   (2, 'Harcama Yapıldı'),
   (3, 'Harcama İsteği Reddedildi'),

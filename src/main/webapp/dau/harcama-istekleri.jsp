@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -21,6 +22,12 @@
 				$("#requestId").val(requestId);	
 				$("#requestId2").val(requestId);	
 				$(_self.attr('href')).modal('show');
+			});
+		</script>
+
+		<script>
+			$(document).ready(function(){
+				$('[data-toggle="popover"]').popover();
 			});
 		</script>
 
@@ -93,8 +100,8 @@
 		<jsp:include page="html/menu.html"></jsp:include>
 		<div class="jumbotron container-fluid">
 			<div class="row">
-				<div class="col-md-3"></div>
-				<div class="col-md-7">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
 					<c:choose>
 						<c:when test="${istekguncelle eq 1 }">
 							<div class="alert alert-success">
@@ -119,13 +126,13 @@
 							</div>
 						</c:when>
 					</c:choose>
-					<table class="table table-bordered">
+					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>Başlık</th>
-								<th style="width:30%">Mesaj</th>
+								<th>Mesaj</th>
 								<th>Tutar</th>
-								<th>Oluşturulma Tarihi</th>
+								<th>Tarih</th>
 								<th>İşlem</th> <!-- Modal Box ile yap -->
 							</tr>
 						</thead>
@@ -133,14 +140,11 @@
 							<c:forEach var="item" items="${spendingList}">
 								<tr>
 									<td>${item.title}</td>
-									<td>
-                                        <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#${item.id}">
-                                            <span class="glyphicon glyphicon-collapse-down"></span> Mesajı Oku
-                                        </button>
-                                        <div id="${item.id}" class="collapse">
-                                            ${item.content}
-                                        </div>
-
+									<td>${fn:substring(item.content, 0, 20)}...
+                                        <a href="#" data-toggle="popover" data-placement="left"
+                                            title="Mesaj:" data-content="${item.content}">
+                                            <span class="glyphicon glyphicon-info-sign "></span>
+                                        </a>
 									</td>
 									<td align="right">${item.amount}</td>
 									<td><fmt:formatDate type="date" value="${item.sentDateTime}"/></td>
@@ -151,14 +155,14 @@
 												title="Add this item"
 												class="open-writeReply btn btn-primary"
 												href="#acceptModal">
-												Harcama Kaydı Gir
+												<span class="glyphicon glyphicon-ok"></span>
 											</a>
 											<a data-id="${item.id }"
 												data-toggle="modal"
 												title="Add this item"
 												class="open-writeReply btn btn-danger"
 												href="#rejectModal">
-												Harcamayı Redddet
+												<span class="glyphicon glyphicon-remove"></span>
 											</a>
 										</form>
 									</td>

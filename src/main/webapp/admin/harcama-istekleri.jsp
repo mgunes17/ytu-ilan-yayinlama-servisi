@@ -8,13 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
     <head>
         <title>Harcama İstekleri</title>
         <jsp:include page="html/head.html"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script rel="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
     </head>
     <body>
 
@@ -59,6 +59,12 @@
             });
         </script>
 
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover();
+            });
+        </script>
+
         <div class="modal fade" id="downloadFile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" onclick="nonVisible()">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -96,7 +102,7 @@
                         <p><b>Miktar</b></p>
                         <p id="amount1"></p>
 
-                        <p><b>Cevaplayan Kullanıcı</b></p>
+                        <p><b>Kullanıcı</b></p>
                         <p id="dauUser1"></p>
 
                         <p><b>Cevap</b></p>
@@ -113,14 +119,61 @@
         <jsp:include page="html/menu.html"/>
         <div class="jumbotron container-fluid">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p>Arama Seçenekleri</p>
+                        </div>
+                        <div class="panel-body">
+                            <form action="../spendingrequestdau" method="post">
+                                <div class="form-group">
+                                    <label for="state">Durum</label>
+                                    <select name="state" id="state" class="form-control">
+                                        <c:forEach var="item" items="${stateList}">
+                                            <option value="${item.id}">
+                                                <c:out value="${item.title}"/>
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dau">Birim</label>
+                                    <select name="department" id="dau" class="form-control">
+                                        <c:forEach var="item" items="${dauList}">
+                                            <option value="${item.unitName}">
+                                                <c:out value="${item.unitName}"/>
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-success">Ara</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
                     <table class="table table-hover">
                         <thead>
                         <tr>
                             <th>Başlık</th>
-                            <th style="width:30%">Cevap</th>
-                            <th>Cevaplanma Tarihi</th>
-                            <th>Cevaplayan Kullanıcı</th>
+                            <th>Cevap</th>
+                            <th>Cevap Tarihi
+                                <a href="../spendingrequestorder?condition=updated_date_time&type=asc" title="Artan Sırala">
+                                    <span class="glyphicon glyphicon-arrow-up"></span>
+                                </a>
+                                <a href="../spendingrequestorder?condition=updated_date_time&type=desc" title="Azalan Sırala">
+                                    <span class="glyphicon glyphicon-arrow-down"></span>
+                                </a>
+                            </th>
+                            <th>Kullanıcı
+                                <a href="../spendingrequestorder?condition=updater&type=asc" title="Artan Sırala">
+                                    <span class="glyphicon glyphicon-arrow-up"></span>
+                                </a>
+                                <a href="../spendingrequestorder?condition=updater&type=desc" title="Azalan Sırala">
+                                    <span class="glyphicon glyphicon-arrow-down"></span>
+                                </a>
+                            </th>
                             <th>İşlem</th>
                         </tr>
                         </thead>
@@ -129,11 +182,12 @@
                             <tr>
                                 <td>${item.title}</td>
                                 <td>
-                                    <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#${item.id}">
-                                        <span class="glyphicon glyphicon-collapse-down"></span> Mesajı Oku
-                                    </button>
-                                    <div id="${item.id}" class="collapse">
-                                            ${item.answerFromUpdater}
+                                    <div id="${item.id}">
+                                            ${fn:substring(item.answerFromUpdater, 0, 20)}...
+                                        <a href="#" data-toggle="popover" data-placement="left"
+                                           title="Açıklama:" data-content="${item.answerFromUpdater}">
+                                            <span class="glyphicon glyphicon-info-sign "></span>
+                                        </a>
                                     </div>
                                 </td>
                                 <td><fmt:formatDate type="date" value="${item.updatedDateTime}"/></td>
@@ -177,32 +231,6 @@
                         </c:forEach>
                         </tbody>
                     </table>
-                </div>
-                <div class="col-md-3">
-                    <h4>Sıralama Seçenekleri</h4>
-                    <p><a href="../spendingrequestorder?condition=updated_date_time" class="btn btn-default">Tarihe Göre Sırala</a></p>
-                    <p><a href="../spendingrequestorder?condition=updater" class="btn btn-default">Kullanıcı Adına Göre Sırala</a><p>
-
-                    <h4>Sonucuna Göre Filtrele</h4>
-                    <p><a href="../listspendingrequesttoadmin" class="btn btn-default">Tümü</a></p>
-                    <p><a href="../spendingrequestreply?condition=1" class="btn btn-default">Cevaplananlar</a><p>
-                    <p><a href="../spendingrequestreply?condition=2" class="btn btn-default">Cevaplanmayanlar</a><p>
-
-                    <h4>BKB' ye Göre Filtrele</h4>
-                    <form method="get" action="../spendingrequestdau">
-                        <div class="form-group">
-                            <label for="dau">Birim Seç</label>
-                            <select name="department" id="dau">
-                                <c:forEach var="item" items="${dauList}">
-                                    <option value="${item.unitName}">
-                                        <c:out value="${item.unitName}"/>
-                                    </option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-default">Seç</button>
-                    </form>
-                </div>
                 </div>
             </div>
         </div>

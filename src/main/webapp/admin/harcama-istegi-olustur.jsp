@@ -10,7 +10,6 @@
 	</head>
 	<body>
         <jsp:include page="html/menu.html"/>
-
         <div class="jumbotron">
             <div class="container-fluid">
                 <div class="row">
