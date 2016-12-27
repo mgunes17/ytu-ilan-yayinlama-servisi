@@ -13,16 +13,28 @@
         <jsp:include page="html/menu.html"/>
         <div class="jumbotron container-fluid">
 	        <div class="row">
-                <div class="col-md-4"></div>
-	            <div class="col-md-4">
-	            	<h3>${packet.packetId} No'lu Paketin Detayları</h3>
+                <div class="col-md-3"></div>
+	            <div class="col-md-6">
+                    <a href="../displaypackets" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        Listeye Dön
+                    </a>
+                    <p></p>
 	            	<table class="table table-bordered">
+                        <tr>
+                            <th>Paket No</th>
+                            <td>${packet.packetId}</td>
+                        </tr>
+                        <tr>
+                            <th>Bağlı Olduğu Birim</th>
+                            <td>${packet.accountInfo.ownerUnit.unitName}</td>
+                        </tr>
 	            		<tr>
 	            			<th>Başlık</th>
 	            			<td>${packet.title }</td>
 	            		</tr>
 	            		<tr>
-	            			<th>İlan Sayısı</th>
+	            			<th>İlan Sayısı (Adet)</th>
 	            			<td>${packet.announcementCount }</td>
 	            		</tr>
 	            		<tr>
@@ -34,7 +46,7 @@
 	            			<td>${packet.lastDateUsed }</td>
 	            		</tr>
 	            		<tr>
-	            			<th>Bir İlan İçin Yayın Süresi</th>
+	            			<th>Bir İlan İçin Yayın Süresi (Gün)</th>
 	            			<td>${packet.activeTime }</td>
 	            		</tr>
 	            		<tr>
@@ -42,9 +54,17 @@
 	            			<td>${packet.condition }</td>
 	            		</tr>
 	            		<tr>
-	            			<th>Tanımlı Banka Adı</th>
+	            			<th>Tanımlı Banka</th>
 	            			<td>${packet.accountInfo.bankName }</td>
 	            		</tr>
+                        <tr>
+                            <th>Şube</th>
+                            <td>${packet.accountInfo.branchBankName }</td>
+                        </tr>
+                        <tr>
+                            <th>Hesap Numarası</th>
+                            <td>${bankAccountNumber}</td>
+                        </tr>
 	            		<tr>
 	            			<th>IBAN No</th>
 	            			<td>${packet.accountInfo.iban}</td>

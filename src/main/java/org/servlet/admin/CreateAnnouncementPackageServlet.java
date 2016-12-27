@@ -83,6 +83,7 @@ public class CreateAnnouncementPackageServlet extends HttpServlet {
         packet.setCondition(request.getParameter("condition"));
         packet.setAccountInfo(accountInfo);
         packet.setCurrency(currency);
+        packet.setVisible(false);
 
         try {
             String date = request.getParameter("last_date_used");

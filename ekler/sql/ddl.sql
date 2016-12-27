@@ -1,7 +1,7 @@
 CREATE TABLE user_type(
   type_no smallint PRIMARY KEY,
   type_name varchar(20) UNIQUE,
-  main_page char(50),
+  main_page varchar(50),
   unauthorized_page char(50)
 );
 
@@ -53,7 +53,7 @@ CREATE TABLE bank_account_info (
   bank_name varchar(30) NOT NULL,
   branch_bank_name varchar(30) NOT NULL,
   bank_account_number numeric(16) NOT NULL,
-  iban char(34),
+  iban varchar(34),
   currency int not null,
   PRIMARY KEY(iban)
 );
@@ -63,7 +63,7 @@ CREATE TABLE donation (
   company_username varchar(30) not null,
   donate_accept_unit_username varchar(30) not null,
   packet_id int not null,
-  iban char,
+  iban varchar,
   amount int,
   approved boolean default false
 );
@@ -86,7 +86,7 @@ CREATE TABLE communication_way (
 );
 
 CREATE TABLE department (
-  code char(3) primary key,
+  code varchar(3) primary key,
   name varchar(50) unique
 );
 
@@ -106,7 +106,7 @@ CREATE TABLE message (
 
 CREATE TABLE announcement_category (
   id int primary key,
-  category_name char(70) NOT NULL UNIQUE,
+  category_name varchar(70) NOT NULL UNIQUE,
   references_count int DEFAULT 0,
   parent_category_id int REFERENCES announcement_category(id)
 );
@@ -122,7 +122,7 @@ CREATE TABLE announcement (
   owner_packet int,
   announcement_type int not null,
   announcement_category int REFERENCES announcement_category(id),
-  announcement_language char(20),
+  announcement_language varchar(20),
   publish_date timestamp,
   expired_date timestamp,
   proper_complaint boolean DEFAULT TRUE
@@ -146,7 +146,7 @@ CREATE TABLE currency (
 
 CREATE TABLE announcement_packet_state (
   id int primary key,
-  title char(50)
+  title varchar(50)
 );
 
 CREATE TABLE  company_own_packet (
@@ -182,12 +182,12 @@ CREATE TABLE accounting (
 
 CREATE TABLE spending_request_state (
   id int primary key,
-  title char(50)
+  title varchar(50)
 );
 
 CREATE TABLE spending_request (
   id int primary key,
-  title char(60),
+  title varchar(60),
   content text,
   amount int,
   sent_date_time timestamp,
@@ -206,7 +206,7 @@ CREATE TABLE complaint (
   announcement int REFERENCES announcement (id),
   description text NOT NULL,
   complaint_time timestamp,
-  result char(40),
+  result varchar(40),
   result_time timestamp,
   result_reply text
 );

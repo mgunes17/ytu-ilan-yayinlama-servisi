@@ -54,9 +54,11 @@
                                 <div class="col-sm-10">
                                     <select name="dau" class="form-control">
                                         <c:forEach var="item" items="${dau}">
-                                            <option value="${item.unitName}">
-                                                <c:out value="Bakiye:${item.balance} BKB:${item.unitName}"/>
-                                            </option>
+                                            <c:if test="${item.unitName ne 'Tüm Birimler'}">
+                                                <option value="${item.unitName}">
+                                                    <c:out value="Bakiye:${item.balance} BKB:${item.unitName}"/>
+                                                </option>
+                                            </c:if>
                                         </c:forEach>
                                     </select>
                                 </div>

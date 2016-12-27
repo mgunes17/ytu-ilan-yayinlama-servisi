@@ -139,10 +139,10 @@
                                 </a>
                             </th>
                             <th>Miktar (TL)
-                                <a href="../accountingorder?condition=balance&type=asc" title="Artan Sırala">
+                                <a href="../accountingorder?condition=amount&type=asc" title="Artan Sırala">
                                     <span class="glyphicon glyphicon-arrow-up"></span>
                                 </a>
-                                <a href="../accountingorder?condition=balance&type=desc" title="Azalan Sırala">
+                                <a href="../accountingorder?condition=amount&type=desc" title="Azalan Sırala">
                                     <span class="glyphicon glyphicon-arrow-down"></span>
                                 </a>
                             </th>

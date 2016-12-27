@@ -16,11 +16,25 @@ public class AnnouncementPacketHibernateImpl extends AbstractDAO implements Anno
 		return packetList;
 	}
 
-	public boolean deletePacket(int packetId) {
-		return delete(getPacket(packetId));
+	public List<AnnouncementPacket> getAvailablePackets() {
+		String query = "SELECT * FROM announcement_packet where visible = false and last_date_used > now()";
+        return getRowsBySQLQuery(AnnouncementPacket.class, query);
 	}
-	
-	public AnnouncementPacket getPacket(int packetId) { //abstract dao içinde?
+
+    public List<AnnouncementPacket> getPacketBySQLQuery(String query) {
+        return getRowsBySQLQuery(AnnouncementPacket.class, query);
+    }
+
+    public boolean deletePacket(int packetId) {
+    	return deleteByQuery(AnnouncementPacket.class, "AnnouncementPacket", "packetId", packetId);
+	}
+
+    public boolean activePacket(int packetId) {
+        String query = "UPDATE announcement_packet SET visible = TRUE WHERE packet_id = " + packetId;
+        return updateBySQLQuery(AnnouncementPacket.class, query);
+    }
+
+    public AnnouncementPacket getPacket(int packetId) { //abstract dao içinde?
 		return (AnnouncementPacket) getObject(AnnouncementPacket.class, packetId);
 	}
 

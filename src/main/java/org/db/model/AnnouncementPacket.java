@@ -44,6 +44,9 @@ public class AnnouncementPacket implements Serializable {
 	@JoinColumn(name="bank_account_info", nullable=false)
     private BankAccountInfo accountInfo;
 
+    @Column(name = "visible")
+    private boolean visible;
+
 	public AnnouncementPacket(){
         super();
     }
@@ -127,4 +130,12 @@ public class AnnouncementPacket implements Serializable {
 	public void setAccountInfo(BankAccountInfo accountInfo) {
 		this.accountInfo = accountInfo;
 	}
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 }

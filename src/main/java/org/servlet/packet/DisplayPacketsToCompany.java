@@ -41,8 +41,7 @@ public class DisplayPacketsToCompany extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AnnouncementPacketDAO annPacketDAO = new AnnouncementPacketHibernateImpl();
-		List<AnnouncementPacket> packets = annPacketDAO.getAllPackets(); //tüm paketleri getir, sadece satın alınabilenler olarak
-		//değişecek
+		List<AnnouncementPacket> packets = annPacketDAO.getAvailablePackets();
 		HttpSession httpSession = request.getSession();
 		httpSession.setAttribute("donation_request", 0);
 		httpSession.setAttribute("packets", packets);

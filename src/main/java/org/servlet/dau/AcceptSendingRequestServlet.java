@@ -57,7 +57,7 @@ public class AcceptSendingRequestServlet extends HttpServlet {
 
         Accounting accounting = new Accounting();
         accounting.setAccountingPK(pk);
-        accounting.setAmount(spendingRequest.getAmount());
+        accounting.setAmount(-spendingRequest.getAmount());
         accounting.setDauUser(dauUser);
         accounting.setDescription(spendingRequest.getTitle() + " başlıklı harcama isteği onaylandı.");
         new AccountingHibernateImpl().saveAccounting(accounting);

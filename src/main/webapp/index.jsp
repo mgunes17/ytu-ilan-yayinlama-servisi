@@ -22,6 +22,6 @@
         </h3>
     </div>
        
-    <jsp:include page="html/footer.html"/>  
+    <jsp:include page="html/footer.html"/>
 </body>
 </html>

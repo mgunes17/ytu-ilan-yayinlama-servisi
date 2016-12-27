@@ -49,7 +49,7 @@ public class SelectDauForPacketServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		DonationAcceptUnitDAO dauDAO = new DauHibernateImpl();
-        DonationAcceptUnit dau = (DonationAcceptUnit) dauDAO.getUnit(request.getParameter("unit"));
+        DonationAcceptUnit dau = dauDAO.getUnit(request.getParameter("unit"));
         
         if(dau != null) {
         	CurrencyDAO currencyDAO = new CurrencyHibernateImpl();

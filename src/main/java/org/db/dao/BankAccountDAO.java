@@ -2,8 +2,11 @@ package org.db.dao;
 
 import org.db.model.BankAccountInfo;
 
+import java.util.List;
+
 public interface BankAccountDAO {
-	boolean saveBankAccount(BankAccountInfo bai);
 	BankAccountInfo getAccount(String iban);
+    List<BankAccountInfo> getSiblingAccounts(String iban);
+	boolean saveBankAccount(BankAccountInfo bai);
 	boolean deleteAccount(String iban);
 }

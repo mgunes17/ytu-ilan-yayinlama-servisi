@@ -52,8 +52,8 @@
                         <c:choose>
                             <c:when test="${olusturuldu eq 1}">
                                 <div class="alert alert-success">
-                                    <strong>Başarılı!</strong> Paket başarıyla oluşturuldu.
-                                    Paketi <a href="#">buradan</a> düzenleyebilirsiniz.
+                                    <strong>Başarılı!</strong> Paket pasif olarak oluşturuldu.
+                                    Paketi <a href="../displaypackets">buradan</a> aktif hale getirebilirsiniz.
                                 </div>
                             </c:when>
                             <c:when test="${olusturuldu eq 2}">
