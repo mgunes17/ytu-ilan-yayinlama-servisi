@@ -22,7 +22,7 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
                     <h3>Bekleyen İstekleriniz</h3>
-                    <c:if test="${fn: length(packetlist) eq 0}">
+                    <c:if test="${fn: length(packetList) eq 0}">
                         <p><i>Bekleyen isteğiniz bulunmamaktadır.</i></p>
                     </c:if>
                     <table class="table table-hovered">

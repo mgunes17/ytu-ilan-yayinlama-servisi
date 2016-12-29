@@ -182,13 +182,18 @@
                             <tr>
                                 <td>${item.title}</td>
                                 <td>
-                                    <div id="${item.id}">
+                                    <c:choose>
+                                        <c:when test="${item.answerFromUpdater ne null}">
                                             ${fn:substring(item.answerFromUpdater, 0, 20)}...
-                                        <a href="#" data-toggle="popover" data-placement="left"
-                                           title="Açıklama:" data-content="${item.answerFromUpdater}">
-                                            <span class="glyphicon glyphicon-info-sign "></span>
-                                        </a>
-                                    </div>
+                                            <a href="#" data-toggle="popover" data-placement="left"
+                                               title="Açıklama:" data-content="${item.answerFromUpdater}">
+                                                <span class="glyphicon glyphicon-info-sign "></span>
+                                            </a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <i>Sonuçlanmadı</i>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </td>
                                 <td><fmt:formatDate type="date" value="${item.updatedDateTime}"/></td>
                                 <td>${item.dauUser.userName}</td>

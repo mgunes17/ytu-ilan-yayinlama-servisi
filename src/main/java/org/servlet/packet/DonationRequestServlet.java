@@ -1,14 +1,13 @@
 package org.servlet.packet;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.Date;
+import java.util.Random;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 import org.db.dao.AnnouncementPacketDAO;
 import org.db.dao.AnnouncementPacketStateDAO;
@@ -25,6 +24,7 @@ import org.db.model.CompanyOwnPacket;
  * Servlet implementation class DonatedPacket
  */
 @WebServlet("/donationrequestservlet")
+@MultipartConfig
 public class DonationRequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,7 +47,11 @@ public class DonationRequestServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int packetId = Integer.parseInt(request.getParameter("packetId"));
+	    request.setCharacterEncoding("utf-8");
+
+        System.out.println(request.getParameter("packetId"));
+        System.out.println(request.getParameter("description"));
+        int packetId = Integer.parseInt(request.getParameter("packetId"));
 		
 		AnnouncementPacketDAO annDAO = new AnnouncementPacketHibernateImpl();
 		AnnouncementPacket packet = annDAO.getPacket(packetId);
@@ -63,15 +67,77 @@ public class DonationRequestServlet extends HttpServlet {
 		cop.setPacket(packet);
 		cop.setTimeToRequest(new Date());
 		cop.setState(state);
-		
-		CompanyOwnPacketDAO copDAO = new CompanyOwnPacketHibernateImpl();
-		
-		if(copDAO.save(cop)) {
-			httpSession.setAttribute("donation_request", 1);
-		} else {
-			httpSession.setAttribute("donation_request", 2);
-		}
+		cop.setCompanyDescription(request.getParameter("description"));
 
-		response.sendRedirect("company/paketleri-gor.jsp");
+
+        //dosyayı kaydet
+        Part filePart = null;
+        String fileName = "";
+        String filePath = "";
+
+        if(request.getPart("file") != null) {
+            filePart = request.getPart("file");
+            fileName += new Random().nextInt(100000) + "_";
+            fileName += getFileName(filePart);
+            filePath = request.getServletContext().getInitParameter("commonFilePath");
+        }
+
+        OutputStream out = null;
+        InputStream filecontent = null;
+        PrintWriter writer = response.getWriter();
+
+        try {
+            if (request.getPart("file") != null) {
+                out = new FileOutputStream(new File(filePath + File.separator
+                        + fileName));
+                filecontent = filePart.getInputStream();
+
+                int read = 0;
+                final byte[] bytes = new byte[1024];
+
+                while ((read = filecontent.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+
+                cop.setFilePath(fileName);
+            }
+
+            CompanyOwnPacketDAO copDAO = new CompanyOwnPacketHibernateImpl();
+
+            if(copDAO.save(cop)) {
+                httpSession.setAttribute("donation_request", 1);
+            } else {
+                httpSession.setAttribute("donation_request", 2);
+            }
+
+            response.sendRedirect("company/paketleri-gor.jsp");
+        } catch (FileNotFoundException fne) {
+            writer.println("You either did not specify a file to upload or are "
+                    + "trying to upload a file to a protected or nonexistent "
+                    + "location.");
+            writer.println("<br/> ERROR: " + fne.getMessage());
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+            if (filecontent != null) {
+                filecontent.close();
+            }
+            if (writer != null) {
+                writer.close();
+            }
+        }
+
 	}
+
+    private String getFileName(final Part part) {
+        final String partHeader = part.getHeader("content-disposition");
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
 }

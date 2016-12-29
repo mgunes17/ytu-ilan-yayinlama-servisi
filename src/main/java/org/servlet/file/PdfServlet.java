@@ -30,6 +30,8 @@ public class PdfServlet extends HttpServlet {
             path += request.getServletContext().getInitParameter("pdfFilePath");
         } else if(type.equals("image")) {
             path += request.getServletContext().getInitParameter("imageFilePath");
+        } else {
+            path += request.getServletContext().getInitParameter("commonFilePath");
         }
 
         path += fileName;
@@ -39,7 +41,7 @@ public class PdfServlet extends HttpServlet {
 
         response.setHeader("Content-disposition","attachment; filename=" + path);
 
-        File my_file = new File(fileName);
+        File my_file = new File(path);
 
         OutputStream out = response.getOutputStream();
         FileInputStream in = new FileInputStream(my_file);

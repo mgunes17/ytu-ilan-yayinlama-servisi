@@ -71,14 +71,14 @@ public class AcceptSendingRequestServlet extends HttpServlet {
 
         if(request.getPart("file") != null) {
             filePart = request.getPart("file");
-            fileName += new Random().nextInt(10000) + "_";
+            fileName += new Random().nextInt(100000) + "_";
             fileName += getFileName(filePart);
             filePath = request.getServletContext().getInitParameter("pdfFilePath");
         }
 
         if(request.getPart("image") != null) {
             imagePart = request.getPart("image");
-            imageName += new Random().nextInt(10000) + "_";
+            imageName += new Random().nextInt(100000) + "_";
             imageName += getFileName(imagePart);
             imagePath = request.getServletContext().getInitParameter("imageFilePath");
         }
@@ -156,5 +156,4 @@ public class AcceptSendingRequestServlet extends HttpServlet {
         }
         return null;
     }
-
 }

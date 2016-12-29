@@ -56,7 +56,13 @@ public class CompanyOwnPacket implements Serializable {
 
 	@Column(name = "time_to_expired")
 	private Date timeToExpired;
-	
+
+	@Column(name = "file_path")
+	private String filePath;
+
+    @Column(name = "company_description")
+    private String companyDescription;
+
 	public CompanyOwnPacket() {
 		super();
 	}
@@ -139,5 +145,21 @@ public class CompanyOwnPacket implements Serializable {
 
     public void setTimeToExpired(Date timeToExpired) {
         this.timeToExpired = timeToExpired;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getCompanyDescription() {
+        return companyDescription;
+    }
+
+    public void setCompanyDescription(String companyDescription) {
+        this.companyDescription = companyDescription;
     }
 }

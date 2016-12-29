@@ -17,7 +17,7 @@ public class AnnouncementPacketHibernateImpl extends AbstractDAO implements Anno
 	}
 
 	public List<AnnouncementPacket> getAvailablePackets() {
-		String query = "SELECT * FROM announcement_packet where visible = false and last_date_used > now()";
+		String query = "SELECT * FROM announcement_packet where visible = true and last_date_used > now()";
         return getRowsBySQLQuery(AnnouncementPacket.class, query);
 	}
 
