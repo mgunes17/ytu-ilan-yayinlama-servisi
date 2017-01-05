@@ -29,13 +29,25 @@ public class UpdateAccountServlet extends HttpServlet {
         bai.setBranchBankName(request.getParameter("name_of_branch"));
         //bai.setCurrency(Integer.parseInt(request.getParameter("currency")));
         bai.setCurrency(1);
-        bai.setIban(request.getParameter("iban"));
+        bai.setIban(request.getParameter("newIban"));
 
         HttpSession httpSession = request.getSession();
         DonationAcceptUnit dau = (DonationAcceptUnit) httpSession.getAttribute("dau");
         bai.setOwnerUnit(dau);
 
+        String oldIban = request.getParameter("iban");
+
         BankAccountDAO baiDAO = new BankAccountHibernateImpl();
+
+        /*if(httpSession.getAttribute("dau") == null) {
+            httpSession.setAttribute("hesapguncellendi", 4);
+        } else if(baiDAO.updateBankAccount(bai, oldIban)) {
+            dau = new DauHibernateImpl().getUnit(dau.getUnitName());
+            httpSession.setAttribute("dau", dau);
+            httpSession.setAttribute("hesapguncellendi", 1);
+        } else {
+            httpSession.setAttribute("hesapguncellendi", 2);
+        }*/
 
         if(httpSession.getAttribute("dau") == null) {
             httpSession.setAttribute("hesapguncellendi", 4);

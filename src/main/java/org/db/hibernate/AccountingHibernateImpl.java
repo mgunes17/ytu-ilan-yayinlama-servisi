@@ -34,7 +34,7 @@ public class AccountingHibernateImpl extends AbstractDAO implements AccountingDA
 			return accList;
 		} catch(Exception ex) {
 			session.getTransaction().rollback();
-			System.out.println("Vakıf işlem kayıtları getirilemedi:" + ex.getMessage());
+			System.out.println("BKB işlem kayıtları getirilemedi:" + ex.getMessage());
 			return null;
 		} finally {
 			session.close();

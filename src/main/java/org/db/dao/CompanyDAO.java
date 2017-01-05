@@ -6,4 +6,6 @@ public interface CompanyDAO {
     boolean updateCompanyPassword(Company c);
 	boolean saveCompany(Company c);
 	boolean updateCompanyUser(Company c);
+	boolean deleteCompany(Company c);
+
 }

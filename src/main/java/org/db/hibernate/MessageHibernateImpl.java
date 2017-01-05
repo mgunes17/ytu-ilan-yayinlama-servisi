@@ -21,7 +21,8 @@ public class MessageHibernateImpl extends AbstractDAO implements MessageDAO {
 	}
 	
 	public boolean deleteMessage(Message message) {
-		return delete(message);
+        String query = "DELETE FROM message where message_no = " + message.getMessageNo();
+        return updateBySQLQuery(Message.class, query);
 	}
 
 

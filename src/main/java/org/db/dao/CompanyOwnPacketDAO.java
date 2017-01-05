@@ -10,4 +10,5 @@ public interface CompanyOwnPacketDAO {
 	CompanyOwnPacket getPacket(int packetId);
 	List<CompanyOwnPacket> getWaitingPacketsToCompany(String companyUserName);
 	List<CompanyOwnPacket> getAvailablePackets(String companyUserName);
+	List<CompanyOwnPacket> getPacketBySQLQuery(String query);
 }

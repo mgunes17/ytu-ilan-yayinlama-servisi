@@ -29,7 +29,7 @@ public class OrderPacketServlet extends HttpServlet {
         AnnouncementPacketDAO packetDAO = new AnnouncementPacketHibernateImpl();
         List<AnnouncementPacket> packetList = packetDAO.getPacketBySQLQuery(query.toString());
 
-        session.setAttribute("searchpacket", query);
+        //session.setAttribute("searchpacket", query);
         session.setAttribute("packets", packetList);
 
         response.sendRedirect("admin/paketleri-duzenle.jsp");

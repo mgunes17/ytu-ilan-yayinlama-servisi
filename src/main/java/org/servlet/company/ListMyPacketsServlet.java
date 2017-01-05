@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.db.dao.AnnouncementPacketStateDAO;
+import org.db.hibernate.PacketStateHibernateImpl;
+import org.db.model.AnnouncementPacketState;
 import org.db.model.Company;
 import org.db.model.CompanyOwnPacket;
 
@@ -42,7 +45,11 @@ public class ListMyPacketsServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Company company = (Company) session.getAttribute("user");
 		List<CompanyOwnPacket> packets = company.getPackets();
-		session.setAttribute("packets", packets);
+
+		List<AnnouncementPacketState> packetStateList = new PacketStateHibernateImpl().getAllStates();
+
+		//session.setAttribute("packets", packets);
+        session.setAttribute("packetStates", packetStateList);
 		response.sendRedirect("company/paketlerim.jsp");
 	}
 

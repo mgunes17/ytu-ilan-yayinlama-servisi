@@ -32,6 +32,7 @@ INSERT INTO currency VALUES
   (3, 'Amerikan Doları');
 
 INSERT INTO announcement_packet_state (id, title) VALUES
+  (-1, 'Tümü'),
   (1, 'Onay Bekleniyor'),
   (2, 'Kullanılabilir'),
   (3, 'Kullanım süresi sona erdi');

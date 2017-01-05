@@ -17,7 +17,7 @@
 			<div class="row">
 				<div class="col-md-4">
 					<h2>Ýþlem detaylarý</h2>
-					<h4>Vakýf bakiyesi: ${user.dau.balance}</h4>
+					<h4>BKB bakiyesi: ${user.dau.balance}</h4>
 					
 					<table class="table table-bordered">
 						<thead>

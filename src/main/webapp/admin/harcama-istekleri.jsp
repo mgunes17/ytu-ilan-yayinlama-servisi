@@ -180,7 +180,20 @@
                         <tbody>
                         <c:forEach var="item" items="${srList}">
                             <tr>
-                                <td>${item.title}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${fn:length(item.title) < 20}">
+                                            ${item.title}
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${fn:substring(item.title, 0, 20)}...
+                                            <a href="#" data-toggle="popover" data-placement="left"
+                                               title="Açıklama:" data-content="${item.title}">
+                                                <span class="glyphicon glyphicon-info-sign "></span>
+                                            </a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                                 <td>
                                     <c:choose>
                                         <c:when test="${item.answerFromUpdater ne null}">

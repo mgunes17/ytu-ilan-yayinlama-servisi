@@ -14,8 +14,30 @@
 		<jsp:include page="html/menu.html"/>
 		<div class="jumbotron container-fluid">
 			<div class="row">
-                <div class="col-md-2"></div>
-				<div class="col-md-8">
+                <div class="col-md-1"></div>
+				<div class="col-md-3">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p>Arama Kriterleriniz</p>
+                        </div>
+                        <div class="panel-body">
+                            <form method="post" action="../searchmypackets">
+                                <div class="form-group">
+                                    <label for="state">Durumu</label>
+                                    <select class="form-control" id="state" name="packetState">
+                                        <c:forEach var="item" items="${packetStates}">
+                                            <option value="${item.id}">
+                                                <c:out value="${item.title}"/>
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-success">Getir</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-md-7">
 					<table class="table table-bordered">
 						<thead>
 							<tr>

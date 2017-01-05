@@ -33,4 +33,8 @@ public class CompanyOwnPacketHibernateImpl extends AbstractDAO implements Compan
 		return getRowsBySQLQuery(CompanyOwnPacket.class, query);
 	}
 
+	public List<CompanyOwnPacket> getPacketBySQLQuery(String query) {
+		return (List<CompanyOwnPacket>) getRowsBySQLQuery(CompanyOwnPacket.class, query);
+	}
+
 }

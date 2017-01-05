@@ -39,7 +39,7 @@ public class DisplayDauServlet extends HttpServlet {
         session.setAttribute("dauList", dauList);
         session.setAttribute("bkbsil", 0);
         
-        response.sendRedirect("admin/vakiflari-duzenle.jsp");
+        response.sendRedirect("admin/bkb-duzenle.jsp");
     }
 
 }

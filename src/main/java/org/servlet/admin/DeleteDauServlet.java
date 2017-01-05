@@ -31,7 +31,7 @@ public class DeleteDauServlet extends HttpServlet {
             session.setAttribute("bkbsil", 2);
         }
 
-        response.sendRedirect("admin/vakiflari-duzenle.jsp");
+        response.sendRedirect("admin/bkb-duzenle.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

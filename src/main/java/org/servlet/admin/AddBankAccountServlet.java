@@ -68,7 +68,7 @@ public class AddBankAccountServlet extends HttpServlet {
         httpSession.setAttribute("vakifolusturuldu", 0);
         httpSession.setAttribute("kullanicieklendi", 0);
         
-        response.sendRedirect("admin/vakif-olustur.jsp");
+        response.sendRedirect("admin/bkb-olustur.jsp");
 	}
 
 }

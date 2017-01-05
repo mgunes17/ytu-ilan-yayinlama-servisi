@@ -18,7 +18,7 @@
                         <c:choose>
                             <c:when test="${harcamaistegi eq 1 }">
                                 <div class="alert alert-success">
-                                    Harcama isteği ilgili vakıf kullanıcılarına gönderildi. Harcama yapıldığı zaman
+                                    Harcama isteği ilgili BKB kullanıcılarına gönderildi. Harcama yapıldığı zaman
                                     bilgilendirileceksiniz.
                                 </div>
 

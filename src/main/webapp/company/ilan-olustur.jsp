@@ -63,7 +63,7 @@
                                     <label for="t">İlan Tipi</label>
                                     <select id="t" name="type" class="form-control">
                                         <c:forEach var="item" items="${annType}">
-                                            <c:if test="${item.id ne 6}">
+                                            <c:if test="${item.id ne -1}">
                                                 <option value="${item.id}">
                                                     <c:out value="${item.title}"/>
                                                 </option>
@@ -76,7 +76,7 @@
                                     <h5>İlanınız herhangi kategoriye girmiyorsa "root-category" olarak seçin.</h5>
                                     <select id="ct" name="category" class="form-control">
                                         <c:forEach var="item" items="${categoryList}">
-                                            <c:if test="${item.id ne 0 && item.id ne 3}">
+                                            <c:if test="${item.id ne -1 && item.id ne 0}">
                                                 <option selected disabled value="${item.id}">
                                                     <c:out value="${item.categoryName} Alt Kategorileri"/>
                                                 </option>

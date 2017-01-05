@@ -131,7 +131,7 @@ public abstract class AbstractDAO {
 			session.getTransaction().commit();
 			return true;
 		} catch(Exception ex) {
-			System.err.println("Silme işlemi başarısız: "+ ex.getMessage()); // logla
+			System.err.println("Sorgu çalıştırma işlemi başarısız: "+ ex.getMessage()); // logla
 			session.getTransaction().rollback();
 			return false;
 		} finally {

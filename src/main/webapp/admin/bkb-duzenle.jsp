@@ -45,7 +45,7 @@
                     <div class="modal-footer">
                         <p>Üzerine paket tanımlanmış birimler silinemez.</p>
                         <p>Muhasebe kaydı olan birimler silinemez.</p>
-                        <p>Bir vakıf silinirse ona bağlı kullanıcılar da silinir.</p>
+                        <p>Bir BKB silinirse ona bağlı kullanıcılar da silinir.</p>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
         <div class="jumbotron container-fluid">
             <div class="row">
                 <div class="col-md-2"></div>
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <c:choose>
                         <c:when test="${bkbsil eq 1}">
                             <div class="alert alert-success">
@@ -69,8 +69,8 @@
                             </div>
                         </c:when>
                     </c:choose>
-                     <h3>Tanımlı Bağış Kabul Edebilecek Birimler</h3>
-                     <table class="table table-bordered">
+                     <h3><b>Tanımlı Bağış Kabul Edebilecek Birimler</b></h3>
+                     <table class="table table-hovered">
                         <thead>
                             <tr>
                                 <th>Birim Adı</th>

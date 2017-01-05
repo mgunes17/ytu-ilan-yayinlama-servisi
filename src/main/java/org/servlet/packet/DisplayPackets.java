@@ -35,9 +35,6 @@ public class DisplayPackets extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-    	AnnouncementPacketDAO packetDAO = new AnnouncementPacketHibernateImpl();
-        List<AnnouncementPacket> packets = packetDAO.getAllPackets();
 
         DonationAcceptUnitDAO unitDAO = new DauHibernateImpl();
         List<DonationAcceptUnit> alldau = unitDAO.getAllUnits();
@@ -45,10 +42,17 @@ public class DisplayPackets extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("paketsil", 0);
         session.setAttribute("paketaktif", 0);
-       // session.setAttribute("packets", packets);
         session.setAttribute("alldau", alldau);
         session.setAttribute("packets", new ArrayList<AnnouncementPacket>());
-        session.setAttribute("searchpacket", "SELECT * FROM announcement_packet ");
+
+        if(session.getAttribute("searchpacket") != null) {
+            AnnouncementPacketDAO packetDAO = new AnnouncementPacketHibernateImpl();
+            List<AnnouncementPacket> packets = packetDAO.getPacketBySQLQuery((String) session.getAttribute("searchpacket"));
+            session.setAttribute("packets", packets);
+        } else {
+            session.setAttribute("searchpacket", "SELECT * FROM announcement_packet ");
+        }
+
         response.sendRedirect("admin/paketleri-duzenle.jsp");
     }
 

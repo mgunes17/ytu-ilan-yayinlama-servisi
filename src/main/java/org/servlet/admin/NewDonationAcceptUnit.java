@@ -53,7 +53,7 @@ public class NewDonationAcceptUnit extends HttpServlet {
         session.setAttribute("hesapeklendi", 0);
         session.setAttribute("vakifolusturuldu", 0);
         
-        response.sendRedirect("admin/vakif-olustur.jsp");
+        response.sendRedirect("admin/bkb-olustur.jsp");
 	}
 
 }

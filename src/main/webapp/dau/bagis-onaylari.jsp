@@ -30,7 +30,26 @@
                 $("#packetId").val(id);
                 $(_self.attr('href')).modal('show');
             });
+
+            $(document).on("click", ".show-message", function (e) {
+                e.preventDefault();
+                var _self = $(this);
+                var message = _self.data('message');
+                document.getElementById("m").innerHTML = message;
+                $(_self.attr('href')).modal('show');
+            });
         </script>
+
+        <div class="modal fade" id="showMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" onclick="nonVisible()">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p><b>Şirket Kullanıcısının Mesajı</b></p>
+                        <p id="m"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="modal fade" id="downloadFile2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" onclick="nonVisible()">
             <div class="modal-dialog">
@@ -68,7 +87,7 @@
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<h1>Onay Bekleyen Bağışlar</h1>
+					<p><b>Onay Bekleyen Bağışlar</b></p>
 
 					<c:choose>
 						<c:when test="${onaylandi eq 1}">
@@ -87,10 +106,10 @@
 						</c:when>
 					</c:choose>
 
-					<table class="table table-bordered">
+					<table class="table table-hovered">
 						<thead>
 							<tr>
-								<th>Paket No</th>
+								<th>Paket Adı</th>
 								<th>Paket Fiyatı</th>
 								<th>Şirket Adı</th>
 								<th>İstek Yollanan Zaman</th>
@@ -101,12 +120,19 @@
 						<tbody>
 							<c:forEach var="item" items="${packet}">
 								<tr>
-									<td>${item.id}</td>
+									<td>${item.packet.title}</td>
 									<td>${item.packet.price}</td>
 									<td>${item.ownerCompany.companyName}</td>
 									<td><fmt:formatDate type="date" value="${item.timeToRequest}"/></td>
 									<td>${item.approved}</td>
 									<td>
+										<a  href="#showMessage"
+                                            data-message="${item.companyDescription}"
+                                            title="Mesajı Oku"
+                                            data-toogle="modal"
+                                            class="show-message btn btn-info">
+                                            <span class="glyphicon glyphicon-envelope"></span>
+                                        </a>
                                         <c:if test="${item.filePath ne null}">
                                             <a href="#downloadFile2"
                                                title="Dosya İndir"

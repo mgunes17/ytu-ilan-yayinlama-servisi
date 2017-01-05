@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: mgunes
@@ -45,6 +46,7 @@
                 var accountNumber = _self.data('accountnumber');
 
                 $("#iban2").val(iban);
+                $("#newIban").val(iban);
                 $("#bank_name").val(bankName);
                 $("#name_of_branch").val(nameOfBranch);
                 $("#account_number").val(accountNumber);
@@ -105,7 +107,7 @@
                                     <td>Telefon Numarası</td>
                                     <td>
                                         <input type="text" name="contactTel" id="contactTel" class="form-control" value="${contactTel}"
-                                               pattern="[0-9]{11,11}"
+                                               pattern="[0-9]{0,11}" maxlength="11"
                                                required title="Telefon numarası 11 karakter aralığında olmalıdır">
                                     </td>
                                 </tr>
@@ -196,6 +198,10 @@
                                     <td><input type="text" id="account_number" name="account_number" class="form-control"/></td>
                                 </tr>
                                 <tr>
+                                    <td>IBAN</td>
+                                    <td><input type="text" id="newIban" name="newIban" class="form-control"/></td>
+                                </tr>
+                                <tr>
                                     <td>Para Birimi</td>
                                     <td> <select disabled name="currency" class="form-control">
                                         <c:forEach var="item" items="${curr}">
@@ -268,11 +274,18 @@
 
         <jsp:include page="html/menu.html"/>
         <div class="jumbotron container-fluid">
-            <div class="page-header">
-                <h3><c:out value="${dau.unitName} birimi için detay"/> <a href="../displaydauservlet" class="btn btn-info">Listeye Dön</a> </h3>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <a href="../displaydauservlet" class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span> Listeye Dön</a>
+                </div>
+                <div class="col-md-6">
+                    <b><p align="center">${dau.unitName} Birimi İçin Detay<p></b>
+                </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
                     <a href="#addNewUserDialog" data-toggle="modal" class="btn btn-success">Kullanıcı Ekle</a>
                     <br/>
                     <br/>
@@ -328,8 +341,18 @@
                                         <td>${item.userName}</td>
                                         <td>${item.name}</td>
                                         <td>${item.surname}</td>
-                                        <td>${item.contactTel}</td>
-                                        <td>${item.contactMail}</td>
+                                        <td>
+                                            <a href="#" data-toggle="popover" data-placement="left"
+                                               title="Telefon Numarası" data-content="${item.contactTel}">
+                                                <span class="glyphicon glyphicon-earphone btn btn-success"></span>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" data-toggle="popover" data-placement="left"
+                                               title="E-posta" data-content="${item.contactMail}">
+                                                <span class="glyphicon glyphicon-envelope btn btn-info"></span>
+                                            </a>
+                                        </td>
                                         <td>
                                             <a
                                                 data-toggle="modal"

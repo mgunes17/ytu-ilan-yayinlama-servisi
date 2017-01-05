@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Yeni Vakıf</title>
+        <title>Yeni BKB</title>
         <jsp:include page="html/head.html"/>
     </head>
     <body>
@@ -29,12 +29,12 @@
                                 <c:choose>
                                     <c:when test="${vakifolusturuldu eq 1}">
                                         <div id="alert" class="alert alert-success">
-                                            <strong>Başarılı!</strong> Vakıf Oluşturuldu
+                                            <strong>Başarılı!</strong> BKB Oluşturuldu
                                         </div>
                                     </c:when>
                                     <c:when test="${vakifolusturuldu eq 2}">
                                         <div id="alert" class="alert alert-danger">
-                                            <strong>Başarısız!</strong> Vakıf Oluşturulamadı.
+                                            <strong>Başarısız!</strong> BKB Oluşturulamadı.
                                         </div>
                                     </c:when>
                                 </c:choose>
@@ -44,9 +44,9 @@
                                         <tr>
                                             <td>Birimin Adı</td>
                                             <td><input type="text" name="unit_name" class="form-control"
-                                                       pattern=".{3,40}" required title="Vakıf adı 3-40 karakter aralığında olmalıdır"/></td>
+                                                       pattern=".{3,40}" required title="BKB adı 3-40 karakter aralığında olmalıdır"/></td>
                                         </tr>
-                                        <tr><td colspan="2"><button type="submit" class="btn btn-default">Vakıf Oluştur</button></td></tr>
+                                        <tr><td colspan="2"><button type="submit" class="btn btn-success">BKB Oluştur</button></td></tr>
                                         </tbody>
                                     </table>
                                 </form>
@@ -85,8 +85,8 @@
                                 </c:when>
                                 <c:when test="${kullanicieklendi eq 4}">
                                     <div id="alert" class="alert alert-warning">
-                                        <strong>Vakıf yok!</strong> Lütfen önce vakıf tanımlayın.
-                                        Tanımlanmış bir vakıf için <a href="admin/vakiflari-duzenle">buradan</a>
+                                        <strong>BKB yok!</strong> Lütfen önce BKB tanımlayın.
+                                        Tanımlanmış bir BKB için <a href="admin/bkb-duzenle.jsp">buradan</a>
                                         kullanıcı ekleyebilirsiniz.
                                     </div>
                                 </c:when>
@@ -135,11 +135,11 @@
                                         <td>Telefon Numarası</td>
                                         <td>
                                             <input type="text" name="contactTel" id="contactTel" class="form-control" value="${contactTel}"
-                                                   pattern="[0-9]{11,11}"
+                                                   pattern="[0-9]{11,11}"  maxlength="11"
                                                    required title="Telefon numarası 11 karakter aralığında olmalıdır">
                                         </td>
                                     </tr>
-                                    <tr><td colspan="2"><button type="submit" class="btn btn-default">Kullanıcı Ekle</button></td></tr>
+                                    <tr><td colspan="2"><button type="submit" class="btn btn-success">Kullanıcı Ekle</button></td></tr>
                                     </tbody>
                                 </table>
                             </form>
@@ -172,8 +172,8 @@
                                 </c:when>
                                 <c:when test="${hesapeklendi eq 4}">
                                     <div id="alert" class="alert alert-warning">
-                                        <strong>Vakıf yok!</strong> Lütfen önce vakıf tanımlayın.
-                                        Tanımlanmış bir vakıf için <a href="admin/vakiflari-duzenle">buradan</a>
+                                        <strong>BKB yok!</strong> Lütfen önce BKB tanımlayın.
+                                        Tanımlanmış bir BKB için <a href="admin/bkb-duzenle.jsp">buradan</a>
                                         banka hesabı ekleyebilirsiniz.
                                     </div>
                                 </c:when>
@@ -207,7 +207,7 @@
                                         <td>IBAN</td>
                                         <td><input type="text" name="iban"/></td>
                                     </tr>
-                                    <tr><td colspan="2"><button type="submit" class="btn btn-default">Banka Hesabı Oluştur</button></td></tr>
+                                    <tr><td colspan="2"><button type="submit" class="btn btn-success">Banka Hesabı Oluştur</button></td></tr>
                                     </tbody>
                                 </table>
                             </form>
