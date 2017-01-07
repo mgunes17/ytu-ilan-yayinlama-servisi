@@ -23,6 +23,11 @@ public class AnnouncementType implements Serializable {
 
     public AnnouncementType() {}
 
+    public AnnouncementType(int id) {
+        super();
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

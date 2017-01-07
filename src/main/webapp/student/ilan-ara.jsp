@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,12 @@
         <style>
             .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
         </style>
+
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover();
+            });
+        </script>
 	</head>
 	<body>
 		<jsp:include page="html/menu.html"/>
@@ -72,10 +79,10 @@
                         </div>
 					</div>
 				</div>
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <a href="../announcementstostudent" class="btn btn-primary">Tüm İlanları Getir</a>
                     <c:choose>
-                        <c:when test="${size eq 0}">
+                        <c:when test="${fn:length(announcements) eq 0}">
                             <h4>Üzgünüm, hiç ilan yok!</h4>
                         </c:when>
                         <c:otherwise>
@@ -116,7 +123,13 @@
                                 <c:forEach var="item" items="${announcements}">
                                     <tr>
                                         <td>${item.title}</td>
-                                        <td width="30%">${item.brief}</td>
+                                        <td>
+                                            ${fn:substring(item.brief, 0, 20)}...
+                                            <a href="#" data-toggle="popover" data-placement="left"
+                                               title="Açıklama:" data-content="${item.brief}">
+                                                <span class="glyphicon glyphicon-info-sign "></span>
+                                            </a>
+                                        </td>
                                         <td>${item.announcementType.title}</td>
                                         <td>${item.ownerCompany.companyName}</td>
                                         <td><fmt:formatDate type="date" value="${item.publishDate}"/></td>

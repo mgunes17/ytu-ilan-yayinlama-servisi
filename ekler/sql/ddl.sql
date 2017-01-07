@@ -211,3 +211,11 @@ CREATE TABLE complaint (
   result_reply text
 );
 
+CREATE TABLE interests (
+	id int primary key,
+	student varchar(20) REFERENCES student(user_name),
+	category int REFERENCES announcement_category(id),
+	ann_type int REFERENCES announcement_type(id),
+	language varchar,
+	keywords text
+);

@@ -76,6 +76,11 @@
                         <p><b>Yayınlanma Tarihi</b></p>
                         <p id="publish1"></p>
 
+                        <h4>Şikayet Mesajları</h4>
+                        <c:forEach var="item2" items="${item.complaintList}">
+                            ${item2.student.userName}
+                            ${item2.description}
+                        </c:forEach>
                     </div>
                 </div>
             </div>
@@ -140,7 +145,7 @@
         <div class="jumbotron container-fluid">
             <div class="row">
                 <div class="col-md-2"></div>
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <c:choose>
                         <c:when test="${ceza eq 1}">
                             <div class="alert alert-success">
@@ -169,46 +174,53 @@
                     <table class="table table-stripped">
                         <thead>
                             <tr>
-                                <td>İlan Adı</td>
-                                <td>Yayımlayan Şirket</td>
-                                <td>Şikayet Sayısı</td>
-                                <td>İşlem</td>
+                                <th>İlan Adı</th>
+                                <th>Yayınlanma Tarihi</th>
+                                <th>Yayımlayan Şirket</th>
+                                <th>Şikayet Sayısı</th>
+                                <th>İşlem</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="item" items="${sikayetilan}">
                                 <tr>
                                     <td>${item.title}</td>
+                                    <td>${item.publishDate}</td>
                                     <td>${item.ownerCompany.companyName}</td>
-                                    <td>${fn:length(item.complaintList)}</td>
+                                    <td align="right">${fn:length(item.complaintList)}</td>
                                     <td>
                                         <a  href="#detail"
+                                            title="Detay"
                                             data-toggle="modal"
                                             data-title="${item.title}"
                                             data-content="${item.content}"
                                             data-brief="${item.state.title}"
                                             data-company="${item.ownerCompany.companyName}"
                                             data-publish="${item.publishDate}"
-                                            class="open-detail btn btn-success">
-                                            İlan Detay
+                                            class="open-detail btn btn-info">
+                                            <span class="glyphicon glyphicon-th-large"></span>
                                         </a>
-                                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#${item.id}">Şikayetleri Oku</button>
+                                        <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#${item.id}">
+                                            <span class="glyphicon glyphicon-list-alt"></span>
+                                        </button>
                                         <a  href="#trueComplaint"
+                                            title="Şikayetler Doğru"
                                             data-toggle="modal"
                                             data-id="${item.id}"
-                                            class="true-complaint btn btn-warning">
-                                            Şikayetler Doğru
+                                            class="true-complaint btn btn-primary">
+                                            <span class="glyphicon glyphicon-ok"></span>
                                         </a>
                                         <a  href="#falseComplaint"
+                                            title="Şikayetler Asılsız"
                                             data-toggle="modal"
                                             data-id="${item.id}"
                                             class="false-complaint btn btn-danger">
-                                            Şikayetler Yanlış
+                                            <span class="glyphicon glyphicon-remove"></span>
                                         </a>
                                         <div id="${item.id}" class="collapse">
                                             <c:forEach var="item2" items="${item.complaintList}">
-                                                <p>${item2.student.userName}</p>
-                                                <p>${item2.description}</p>
+                                                ${item2.student.userName}
+                                                ${item2.description}
                                             </c:forEach>
                                         </div>
                                     </td>
