@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: mgunes
@@ -22,7 +23,35 @@
                 var _self = $(this);
                 $(_self.attr('href')).modal('show');
             });
+
+            $(document).on("click", ".open-deleteCriteria", function (e) {
+                e.preventDefault();
+                var _self = $(this);
+                var id = _self.data('id');
+                $("#id").val(id);
+                $(_self.attr('href')).modal('show');
+            });
         </script>
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover();
+            });
+        </script>
+
+        <div class="modal fade" id="deleteCriteria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" onclick="nonVisible()">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>Kriterleri Sil!</p>
+                        <form>
+                            <input type="hidden" name="id" id="id">
+                            <input formaction="../deleteinterests" type="submit" class="btn btn-default" value="Evet">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hayır</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="modal fade" id="ekleDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
             <div class="modal-dialog">
@@ -109,6 +138,16 @@
                                 Bir hata meydana geldi.
                             </div>
                         </c:when>
+                        <c:when test="${silindi eq 1}">
+                            <div class="alert alert-success">
+                                Silme işlemi başarılı.
+                            </div>
+                        </c:when>
+                        <c:when test="${silindi eq 2}">
+                            <div class="alert alert-danger">
+                                Bir hata meydana geldi.
+                            </div>
+                        </c:when>
                     </c:choose>
                 </div>
             </div>
@@ -118,9 +157,30 @@
                     <table class="table table-hovered">
                         <thead>
                             <tr>
-                                <th>Kategori</th>
-                                <th>İlan Tip</th>
-                                <th>Dil</th>
+                                <th>Kategori
+                                    <a href="../interestsorder?condition=category&type=asc" title="Artan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                    </a>
+                                    <a href="../interestsorder?condition=category&type=desc" title="Azalan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                    </a>
+                                </th>
+                                <th>İlan Tip
+                                    <a href="../interestsorder?condition=ann_type&type=asc" title="Artan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                    </a>
+                                    <a href="../interestsorder?condition=ann_type&type=desc" title="Azalan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                    </a>
+                                </th>
+                                <th>Dil
+                                    <a href="../interestsorder?condition=language&type=asc" title="Artan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                    </a>
+                                    <a href="../interestsorder?condition=language&type=desc" title="Azalan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                    </a>
+                                </th>
                                 <th>Anahtar Kelimeler</th>
                                 <th>İşlem</th>
                             </tr>
@@ -140,7 +200,20 @@
                                             </c:otherwise>
                                         </c:choose>
                                         </td>
-                                    <td>${item.keywords}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${fn:length(item.keywords) < 20}">
+                                                ${fn:replace(item.keywords, ",", " ")}
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${fn:substring(item.keywords, 0, 20)}...
+                                                <a href="#" data-toggle="popover" data-placement="left"
+                                                   title="Anahtar Kelimeler:" data-content="${fn:replace(item.keywords, ",", " ")}">
+                                                    <span class="glyphicon glyphicon-info-sign "></span>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
                                     <td>
                                         <a  title="Arama Yap"
                                             class="btn btn-primary"
@@ -153,8 +226,9 @@
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         <a  title="Sil"
-                                            class="btn btn-danger"
-                                            href="#">
+                                            class="open-deleteCriteria btn btn-danger"
+                                            data-id="${item.id}"
+                                            href="#deleteCriteria">
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </a>
                                     </td>

@@ -15,7 +15,15 @@ public class InterestsHibernateImpl extends AbstractDAO implements InterestsDAO 
         return getRowsBySQLQuery(Interests.class, query);
     }
 
+    public List<Interests> getInterestsByQuery(String query) {
+        return getRowsBySQLQuery(Interests.class, query);
+    }
+
     public boolean saveInterests(Interests interests) {
         return save(interests);
+    }
+
+    public boolean deleteInterestsById(int id) {
+        return deleteByQuery(Interests.class, "Interests", "id", id);
     }
 }

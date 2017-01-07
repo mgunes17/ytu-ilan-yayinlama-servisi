@@ -23,26 +23,32 @@ import java.util.List;
 /**
  * Created by mgunes on 07.01.2017.
  */
-@WebServlet(name = "ListMyInterestsServlet", urlPatterns = {"/listmyinterests"})
-public class ListMyInterestsServlet extends HttpServlet {
+@WebServlet(name = "DeleteInterestsServlet", urlPatterns = {"/deleteinterests"})
+public class DeleteInterestsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.setAttribute("eklendi", 0);
-        session.setAttribute("silindi", 0);
-
         Student student = (Student) session.getAttribute("user");
+
+        int id = Integer.parseInt(request.getParameter("id"));
         InterestsDAO interestsDAO = new InterestsHibernateImpl();
-        List<Interests> myInterests = interestsDAO.getMyInterests(student.getUserName());
 
-        AnnouncementTypeDAO annTypeDAO = new AnnouncementTypeHibernateImpl();
-        List<AnnouncementType> annType = annTypeDAO.getAllAnnouncementTypes();
+        if(interestsDAO.deleteInterestsById(id)) {
+            session.setAttribute("silindi", 1);
+            List<Interests> myInterests = interestsDAO.getMyInterests(student.getUserName());
 
-        AnnouncementCategoryDAO categoryDAO = new AnnouncementCategoryHibernateImpl();
-        List<AnnouncementCategory> category = categoryDAO.getAllCategories();
+            AnnouncementTypeDAO annTypeDAO = new AnnouncementTypeHibernateImpl();
+            List<AnnouncementType> annType = annTypeDAO.getAllAnnouncementTypes();
 
-        session.setAttribute("annType", annType);
-        session.setAttribute("categoryList", category);
-        session.setAttribute("interests", myInterests);
+            AnnouncementCategoryDAO categoryDAO = new AnnouncementCategoryHibernateImpl();
+            List<AnnouncementCategory> categoryList = categoryDAO.getAllCategories();
+
+            session.setAttribute("annType", annType);
+            session.setAttribute("categoryList", categoryList);
+            session.setAttribute("interests", myInterests);
+        } else {
+            session.setAttribute("silindi", 2);
+        }
 
         response.sendRedirect("student/ilgilendiklerim.jsp");
     }
