@@ -11,5 +11,6 @@ public interface InterestsDAO {
     List<Interests> getMyInterests(String username);
     List<Interests> getInterestsByQuery(String query);
     boolean saveInterests(Interests interests);
-    boolean deleteInterestsById(int id);
+    boolean deleteInterestsByName(String name);
+    boolean updateInterests(String oldName, Interests interests);
 }

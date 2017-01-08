@@ -21,15 +21,15 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by mgunes on 07.01.2017.
+ * Created by mgunes on 08.01.2017.
  */
-@WebServlet(name = "AddInterestsServlet", urlPatterns = {"/addinterests"})
-public class AddInterestsServlet extends HttpServlet {
+@WebServlet(name = "UpdateInterestsServlet", urlPatterns = {"/updateinterests"})
+public class UpdateInterestsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         HttpSession session = request.getSession();
+        session.setAttribute("eklendi", 0);
         session.setAttribute("silindi", 0);
-        session.setAttribute("guncellendi", 0);
 
         Student student = (Student) session.getAttribute("user");
         String name = request.getParameter("name");
@@ -46,10 +46,12 @@ public class AddInterestsServlet extends HttpServlet {
         interests.setLanguage(language);
         interests.setType(new AnnouncementType(type));
 
+        String oldName = request.getParameter("oldName");
         InterestsDAO interestsDAO = new InterestsHibernateImpl();
 
-        if(interestsDAO.saveInterests(interests)) {
-            session.setAttribute("eklendi", 1);
+        if(interestsDAO.updateInterests(oldName, interests)) {
+            session.setAttribute("guncellendi", 1);
+
             List<Interests> myInterests = interestsDAO.getMyInterests(student.getUserName());
 
             AnnouncementTypeDAO annTypeDAO = new AnnouncementTypeHibernateImpl();
@@ -61,9 +63,8 @@ public class AddInterestsServlet extends HttpServlet {
             session.setAttribute("annType", annType);
             session.setAttribute("categoryList", categoryList);
             session.setAttribute("interests", myInterests);
-
         } else {
-            session.setAttribute("eklendi", 2);
+            session.setAttribute("guncellendi", 2);
         }
 
         response.sendRedirect("student/ilgilendiklerim.jsp");

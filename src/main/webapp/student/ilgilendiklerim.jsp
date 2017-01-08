@@ -24,11 +24,27 @@
                 $(_self.attr('href')).modal('show');
             });
 
+            $(document).on("click", ".open-duzenleDialog", function (e) {
+                e.preventDefault();
+                var _self = $(this);
+
+                var name1 = _self.data('name');
+                var category = _self.data('category');
+                var language = _self.data('language');
+                var type = _self.data('type');
+                var keywords = _self.data('keywords');
+
+                $("#name2").val(name1);
+                $("#oldName").val(name1);
+                $("#keywords2").val(keywords);
+                $(_self.attr('href')).modal('show');
+            });
+
             $(document).on("click", ".open-deleteCriteria", function (e) {
                 e.preventDefault();
                 var _self = $(this);
-                var id = _self.data('id');
-                $("#id").val(id);
+                var name = _self.data('name');
+                $("#name").val(name);
                 $(_self.attr('href')).modal('show');
             });
         </script>
@@ -44,7 +60,7 @@
                     <div class="modal-body">
                         <p>Kriterleri Sil!</p>
                         <form>
-                            <input type="hidden" name="id" id="id">
+                            <input type="hidden" name="name" id="name">
                             <input formaction="../deleteinterests" type="submit" class="btn btn-default" value="Evet">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Hayır</button>
                         </form>
@@ -65,6 +81,10 @@
                         <p>Lütfen formu ilgilendiğiniz şekilde doldurun</p>
                         <form method="post" action="../addinterests">
                             <div class="form-group">
+                                <div class="form-group">
+                                    <label for="name1">Kriter Adı</label>
+                                    <input type="text" name="name" id="name1" class="form-control" maxlength="20" minlength="1">
+                                </div>
                                 <label>İlan Kategorisi</label>
                                 <select data-live-search="true" name="category" class="selectpicker form-control">
                                     <c:forEach var="item" items="${categoryList}">
@@ -119,6 +139,76 @@
             </div>
         </div>
 
+        <div class="modal fade" id="duzenleDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Kriterlerinizi Düzenleyin</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Lütfen istediğiniz şekilde düzenleyin</p>
+                        <form method="post" action="../updateinterests">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="name1">Kriter Adı</label>
+                                    <input type="text" name="name" id="name2" class="form-control" maxlength="20" minlength="1">
+                                </div>
+                                <label>İlan Kategorisi</label>
+                                <select data-live-search="true" name="category" class="selectpicker form-control">
+                                    <c:forEach var="item" items="${categoryList}">
+                                        <c:if test="${item.id ne 0 }">
+                                            <c:if test="${item.parentCategory eq 0}">
+                                                <option selected value="${item.id}">
+                                                    <b><c:out value="${item.categoryName}"/></b>
+                                                </option>
+                                                <c:forEach var="childItem" items="${item.children}">
+                                                    <option value="${childItem.id}">
+                                                        <c:out value="----${childItem.categoryName}"/>
+                                                    </option>
+                                                </c:forEach>
+                                            </c:if>
+                                        </c:if>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>İlan Tipi</label>
+                                <select name="type" class="form-control">
+                                    <c:forEach var="item" items="${annType}">
+                                        <option value="${item.id}">
+                                            <c:out value="${item.title}"/>
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>İlanın Dili</label>
+                                <select name="language" class="form-control" id="language2">
+                                    <option value="alllanguages">Tüm Diller</option>
+                                    <option value="türkçe">Türkçe</option>
+                                    <option value="ingilizce">İngilizce</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="keyword">Anahtar Kelimeler</label>
+                                <h5>Kelimeler arasında virgül bırakın.(Ör: java,hibernate,css)</h5>
+                                <input type="text" name="keywords" placeholder="Anahtar Kelimeler" class="form-control" id="keywords2">
+                            </div>
+
+                            <input type="hidden" name="oldName" id="oldName">
+                            <button type="submit" class="btn btn-success">Güncelle</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <p>Kayıtlı kriterlerinizi istediğiniz zaman silebilir-düzenleyebilirsiniz.</p>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <jsp:include page="html/menu.html"/>
         <div class="jumbotron container-fluid">
             <div class="row">
@@ -148,6 +238,16 @@
                                 Bir hata meydana geldi.
                             </div>
                         </c:when>
+                        <c:when test="${guncellendi eq 1}">
+                            <div class="alert alert-success">
+                                Güncelleme işlemi başarılı.
+                            </div>
+                        </c:when>
+                        <c:when test="${guncellendi eq 2}">
+                            <div class="alert alert-danger">
+                                Bir hata meydana geldi.
+                            </div>
+                        </c:when>
                     </c:choose>
                 </div>
             </div>
@@ -157,6 +257,14 @@
                     <table class="table table-hovered">
                         <thead>
                             <tr>
+                                <th>Adı
+                                    <a href="../interestsorder?condition=name&type=asc" title="Artan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                    </a>
+                                    <a href="../interestsorder?condition=name&type=desc" title="Azalan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                    </a>
+                                </th>
                                 <th>Kategori
                                     <a href="../interestsorder?condition=category&type=asc" title="Artan Sırala">
                                         <span class="glyphicon glyphicon-arrow-up"></span>
@@ -188,6 +296,7 @@
                         <tbody>
                             <c:forEach var="item" items="${interests}">
                                 <tr>
+                                    <td>${item.name}</td>
                                     <td>${item.category.categoryName}</td>
                                     <td>${item.type.title}</td>
                                     <td>
@@ -202,11 +311,11 @@
                                         </td>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${fn:length(item.keywords) < 20}">
+                                            <c:when test="${fn:length(item.keywords) < 17}">
                                                 ${fn:replace(item.keywords, ",", " ")}
                                             </c:when>
                                             <c:otherwise>
-                                                ${fn:substring(item.keywords, 0, 20)}...
+                                                ${fn:substring(fn:replace(item.keywords, ",", " "), 0, 17)}...
                                                 <a href="#" data-toggle="popover" data-placement="left"
                                                    title="Anahtar Kelimeler:" data-content="${fn:replace(item.keywords, ",", " ")}">
                                                     <span class="glyphicon glyphicon-info-sign "></span>
@@ -217,17 +326,22 @@
                                     <td>
                                         <a  title="Arama Yap"
                                             class="btn btn-primary"
-                                            href="#">
+                                            href="../searchannouncement?category=${item.category.id}&type=${item.type.id}&language=${item.language}&keywords=${item.keywords}">
                                             <span class="glyphicon glyphicon-search"></span>
                                         </a>
                                         <a  title="Düzenle"
-                                            class="btn btn-success"
-                                            href="#">
+                                            data-name="${item.name}"
+                                            data-category="${item.category.categoryName}"
+                                            data-type="${item.type.title}"
+                                            data-language="${item.language}"
+                                            data-keywords="${item.keywords}"
+                                            class="open-duzenleDialog btn btn-success"
+                                            href="#duzenleDialog">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                         <a  title="Sil"
                                             class="open-deleteCriteria btn btn-danger"
-                                            data-id="${item.id}"
+                                            data-name="${item.name}"
                                             href="#deleteCriteria">
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </a>

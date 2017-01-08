@@ -29,6 +29,7 @@ public class ListMyInterestsServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("eklendi", 0);
         session.setAttribute("silindi", 0);
+        session.setAttribute("guncellendi", 0);
 
         Student student = (Student) session.getAttribute("user");
         InterestsDAO interestsDAO = new InterestsHibernateImpl();

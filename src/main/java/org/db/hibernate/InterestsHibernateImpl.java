@@ -23,7 +23,16 @@ public class InterestsHibernateImpl extends AbstractDAO implements InterestsDAO 
         return save(interests);
     }
 
-    public boolean deleteInterestsById(int id) {
-        return deleteByQuery(Interests.class, "Interests", "id", id);
+    public boolean deleteInterestsByName(String name) {
+        return deleteByQuery(Interests.class, "Interests", "name", name);
+    }
+
+    public boolean updateInterests(String oldName, Interests interests) {
+        String query = " UPDATE interests SET name = '" + interests.getName() + "' , student = '" + interests.getStudent().getUserName() + "' , " +
+                " category = " + interests.getCategory().getId() + " , ann_type = " + interests.getType().getId() + ", " +
+                " language = '" + interests.getLanguage() + "' , keywords = '" + interests.getKeywords() + "' " +
+                " WHERE name = '" + oldName + "';";
+
+        return updateBySQLQuery(Interests.class, query);
     }
 }

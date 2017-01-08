@@ -89,7 +89,14 @@
                             <table class="table table-stripped">
                                 <thead>
                                 <tr>
-                                    <th>İlan Başlığı</th>
+                                    <th>İlan Başlığı
+                                        <a href="../announcementorder?condition=title&type=asc" title="Artan Sırala">
+                                            <span class="glyphicon glyphicon-arrow-up"></span>
+                                        </a>
+                                        <a href="../announcementorder?condition=title&type=desc" title="Azalan Sırala">
+                                            <span class="glyphicon glyphicon-arrow-down"></span>
+                                        </a>
+                                    </th>
                                     <th>Kısa Açıklama</th>
                                     <th>İlan Tipi
                                         <a href="../announcementorder?condition=announcement_type&type=asc" title="Artan Sırala">
@@ -107,7 +114,7 @@
                                             <span class="glyphicon glyphicon-arrow-down"></span>
                                         </a>
                                     </th>
-                                    <th>Yayınlanma Tarihi
+                                    <th>Yayın Tarihi
                                         <a href="../announcementorder?condition=publish_date&type=asc" title="Artan Sırala">
                                             <span class="glyphicon glyphicon-arrow-up"></span>
                                         </a>
@@ -126,7 +133,7 @@
                                         <td>
                                             ${fn:substring(item.brief, 0, 20)}...
                                             <a href="#" data-toggle="popover" data-placement="left"
-                                               title="Açıklama:" data-content="${item.brief}">
+                                               title="Açıklama" data-content="${item.brief}">
                                                 <span class="glyphicon glyphicon-info-sign "></span>
                                             </a>
                                         </td>
@@ -135,8 +142,8 @@
                                         <td><fmt:formatDate type="date" value="${item.publishDate}"/></td>
                                         <td>
                                             <form action = "../announcementdetailtostudent" method = "post">
-                                                <input type = "hidden" name = "announcement" value = "${item.id}"/>
-                                                <input type = "submit" class="btn btn-default" value  ="Detayı Gör"/>
+                                                <input type="hidden" name="announcement" value="${item.id}"/>
+                                                <input type="submit" class="btn btn-success" value="Detayı Gör"/>
                                             </form>
                                         </td>
                                     </tr>

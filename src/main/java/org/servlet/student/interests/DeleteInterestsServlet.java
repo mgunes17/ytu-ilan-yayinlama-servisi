@@ -28,12 +28,14 @@ public class DeleteInterestsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.setAttribute("eklendi", 0);
+        session.setAttribute("guncellendi", 0);
+
         Student student = (Student) session.getAttribute("user");
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
         InterestsDAO interestsDAO = new InterestsHibernateImpl();
 
-        if(interestsDAO.deleteInterestsById(id)) {
+        if(interestsDAO.deleteInterestsByName(name)) {
             session.setAttribute("silindi", 1);
             List<Interests> myInterests = interestsDAO.getMyInterests(student.getUserName());
 

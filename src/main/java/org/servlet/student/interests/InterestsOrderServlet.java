@@ -28,7 +28,7 @@ public class InterestsOrderServlet extends HttpServlet {
         Student student = (Student) session.getAttribute("user");
 
         if(condition.equals("category")) {
-            query = "select i.id, i.student, i.category, i.ann_type, i.language, i.keywords " +
+            query = "select i.name, i.student, i.category, i.ann_type, i.language, i.keywords " +
                     " from interests i, announcement_category a " +
                     " where i.category = a.id AND student = '" + student.getUserName() + "' order by a.category_name " + order;
 

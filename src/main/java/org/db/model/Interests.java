@@ -10,9 +10,8 @@ import java.io.Serializable;
 @Table(name = "interests")
 public class Interests implements Serializable {
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
+    @Column(name = "name")
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "student")
@@ -36,12 +35,12 @@ public class Interests implements Serializable {
         super();
     }
 
-    public int getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public AnnouncementCategory getCategory() {
