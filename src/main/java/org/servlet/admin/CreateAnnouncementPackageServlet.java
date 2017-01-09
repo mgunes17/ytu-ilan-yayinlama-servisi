@@ -76,7 +76,6 @@ public class CreateAnnouncementPackageServlet extends HttpServlet {
     private void readParameters(HttpServletRequest request) {
         packet.setTitle(request.getParameter("packet_name"));
         packet.setActiveTime(Integer.parseInt(request.getParameter("activate_date")));
-        packet.setLastDateUsed(new Date());
         packet.setAnnouncementCount(Integer.parseInt(
                 request.getParameter("announcement_number")));
         packet.setPrice(Integer.parseInt(request.getParameter("price")));
@@ -87,7 +86,7 @@ public class CreateAnnouncementPackageServlet extends HttpServlet {
 
         try {
             String date = request.getParameter("last_date_used");
-            Date expired = new SimpleDateFormat("dd/mm/yyyy").parse(date);
+            Date expired = new SimpleDateFormat("dd/MM/yyyy").parse(date);
             packet.setLastDateUsed(expired);
         } catch (ParseException e) {
             System.out.println("Son kullanım tarihi okunamadı");

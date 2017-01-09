@@ -1,4 +1,4 @@
-package org.servlet.company;
+package org.servlet.company.packet;
 
 import java.io.IOException;
 import java.util.List;
@@ -48,7 +48,10 @@ public class ListMyPacketsServlet extends HttpServlet {
 
 		List<AnnouncementPacketState> packetStateList = new PacketStateHibernateImpl().getAllStates();
 
-		//session.setAttribute("packets", packets);
+		String query = "SELECT * FROM company_own_packet WHERE owner_company = '" + company.getUserName() + "' ";
+
+        session.setAttribute("paketsorgu", query.toString());
+		session.setAttribute("packets", packets);
         session.setAttribute("packetStates", packetStateList);
 		response.sendRedirect("company/paketlerim.jsp");
 	}

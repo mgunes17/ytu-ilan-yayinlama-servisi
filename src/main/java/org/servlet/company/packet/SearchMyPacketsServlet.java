@@ -1,4 +1,4 @@
-package org.servlet.company;
+package org.servlet.company.packet;
 
 import org.db.hibernate.CompanyOwnPacketHibernateImpl;
 import org.db.model.Company;
@@ -27,7 +27,9 @@ public class SearchMyPacketsServlet extends HttpServlet {
         StringBuilder query = new StringBuilder();
         query.append("SELECT * FROM company_own_packet WHERE owner_company = '" + company.getUserName() + "' ");
 
-        if(state != -1) {
+        if(state == 3) {
+            query.append(" AND time_to_expired < now()");
+        } else if(state != -1) {
             query.append(" AND announcement_packet_state = " + state);
         }
 

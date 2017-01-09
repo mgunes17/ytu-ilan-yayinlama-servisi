@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 
 <html>
@@ -38,14 +39,43 @@
                     </div>
                 </div>
 				<div class="col-md-7">
-					<table class="table table-bordered">
+					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>Durumu</th>
-								<th>Paket Başlığı</th>
-								<th>Kalan İlan Sayısı</th>
-								<th>Alınan Tarih(Onay Zamanı)</th>
-								<th>Son kullanım tarihi</th>
+								<th>Durumu
+                                    <a href="../ordermypackets?condition=announcement_packet_state&type=asc" title="Artan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                    </a>
+                                    <a href="../ordermypackets?condition=announcement_packet_state&type=desc" title="Azalan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                    </a>
+                                </th>
+								<th>Paket Başlığı
+                                    <a href="../ordermypackets?condition=title&type=asc" title="Artan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                    </a>
+                                    <a href="../ordermypackets?condition=title&type=desc" title="Azalan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                    </a>
+                                </th>
+								<th>Kullanılan/Kalan</th>
+								<th>Onay Zamanı
+                                    <a href="../ordermypackets?condition=time_to_approved&type=asc" title="Artan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                    </a>
+                                    <a href="../ordermypackets?condition=time_to_approved&type=desc" title="Azalan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                    </a>
+                                </th>
+								<th>SKT <a href="#" title="Son Kullanım Tarihi"><span class="glyphicon glyphicon-question-sign"></span></a>
+                                    <a href="../ordermypackets?condition=time_to_expired&type=asc" title="Artan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                    </a>
+                                    <a href="../ordermypackets?condition=time_to_expired&type=desc" title="Azalan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                    </a>
+                                </th>
+								<th>İşlem</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -53,9 +83,12 @@
 								<tr>
 									<td>${item.state.title}</td>
 									<td>${item.packet.title}</td>
-									<td>${item.packet.announcementCount - item.usedAnnouncements}</td>
-									<td>${item.timeToApproved}</td>
-									<td>${item.packet.lastDateUsed}</td>
+									<td align="right">${item.usedAnnouncements}/${item.packet.announcementCount - item.usedAnnouncements}</td>
+									<td align="right"><fmt:formatDate pattern="dd-MM-yyyy" value="${item.timeToApproved}"/></td>
+									<td align="right"><fmt:formatDate pattern="dd-MM-yyyy" value="${item.packet.lastDateUsed}"/></td>
+                                    <td>
+
+                                    </td>
 								</tr>
 							</c:forEach>
 						</tbody>

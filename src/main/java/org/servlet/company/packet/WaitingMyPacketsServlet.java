@@ -1,4 +1,4 @@
-package org.servlet.company;
+package org.servlet.company.packet;
 
 import org.db.dao.CompanyOwnPacketDAO;
 import org.db.hibernate.CompanyOwnPacketHibernateImpl;

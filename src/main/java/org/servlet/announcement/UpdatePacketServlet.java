@@ -54,7 +54,7 @@ public class UpdatePacketServlet extends HttpServlet {
 
         try {
             String date = request.getParameter("last_date_used");
-            Date expired = new SimpleDateFormat("dd/mm/yyyy").parse(date);
+            Date expired = new SimpleDateFormat("dd/MM/yyyy").parse(date);
             packet.setLastDateUsed(expired);
         } catch (ParseException e) {
             System.out.println("Son kullanım tarihi okunamadı");

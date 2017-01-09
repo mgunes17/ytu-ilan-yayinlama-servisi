@@ -125,11 +125,18 @@
 								<tr>
 									<td>${item.title}</td>
                                     <td>
-                                        ${fn:substring(item.condition, 0, 20)}...
-                                        <a href="#" data-toggle="popover" data-placement="right"
-                                           title="Açıklama:" data-content="${item.condition}">
-                                            <span class="glyphicon glyphicon-info-sign "></span>
-                                        </a>
+                                        <c:choose>
+                                            <c:when test="${fn:length(item.condition) < 20}">
+                                                ${item.condition}
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${fn:substring(item.condition, 0, 20)}...
+                                                <a href="#" data-toggle="popover" data-placement="right"
+                                                   title="Açıklama:" data-content="${item.condition}">
+                                                    <span class="glyphicon glyphicon-info-sign "></span>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </td>
 									<td align="right">${item.announcementCount}</td>
 									<td align="right">${item.activeTime}</td>
