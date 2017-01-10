@@ -81,7 +81,7 @@
                                         </c:forEach>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-default">Kayıtları Getir</button>
+                                <button type="submit" class="btn btn-success">Kayıtları Getir</button>
                             </form>
                         </div>
                     </div>
@@ -151,12 +151,20 @@
                         <tbody>
                         <c:forEach var="item" items="${accounting }">
                             <tr>
-                                <td><fmt:formatDate type="date" value="${item.accountingPK.dateTime}"/></td>
-                                <td>${fn:substring(item.description, 0, 20)}...
-                                    <a href="#" data-toggle="popover" data-placement="left"
-                                       title="Açıklama:${item.description}" data-content="${item.description}">
-                                        <span class="glyphicon glyphicon-info-sign "></span>
-                                    </a>
+                                <td><fmt:formatDate pattern="dd-MM-yyy" value="${item.accountingPK.dateTime}"/></td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${fn:length(item.description) < 20}">
+                                            ${item.description}
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${fn:substring(item.description, 0, 20)}...
+                                            <a href="#" data-toggle="popover" data-placement="left"
+                                               title="Açıklama:${item.description}" data-content="${item.description}">
+                                                <span class="glyphicon glyphicon-info-sign "></span>
+                                            </a>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </td>
                                 <td>${item.dauUser.dau.unitName }</td>
                                 <td>${item.dauUser.userName }</td>

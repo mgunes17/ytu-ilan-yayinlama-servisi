@@ -15,14 +15,36 @@
 		<jsp:include page="html/menu.html"></jsp:include>
 		<div class="jumbotron container-fluid">
 			<div class="row">
-				<div class="col-md-4">
-					<h2>Ýþlem detaylarý</h2>
+				<div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p>Arama Yapýn</p>
+                        </div>
+                        <div class="panel-body">
+                            <form action="#" method="post">
+                                <div class="form-group">
+                                    selectbox-kullanýcý seçimi
+                                </div>
+                                <div class="form-group">
+                                    radio harcama kabul tümü
+                                </div>
+                                <div class="form-group">
+                                    tarih aralýðý seçimi
+                                </div>
+                                <button type="submit" class="btn btn-success">Ara</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-md-6">
 					<h4>BKB bakiyesi: ${user.dau.balance}</h4>
 					
-					<table class="table table-bordered">
+					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>Ýþlemi yapan kullanýcý</th>
+                                <th>Açýklama</th>
 								<th>Ýþlem tarihi</th>
 								<th>Miktar</th>
 							</tr>	
@@ -31,8 +53,9 @@
 							<c:forEach var="item" items="${accounting }">
 								<tr>
 									<td>${item.dauUser.userName }</td>
-									<td><fmt:formatDate type="date" value="${item.accountingPK.dateTime}"/></td>
-									<td>${item.amount}</td>
+                                    <td>--ilgili açýklama</td>
+									<td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.accountingPK.dateTime}"/></td>
+									<td align="right">${item.amount}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

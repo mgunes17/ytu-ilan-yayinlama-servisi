@@ -70,7 +70,7 @@
                                 <input type="text" name="contactTel" id="contactTel" class="form-control" value="${user.contactTel}"
                                        pattern=".{11,11}" required title="Telefon numarası 11 karakter aralığında olmalıdır">
                             </div>
-                            <button type="submit" class="btn btn-default">Bilgilerimi Güncelle</button>
+                            <button type="submit" class="btn btn-success">Bilgilerimi Güncelle</button>
                         </form>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                                        pattern=".{6,16}" class="form-control"
                                        required title="Parola en az 6 an fazla 16 karakter olabilir."/>
                             </div>
-                            <button type="submit" class="btn btn-default">Parolayı Değiştir</button>
+                            <button type="submit" class="btn btn-success">Parolayı Değiştir</button>
                         </form>
                     </div>
                 </div>

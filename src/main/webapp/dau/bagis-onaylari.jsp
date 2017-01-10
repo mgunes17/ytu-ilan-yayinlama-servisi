@@ -110,7 +110,7 @@
 						<thead>
 							<tr>
 								<th>Paket Adı</th>
-								<th>Paket Fiyatı</th>
+								<th>Fiyat (TL)</th>
 								<th>Şirket Adı</th>
 								<th>İstek Yollanan Zaman</th>
 								<th>Onay Durumu</th>
@@ -121,9 +121,9 @@
 							<c:forEach var="item" items="${packet}">
 								<tr>
 									<td>${item.packet.title}</td>
-									<td>${item.packet.price}</td>
+									<td align="right">${item.packet.price}</td>
 									<td>${item.ownerCompany.companyName}</td>
-									<td><fmt:formatDate type="date" value="${item.timeToRequest}"/></td>
+									<td align="right"><fmt:formatDate pattern="dd-MM-yyy" value="${item.timeToRequest}"/></td>
 									<td>${item.approved}</td>
 									<td>
 										<a  href="#showMessage"

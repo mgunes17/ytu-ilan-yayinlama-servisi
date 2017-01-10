@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -18,9 +19,26 @@
                 $("#packetID").val(packetID);
                 $(_self.attr('href')).modal('show');
             });
-        </script>
 
-        <script>
+            $(document).on("click", ".open-bankDetail", function (e) {
+                e.preventDefault();
+                var _self = $(this);
+
+                var iban = _self.data('iban');
+                var account = _self.data('account');
+                var bank = _self.data('bank');
+                var branch = _self.data('branch');
+                var unit = _self.data('unit');
+
+                document.getElementById("iban").innerHTML = iban;
+                document.getElementById("account").innerHTML = account;
+                document.getElementById("bank").innerHTML = bank;
+                document.getElementById("branch").innerHTML = branch;
+                document.getElementById("unit").innerHTML = unit;
+
+                $(_self.attr('href')).modal('show');
+            });
+
             $(document).ready(function(){
                 $('[data-toggle="popover"]').popover();
             });
@@ -52,7 +70,40 @@
                     <div class="modal-footer">
                         <p>Verdiğiniz bilgiler yanlışsa, talebiniz reddedilecektir.</p>
                         <p>Bu durumda yeniden istek göndermeniz gerekecektir.</p>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="bankDetail" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Banka Bilgileri</h4>
+                    </div>
+                    <div class="modal-body">
+                        <b>Ödemenin yapılacağı Bağış Kabul Birimi</b>
+                        <p id="unit"></p>
+
+                        <b>Banka</b>
+                        <p id="bank"></p>
+
+                        <b>Şube</b>
+                        <p id="branch"></p>
+
+                        <b>Hesap Numarası</b>
+                        <p id="account"></p>
+
+                        <b>IBAN</b>
+                        <p id="iban"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <p>Lütfen ödeme yapmadan bağış isteği göndermeyiniz.</p>
+                        <p>Banka tarafından yapılacak kesintilere dikkat ediniz.</p>
+                        <p>Şu anda kullanılan tek birim Türk Lirası'dır.</p>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
                     </div>
                 </div>
             </div>
@@ -108,7 +159,7 @@
                                     </a>
                                 </th>
 								<th>
-                                    Son kullanım tarihi
+                                    SKT
                                     <a href="../orderpacketstocompany?condition=last_date_used&order=asc" title="Artan Sırala">
                                         <span class="glyphicon glyphicon-arrow-up"></span>
                                     </a>
@@ -141,9 +192,19 @@
 									<td align="right">${item.announcementCount}</td>
 									<td align="right">${item.activeTime}</td>
 									<td align="right">${item.price}</td>
-									<td>${item.lastDateUsed}</td>
+									<td><fmt:formatDate  pattern="dd-MM-yyy" value="${item.lastDateUsed}"/></td>
 									<td>${item.accountInfo.ownerUnit.unitName}</td>
 									<td>
+                                        <a href="#bankDetail" data-toggle="modal" data-placement="left"
+                                           class="open-bankDetail btn btn-success"
+                                           data-iban="${item.accountInfo.iban}"
+                                           data-account="${item.accountInfo.bankAccountNumber}"
+                                           data-unit="${item.accountInfo.ownerUnit.unitName}"
+                                           data-bank="${item.accountInfo.bankName}"
+                                           data-branch="${item.accountInfo.branchBankName}"
+                                           title="Banka Bilgileri">
+                                            <span class="glyphicon glyphicon-bold "></span>
+                                        </a>
                                         <a data-id="${item.packetId }"
                                            data-toggle="modal"
                                            title="Bağış Yaptım"
