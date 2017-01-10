@@ -1,4 +1,4 @@
-package org.servlet.complaint;
+package org.servlet.student.complaint;
 
 import org.db.dao.ComplaintDAO;
 import org.db.hibernate.AnnouncementHibernateImpl;

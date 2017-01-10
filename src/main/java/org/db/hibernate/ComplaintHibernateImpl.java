@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by mgunes on 11.12.2016.
@@ -80,5 +81,9 @@ public class ComplaintHibernateImpl extends AbstractDAO implements ComplaintDAO 
         } finally {
             session.close();
         }
+    }
+
+    public List<Complaint> getComplaintBySQLQuery(String sql) {
+        return getRowsBySQLQuery(Complaint.class, sql);
     }
 }

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--
@@ -42,6 +43,12 @@
                 var code = _self.data('id');
                 $("#announcementID").val(code);
                 $(_self.attr('href')).modal('show');
+            });
+        </script>
+
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover();
             });
         </script>
 
@@ -103,7 +110,7 @@
         <div class="jumbotron container-fluid">
             <div class="row">
                 <div class="col-md-1"></div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <p>Şikayet Ara</p>
@@ -114,14 +121,14 @@
                                     <label>Sonuç</label> <br/>
                                     <input type="radio" name="result" value="Sonuçlanan" >Sonuçlanan<br/>
                                     <input type="radio" name="result" value="Bekleyen" >Bekleyen<br/>
-                                    <input type="radio" name="result" value="Tümü" >Tümü<br/>
+                                    <input type="radio" checked="checked" name="result" value="Tümü" >Tümü<br/>
                                 </div>
                                 <button type="submit" class="btn btn-success">Ara</button>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <c:choose>
                         <c:when test="${sikayetgericek eq 1}">
                             <div class="alert alert-success">
@@ -135,75 +142,103 @@
                             </div>
                         </c:when>
                     </c:choose>
-                    <h4><b>Şikayet Durumu Sonuçlanmayanlar</b></h4>
-                    <table class="table table-stripped">
+
+                    <table class="table table-hover">
                         <thead>
                             <tr>
-                                <td>İlan Adı</td>
-                                <td>Firma Adı</td>
-                                <td>Şikayet Nedeni</td>
-                                <td>Şikayet Zamanı</td>
-                                <td>İşlem</td>
+                                <th>İlan Adı
+                                    <a href="../mycomplaintorder?condition=title&type=asc" title="Artan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                    </a>
+                                    <a href="../mycomplaintorder?condition=title&type=desc" title="Azalan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                    </a>
+                                </th>
+                                <th>Firma Adı
+                                    <a href="../mycomplaintorder?condition=company_name&type=asc" title="Artan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                    </a>
+                                    <a href="../mycomplaintorder?condition=company_name&type=desc" title="Azalan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                    </a>
+                                </th>
+                                <th>Şikayet Nedeni</th>
+                                <th>Şikayet Zamanı
+                                    <a href="../mycomplaintorder?condition=complaint_time&type=asc" title="Artan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                    </a>
+                                    <a href="../mycomplaintorder?condition=complaint_time&type=desc" title="Azalan Sırala">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                    </a>
+                                </th>
+                                <th>Sonuç</th>
+                                <th>Açıklama</th>
+                                <th>İşlem</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="item" items="${user.complaintList}">
-                                <c:if test="${empty item.result}">
-                                    <tr>
-                                        <td>${item.announcement.title}</td>
-                                        <td>${item.announcement.ownerCompany.companyName}</td>
-                                        <td>${item.description}</td>
-                                        <td><fmt:formatDate type="date" value="${item.complaintTime}"/></td>
-                                        <td>
-                                            <a  href="#detail"
-                                                title="İlan Detay"
-                                                data-toggle="modal"
-                                                data-title="${item.announcement.title}"
-                                                data-content="${item.announcement.content}"
-                                                data-brief="${item.announcement.state.title}"
-                                                data-company="${item.announcement.ownerCompany.companyName}"
-                                                data-publish="${item.announcement.publishDate}"
-                                                class="open-detail btn btn-info">
-                                                <span class="glyphicon glyphicon-th"></span>
+                        <c:forEach var="item" items="${complaintList}">
+                            <tr>
+                                <td>${item.announcement.title}</td>
+                                <td>${item.announcement.ownerCompany.companyName}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${fn:length(item.description) < 10}">
+                                            ${item.description}
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${fn:substring(item.description, 0, 10)}...
+                                            <a href="#" data-toggle="popover" data-placement="left"
+                                               title="Açıklama:" data-content="${item.description}">
+                                                <span class="glyphicon glyphicon-info-sign "></span>
                                             </a>
-                                            <a  href="#delete"
-                                                title="Şikayeti Geri Çek"
-                                                data-toggle="modal"
-                                                data-id="${item.announcement.id}"
-                                                class="open-delete btn btn-danger">
-                                                <span class="glyphicon glyphicon-remove"></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.complaintTime}"/></td>
+                                <td>
+                                    <c:if test="${item.result eq null}">
+                                        <i>Sonuçlanmadı</i>
+                                    </c:if>
+                                    ${item.result}
+                                </td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${fn:length(item.resultReply) < 10}">
+                                            ${item.resultReply}
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${fn:substring(item.resultReply, 0, 10)}...
+                                            <a href="#" data-toggle="popover" data-placement="left"
+                                               title="Açıklama:" data-content="${item.resultReply}">
+                                                <span class="glyphicon glyphicon-info-sign "></span>
                                             </a>
-                                        </td>
-                                    </tr>
-                                </c:if>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-
-                    <h4><b>Şikayet Durumu Sonuçlananlar</b></h4>
-                    <table class="table table-stripped">
-                        <thead>
-                        <tr>
-                            <td>İlan Adı</td>
-                            <td>Firma Adı</td>
-                            <td>Şikayet Nedeni</td>
-                            <td>Şikayet Zamanı</td>
-                            <td>Sonuç</td>
-                            <td>Açıklama</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="item" items="${user.complaintList}">
-                            <c:if test="${not empty item.result}">
-                                <tr>
-                                    <td>${item.announcement.title}</td>
-                                    <td>${item.announcement.ownerCompany.companyName}</td>
-                                    <td>${item.description}</td>
-                                    <td><fmt:formatDate type="date" value="${item.complaintTime}"/></td>
-                                    <td>${item.result}</td>
-                                    <td>${item.description}</td>
-                                </tr>
-                            </c:if>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td>
+                                    <a  href="#detail"
+                                        title="İlan Detay"
+                                        data-toggle="modal"
+                                        data-title="${item.announcement.title}"
+                                        data-content="${item.announcement.content}"
+                                        data-brief="${item.announcement.state.title}"
+                                        data-company="${item.announcement.ownerCompany.companyName}"
+                                        data-publish="${item.announcement.publishDate}"
+                                        class="open-detail btn btn-info">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                    </a>
+                                    <c:if test="${item.result eq null}">
+                                        <a  href="#delete"
+                                            title="Şikayeti Geri Çek"
+                                            data-toggle="modal"
+                                            data-id="${item.announcement.id}"
+                                            class="open-delete btn btn-danger">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </c:if>
+                                </td>
+                            </tr>
                         </c:forEach>
                         </tbody>
                     </table>
