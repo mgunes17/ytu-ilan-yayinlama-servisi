@@ -2,7 +2,9 @@ package org.db.hibernate;
 
 import org.db.dao.CompanyDAO;
 import org.db.dao.ComplaintDAO;
+import org.db.model.Announcement;
 import org.db.model.Complaint;
+import org.db.model.ComplaintReport;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -30,6 +32,12 @@ public class ComplaintHibernateImpl extends AbstractDAO implements ComplaintDAO 
         String complaintHQL = "UPDATE Complaint SET result = '" + result + "', resultReply = '" + resultReply + "', " +
                 " resultTime = '" + new Date() + "' WHERE announcement = " + annID;
 
+        ComplaintReport report = new ComplaintReport();
+        report.setAnnouncement(new Announcement(annID));
+        report.setOperationDate(new Date());
+        report.setDescription("İlan -" + resultReply + "- sebebi ile yayından kaldırıldı.");
+        report.setCurrentState("cezalı");
+
         try {
             session.getTransaction().begin();
             Query query1 = session.createQuery(annHql);
@@ -37,6 +45,8 @@ public class ComplaintHibernateImpl extends AbstractDAO implements ComplaintDAO 
 
             query1.executeUpdate();
             query2.executeUpdate();
+
+            session.save(report);
 
             session.getTransaction().commit();
 

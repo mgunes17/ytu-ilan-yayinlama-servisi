@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -53,6 +54,12 @@
                 $("#annid2").val(id);
                 $(_self.attr('href')).modal('show');
             });
+
+            $(document).on("click", ".open-complaintList", function (e) {
+                e.preventDefault();
+                var _self = $(this);
+                $(_self.attr('href')).modal('show');
+            });
         </script>
 
         <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" >
@@ -75,12 +82,6 @@
 
                         <p><b>Yayınlanma Tarihi</b></p>
                         <p id="publish1"></p>
-
-                        <h4>Şikayet Mesajları</h4>
-                        <c:forEach var="item2" items="${item.complaintList}">
-                            ${item2.student.userName}
-                            ${item2.description}
-                        </c:forEach>
                     </div>
                 </div>
             </div>
@@ -105,7 +106,7 @@
                     </div>
                     <div class="modal-footer">
                         <p>Yazmış olduğunuz açıklama şirkete iletilecektir.</p>
-                        <p>Cezalı ilanların düzenlenip tekrar yayıma alınması mümkün değildir.</p>
+                        <p>Cezalı ilanların düzenlenip tekrar yayına alınması mümkün değildir.</p>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
                     </div>
                 </div>
@@ -146,6 +147,12 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="../complaintlisttoadmin"" style="background-color:#b9def0">Yeni</a></li>
+                        <li><a href="../acceptedcomplaintlist">Onaylanan</a></li>
+                        <li><a href="../rejectedcomplaintlist">Reddedilen</a></li>
+                    </ul>
+                    <br>
                     <c:choose>
                         <c:when test="${ceza eq 1}">
                             <div class="alert alert-success">
@@ -175,17 +182,20 @@
                         <thead>
                             <tr>
                                 <th>İlan Adı</th>
-                                <th>Yayınlanma Tarihi</th>
-                                <th>Yayımlayan Şirket</th>
+                                <th>Yayın Tarihi</th>
+                                <th>Şirket</th>
                                 <th>Şikayet Sayısı</th>
                                 <th>İşlem</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <c:if test="${fn:length(sikayetilan) eq 0}">
+                                <tr><td><i>Yeni şikayet yok.</i></td></tr>
+                            </c:if>
                             <c:forEach var="item" items="${sikayetilan}">
                                 <tr>
                                     <td>${item.title}</td>
-                                    <td>${item.publishDate}</td>
+                                    <td><fmt:formatDate pattern="dd-MM-yyy" value="${item.publishDate}"/></td>
                                     <td>${item.ownerCompany.companyName}</td>
                                     <td align="right">${fn:length(item.complaintList)}</td>
                                     <td>
@@ -194,15 +204,19 @@
                                             data-toggle="modal"
                                             data-title="${item.title}"
                                             data-content="${item.content}"
-                                            data-brief="${item.state.title}"
+                                            data-brief="${item.brief}"
                                             data-company="${item.ownerCompany.companyName}"
                                             data-publish="${item.publishDate}"
                                             class="open-detail btn btn-info">
                                             <span class="glyphicon glyphicon-th-large"></span>
                                         </a>
-                                        <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#${item.id}">
+                                        <a  href="#complaintList"
+                                            title="Şikayet Mesajları"
+                                            data-toggle="modal"
+                                            class="open-complaintList btn btn-success">
                                             <span class="glyphicon glyphicon-list-alt"></span>
-                                        </button>
+                                        </a>
+
                                         <a  href="#trueComplaint"
                                             title="Şikayetler Doğru"
                                             data-toggle="modal"
@@ -217,14 +231,22 @@
                                             class="false-complaint btn btn-danger">
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </a>
-                                        <div id="${item.id}" class="collapse">
-                                            <c:forEach var="item2" items="${item.complaintList}">
-                                                ${item2.student.userName}
-                                                ${item2.description}
-                                            </c:forEach>
-                                        </div>
                                     </td>
                                 </tr>
+
+                                <div class="modal fade" id="complaintList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <h4><b>Şikayet Mesajları</b></h4>
+                                                <c:forEach var="item2" items="${item.complaintList}">
+                                                    <b>Kullanıcı:</b>${item2.student.userName}<br/>
+                                                    <b>Mesaj:</b>${item2.description}<br/><br/>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </c:forEach>
                         </tbody>
                     </table>

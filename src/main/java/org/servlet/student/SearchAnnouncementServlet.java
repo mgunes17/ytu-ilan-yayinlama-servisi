@@ -40,7 +40,8 @@ public class SearchAnnouncementServlet extends HttpServlet {
 
         StringBuilder sql = new StringBuilder();
 
-        sql.append("SELECT * FROM announcement WHERE now() between publish_date and expired_date ");
+        sql.append("SELECT * FROM announcement WHERE now() between publish_date and expired_date" +
+                " and state <> 4 ");
 
         //İlan tipi seçildiyse sorguya ekle
         if(annTypeId != -1) {

@@ -1,4 +1,4 @@
-package org.servlet.admin;
+package org.servlet.admin.complaint;
 
 import org.db.dao.AnnouncementDAO;
 import org.db.dao.ComplaintDAO;

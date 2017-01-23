@@ -219,3 +219,10 @@ CREATE TABLE interests (
 	language varchar,
 	keywords text
 );
+
+CREATE TABLE complaint_report (
+	id int primary key,
+	announcement int REFERENCES announcement(id),
+	operation_date timestamp NOT NULL,
+	description text NOT NULL
+);

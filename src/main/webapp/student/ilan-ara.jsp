@@ -83,7 +83,8 @@
                     <a href="../announcementstostudent" class="btn btn-primary">Tüm İlanları Getir</a>
                     <c:choose>
                         <c:when test="${fn:length(announcements) eq 0}">
-                            <h4>Üzgünüm, hiç ilan yok!</h4>
+                            <h4>Gösterilecek ilan yok!</h4>
+                            <h4>Yan menüden seçim yapabilirsiniz.</h4>
                         </c:when>
                         <c:otherwise>
                             <table class="table table-stripped">
@@ -139,11 +140,11 @@
                                         </td>
                                         <td>${item.announcementType.title}</td>
                                         <td>${item.ownerCompany.companyName}</td>
-                                        <td><fmt:formatDate type="date" value="${item.publishDate}"/></td>
+                                        <td><fmt:formatDate pattern="dd-MM-yyy" value="${item.publishDate}"/></td>
                                         <td>
                                             <form action = "../announcementdetailtostudent" method = "post">
                                                 <input type="hidden" name="announcement" value="${item.id}"/>
-                                                <input type="submit" class="btn btn-success" value="Detayı Gör"/>
+                                                <input type="submit" class="btn btn-success" value="Detay"/>
                                             </form>
                                         </td>
                                     </tr>

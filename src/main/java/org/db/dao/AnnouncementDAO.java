@@ -6,8 +6,6 @@ import java.util.Map;
 import org.announcement.SearchCriteria;
 import org.db.model.Announcement;
 
-import javax.servlet.http.HttpSession;
-
 public interface AnnouncementDAO {
 	boolean saveAnnouncement(Announcement ann);
 	List<Announcement> getAllAnnouncements();
@@ -22,4 +20,7 @@ public interface AnnouncementDAO {
 	List<Announcement> getSuspendedAnnouncements();
 	List<Announcement> getSuspendedOrderByName();
     List<Announcement> getSuspendedOrderByDate();
+    List<Announcement> getRejectedComplaintList();
+	int republishByAdmin(int annId, String description);
+    boolean repunishByAdmin(int annId, String description);
 }

@@ -1,5 +1,6 @@
 package org.db.hibernate;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.announcement.SearchCriteria;
 import org.db.dao.AnnouncementDAO;
 import org.db.model.Announcement;
 import org.db.model.AnnouncementType;
+import org.db.model.ComplaintReport;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
@@ -70,7 +72,112 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
         return getRowsByQuery(Announcement.class, hql, new HashMap<String, Object>());
 	}
 
-	public List<Announcement> getActiveAnnouncements() {
+    public List<Announcement> getRejectedComplaintList() {
+        String sql = "SELECT * FROM announcement where (state = 2 or state = 3) and proper_complaint = false";
+        return getRowsBySQLQuery(Announcement.class, sql);
+    }
+
+    public int republishByAdmin(int annId, String description) {
+	    //durumu aktif yap ve kayıp günleri ekle, şikayet edilemez yap
+	    String updateExpiredDate = "update announcement a set expired_date = ( " +
+                " select (current_timestamp - operation_date)  + a.expired_date " +
+                " from complaint_report " +
+                " where announcement = " + annId + " and current_state = 'cezalı' " +
+                " order by operation_date desc LIMIT 1), state = 2, proper_complaint = FALSE " +
+                " where id  = " + annId + ";";
+
+        //now - operation date i döndür
+        String operationDate = "select operation_date " +
+            " from complaint_report " +
+            " where announcement = " + annId + " and current_state = 'cezalı' " +
+            " order by operation_date desc LIMIT 1 ";
+
+        //Şikayet eden öğrenciler için son durum
+        String complaintStudent = "update complaint " +
+            " set result = 'Olumsuz', result_time = now(), result_reply = '" + description + "' " +
+            " where announcement = " + annId + "; ";
+
+        //rapora ekleme yap
+        ComplaintReport complaintReport = new ComplaintReport();
+        complaintReport.setCurrentState("yayında");
+        complaintReport.setOperationDate(new Date());
+        complaintReport.setAnnouncement(new Announcement(annId));
+
+        //ilan bilgilerini güncelle
+        //raporu kaydet
+        //kayıp gün sayınısı bul
+
+        //AÇIKLAMAYA xx gün iade edildi diye ekle !!!
+
+        //şikayet listesindeki durumun değiştirilmesi lazım
+
+		try {
+            int iadeGun = -1;
+
+            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session.getTransaction().begin();
+            SQLQuery query1 = session.createSQLQuery(updateExpiredDate);
+            query1.executeUpdate();
+
+            SQLQuery query2 = session.createSQLQuery(complaintStudent);
+            query2.executeUpdate();
+
+            List list = session.createSQLQuery(operationDate).list();
+            Date date = (Date) list.get(0);
+            iadeGun = (int) (new Date().getTime() - date.getTime()) / 1000 / 60 / 60 /24;
+
+            complaintReport.setDescription("İlan tekrar yayına alındı. Son yayın tarihine " + iadeGun +
+                    " gün eklendi. Yapılan açıklama : " + description);
+
+            session.save(complaintReport);
+            session.getTransaction().commit();
+            return iadeGun;
+		} catch (Exception ex) {
+		    session.getTransaction().rollback();
+            System.out.println("Yeniden yayına alınırken hata : " + ex.getMessage());
+            ex.printStackTrace();
+            return -1;
+        } finally {
+            session.close();
+        }
+    }
+
+    public boolean repunishByAdmin(int annId, String description) {
+        //şikayet eden öğrencilerin durumu güncellenecek
+        //rapora kayıt eklenecek
+
+        String q1 = "UPDATE announcement SET state = 4 WHERE id = " + annId + "; ";
+        String q2 = "update complaint " +
+                " set result = 'Olumlu', result_time = now(), result_reply = '" + description + "' " +
+                " where announcement = " + annId + "; ";
+
+        ComplaintReport complaintReport = new ComplaintReport();
+        complaintReport.setAnnouncement(new Announcement(annId));
+        complaintReport.setOperationDate(new Date());
+        complaintReport.setCurrentState("cezalı");
+        complaintReport.setDescription("İlan cezalı duruma getirildi. Açıklama: " + description + " ");
+
+        try {
+            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session.getTransaction().begin();
+            SQLQuery sqlQuery = session.createSQLQuery(q1);
+            SQLQuery sqlQuery1 = session.createSQLQuery(q2);
+            sqlQuery.executeUpdate();
+            sqlQuery1.executeUpdate();
+            session.save(complaintReport);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception ex) {
+            session.getTransaction().rollback();
+            System.out.println("Repunish hata : " + ex.getMessage());
+            ex.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<Announcement> getActiveAnnouncements() {
 		try {
 			session = HibernateSessionFactory.getSessionFactory().openSession();
 			session.getTransaction().begin();

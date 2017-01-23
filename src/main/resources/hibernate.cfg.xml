@@ -41,5 +41,6 @@
     <mapping class="org.db.model.AnnouncementCategory"/>
     <mapping class="org.db.model.Complaint"/>
     <mapping class="org.db.model.Interests"/>
+    <mapping class="org.db.model.ComplaintReport"/>
   </session-factory>
 </hibernate-configuration>

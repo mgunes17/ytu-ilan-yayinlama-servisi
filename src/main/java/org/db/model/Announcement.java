@@ -90,6 +90,11 @@ public class Announcement implements Serializable, Comparable<Announcement> {
     	super();
     }
 
+    public Announcement(int id) {
+        super();
+        this.id = id;
+    }
+
     public int compareTo(Announcement a) {
         if(getPublishDate() == null)
             return -1;

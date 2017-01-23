@@ -154,7 +154,7 @@
                                         <span class="glyphicon glyphicon-arrow-down"></span>
                                     </a>
                                 </th>
-                                <th>Firma Adı
+                                <th>Firma
                                     <a href="../mycomplaintorder?condition=company_name&type=asc" title="Artan Sırala">
                                         <span class="glyphicon glyphicon-arrow-up"></span>
                                     </a>
@@ -162,8 +162,8 @@
                                         <span class="glyphicon glyphicon-arrow-down"></span>
                                     </a>
                                 </th>
-                                <th>Şikayet Nedeni</th>
-                                <th>Şikayet Zamanı
+                                <th>Sebep</th>
+                                <th>Zaman
                                     <a href="../mycomplaintorder?condition=complaint_time&type=asc" title="Artan Sırala">
                                         <span class="glyphicon glyphicon-arrow-up"></span>
                                     </a>
