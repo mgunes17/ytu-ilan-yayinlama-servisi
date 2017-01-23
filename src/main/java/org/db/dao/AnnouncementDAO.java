@@ -21,6 +21,8 @@ public interface AnnouncementDAO {
 	List<Announcement> getSuspendedOrderByName();
     List<Announcement> getSuspendedOrderByDate();
     List<Announcement> getRejectedComplaintList();
-	int republishByAdmin(int annId, String description);
+    List<Announcement> getAvailableForReport();
+    List<Announcement> getAvailableForReport(String username);
+    int republishByAdmin(int annId, String description);
     boolean repunishByAdmin(int annId, String description);
 }

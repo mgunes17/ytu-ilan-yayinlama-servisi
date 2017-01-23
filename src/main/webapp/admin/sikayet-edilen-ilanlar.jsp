@@ -151,6 +151,7 @@
                         <li class="active"><a href="../complaintlisttoadmin"" style="background-color:#b9def0">Yeni</a></li>
                         <li><a href="../acceptedcomplaintlist">Onaylanan</a></li>
                         <li><a href="../rejectedcomplaintlist">Reddedilen</a></li>
+                        <li><a href="../complaintreporttoadmin">Rapor Al</a></li>
                     </ul>
                     <br>
                     <c:choose>

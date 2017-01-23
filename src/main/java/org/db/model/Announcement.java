@@ -66,6 +66,11 @@ public class Announcement implements Serializable, Comparable<Announcement> {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Application> appStudentList = new ArrayList<Application>();
 
+    @OneToMany(mappedBy="announcement", targetEntity=ComplaintReport.class,
+            fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<ComplaintReport> reports = new ArrayList<ComplaintReport>();
+
     @OneToMany(mappedBy = "announcement", targetEntity = Complaint.class,
             fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private List<Complaint> complaintList = new ArrayList<Complaint>();
@@ -230,5 +235,13 @@ public class Announcement implements Serializable, Comparable<Announcement> {
 
     public void setExpiredDate(Date expiredDate) {
         this.expiredDate = expiredDate;
+    }
+
+    public List<ComplaintReport> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<ComplaintReport> reports) {
+        this.reports = reports;
     }
 }

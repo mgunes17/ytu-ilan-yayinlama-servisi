@@ -77,6 +77,18 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
         return getRowsBySQLQuery(Announcement.class, sql);
     }
 
+    public List<Announcement> getAvailableForReport() {
+        String sql = "select distinct a.* from announcement a, complaint_report c where a.id = c.announcement ";
+        return getRowsBySQLQuery(Announcement.class, sql);
+    }
+
+    public List<Announcement> getAvailableForReport(String username) {
+        String sql = "select distinct a.* " +
+                " from announcement a, complaint_report c " +
+                " where a.id = c.announcement and a.owner_company = '" + username + "' ";
+        return getRowsBySQLQuery(Announcement.class, sql);
+    }
+
     public int republishByAdmin(int annId, String description) {
 	    //durumu aktif yap ve kayıp günleri ekle, şikayet edilemez yap
 	    String updateExpiredDate = "update announcement a set expired_date = ( " +

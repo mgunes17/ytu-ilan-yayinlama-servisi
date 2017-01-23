@@ -109,6 +109,7 @@
                         <li><a href="../complaintlisttoadmin">Yeni</a></li>
                         <li class="active"><a style="background-color:#b9def0" href="../acceptedcomplaintlist">Onaylanan</a></li>
                         <li><a href="../rejectedcomplaintlist">Reddedilen</a></li>
+                        <li><a href="../complaintreporttoadmin">Rapor Al</a></li>
                     </ul>
                     <br>
 
