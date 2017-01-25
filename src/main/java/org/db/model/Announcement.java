@@ -91,6 +91,9 @@ public class Announcement implements Serializable, Comparable<Announcement> {
     @Column(name = "proper_complaint")
     private boolean properComplaint;
 
+    @Column(name = "visibility")
+    private boolean visibility;
+
 	public Announcement(){
     	super();
     }
@@ -243,5 +246,13 @@ public class Announcement implements Serializable, Comparable<Announcement> {
 
     public void setReports(List<ComplaintReport> reports) {
         this.reports = reports;
+    }
+
+    public boolean isVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
     }
 }

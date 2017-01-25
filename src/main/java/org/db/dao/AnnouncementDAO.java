@@ -8,6 +8,8 @@ import org.db.model.Announcement;
 
 public interface AnnouncementDAO {
 	boolean saveAnnouncement(Announcement ann);
+    boolean updateAnnouncement(Announcement ann);
+    boolean deleteAnnouncement(int id);
 	List<Announcement> getAllAnnouncements();
 	List<Announcement> getAnnouncementsOfCompany(String userName);
 	List<Announcement> getActiveAnnouncements();
@@ -16,7 +18,6 @@ public interface AnnouncementDAO {
     List<Announcement> getByCriteria(Map<String, Object> parameter);
 	List<Announcement> getComplaintAnnouncement();
 	Announcement getAnnouncement(int id);
-	boolean updateAnnouncement(Announcement ann);
 	List<Announcement> getSuspendedAnnouncements();
 	List<Announcement> getSuspendedOrderByName();
     List<Announcement> getSuspendedOrderByDate();
@@ -25,4 +26,7 @@ public interface AnnouncementDAO {
     List<Announcement> getAvailableForReport(String username);
     int republishByAdmin(int annId, String description);
     boolean repunishByAdmin(int annId, String description);
+	boolean announcementSetNonVisible(int id);
+    boolean announcementSetVisible(int id);
+
 }

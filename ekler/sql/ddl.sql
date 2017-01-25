@@ -125,7 +125,8 @@ CREATE TABLE announcement (
   announcement_language varchar(20),
   publish_date timestamp,
   expired_date timestamp,
-  proper_complaint boolean DEFAULT TRUE
+  proper_complaint boolean DEFAULT TRUE,
+  visibility boolean
 );
 
 CREATE TABLE announcement_packet (

@@ -1,11 +1,13 @@
 package org.db.hibernate;
 
 import org.db.dao.CompanyDAO;
+import org.db.model.Announcement;
 import org.db.model.Company;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CompanyHibernateImpl extends AbstractDAO implements CompanyDAO {
@@ -49,6 +51,24 @@ public class CompanyHibernateImpl extends AbstractDAO implements CompanyDAO {
         } finally {
             session.close();
         }
+    }
+
+    public List<Announcement> getMyActiveAnnouncements(String username) {
+        String query = "SELECT * FROM announcement " +
+                " WHERE owner_company = '" + username + "' and (state = 2 or state = 3) and now() < expired_date ORDER BY id";
+        return getRowsBySQLQuery(Announcement.class, query);
+    }
+
+    public List<Announcement> getMyPassiveAnnouncements(String username) {
+        String query = "SELECT * FROM announcement " +
+                " WHERE owner_company = '" + username + "' and state = 1 ORDER BY id";
+        return getRowsBySQLQuery(Announcement.class, query);
+    }
+
+    public List<Announcement> getMySuspendedAnnouncements(String username) {
+        String query = "SELECT * FROM announcement " +
+                " WHERE owner_company = '" + username + "' and state = 4 ORDER BY id";
+        return getRowsBySQLQuery(Announcement.class, query);
     }
 
     public boolean updateCompanyPassword(Company c) {

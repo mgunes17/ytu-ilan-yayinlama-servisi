@@ -43,8 +43,10 @@ public class UseAnAnnouncementServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
 		int packetID = Integer.parseInt(request.getParameter("ap"));
 		int announcementID = Integer.parseInt(String.valueOf( request.getParameter("ann")));
+		session.setAttribute("ilansil", 0);
 		
 		//ilan durumunu aktife çevir		
 		//packettten 1 hak azalt 
@@ -67,11 +69,10 @@ public class UseAnAnnouncementServlet extends HttpServlet {
         ann.setExpiredDate(date);
 		
 		if(announcementDAO.updateAnnouncement(ann) && packetDAO.updatePacket(cop)) {
-			HttpSession session = request.getSession();
 			session.setAttribute("ilanaktif", 1);
 		}
-		
-		response.sendRedirect("listmyannouncementsservlet");
+
+		response.sendRedirect("mypassiveannouncements");
 	}
 
 }

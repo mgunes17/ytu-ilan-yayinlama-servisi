@@ -57,6 +57,10 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
 		return save(ann);
 	}
 
+    public boolean deleteAnnouncement(int id) {
+        return deleteByQuery(Announcement.class, "Announcement", "id", id);
+    }
+
     public List<Announcement> getSuspendedAnnouncements() {
         String hql = "FROM Announcement WHERE state = 4";
         return getRowsByQuery(Announcement.class, hql, new HashMap<String, Object>());
@@ -189,7 +193,17 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
         }
     }
 
-    public List<Announcement> getActiveAnnouncements() {
+	public boolean announcementSetNonVisible(int id) {
+		String query = "UPDATE announcement SET visibility = false WHERE id = " + id + ";";
+		return updateBySQLQuery(Announcement.class, query);
+	}
+
+    public boolean announcementSetVisible(int id) {
+        String query = "UPDATE announcement SET visibility = true WHERE id = " + id + ";";
+        return updateBySQLQuery(Announcement.class, query);
+    }
+
+	public List<Announcement> getActiveAnnouncements() {
 		try {
 			session = HibernateSessionFactory.getSessionFactory().openSession();
 			session.getTransaction().begin();
