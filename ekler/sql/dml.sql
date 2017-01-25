@@ -7,7 +7,7 @@ INSERT INTO announcement_type VALUES
   (-1, 'Tüm Tipler');
 
 INSERT INTO user_type (type_no, type_name, main_page, unauthorized_page) VALUES
-  (0, 'admin', 'admin/index.jsp', 'admin/erisim-izni-yok.jsp'),
+  (0, 'admin', 'studentmainpage', 'admin/erisim-izni-yok.jsp'),
   (1, 'donation_accept_unit', 'dau/index.jsp', 'dau/erisim-izni-yok.jsp'),
   (2, 'company', 'company/index.jsp', 'company/erisim-izni-yok.jsp'),
   (3, 'student', 'student/index.jsp', 'student/erisim-izni-yok.jsp') ;

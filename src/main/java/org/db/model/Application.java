@@ -15,51 +15,48 @@ import org.hibernate.annotations.GenerationTime;
 @Entity
 @Table(name = "application")
 public class Application implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@EmbeddedId
 	private ApplicationPK pk;
-	
-	 @Column(name="application_no", columnDefinition="serial")
-	 @Generated(GenerationTime.INSERT)     
-	 private int applicationNo;
-	 
-	 @Column(name = "time_to_application", nullable = false)
-	 private Date timeToApplication;
-	 
-	 @Column(name = "ip_address")
-	 private String ipAddress;
+
+	@Column(name="application_no", columnDefinition="serial")
+	@Generated(GenerationTime.INSERT)
+	private int applicationNo;
+
+	@Column(name = "time_to_application", nullable = false)
+	private Date timeToApplication;
+
+	@Column(name = "ip_address")
+	private String ipAddress;
 
 	public ApplicationPK getPk() {
-		return pk;
+	return pk;
 	}
 
 	public void setPk(ApplicationPK pk) {
-		this.pk = pk;
+	this.pk = pk;
 	}
 
 	public int getApplicationNo() {
-		return applicationNo;
+	return applicationNo;
 	}
 
 	public void setApplicationNo(int applicationNo) {
-		this.applicationNo = applicationNo;
+	this.applicationNo = applicationNo;
 	}
 
 	public Date getTimeToApplication() {
-		return timeToApplication;
+	return timeToApplication;
 	}
 
 	public void setTimeToApplication(Date timeToApplication) {
-		this.timeToApplication = timeToApplication;
+	this.timeToApplication = timeToApplication;
 	}
 
 	public String getIpAddress() {
-		return ipAddress;
+	return ipAddress;
 	}
 
 	public void setIpAddress(String ipAddress) {

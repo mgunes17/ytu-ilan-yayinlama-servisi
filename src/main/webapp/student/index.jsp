@@ -26,7 +26,8 @@
 		 <c:choose>
 			<c:when test="${user.status eq 0 }">
 				<div class="alert alert-warning">
-					Lütfen mail üzerinden hesabınızı aktif hale getiriniz.
+                    Hesabınızı aktif hale getirmeden ilanlar ile ilgili işlemler yapamazsınız.<br/>
+                    <b>Hesabınızı <a href="../activatestudentaccount">buradan</a> aktif hale getirebilirsiniz</b>
 				</div>
 			</c:when>
 		</c:choose>

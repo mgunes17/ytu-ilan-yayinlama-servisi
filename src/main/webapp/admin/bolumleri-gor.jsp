@@ -75,7 +75,7 @@
    							<div class="form-group">
    								<label for="name">Bölüm Adı</label>
    								<input type="text" name="name" id="name" class="form-control"
-                                    maxlength="70" required title="Bölüm adı 1-50 karakter uzunluğunda olmalı">
+                                    maxlength="50" required title="Bölüm adı 1-50 karakter uzunluğunda olmalı">
    							</div>
    							<input type="submit" class="btn btn-default" value="Güncelle">
    						</form>
@@ -185,9 +185,9 @@
                                 <div class="form-group">
                                     <label for="dname">Bölüm Adı</label>
                                     <input type="text" name="dname" id="dname" class="form-control"
-                                           maxlength="70" required title="Bölüm adı 1-50 karakter uzunluğunda olmalı">
+                                           maxlength="50" required title="Bölüm adı 1-50 karakter uzunluğunda olmalı">
                                 </div>
-                                <button type="submit" class="btn btn-default">Ekle</button>
+                                <button type="submit" class="btn btn-success">Ekle</button>
                             </form>
                         </div>
                     </div>

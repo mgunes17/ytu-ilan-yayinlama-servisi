@@ -20,7 +20,7 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <a href="../complaintreporttoadmin" class="btn btn-primary">
+            <a href="../complaintreporttocompany" class="btn btn-primary">
                 <span class="glyphicon glyphicon-arrow-left"></span> Listeye Dön
             </a>
             <h4><b>İlan Detayları</b></h4>

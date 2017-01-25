@@ -226,3 +226,11 @@ CREATE TABLE complaint_report (
 	operation_date timestamp NOT NULL,
 	description text NOT NULL
 );
+
+CREATE TABLE verification_code (
+	code char(8) primary key,
+	user_name varchar(20) REFERENCES users(user_name),
+	sending_time timestamp NOT NULL,
+	operation_time timestamp,
+	state varchar(20) NOT NULL
+);

@@ -132,7 +132,7 @@
                                     <tr>
                                         <td>${item.title}</td>
                                         <td>
-                                            ${fn:substring(item.brief, 0, 20)}...
+                                            ${fn:substring(item.brief, 0, 15)}...
                                             <a href="#" data-toggle="popover" data-placement="left"
                                                title="Açıklama" data-content="${item.brief}">
                                                 <span class="glyphicon glyphicon-info-sign "></span>

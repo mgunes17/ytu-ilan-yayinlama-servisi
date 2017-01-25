@@ -20,6 +20,7 @@ import org.db.model.CommunicationWay;
 import org.db.model.Department;
 import org.db.model.Student;
 import org.db.model.UserType;
+import org.mail.MailFunction;
 
 @WebServlet(name = "StudentSaveServlet", urlPatterns = {"/studentsaveservlet"})
 public class StudentSaveServlet extends HttpServlet {
@@ -56,7 +57,7 @@ public class StudentSaveServlet extends HttpServlet {
         
         StudentDAO studentDAO = new StudentHibernateImpl();
         UserDAO userDAO = new UserHibernateImpl();
-             
+
         if (userDAO.isUserExist(request.getParameter("username"))) {
         	httpSession.setAttribute("kayit", 2);
         	httpSession.setAttribute("username", request.getParameter("username"));
@@ -64,16 +65,26 @@ public class StudentSaveServlet extends HttpServlet {
         	httpSession.setAttribute("surname", request.getParameter("surname"));
         	httpSession.setAttribute("mail", request.getParameter("mail"));
         	response.sendRedirect("ogrenci-kayit.jsp");
-        } else if(studentDAO.saveStudent(student)) { //başarıyla kaydedildi
-        	httpSession.setAttribute("kayit", 1);
-        	response.sendRedirect("studentremoveformattributesservlet");
         } else {
-        	httpSession.setAttribute("kayit", 3);
-        	httpSession.setAttribute("username", request.getParameter("username"));
-        	httpSession.setAttribute("name", request.getParameter("name"));
-        	httpSession.setAttribute("surname", request.getParameter("surname"));
-        	httpSession.setAttribute("mail", request.getParameter("mail"));
-        	response.sendRedirect("ogrenci-kayit.jsp");
+            String code = studentDAO.saveStudent(student);
+            if(!code.equals("hata")) { //başarıyla kaydedildi
+                httpSession.setAttribute("kayit", 1);
+                MailFunction mailFunction = new MailFunction();
+                String subject = "Hesabınızı Aktifleştirin";
+                StringBuilder text = new StringBuilder();
+                text.append("YTÜ İlan Yayınlama Servisi' ne hoş geldiniz. ");
+                text.append("Hesabınızı aktifleştirmeniz için gerekli kod: " + code + " ");
+
+                mailFunction.send(request.getParameter("mail"), subject, text.toString());
+                response.sendRedirect("studentremoveformattributesservlet");
+            } else {
+                httpSession.setAttribute("kayit", 3);
+                httpSession.setAttribute("username", request.getParameter("username"));
+                httpSession.setAttribute("name", request.getParameter("name"));
+                httpSession.setAttribute("surname", request.getParameter("surname"));
+                httpSession.setAttribute("mail", request.getParameter("mail"));
+                response.sendRedirect("ogrenci-kayit.jsp");
+            }
         }
     }
     

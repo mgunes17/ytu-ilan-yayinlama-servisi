@@ -184,35 +184,43 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <form method = "post">
-                                            <input type = "hidden" name = "announcement" value = "${announcement.id}" >
-                                            <c:if test="${basvuruvar eq 1 }">
-                                                <input type="hidden" name="deleteUrl" value="student/ilan-detay.jsp">
-                                                <input disabled class="btn btn-primary disabled" type="submit" value="Başvur">
-                                                <input formaction="../deleteapplication" class="btn btn-warning active" type = "submit" value = "Başvuruyu Geri Çek">
-                                            </c:if>
-                                            <c:if test="${basvuruvar eq 2 }">
-                                                <input type = "submit" value = "İlana Başvur" formaction = "../applicationtoannouncement" class="btn btn-primary active">
-                                                <input disabled formaction="#" type = "submit" value = "Başvuruyu Geri Çek" class="btn btn-warning disabled">
-                                            </c:if>
+                                        <c:choose>
+                                            <c:when test="${user.status eq 0}">
+                                                <b>Hesabınzı aktif halde getirmeden işlem yapamazsınız.</b>
+                                                <b>Hesabınızı <a href="../activatestudentaccount">buradan</a> aktif hale getirebilirsiniz</b>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <form method = "post">
+                                                    <input type = "hidden" name = "announcement" value = "${announcement.id}" >
+                                                    <c:if test="${basvuruvar eq 1 }">
+                                                        <input type="hidden" name="deleteUrl" value="student/ilan-detay.jsp">
+                                                        <input disabled class="btn btn-primary disabled" type="submit" value="Başvur">
+                                                        <input formaction="../deleteapplication" class="btn btn-warning active" type = "submit" value = "Başvuruyu Geri Çek">
+                                                    </c:if>
+                                                    <c:if test="${basvuruvar eq 2 }">
+                                                        <input type = "submit" value = "İlana Başvur" formaction = "../applicationtoannouncement" class="btn btn-primary active">
+                                                        <input disabled formaction="#" type = "submit" value = "Başvuruyu Geri Çek" class="btn btn-warning disabled">
+                                                    </c:if>
 
-                                            <c:if test="${announcement.properComplaint eq true}">
-                                                <c:choose>
-                                                    <c:when test="${sikayetvar eq 2}">
-                                                        <a href="#complaintDialog"
-                                                           data-toggle="modal"
-                                                           class="open-complaintDialog btn btn-danger"
-                                                           data-id="${announcement.id}">Şikayet Et</a>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <a href="#deleteComplaintDialog"
-                                                           data-toggle="modal"
-                                                           class="delete-complaintDialog btn btn-warning"
-                                                           data-id="${announcement.id}">Şikayeti Geri Çek</a>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:if>
-                                        </form>
+                                                    <c:if test="${announcement.properComplaint eq true}">
+                                                        <c:choose>
+                                                            <c:when test="${sikayetvar eq 2}">
+                                                                <a href="#complaintDialog"
+                                                                   data-toggle="modal"
+                                                                   class="open-complaintDialog btn btn-danger"
+                                                                   data-id="${announcement.id}">Şikayet Et</a>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <a href="#deleteComplaintDialog"
+                                                                   data-toggle="modal"
+                                                                   class="delete-complaintDialog btn btn-warning"
+                                                                   data-id="${announcement.id}">Şikayeti Geri Çek</a>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:if>
+                                                </form>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </td>
                                 </tr>
                             </table>

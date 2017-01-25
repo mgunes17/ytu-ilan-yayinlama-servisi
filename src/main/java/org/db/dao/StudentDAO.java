@@ -4,5 +4,7 @@ import org.db.model.Student;
 
 public interface StudentDAO {
 	Student getStudent(String username);
-	boolean saveStudent(Student s);
+	String saveStudent(Student s);
+	int activateStudent(Student student, String code);
+    boolean isCodeExist(String code);
 }
