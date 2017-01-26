@@ -124,7 +124,7 @@
 								<th>Mesaj</th>
 								<th>Tutar</th>
 								<th>Tarih</th>
-								<th>İşlem</th> <!-- Modal Box ile yap -->
+								<th>İşlem</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -138,7 +138,7 @@
                                         </a>
 									</td>
 									<td align="right">${item.amount}</td>
-									<td><fmt:formatDate type="date" value="${item.sentDateTime}"/></td>
+									<td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.sentDateTime}"/></td>
 									<td>
 										<form>
 											<a data-id="${item.id }"

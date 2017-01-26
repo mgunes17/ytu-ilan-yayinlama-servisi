@@ -112,7 +112,8 @@
 		<jsp:include page="html/menu.html"/>
 		<div class="jumbotron container-fluid">
 			<div class="row">
-				<div class="col-md-11">
+                <div class="col-md-1"></div>
+				<div class="col-md-10">
 					<c:choose>
 						<c:when test="${donation_request eq 1}">
 							<div class="alert alert-success">
@@ -167,7 +168,6 @@
                                         <span class="glyphicon glyphicon-arrow-down"></span>
                                     </a>
                                 </th>
-								<th>Birim</th>
 								<th>İşlem</th>
 							</tr>
 						</thead>
@@ -193,7 +193,6 @@
 									<td align="right">${item.activeTime}</td>
 									<td align="right">${item.price}</td>
 									<td><fmt:formatDate  pattern="dd-MM-yyy" value="${item.lastDateUsed}"/></td>
-									<td>${item.accountInfo.ownerUnit.unitName}</td>
 									<td>
                                         <a href="#bankDetail" data-toggle="modal" data-placement="left"
                                            class="open-bankDetail btn btn-success"

@@ -42,6 +42,7 @@
                 var sentDateTime = _self.data('se');
                 var updatedDateTime = _self.data('up');
                 var dauUser = _self.data('da');
+                var dau = _self.data('dau');
                 var state = _self.data('state');
                 var answer = _self.data('answer');
                 var amount = _self.data('amount');
@@ -51,6 +52,7 @@
                 document.getElementById("content1").innerHTML = content;
                 document.getElementById("updatedDateTime1").innerHTML = updatedDateTime;
                 document.getElementById("dauUser1").innerHTML = dauUser;
+                document.getElementById("dau1").innerHTML = dau;
                 document.getElementById("state1").innerHTML = state;
                 document.getElementById("answer1").innerHTML = answer;
                 document.getElementById("sentDateTime1").innerHTML = sentDateTime;
@@ -101,6 +103,9 @@
 
                         <p><b>Miktar</b></p>
                         <p id="amount1"></p>
+
+                        <p><b>BKB</b></p>
+                        <p id="dau1"></p>
 
                         <p><b>Kullanıcı</b></p>
                         <p id="dauUser1"></p>
@@ -178,6 +183,9 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <c:if test="${fn:length(srList) eq 0}">
+                            <p>Lütfen yan panelden seçim yapınız.</p>
+                        </c:if>
                         <c:forEach var="item" items="${srList}">
                             <tr>
                                 <td>
@@ -218,6 +226,7 @@
                                        data-content="${item.content}"
                                        data-state="${item.state.title}"
                                        data-da="${item.dauUser.userName}"
+                                       data-dau="${item.dauUser.dau.unitName}"
                                        data-answer="${item.answerFromUpdater}"
                                        data-amount="${item.amount}"
                                        data-se="${item.sentDateTime}"

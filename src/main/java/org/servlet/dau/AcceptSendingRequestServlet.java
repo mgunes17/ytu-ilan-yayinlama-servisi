@@ -100,6 +100,7 @@ public class AcceptSendingRequestServlet extends HttpServlet {
                     out.write(bytes, 0, read);
                 }
 
+
                 spendingRequest.setPdfPath(fileName);
             }
 
@@ -115,7 +116,8 @@ public class AcceptSendingRequestServlet extends HttpServlet {
                     out.write(bytes, 0, read);
                 }
 
-                spendingRequest.setImagePath(imageName);
+                if(getFileName(imagePart).length() != 0)
+                    spendingRequest.setImagePath(imageName);
             }
 
             if(requestDAO.updateRequest(spendingRequest)) {

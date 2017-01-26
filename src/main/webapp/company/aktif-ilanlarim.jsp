@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="html/head.html"/>
-        <title>Aktif İlanlarım</title>
+        <title>Aktif İlanlar</title>
     </head>
     <body>
         <script>

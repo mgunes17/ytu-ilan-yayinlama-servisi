@@ -124,7 +124,13 @@
 									<td align="right">${item.packet.price}</td>
 									<td>${item.ownerCompany.companyName}</td>
 									<td align="right"><fmt:formatDate pattern="dd-MM-yyy" value="${item.timeToRequest}"/></td>
-									<td>${item.approved}</td>
+									<td>
+                                        <c:choose>
+                                            <c:when test="${item.approved eq false}">
+                                                <i>Bekleniyor</i>
+                                            </c:when>
+                                        </c:choose>
+                                    </td>
 									<td>
 										<a  href="#showMessage"
                                             data-message="${item.companyDescription}"

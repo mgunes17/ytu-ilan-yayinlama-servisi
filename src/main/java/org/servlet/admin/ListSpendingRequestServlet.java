@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +37,7 @@ public class ListSpendingRequestServlet extends HttpServlet {
         List<DonationAcceptUnit> dauList = dauDAO.getAllUnits();
         List<SpendingRequestState> states = new SRStateHibernateImpl().getAllStates();
 
+        session.setAttribute("srList", new ArrayList<SpendingRequest>());
         session.setAttribute("dauList", dauList);
         session.setAttribute("stateList", states);
 
