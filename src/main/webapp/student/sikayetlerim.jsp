@@ -143,6 +143,10 @@
                         </c:when>
                     </c:choose>
 
+                    <c:if test="${fn:length(complaintList) eq 0}">
+                        <p>Gösterilecek şikayet yok</p>
+                        <p>Yan panelden seçim yapabilirsiniz.</p>
+                    </c:if>
                     <table class="table table-hover">
                         <thead>
                             <tr>

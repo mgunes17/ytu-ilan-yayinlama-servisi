@@ -81,9 +81,8 @@
                 </tbody>
             </table>
 
-            <h4><b>Şikayet Mesajları</b></h4>
+            <h4><b>Şikayet Mesajları</b> <i>${fn:length(announcement.complaintList)} mesaj</i></h4>
             <c:forEach var="item" items="${announcement.complaintList}">
-                <b>Kullanıcı:</b>${item.student.userName}<br/>
                 <b>Mesaj:</b>${item.description}<br/><br/>
             </c:forEach>
         </div>

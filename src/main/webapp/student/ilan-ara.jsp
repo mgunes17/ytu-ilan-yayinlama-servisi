@@ -36,7 +36,7 @@
                                         <c:forEach var="item" items="${categoryList}">
                                             <c:if test="${item.id ne 0 }">
                                                 <c:if test="${item.parentCategory eq 0}">
-                                                    <option selected value="${item.id}">
+                                                    <option value="${item.id}">
                                                         <b><c:out value="${item.categoryName}"/></b>
                                                     </option>
                                                     <c:forEach var="childItem" items="${item.children}">

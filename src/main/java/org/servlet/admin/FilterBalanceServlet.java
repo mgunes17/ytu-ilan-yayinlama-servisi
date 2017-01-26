@@ -28,7 +28,8 @@ public class FilterBalanceServlet extends HttpServlet {
         HttpSession session = request.getSession();
         AccountingDAO accDAO = new AccountingHibernateImpl();
         StringBuilder query = new StringBuilder();
-        query.append("SELECT * FROM accounting WHERE date_time BETWEEN ");
+        //query.append("SELECT * FROM accounting WHERE date_time BETWEEN ");
+        query.append("SELECT * FROM accounting WHERE 1 = 1 ");
 
         List<DonationAcceptUnit> dauList = new ArrayList<DonationAcceptUnit>();
 
@@ -38,7 +39,23 @@ public class FilterBalanceServlet extends HttpServlet {
             String start = request.getParameter("from");
             String end = request.getParameter("to");
 
-            query.append(" '" + start + "' AND '" + end + "' ");
+            if(start != null) {
+                try {
+                    Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(start);
+                    query.append(" AND date_time > '" + startDate + "' ");
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(end != null) {
+                try {
+                    Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(start);
+                    query.append(" AND date_time > '" + endDate + "' ");
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
 
             String unitName = request.getParameter("department");
 

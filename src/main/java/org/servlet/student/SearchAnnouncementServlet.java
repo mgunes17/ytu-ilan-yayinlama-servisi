@@ -62,7 +62,7 @@ public class SearchAnnouncementServlet extends HttpServlet {
 
         //Dil seçimi
         if(!language.equals("alllanguages")) {
-            sql.append(" AND announcement_language = " + language + " ");
+            sql.append(" AND announcement_language = '" + language + "' ");
         }
 
         //anahtar kelimeler varsa parse et

@@ -142,8 +142,7 @@
                                     <td>${fn:length(item.appStudentList)}</td>
                                     <td>
                                         <form method="post">
-                                            <input type="hidden" name="packetId" value="${item.id}" />
-                                            <a href="../announcementdetail" class="btn btn-success" title="Detay">
+                                            <a href="../announcementdetail?packetId=${item.id}" class="btn btn-success" title="Detay">
                                                 <span class="glyphicon glyphicon-th"></span>
                                             </a>
                                             <c:choose>

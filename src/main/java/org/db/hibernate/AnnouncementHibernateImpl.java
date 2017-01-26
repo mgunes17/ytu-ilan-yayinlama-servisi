@@ -268,7 +268,7 @@ public class AnnouncementHibernateImpl extends AbstractDAO implements Announceme
 
 	public List<Announcement> getComplaintAnnouncement() {
 		String sql = "SELECT a.id, a.title, a.brief, a.content, a.number_of_page_views, a.state, a.owner_company, a.owner_packet, a.proper_complaint, " +
-                "a.announcement_type, a.announcement_language, a.announcement_category, a.announcement_language, a.publish_date, " +
+                "a.announcement_type, a.announcement_language, a.announcement_category, a.announcement_language, a.publish_date, a.visibility, " +
 				" proper_complaint, expired_date " +
                 "FROM announcement a, complaint c " +
                 "WHERE a.state = 2 and c.announcement = a.id and a.proper_complaint = TRUE " +

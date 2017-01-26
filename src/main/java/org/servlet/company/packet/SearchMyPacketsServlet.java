@@ -29,6 +29,8 @@ public class SearchMyPacketsServlet extends HttpServlet {
 
         if(state == 3) {
             query.append(" AND time_to_expired < now()");
+        } else if(state == 2) {
+            query.append(" AND time_to_expired > now()");
         } else if(state != -1) {
             query.append(" AND announcement_packet_state = " + state);
         }

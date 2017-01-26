@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 
@@ -39,6 +40,10 @@
                     </div>
                 </div>
 				<div class="col-md-7">
+                    <c:if test="${fn:length(packets) eq 0}">
+                        <p>Sonuç yok.</p>
+                        <p>Yan paneli kullanarak arama yapabilirsiniz.</p>
+                    </c:if>
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -50,14 +55,7 @@
                                         <span class="glyphicon glyphicon-arrow-down"></span>
                                     </a>
                                 </th>
-								<th>Paket Başlığı
-                                    <a href="../ordermypackets?condition=title&type=asc" title="Artan Sırala">
-                                        <span class="glyphicon glyphicon-arrow-up"></span>
-                                    </a>
-                                    <a href="../ordermypackets?condition=title&type=desc" title="Azalan Sırala">
-                                        <span class="glyphicon glyphicon-arrow-down"></span>
-                                    </a>
-                                </th>
+								<th>Paket Başlığı</th>
 								<th>Kullanılan/Kalan</th>
 								<th>Onay Zamanı
                                     <a href="../ordermypackets?condition=time_to_approved&type=asc" title="Artan Sırala">
@@ -85,7 +83,7 @@
 									<td>${item.packet.title}</td>
 									<td align="right">${item.usedAnnouncements}/${item.packet.announcementCount - item.usedAnnouncements}</td>
 									<td align="right"><fmt:formatDate pattern="dd-MM-yyyy" value="${item.timeToApproved}"/></td>
-									<td align="right"><fmt:formatDate pattern="dd-MM-yyyy" value="${item.packet.lastDateUsed}"/></td>
+									<td align="right"><fmt:formatDate pattern="dd-MM-yyyy" value="${item.timeToExpired}"/></td>
                                     <td>
 
                                     </td>

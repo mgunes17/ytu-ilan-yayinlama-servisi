@@ -37,7 +37,7 @@
                         <tbody>
                             <c:forEach var="item" items="${packetList}">
                                 <tr>
-                                    <td><fmt:formatDate type="date" value="${item.timeToRequest}"/></td>
+                                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.timeToRequest}"/></td>
                                     <td>${item.packet.title}</td>
                                     <td>${item.packet.accountInfo.ownerUnit.unitName}</td>
                                     <td align="right">${item.packet.price}</td>

@@ -9,7 +9,8 @@ import org.db.model.AnnouncementCategory;
 
 public class AnnouncementCategoryHibernateImpl extends AbstractDAO implements AnnouncementCategoryDAO {
 	public List<AnnouncementCategory> getAllCategories() {
-		return (List<AnnouncementCategory>) getAllRows(AnnouncementCategory.class);
+	    String sql = "SELECT * FROM announcement_category ORDER BY id;";
+		return  getRowsBySQLQuery(AnnouncementCategory.class, sql);
 	}
 
 	public boolean saveCategory(AnnouncementCategory category) {
