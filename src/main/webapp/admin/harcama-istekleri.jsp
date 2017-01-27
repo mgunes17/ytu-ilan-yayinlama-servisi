@@ -136,9 +136,18 @@
                                     <label for="state">Durum</label>
                                     <select name="state" id="state" class="form-control">
                                         <c:forEach var="item" items="${stateList}">
-                                            <option value="${item.id}">
-                                                <c:out value="${item.title}"/>
-                                            </option>
+                                            <c:choose>
+                                                <c:when test="${item.id eq -1}">
+                                                    <option selected value="${item.id}">
+                                                        <c:out value="${item.title}"/>
+                                                    </option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${item.id}">
+                                                        <c:out value="${item.title}"/>
+                                                    </option>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -146,9 +155,18 @@
                                     <label for="dau">Birim</label>
                                     <select name="department" id="dau" class="form-control">
                                         <c:forEach var="item" items="${dauList}">
-                                            <option value="${item.unitName}">
-                                                <c:out value="${item.unitName}"/>
-                                            </option>
+                                            <c:choose>
+                                                <c:when test="${item.unitName eq 'Tüm Birimler'}">
+                                                    <option selected value="${item.unitName}">
+                                                        <c:out value="${item.unitName}"/>
+                                                    </option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${item.unitName}">
+                                                        <c:out value="${item.unitName}"/>
+                                                    </option>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:forEach>
                                     </select>
                                 </div>

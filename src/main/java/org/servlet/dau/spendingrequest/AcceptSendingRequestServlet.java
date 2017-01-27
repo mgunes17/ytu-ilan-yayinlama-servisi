@@ -1,4 +1,4 @@
-package org.servlet.dau;
+package org.servlet.dau.spendingrequest;
 
 import java.io.*;
 import java.util.Date;
@@ -14,6 +14,7 @@ import org.db.compositePK.AccountingPK;
 import org.db.dao.AccountingDAO;
 import org.db.dao.SpendingRequestDAO;
 import org.db.hibernate.AccountingHibernateImpl;
+import org.db.hibernate.DauHibernateImpl;
 import org.db.hibernate.SpendingRequestHibernateImpl;
 import org.db.hibernate.UserHibernateImpl;
 import org.db.model.Accounting;
@@ -120,13 +121,22 @@ public class AcceptSendingRequestServlet extends HttpServlet {
                     spendingRequest.setImagePath(imageName);
             }
 
-            if(requestDAO.updateRequest(spendingRequest)) {
-                session.setAttribute("istekguncelle", 1);
-                SpendingRequestDAO spendingDAO = new SpendingRequestHibernateImpl();
-                List<SpendingRequest> spendingRequestList = spendingDAO.listSpendingRequest(dauUser.getDau().getUnitName(), 1);
-                session.setAttribute("spendingList", spendingRequestList);
+            //vakfın bakiyesi yeterli mi kontrol et
+            DauUser user = (DauUser) session.getAttribute("user");
+            int currentBalance = new DauHibernateImpl().getUnit(user.getDau().getUnitName()).getBalance();
+            int spendingAmount = requestDAO.getSpendingRequest(requestId).getAmount();
+
+            if(spendingAmount > currentBalance) {
+                session.setAttribute("istekguncelle", 5);
             } else {
-                session.setAttribute("istekguncelle", 2);
+                if(requestDAO.updateRequest(spendingRequest)) {
+                    session.setAttribute("istekguncelle", 1);
+                    String query = (String) session.getAttribute("spendingRequestQuery");
+                    List<SpendingRequest> spendingRequestList = new SpendingRequestHibernateImpl().getSpendingRequestByQuery(query);
+                    session.setAttribute("spendingList", spendingRequestList);
+                } else {
+                    session.setAttribute("istekguncelle", 2);
+                }
             }
 
             response.sendRedirect("dau/harcama-istekleri.jsp");

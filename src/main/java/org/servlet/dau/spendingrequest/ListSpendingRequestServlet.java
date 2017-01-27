@@ -1,6 +1,7 @@
-package org.servlet.dau;
+package org.servlet.dau.spendingrequest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,10 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.db.dao.DauUserDAO;
+import org.db.dao.DonationAcceptUnitDAO;
 import org.db.dao.SpendingRequestDAO;
+import org.db.hibernate.DauHibernateImpl;
+import org.db.hibernate.DauUserHibernateImpl;
+import org.db.hibernate.SRStateHibernateImpl;
 import org.db.hibernate.SpendingRequestHibernateImpl;
 import org.db.model.DauUser;
 import org.db.model.SpendingRequest;
+import org.db.model.SpendingRequestState;
 
 /**
  * Servlet implementation class ListSpendingRequestServlet
@@ -44,11 +51,18 @@ public class ListSpendingRequestServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		DauUser user = (DauUser) session.getAttribute("user");
 		
-		SpendingRequestDAO spendingDAO = new SpendingRequestHibernateImpl();
-		List<SpendingRequest> spendingRequestList = spendingDAO.listSpendingRequest(user.getDau().getUnitName(), 1);
-		
+		//SpendingRequestDAO spendingDAO = new SpendingRequestHibernateImpl();
+		//List<SpendingRequest> spendingRequestList = spendingDAO.listSpendingRequest(user.getDau().getUnitName(), 1);
+
+        DauUserDAO dauUserDAO = new DauUserHibernateImpl();
+        List<DauUser> dauUsers = dauUserDAO.getUsersFromDau(user.getDau().getUnitName());
+
+        List<SpendingRequestState> states = new SRStateHibernateImpl().getAllStates();
+        session.setAttribute("stateList", states);
+
+		session.setAttribute("userList", dauUsers);
 		session.setAttribute("istekguncelle", 0);
-		session.setAttribute("spendingList", spendingRequestList);
+		session.setAttribute("spendingList", new ArrayList<SpendingRequest>());
 		
 		response.sendRedirect("dau/harcama-istekleri.jsp");
 	}

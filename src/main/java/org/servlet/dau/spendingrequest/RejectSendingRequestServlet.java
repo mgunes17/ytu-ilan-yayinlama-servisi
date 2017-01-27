@@ -1,4 +1,4 @@
-package org.servlet.dau;
+package org.servlet.dau.spendingrequest;
 
 import java.io.IOException;
 import java.util.Date;
@@ -43,9 +43,10 @@ public class RejectSendingRequestServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		
-		int requestId = Integer.parseInt((String)request.getParameter("requestId"));
+		int requestId = Integer.parseInt(request.getParameter("requestId"));
 		String answer = request.getParameter("description");
 		DauUser dauUser = (DauUser) session.getAttribute("user");
 		
@@ -57,17 +58,16 @@ public class RejectSendingRequestServlet extends HttpServlet {
 		spendingRequest.setDauUser(dauUser);
 		spendingRequest.setState(new SpendingRequestState(3));
 		
-		
-		
 		if(requestDAO.updateRequest(spendingRequest)) {
 			session.setAttribute("istekguncelle", 3);
 			SpendingRequestDAO spendingDAO = new SpendingRequestHibernateImpl();
-			List<SpendingRequest> spendingRequestList = spendingDAO.listSpendingRequest(dauUser.getDau().getUnitName(), 1);
+            String query = (String) session.getAttribute("spendingRequestQuery");
+            List<SpendingRequest> spendingRequestList = spendingDAO.getSpendingRequestByQuery(query);
 			session.setAttribute("spendingList", spendingRequestList);
 		} else {
 			session.setAttribute("istekguncelle", 4);
 		}
-		
+
 		response.sendRedirect("dau/harcama-istekleri.jsp");
 	}
 

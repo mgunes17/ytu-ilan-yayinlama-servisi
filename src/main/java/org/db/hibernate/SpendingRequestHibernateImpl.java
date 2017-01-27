@@ -22,7 +22,7 @@ public class SpendingRequestHibernateImpl extends AbstractDAO implements Spendin
 		try {
 			session = HibernateSessionFactory.getSessionFactory().openSession();
 			Transaction tx = session.beginTransaction();
-			String sql = "SELECT sum(amount) FROM spending_request WHERE dau=" + "'" + unitName + "';"; 
+			String sql = "SELECT sum(amount) FROM spending_request WHERE dau=" + "'" + unitName + "' AND state = 1";
 			SQLQuery query = session.createSQLQuery(sql);
 			totalRequestAmount = Integer.parseInt(query.list().get(0).toString());
 			tx.commit();

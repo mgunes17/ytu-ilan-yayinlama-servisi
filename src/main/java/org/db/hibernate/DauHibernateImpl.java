@@ -3,10 +3,7 @@ package org.db.hibernate;
 import java.util.List;
 
 import org.db.dao.DonationAcceptUnitDAO;
-import org.db.model.Accounting;
-import org.db.model.BankAccountInfo;
-import org.db.model.CompanyOwnPacket;
-import org.db.model.DonationAcceptUnit;
+import org.db.model.*;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
@@ -88,6 +85,11 @@ public class DauHibernateImpl extends AbstractDAO implements DonationAcceptUnitD
         deleteDauCascade(user);
         deleteDauCascade(user2);
         return deleteDauCascade(dau);
+	}
+
+	public List<DauUser> getSiblingUsers(String unitName) {
+		String sql = "SELECT * FROM dau_user WHERE unit_name = '" + unitName + "';";
+		return getRowsBySQLQuery(DauUser.class, sql);
 	}
 
 	private boolean deleteDauCascade(String sql) {

@@ -50,8 +50,8 @@ public class FilterBalanceServlet extends HttpServlet {
 
             if(end != null) {
                 try {
-                    Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(start);
-                    query.append(" AND date_time > '" + endDate + "' ");
+                    Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(end);
+                    query.append(" AND date_time < '" + endDate + "' ");
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

@@ -69,7 +69,7 @@
 												<c:out value="${item.userName}"/>
 											</option>
 										</c:forEach>
-                                        <option value="all">
+                                        <option selected value="all">
                                             <c:out value="Tüm Kullanýcýlar"/>
                                         </option>
 									</select>
@@ -95,6 +95,9 @@
                 </div>
 				<div class="col-md-6">
 					<h4>BKB bakiyesi: ${user.dau.balance}</h4>
+                    <c:if test="${fn:length(accounting) eq 0}">
+                        <p>Kayýtlarý görmek için paneli kullanýn</p>
+                    </c:if>
 					
 					<table class="table table-hover">
 						<thead>
