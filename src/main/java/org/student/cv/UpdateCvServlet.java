@@ -1,6 +1,7 @@
 package org.student.cv;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.db.dao.StudentDAO;
+import org.db.hibernate.EducationInfoHibernateImpl;
 import org.db.hibernate.StudentHibernateImpl;
+import org.db.model.EducationInfo;
 import org.db.model.Student;
 import org.db.model.User;
 
@@ -46,7 +49,12 @@ public class UpdateCvServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("iletisim", 0);
-		
+		session.setAttribute("personal", 0);
+        session.setAttribute("egitim", 0);
+
+        List<EducationInfo> educationInfoList = new EducationInfoHibernateImpl().getByStudent(student.getUserName());
+
+        session.setAttribute("educationList", educationInfoList);
 		session.setAttribute("commWays", student.getCommWays());
 		response.sendRedirect("student/cv-duzenle.jsp");
 	}

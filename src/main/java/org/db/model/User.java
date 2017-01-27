@@ -41,6 +41,9 @@ public class User implements Serializable {
     fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<CommunicationWay> commWays = new ArrayList<CommunicationWay>();
 
+	@Column(name = "birth_date")
+	private int birthDate;
+
 	public User() {
 	}
 
@@ -89,4 +92,12 @@ public class User implements Serializable {
 	public void setUserTypeNo(UserType userType) {
 		this.userType = userType;
 	}
+
+    public int getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(int birthDate) {
+        this.birthDate = birthDate;
+    }
 }

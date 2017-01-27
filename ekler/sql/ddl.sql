@@ -14,7 +14,8 @@ CREATE TABLE users (
   user_name  varchar(20) PRIMARY KEY,
   passwordFor varchar(16) NOT NULL,
   user_type_no smallint REFERENCES user_type(type_no),
-  membership_status int REFERENCES membership_status(id)
+  membership_status int REFERENCES membership_status(id),
+  birth_date int DEFAULT 0,
 );
 
 CREATE TABLE student (
@@ -240,4 +241,14 @@ CREATE TABLE global_parameter (
 	name varchar(50) primary key,
 	value varchar(200) NOT NULL,
 	type varchar(50) NOT NULL
+);
+
+CREATE TABLE education_info(
+	id int primary key,
+	student varchar(20) REFERENCES student(user_name),
+	school varchar(100) NOT NULL,
+	department varchar(50),
+	start_date int NOT NULL,
+	end_date int DEFAULT 0,
+	degree varchar(40)
 );

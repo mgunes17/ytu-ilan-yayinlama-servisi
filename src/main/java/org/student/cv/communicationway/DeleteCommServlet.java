@@ -1,4 +1,4 @@
-package org.student.cv;
+package org.student.cv.communicationway;
 
 import java.io.IOException;
 
@@ -9,26 +9,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.db.compositePK.CommunicationWayPK;
 import org.db.dao.CommunicationWayDAO;
 import org.db.dao.StudentDAO;
 import org.db.hibernate.CommunicationWayHibernateImpl;
 import org.db.hibernate.StudentHibernateImpl;
-import org.db.model.CommunicationWay;
 import org.db.model.Student;
 import org.db.model.User;
 
 /**
- * Servlet implementation class UpdateCommWayServlet
+ * Servlet implementation class DeleteCommServlet
  */
-@WebServlet("/updatecommway")
-public class UpdateCommWayServlet extends HttpServlet {
+@WebServlet("/deletecommwaystudent")
+public class DeleteCommServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateCommWayServlet() {
+    public DeleteCommServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,26 +43,21 @@ public class UpdateCommWayServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String title = request.getParameter("commTitle");
-		String value = request.getParameter("commValue");
-		User user = (User) request.getSession().getAttribute("user");
+        session.setAttribute("personal", 0);
+        session.setAttribute("egitim", 0);
+
+		String title = request.getParameter("type");
+		String value = request.getParameter("value");
 		
-		CommunicationWayPK pk = new CommunicationWayPK();
-		pk.setCommType(title);
-		pk.setCommValue(value);
+		CommunicationWayDAO wayDAO = new CommunicationWayHibernateImpl();
 		
-		CommunicationWay way = new CommunicationWay();
-		way.setPk(pk);
-		way.setUser(user);
-		
-		CommunicationWayDAO commDAO = new CommunicationWayHibernateImpl();
-		
-		if(commDAO.saveCommWay(way)) {
-			session.setAttribute("iletisim", 1);
+		if(wayDAO.deleteCommWay(title, value)) {
+			session.setAttribute("iletisim", 3);
 		} else {
-			session.setAttribute("iletisim", 2);
+			session.setAttribute("iletisim", 4);
 		}
 		
+		User user = (User) request.getSession().getAttribute("user");
 		StudentDAO studentDAO = new StudentHibernateImpl();
 		Student student = studentDAO.getStudent(user.getUserName());
 		session.setAttribute("commWays", student.getCommWays());

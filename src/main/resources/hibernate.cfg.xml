@@ -44,5 +44,7 @@
     <mapping class="org.db.model.ComplaintReport"/>
     <mapping class="org.db.model.VerificationCode"/>
     <mapping class="org.db.model.GlobalParameter"/>
+    <mapping class="org.db.model.EducationInfo"/>
+
   </session-factory>
 </hibernate-configuration>
