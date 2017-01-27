@@ -24,7 +24,8 @@ INSERT INTO membership_status (id, status) VALUES
   (2, 'süreli cezalı'),
   (3, 'süresiz cezalı'),
   (4, 'admin onayı bekleniyor'),
-  (5, 'kullanıcı tarafından pasif hale getirilmiş');
+  (5, 'kullanıcı tarafından pasif hale getirilmiş'),
+  (6, 'yeni şifre belirlemek zorunda');
 
 INSERT INTO currency VALUES
   (1, 'Türk Lirası'),

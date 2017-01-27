@@ -2,7 +2,10 @@ package org.db.hibernate;
 
 import org.db.dao.UserDAO;
 import org.db.model.User;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+
+import java.util.List;
 
 public class UserHibernateImpl extends AbstractDAO implements UserDAO {
 	private Session session;
@@ -24,6 +27,32 @@ public class UserHibernateImpl extends AbstractDAO implements UserDAO {
 		}
 	}
 
+	public User getUserByMail(String mail) {
+		String query = "SELECT u.user_name " +
+                " FROM users u, communication_way c " +
+                " WHERE comm_value = '" + mail + "' AND comm_type = 'mail' AND u.user_name = c.user_name;";
+        String username;
+
+        try {
+            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session.getTransaction().begin();
+            SQLQuery sqlQuery = session.createSQLQuery(query);
+            username = (String)sqlQuery.list().get(0);
+            session.getTransaction().commit();
+            User user = getUser(username);
+            return user;
+        } catch (Exception ex) {
+            session.getTransaction().begin();
+            ex.printStackTrace();
+            System.out.println("Kullanıcı mail ile getirilemedi " + ex.getMessage());
+            return null;
+        } finally {
+            if(session.isOpen())
+                session.close();
+        }
+
+	}
+
 	public boolean isUserExist(String username) {
 		User user = getUser(username);
 
@@ -35,18 +64,6 @@ public class UserHibernateImpl extends AbstractDAO implements UserDAO {
 	}
 
 	public boolean update(Object user) {
-		try {
-			session = HibernateSessionFactory.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.update(user);
-			session.getTransaction().commit();
-			return true;
-		} catch (Exception ex) {
-			System.out.println("kullanıcı bilgileri güncellenemedi");
-			session.getTransaction().rollback();
-			return false;
-		} finally {
-			session.close();
-		}
+		return save(user);
 	}
 }

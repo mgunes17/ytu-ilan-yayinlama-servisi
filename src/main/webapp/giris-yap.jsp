@@ -44,6 +44,8 @@
 	        </c:choose>
             <input type="submit" value="Giriş Yap"/>
         </form>
+
+		<a href="../newpasswordrequest" class="btn btn-primary">Parolamı Unuttum</a>
     </div>
     <jsp:include page="html/footer.html"/>
 </body>

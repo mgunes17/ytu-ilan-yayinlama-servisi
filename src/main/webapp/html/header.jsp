@@ -48,7 +48,7 @@
           <p>Üye değil misininiz?</p>
           <p><a href="studentsaveinitializeservlet">Öğrenci kayıt</a></p>
           <p><a href="companysaveinitializeservlet">Şirket Kayıt</a></p>
-          <p><a href="#" class="btn btn-info">Parolamı Unuttum</a></p>
+          <p><a href="newpasswordrequest" class="btn btn-info">Parolamı Unuttum</a></p>
         </div>
       </div>
       
