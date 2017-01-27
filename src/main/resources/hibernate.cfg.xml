@@ -43,5 +43,6 @@
     <mapping class="org.db.model.Interests"/>
     <mapping class="org.db.model.ComplaintReport"/>
     <mapping class="org.db.model.VerificationCode"/>
+    <mapping class="org.db.model.GlobalParameter"/>
   </session-factory>
 </hibernate-configuration>

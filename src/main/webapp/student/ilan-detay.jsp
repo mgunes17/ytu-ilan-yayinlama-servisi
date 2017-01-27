@@ -180,7 +180,7 @@
                                 </tr>
                                 <tr>
                                     <th>Yayınlanma Tarihi</th>
-                                    <td><fmt:formatDate value="${announcement.publishDate }"/></td>
+                                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${announcement.publishDate }"/></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">

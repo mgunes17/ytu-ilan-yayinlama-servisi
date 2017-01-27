@@ -235,3 +235,9 @@ CREATE TABLE verification_code (
 	operation_time timestamp,
 	state varchar(20) NOT NULL
 );
+
+CREATE TABLE global_parameter (
+	name varchar(50) primary key,
+	value varchar(200) NOT NULL,
+	type varchar(50) NOT NULL
+);

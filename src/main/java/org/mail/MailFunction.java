@@ -3,6 +3,9 @@ package org.mail;
 /**
  * Created by mgunes on 25.01.2017.
  */
+import org.db.dao.GlobalParameterDAO;
+import org.db.hibernate.GlobalParameterHibernateImpl;
+import org.db.model.GlobalParameter;
 import org.hibernate.Session;
 
 import javax.activation.DataHandler;
@@ -15,19 +18,25 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Properties;
 
 public class MailFunction {
     private String senderMail = null; //yeni mail açman lazım
     private String username = null; //sender mail ile aynı
     private String password = null; //mail in şifresi vt den oku - admine arayüz yap
-    private String host = null; //altta atanmış zaten dokunma
+    private String host = null;
+    private String port = null;
+    private Map<String, String> mailParameter;
 
     public MailFunction() {
-        senderMail = "ytu.ilanservisi@gmail.com";
-        username = "ytu.ilanservisi@gmail.com";
-        password = "ytu.ilanservisi1717";
-        host = "smtp.gmail.com";
+        GlobalParameterDAO parameterDAO = new GlobalParameterHibernateImpl();
+        mailParameter = parameterDAO.getParameters("mail");
+        senderMail = mailParameter.get("Mail Adresi");
+        username = mailParameter.get("Kullanıcı Adı");
+        password = mailParameter.get("Mail Parola");
+        host = mailParameter.get("Host");
+        port = mailParameter.get("Port");
     }
 
     public void send(final String to, final String subject, final String text) {
@@ -37,7 +46,7 @@ public class MailFunction {
                 props.put("mail.smtp.auth", "true");
                 props.put("mail.smtp.starttls.enable", "true");
                 props.put("mail.smtp.host", host);
-                props.put("mail.smtp.port", "587");
+                props.put("mail.smtp.port", port);
 
                 javax.mail.Session session;
                 session = javax.mail.Session.getInstance(props, new javax.mail.Authenticator() {

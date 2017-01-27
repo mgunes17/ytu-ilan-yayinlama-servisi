@@ -69,3 +69,10 @@ INSERT INTO announcement_category (id, category_name, parent_category_id)  VALUE
 
 INSERT INTO donation_accept_unit (unit_name, balance) VALUES
   ('Tüm Birimler', 0);
+
+INSERT INTO global_parameter (name, value, type) VALUES
+	('Mail Adresi', 'ytu.ilanservisi@gmail.com', 'mail'),
+	('Mail Parola', 'ytu.ilanservisi1717', 'mail'),
+	('Kullanıcı Adı', 'ytu.ilanservisi@gmail.com', 'mail'),
+	('Host', 'smtp.gmail.com', 'mail'),
+	('Port', '587', 'mail');
