@@ -12,7 +12,8 @@ public class PacketStateHibernateImpl extends AbstractDAO implements Announcemen
 	}
 
 	public List<AnnouncementPacketState> getAllStates() {
-		return (List<AnnouncementPacketState>) getAllRows(AnnouncementPacketState.class);
+		String query = "SELECT * FROM announcement_packet_state ORDER BY id;";
+		return getRowsBySQLQuery(AnnouncementPacketState.class, query);
 	}
 
 }

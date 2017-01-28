@@ -57,7 +57,7 @@
                         <p>Fatura/ödeme bilgisine ait görüntü veya pdf ekleyiniz.</p>
                         <form method="post" action="../donationrequestservlet" enctype="multipart/form-data">
                             <div class="form-group">
-                                <textarea rows="10" cols="40" name="description">Açıklama..</textarea>
+                                <textarea rows="10" cols="40" name="description" class="form-control">Açıklama..</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="file">Dosya Yükleyin</label>

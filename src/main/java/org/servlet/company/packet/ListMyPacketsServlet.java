@@ -43,6 +43,7 @@ public class ListMyPacketsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		session.setAttribute("ikinciistek", 0);
 		Company company = (Company) session.getAttribute("user");
 		List<CompanyOwnPacket> packets = company.getPackets();
 
@@ -51,7 +52,7 @@ public class ListMyPacketsServlet extends HttpServlet {
 		String query = "SELECT * FROM company_own_packet WHERE owner_company = '" + company.getUserName() + "' ";
 
         session.setAttribute("paketsorgu", query.toString());
-		session.setAttribute("packets", packets);
+		//session.setAttribute("packets", packets);
         session.setAttribute("packetStates", packetStateList);
 		response.sendRedirect("company/paketlerim.jsp");
 	}

@@ -1,13 +1,4 @@
-package org.servlet.packet;
-
-import java.io.*;
-import java.util.Date;
-import java.util.Random;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+package org.servlet.company;
 
 import org.db.dao.AnnouncementPacketDAO;
 import org.db.dao.AnnouncementPacketStateDAO;
@@ -20,54 +11,36 @@ import org.db.model.AnnouncementPacketState;
 import org.db.model.Company;
 import org.db.model.CompanyOwnPacket;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
 /**
- * Servlet implementation class DonatedPacket
+ * Created by mgunes on 28.01.2017.
  */
-@WebServlet("/donationrequestservlet")
 @MultipartConfig
-public class DonationRequestServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DonationRequestServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+@WebServlet(name = "SecondDonationRequestServlet", urlPatterns = {"/seconddonationrequest"})
+public class SecondDonationRequestServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    request.setCharacterEncoding("UTF-8");
-
-        System.out.println(request.getParameter("packetId"));
         System.out.println(request.getParameter("description"));
+        System.out.println(request.getParameter("packetId"));
         int packetId = Integer.parseInt(request.getParameter("packetId"));
-		
-		AnnouncementPacketDAO annDAO = new AnnouncementPacketHibernateImpl();
-		AnnouncementPacket packet = annDAO.getPacket(packetId);
-		
-		AnnouncementPacketStateDAO stateDAO = new PacketStateHibernateImpl();
-		AnnouncementPacketState state = stateDAO.getPacketState(1);
-		
-		HttpSession httpSession = request.getSession();
-		Company company = (Company) httpSession.getAttribute("user");
-		
-		CompanyOwnPacket cop = new CompanyOwnPacket();
-		cop.setOwnerCompany(company);
-		cop.setPacket(packet);
-		cop.setTimeToRequest(new Date());
-		cop.setState(state);
-		cop.setCompanyDescription(request.getParameter("description"));
+        String description = request.getParameter("description");
+
+        HttpSession httpSession = request.getSession();
+
+        CompanyOwnPacket cop = new CompanyOwnPacketHibernateImpl().getPacket(packetId);
+        cop.setTimeToRequest(new Date());
+        cop.setSecondCompanyDescription(description);
+        cop.setState(new AnnouncementPacketState(6));
 
 
         //dosyayı kaydet
@@ -99,18 +72,21 @@ public class DonationRequestServlet extends HttpServlet {
                     out.write(bytes, 0, read);
                 }
 
-                cop.setFilePath(fileName);
+                cop.setSecondFilePath(fileName);
             }
 
             CompanyOwnPacketDAO copDAO = new CompanyOwnPacketHibernateImpl();
 
             if(copDAO.save(cop)) {
-                httpSession.setAttribute("donation_request", 1);
+                Company company = (Company) session.getAttribute("user");
+                List<CompanyOwnPacket> packets = company.getPackets();
+                session.setAttribute("packets", packets);
+                httpSession.setAttribute("ikinciistek", 1);
             } else {
-                httpSession.setAttribute("donation_request", 2);
+                httpSession.setAttribute("ikinciistek", 2);
             }
 
-            response.sendRedirect("company/paketleri-gor.jsp");
+            response.sendRedirect("company/paketlerim.jsp");
         } catch (FileNotFoundException fne) {
             writer.println("You either did not specify a file to upload or are "
                     + "trying to upload a file to a protected or nonexistent "
@@ -127,8 +103,7 @@ public class DonationRequestServlet extends HttpServlet {
                 writer.close();
             }
         }
-
-	}
+    }
 
     private String getFileName(final Part part) {
         final String partHeader = part.getHeader("content-disposition");
@@ -139,5 +114,9 @@ public class DonationRequestServlet extends HttpServlet {
             }
         }
         return null;
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
     }
 }

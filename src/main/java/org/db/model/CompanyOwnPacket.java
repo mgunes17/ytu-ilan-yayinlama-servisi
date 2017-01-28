@@ -60,8 +60,20 @@ public class CompanyOwnPacket implements Serializable {
 	@Column(name = "file_path")
 	private String filePath;
 
+	@Column(name = "second_file_path")
+	private String secondFilePath;
+
     @Column(name = "company_description")
     private String companyDescription;
+
+    @Column(name = "second_company_description")
+    private String secondCompanyDescription;
+
+    @Column(name = "dau_description")
+    private String dauDescription;
+
+    @Column(name = "second_dau_description")
+    private String secondDauDescription;
 
 	public CompanyOwnPacket() {
 		super();
@@ -161,5 +173,37 @@ public class CompanyOwnPacket implements Serializable {
 
     public void setCompanyDescription(String companyDescription) {
         this.companyDescription = companyDescription;
+    }
+
+    public String getSecondFilePath() {
+        return secondFilePath;
+    }
+
+    public void setSecondFilePath(String secondFilePath) {
+        this.secondFilePath = secondFilePath;
+    }
+
+    public String getDauDescription() {
+        return dauDescription;
+    }
+
+    public String getSecondDauDescription() {
+        return secondDauDescription;
+    }
+
+    public void setSecondDauDescription(String secondDauDescription) {
+        this.secondDauDescription = secondDauDescription;
+    }
+
+    public void setDauDescription(String dauDescription) {
+        this.dauDescription = dauDescription;
+    }
+
+    public String getSecondCompanyDescription() {
+        return secondCompanyDescription;
+    }
+
+    public void setSecondCompanyDescription(String secondCompanyDescription) {
+        this.secondCompanyDescription = secondCompanyDescription;
     }
 }

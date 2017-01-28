@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -28,6 +29,14 @@
                 var _self = $(this);
                 var id = _self.data('id');
                 $("#packetId").val(id);
+                $(_self.attr('href')).modal('show');
+            });
+
+            $(document).on("click", ".open-rejectRequestModal", function (e) {
+                e.preventDefault();
+                var _self = $(this);
+                var id = _self.data('id');
+                $("#id2").val(id);
                 $(_self.attr('href')).modal('show');
             });
 
@@ -82,30 +91,66 @@
             </div>
         </div>
 
+		<div class="modal fade" id="rejectRequestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<p><b>Bağış İsteğini Reddet</b></p>
+						<form method="post" action="../rejectdonation">
+							<input type="hidden" name="id" id="id2">
+                            <div class="form-group">
+                                <label>Açıklamanız</label>
+                                <textarea rows="5" cols="50" name="content" id="content" class="form-control"></textarea>
+                            </div>
+							<button type="submit" class="btn btn-default">Gönder</button>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	    <jsp:include page="html/menu.html"></jsp:include>
 		<div class="jumbotron container-fluid">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-5">
+                    <c:choose>
+                        <c:when test="${onaylandi eq 1}">
+                            <div class="alert alert-success">
+                                Talebi başarıyla onayladınız.<br/>
+                                Vakfınız adına onaylanmış paketlere <a href="#">buradan</a> ulaşabilirsiniz.
+                            </div>
+                        </c:when>
+                        <c:when test="${onaylandi eq 2}">
+                            <div class="alert alert-danger">
+                                Talep onaylanırken bir hata oluştu.
+                                Lütfen daha sonra tekrar deneyiniz.
+                            </div>
+                        </c:when>
+                        <c:when test="${onaylandi eq 3}">
+                            <div class="alert alert-success">
+                                Talep Reddedildi.
+                            </div>
+                        </c:when>
+                        <c:when test="${onaylandi eq 4}">
+                            <div class="alert alert-danger">
+                                Talep onaylanırken bir hata oluştu.
+                                Lütfen daha sonra tekrar deneyiniz.
+                            </div>
+                        </c:when>
+                    </c:choose>
+                </div>
+            </div>
 			<div class="row">
 				<div class="col-md-2"></div>
-				<div class="col-md-8">
+				<div class="col-md-9">
 					<p><b>Onay Bekleyen Bağışlar</b></p>
-
-					<c:choose>
-						<c:when test="${onaylandi eq 1}">
-							<div class="alert alert-success">
-								Talebi başarıyla onayladınız.
-							</div>
-							<div class="alert alert-info">
-								Vakfınız adına onaylanmış paketlere <a href="#">buradan</a> ulaşabilirsiniz.
-							</div>
-						</c:when>
-						<c:when test="${onaylandi eq 2}">
-							<div class="alert alert-danger">
-								Talep onaylanırken bir hata oluştu.
-								Lütfen daha sonra tekrar deneyiniz.
-							</div>
-						</c:when>
-					</c:choose>
-
+                    <c:if test="${fn:length(packet) eq 0 }">
+                        <p><i>Bekleyen istek yok.</i></p>
+                    </c:if>
 					<table class="table table-hovered">
 						<thead>
 							<tr>
@@ -133,7 +178,7 @@
                                     </td>
 									<td>
 										<a  href="#showMessage"
-                                            data-message="${item.companyDescription}"
+                                            data-message="İlk Açıklama: ${item.companyDescription} İkinci Açıklama: ${item.secondCompanyDescription}"
                                             title="Mesajı Oku"
                                             data-toogle="modal"
                                             class="show-message btn btn-info">
@@ -141,9 +186,18 @@
                                         </a>
                                         <c:if test="${item.filePath ne null}">
                                             <a href="#downloadFile2"
-                                               title="Dosya İndir"
+                                               title="1.Ödeme belgesini indir"
                                                data-type="ortak"
                                                data-path="${item.filePath}"
+                                               class="download-file btn btn-success"
+                                               data-toggle="modal"><span class="glyphicon glyphicon-paperclip"></span>
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${item.secondFilePath ne null}">
+                                            <a href="#downloadFile2"
+                                               title="2.Ödeme belgesini indir"
+                                               data-type="ortak"
+                                               data-path="${item.secondFilePath}"
                                                class="download-file btn btn-success"
                                                data-toggle="modal"><span class="glyphicon glyphicon-paperclip"></span>
                                             </a>
@@ -158,8 +212,8 @@
                                         <a data-id="${item.id }"
                                            data-toggle="modal"
                                            title="Reddet"
-                                           class="open-writeReply btn btn-danger"
-                                           href="#">
+                                           class="open-rejectRequestModal btn btn-danger"
+                                           href="#rejectRequestModal">
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </a>
 									</td>

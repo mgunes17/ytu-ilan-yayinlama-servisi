@@ -25,6 +25,10 @@ public class AnnouncementPacketState implements Serializable {
 	public AnnouncementPacketState() {
 		super();
 	}
+	public AnnouncementPacketState(int id) {
+		super();
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;

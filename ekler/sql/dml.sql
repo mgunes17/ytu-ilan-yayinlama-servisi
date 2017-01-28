@@ -36,7 +36,10 @@ INSERT INTO announcement_packet_state (id, title) VALUES
   (-1, 'Tümü'),
   (1, 'Onay Bekleniyor'),
   (2, 'Kullanılabilir'),
-  (3, 'Kullanım süresi sona erdi');
+  (3, 'Kullanım süresi sona erdi'),
+  (4, 'İkinci Ödeme Şansı'),
+  (5, 'Reddedildi'),
+  (6, 'İkinci Ödeme Onayı Bekleniyor');
 
 INSERT INTO department (code, name) VALUES
   ('011', 'Bilgisayar Mühendisliği'),

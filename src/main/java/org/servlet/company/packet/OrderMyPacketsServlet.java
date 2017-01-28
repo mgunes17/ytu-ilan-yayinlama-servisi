@@ -27,7 +27,8 @@ public class OrderMyPacketsServlet extends HttpServlet {
 
         if(condition.equals("title")) {
             query = "SELECT id, owner_company, packet, announcement_packet_state, used_announcements, approved, " +
-                    " user_for_approved, time_to_request, time_to_approved, time_to_expired, company_description, file_path " +
+                    " user_for_approved, time_to_request, time_to_approved, time_to_expired, company_description, file_path, second_file_path," +
+                    " dau_description, second_dau_description " +
                     " FROM company_own_packet c, announcement_packet a " +
                     " WHERE owner_company = 'sirket1'  AND c.packet = a.packet_id ORDER BY a.title " + type;
         } else {
