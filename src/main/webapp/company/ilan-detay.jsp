@@ -14,6 +14,9 @@
             <div class="col-md-2"></div>
 			<div class="row">
 				<div class="col-md-8">
+				<a href="../myactiveannouncements" class="btn btn-info">
+					<span class="glyphicon glyphicon-arrow-left"></span> Aktif İlanlarım
+				</a>
 				
 				<h4>${announcement.id} nolu ilanınızın detayları</h4>
 				

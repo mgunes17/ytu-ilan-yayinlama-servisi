@@ -163,10 +163,10 @@
                                 <td>
                                     <form method="post">
                                         <input type="hidden" name="packetId" value="${item.id}" />
-                                        <a  href="../announcementdetail?packetId=${item.id}"
-                                            title="Detay"
+                                        <a  href="../updateannouncement?annId=${item.id}"
+                                            title="Düzenle"
                                             class="l btn btn-success">
-                                            <span class="glyphicon glyphicon-th"/>
+                                            <span class="glyphicon glyphicon-pencil"/>
                                         </a>
 
                                         <a data-id="${item.id }" data-toggle="modal" title="Yayına Al" class="open-ChoosePacketDialog btn btn-primary" href="#choosePacketDialog">
