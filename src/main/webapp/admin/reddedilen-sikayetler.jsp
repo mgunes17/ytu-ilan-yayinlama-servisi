@@ -110,7 +110,7 @@
                         <li class="active"><a style="background-color:#b9def0" href="../rejectedcomplaintlist">Reddedilen</a></li>
                         <li><a href="../complaintreporttoadmin">Rapor Al</a></li>
                     </ul>
-                    <br>
+                    <br/>
 
                     <c:choose>
                         <c:when test="${yayindankaldir eq 1}">
@@ -126,71 +126,57 @@
                     </c:choose>
                     <table class="table table-stripped">
                         <thead>
-                        <tr>
-                            <th>İlan Adı</th>
-                            <th>Yayın Tarihi</th>
-                            <th>Şirket</th>
-                            <th>Şikayet Sayısı</th>
-                            <th>İşlem</th>
-                        </tr>
+                            <tr>
+                                <th>İlan Adı</th>
+                                <th>Yayın Tarihi</th>
+                                <th>Şirket</th>
+                                <th>Şikayet Sayısı</th>
+                                <th>İşlem</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <c:if test="${fn:length(retsikayet) eq 0}">
-                            <tr><td><i>Reddedilen şikayet yok.</i></td></tr>
-                        </c:if>
-                        <c:forEach var="item" items="${retsikayet}">
-                            <tr>
-                                <td>${item.title}</td>
-                                <td><fmt:formatDate pattern="dd-MM-yyy" value="${item.publishDate}"/></td>
-                                <td>${item.ownerCompany.companyName}</td>
-                                <td align="right">${fn:length(item.complaintList)}</td>
-                                <td>
-                                    <a  href="#detail"
-                                        title="Detay"
-                                        data-toggle="modal"
-                                        data-title="${item.title}"
-                                        data-content="${item.content}"
-                                        data-brief="${item.brief}"
-                                        data-company="${item.ownerCompany.companyName}"
-                                        data-publish="${item.publishDate}"
-                                        class="open-detail btn btn-info">
-                                        <span class="glyphicon glyphicon-th-large"></span>
-                                    </a>
-                                    <a  href="#complaintList"
-                                        title="Şikayet Mesajları"
-                                        data-toggle="modal"
-                                        class="open-complaintList btn btn-success">
-                                        <span class="glyphicon glyphicon-list-alt"></span>
-                                    </a>
-
-                                    <a  href="#punish"
-                                        title="İlanı yayından kaldır"
-                                        data-toggle="modal"
-                                        data-id="${item.id}"
-                                        class="open-punish btn btn-danger">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-                                </td>
-                            </tr>
-
-                            <div class="modal fade" id="complaintList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <h4><b>Reddedilme Nedeni</b></h4>
-                                            ${item.complaintList.get(0).resultReply}
-
-                                            <br/>
-                                            <h4><b>Şikayet Mesajları</b></h4>
+                            <c:if test="${fn:length(retsikayet) eq 0}">
+                                <tr><td><i>Reddedilen şikayet yok.</i></td></tr>
+                            </c:if>
+                            <c:forEach var="item" items="${retsikayet}">
+                                <tr>
+                                    <td>${item.title}</td>
+                                    <td><fmt:formatDate pattern="dd-MM-yyy" value="${item.publishDate}"/></td>
+                                    <td>${item.ownerCompany.companyName}</td>
+                                    <td align="right">${fn:length(item.complaintList)}</td>
+                                    <td>
+                                        <a  href="#detail"
+                                            title="Detay"
+                                            data-toggle="modal"
+                                            data-title="${item.title}"
+                                            data-content="${item.content}"
+                                            data-brief="${item.brief}"
+                                            data-company="${item.ownerCompany.companyName}"
+                                            data-publish="${item.publishDate}"
+                                            class="open-detail btn btn-success">
+                                            <span class="glyphicon glyphicon-th-large"></span>
+                                        </a>
+                                        <a  href="#punish"
+                                            title="İlanı yayından kaldır"
+                                            data-toggle="modal"
+                                            data-id="${item.id}"
+                                            class="open-punish btn btn-danger">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#${item.id}">Şikayet Mesajları</button>
+                                        <div id="${item.id}" class="collapse out">
                                             <c:forEach var="item2" items="${item.complaintList}">
                                                 <b>Kullanıcı:</b>${item2.student.userName}<br/>
                                                 <b>Mesaj:</b>${item2.description}<br/><br/>
                                             </c:forEach>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:forEach>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>

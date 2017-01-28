@@ -31,20 +31,24 @@ public class LoginControlServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession httpSession = request.getSession();
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String remember = request.getParameter("rememberMe");
         
         UserDAO userDAO = new UserHibernateImpl();
-        User user = (User) userDAO.getUser(username);
+        User user = userDAO.getUser(username);
         
         //giriste membership status kontrol edilecek
         if(user == null || !user.getPassword().equals(password)) {
-        	HttpSession httpSession = request.getSession();
+
         	httpSession.setAttribute("giris", 0);
         	response.sendRedirect("giris-yap.jsp");
-        } 
+        }  else if(user != null && user.getStatus() == 4) {
+			httpSession.setAttribute("giris", 3);
+			response.sendRedirect("giris-yap.jsp");
+		}
         else {
         	if(remember != null && Integer.parseInt(remember) == 1) {
         		Cookie cookieUsername = new Cookie("username", user.getUserName());
@@ -55,7 +59,6 @@ public class LoginControlServlet extends HttpServlet {
         		response.addCookie(cookiePassword);
         	}
         	
-        	HttpSession httpSession = request.getSession();
         	httpSession.setAttribute("user",user);
         	httpSession.setAttribute("status", user.getStatus());
         	response.sendRedirect(user.getUserType().getMainPage());

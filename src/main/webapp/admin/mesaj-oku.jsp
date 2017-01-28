@@ -40,7 +40,7 @@
 						</tr>
 						<tr>
 							<td>Zaman</td>
-							<td><fmt:formatDate value="${message.pk.dateTime}" /></td>
+							<td><fmt:formatDate pattern="dd-MM-yyyy" value="${message.pk.dateTime}" /></td>
 						</tr>
 						<tr>
 							<td>IP Adresi</td>

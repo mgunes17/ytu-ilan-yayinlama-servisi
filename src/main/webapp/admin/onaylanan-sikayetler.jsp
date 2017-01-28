@@ -175,20 +175,17 @@
                                     </a>
                                 </td>
                             </tr>
-
-                            <div class="modal fade" id="complaintList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <h4><b>Şikayet Mesajları</b></h4>
-                                            <c:forEach var="item2" items="${item.complaintList}">
-                                                <b>Kullanıcı:</b>${item2.student.userName}<br/>
-                                                <b>Mesaj:</b>${item2.description}<br/><br/>
-                                            </c:forEach>
-                                        </div>
+                            <tr>
+                                <td colspan="5">
+                                    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#${item.id}">Şikayet Mesajları</button>
+                                    <div id="${item.id}" class="collapse out">
+                                        <c:forEach var="item2" items="${item.complaintList}">
+                                            <b>Kullanıcı:</b>${item2.student.userName}<br/>
+                                            <b>Mesaj:</b>${item2.description}<br/><br/>
+                                        </c:forEach>
                                     </div>
-                                </div>
-                            </div>
+                                </td>
+                            </tr>
                         </c:forEach>
                         </tbody>
                     </table>

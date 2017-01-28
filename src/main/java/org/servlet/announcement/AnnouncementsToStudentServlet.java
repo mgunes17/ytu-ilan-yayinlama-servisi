@@ -42,9 +42,9 @@ public class AnnouncementsToStudentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession httpSession = request.getSession();
 		AnnouncementDAO annDAO = new AnnouncementHibernateImpl();
-		List<Announcement> announcements = annDAO.getActiveAnnouncements();
 		String query = "SELECT * FROM announcement WHERE now() between publish_date and expired_date " +
 				" and state <> 4";
+		List<Announcement> announcements = annDAO.getBySQLCriteria(query);
 		httpSession.setAttribute("searchannouncementquery", query);
 		httpSession.setAttribute("announcements", announcements);
 		response.sendRedirect("student/ilan-ara.jsp");

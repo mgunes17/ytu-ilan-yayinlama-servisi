@@ -21,7 +21,7 @@
             <div class="col-md-4">
 
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <h2>Şirket kayıt</h2>
                 <p>Lütfen istenen bilgileri eksiksiz giriniz</p>
 
@@ -49,7 +49,7 @@
                 <!-- tüm alanlar dolduruldu mu -->
                 <form method="post" action="companysaveservlet">
                     <div class="form-group">
-                        <label for="user_name">Kullanıcı Adı</label> <!-- alınmış mı kontrolü yap -->
+                        <label for="username">Kullanıcı Adı</label> <!-- alınmış mı kontrolü yap -->
                         <input type="text" class="form-control" name="username" id="username" value="${kullaniciAdi}">
                     </div>
                     <div class="form-group">
@@ -92,7 +92,17 @@
                         <input type="text" name="contactTel" id="contactTel" class="form-control" value="${contactTel}"
                                pattern=".{11,11}" required title="Telefon numarası 11 karakter aralığında olmalıdır">
                     </div>
-                    <input type="submit" value="kayıt ol">
+                    <div class="form-group">
+                        <label for="kep">Kayıtlı Elektronik E-Posta</label>
+                        <input type="text" name="kep" id="kep" class="form-control" value="${kep}"
+                               required title="Zorunludur">
+                    </div>
+                    <div class="form-group">
+                        <label for="mersis">Mersis No</label>
+                        <input type="text" name="mersis" id="mersis" class="form-control" value="${mersis}"
+                               required title="Zorunludur">
+                    </div>
+                    <input type="submit" value="Kayıt Ol" class="btn btn-default">
                 </form>
             </div>
         </div>

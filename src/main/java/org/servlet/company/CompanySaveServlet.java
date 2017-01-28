@@ -65,6 +65,8 @@ public class CompanySaveServlet extends HttpServlet {
 			httpSession.setAttribute("surname", request.getParameter("surname"));
             httpSession.setAttribute("contactMail", request.getParameter("contactMail"));
             httpSession.setAttribute("contactTel", request.getParameter("contactTel"));
+            httpSession.setAttribute("kep", request.getParameter("kep"));
+            httpSession.setAttribute("mersis", request.getParameter("mersis"));
 			response.sendRedirect("sirket-kayit.jsp");
 		} else if (companyDAO.saveCompany(company)) { // başarıyla kaydedildi
 			httpSession.setAttribute("kayit", 1);
@@ -79,6 +81,8 @@ public class CompanySaveServlet extends HttpServlet {
 			httpSession.setAttribute("surname", request.getParameter("surname"));
             httpSession.setAttribute("contactMail", request.getParameter("contactMail"));
             httpSession.setAttribute("contactTel", request.getParameter("contactTel"));
+            httpSession.setAttribute("kep", request.getParameter("kep"));
+            httpSession.setAttribute("mersis", request.getParameter("mersis"));
 			response.sendRedirect("sirket-kayit.jsp");
 		}
 	}
@@ -91,14 +95,17 @@ public class CompanySaveServlet extends HttpServlet {
 		company.setSurname(request.getParameter("surname"));
         company.setContactMail(request.getParameter("contactMail"));
         company.setContactTel(request.getParameter("contactTel"));
+        company.setMersis(request.getParameter("mersis"));
+        company.setKep(request.getParameter("kep"));
 		
 		UserTypeDAO typeDAO = new UserTypeHibernateImpl();
         UserType type  = typeDAO.getUserType(2);
         
 		company.setUserTypeNo(type); // sirket maili onayladıktan sonra status
 									// admin onayı bekleniyor olacak
+									// veya tam tersi?
 
-		company.setStatus(0); // mail onayı bekleniyor
+		company.setStatus(4); // Admin onayı bekleniyor
 
 		CommunicationWayPK telephonePK = new CommunicationWayPK();
 

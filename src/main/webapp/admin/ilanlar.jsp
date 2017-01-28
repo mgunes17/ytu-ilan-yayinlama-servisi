@@ -11,9 +11,7 @@
 <html>
     <head>
         <title>Aktif ve Cezalı İlanlar</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <jsp:include page="html/head.html"/>
     </head>
     <body>
         <script>
@@ -113,13 +111,10 @@
             </div>
         </div>
 
-        <div class="container-fluid">
+        <jsp:include page="html/menu.html"/>
+        <div class="jumbotron container-fluid">
             <div class="row">
-                <jsp:include page="html/header.html"/>
-            </div>
-            <div class="row">
-                <div class="col-md-3"><jsp:include page="html/menu.html"/></div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <h4><b>Aktif İlanlar</b></h4>
                     <p>Sırala</p>
                     <a href="#">Şirket Adına Göre</a><br/>
@@ -138,7 +133,7 @@
                                 <tr>
                                     <td>${item.title}</td>
                                     <td>${item.ownerCompany.companyName}</td>
-                                    <td>${item.publishDate}</td>
+                                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.publishDate}"/></td>
                                     <td>
                                         <a href="#activeDetail"
                                            data-toggle="modal"

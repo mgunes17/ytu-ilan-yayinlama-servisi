@@ -41,6 +41,12 @@
 						Erişim için giriş yapmak zorundasınız.
 					</div>
 				</c:when>
+				<c:when test="${giris eq 3}">
+					<div class="alert alert-warning">
+						Hesabınız henüz yönetici tarafından onaylanmamış. <br/>
+                        Onaylandığında mail ile bilgilendirileceksiniz.
+					</div>
+				</c:when>
 	        </c:choose>
             <input type="submit" value="Giriş Yap"/>
         </form>

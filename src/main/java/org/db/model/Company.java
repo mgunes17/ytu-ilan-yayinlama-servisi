@@ -52,6 +52,12 @@ public class Company extends User implements Serializable {
     @Column(name = "contact_tel")
     private String contactTel;
 
+    @Column(name = "kep")
+    private String kep;
+
+    @Column(name = "mersis")
+    private String mersis;
+
     public Company(){
     	super();
     }
@@ -116,4 +122,19 @@ public class Company extends User implements Serializable {
         this.contactTel = contactTel;
     }
 
+    public String getKep() {
+        return kep;
+    }
+
+    public void setKep(String kep) {
+        this.kep = kep;
+    }
+
+    public String getMersis() {
+        return mersis;
+    }
+
+    public void setMersis(String mersis) {
+        this.mersis = mersis;
+    }
 }

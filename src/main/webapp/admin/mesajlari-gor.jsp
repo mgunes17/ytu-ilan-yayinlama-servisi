@@ -39,7 +39,7 @@
                                     <td>${item.messageNo}</td>
                                     <td>${item.messageTitle}</td>
                                     <td>${item.senderName} ${item.senderSurname}</td>
-                                    <td><fmt:formatDate value="${item.pk.dateTime}" /></td>
+                                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.pk.dateTime}" /></td>
                                     <td>${item.isRead}</td>
                                     <td>
                                         <form method="post">
@@ -57,7 +57,6 @@
                 </div>
             </div>
         </div>
-
         <jsp:include page="html/footer.html"/>
     </body>
 </html>

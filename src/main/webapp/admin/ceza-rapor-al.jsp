@@ -54,27 +54,8 @@
                                         class="open-detail btn btn-info">
                                         <span class="glyphicon glyphicon-th-large"></span>
                                     </a>
-                                    <a  href="#complaintList"
-                                        title="Şikayet Mesajları"
-                                        data-toggle="modal"
-                                        class="open-complaintList btn btn-success">
-                                        <span class="glyphicon glyphicon-list-alt"></span>
-                                    </a>
                                 </td>
                             </tr>
-                            <div class="modal fade" id="complaintList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <h4><b>Şikayet Mesajları</b></h4>
-                                            <c:forEach var="item2" items="${item.complaintList}">
-                                                <b>Kullanıcı:</b>${item2.student.userName}<br/>
-                                                <b>Mesaj:</b>${item2.description}<br/><br/>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </c:forEach>
                         </tbody>
                     </table>
