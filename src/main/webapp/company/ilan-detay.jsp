@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -47,11 +48,11 @@
 					</tr>
 					<tr>
                         <th>Yayınlanma Tarihi</th>
-                        <td>${announcement.publishDate}</td>
+                        <td><fmt:formatDate pattern="dd-MM-yyyy" value="${announcement.publishDate}"/></td>
                     </tr>
                     <tr>
                         <th>Yayın Sonu Tarihi</th>
-                        <td>${announcement.expiredDate}</td>
+                        <td><fmt:formatDate pattern="dd-MM-yyyy" value="${announcement.expiredDate}"/></td>
                     </tr>
 					<tr>
 						<td><button class="btn btn-default" name ="appList" type="submit">İlanı Düzenle</button></td>
@@ -75,13 +76,11 @@
 								<td>${item.pk.user.name }</td>
 								<td>${item.pk.user.surname }</td>
 								<td>${item.pk.user.department.name }</td>
-                                <td>${item.timeToApplication}</td>
+                                <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.timeToApplication}"/></td>
 								<td>
-									<form action="#"> <!-- CV pdf olarak görüntülensin -->
-										<button class="btn btn-default" name ="studentcv" value="${appList.username}" type="submit">
-											CV Görüntüle
-										</button>
-									</form>
+                                    <a href="../displaystudentcv?username=${item.pk.user.userName}"
+                                       class="btn btn-info"
+                                       target="_blank">CV Görüntüle</a>
 								</td>									
 							</tr>									
 						</c:forEach>
