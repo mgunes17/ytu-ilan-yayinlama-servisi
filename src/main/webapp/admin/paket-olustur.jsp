@@ -90,28 +90,28 @@
                                   <tbody>
                                     <tr>
                                       <td>Paketin adı</td>
-                                      <td><input type="text" name="packet_name"/>
+                                      <td><input type="text" name="packet_name" class="form-control"/>
                                     </tr>
                                     <tr>
                                       <td>Pakette yer alacak ilan sayısı</td>
-                                      <td><input type="text" name="announcement_number"/></td>
+                                      <td><input type="text" name="announcement_number" class="form-control"/></td>
                                     </tr>
                                     <tr>
                                         <td>Paketin son kullanım tarihi</td>
-                                        <td><input type="text" id="last_date_used" name="last_date_used"/></td>
+                                        <td><input type="text" id="last_date_used" class="form-control" name="last_date_used"/></td>
                                     </tr>
                                     <tr>
                                         <td>İlanların aktif kalma süresi (Gün)</td>
-                                        <td><input type="text" name="activate_date"/></td>
+                                        <td><input type="text" name="activate_date" class="form-control"/></td>
                                     </tr>
                                     <tr>
                                         <td>Paket fiyatı (TL)</td>
-                                        <td><input type="text" name="price"/></td>
+                                        <td><input type="text" name="price" class="form-control"/></td>
                                     </tr>
                                     <tr>
                                         <td>Vakfa/derneğe ait banka hesabı</td>
                                         <td>
-                                            <select name="account">
+                                            <select name="account" class="form-control">
                                                 <c:forEach var="item" items="${accountList}">
                                                 <option value="${item.iban}">
                                                     <c:out value="${item.iban}"/>
@@ -122,7 +122,7 @@
                                     </tr>
                                     <tr>
                                         <td>Para birimi</td>
-                                        <td><select disabled name="currency">
+                                        <td><select disabled name="currency" class="form-control">
                                             <c:forEach var="item" items="${curr}">
                                                 <option value="${item.id}">
                                                     <c:out value="${item.title}"/>
@@ -132,7 +132,7 @@
                                     </tr>
                                     <tr>
                                         <td>Açıklama giriniz</td>
-                                        <td><textarea rows="5" cols="35" name="condition"></textarea></td>
+                                        <td><textarea rows="5" cols="35" name="condition" class="form-control"></textarea></td>
                                     </tr>
                                     <tr><td colspan="2"><button type="submit" class="btn btn-default">Oluştur</button></td></tr>
 

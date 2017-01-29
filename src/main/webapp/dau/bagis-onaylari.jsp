@@ -121,7 +121,6 @@
                         <c:when test="${onaylandi eq 1}">
                             <div class="alert alert-success">
                                 Talebi başarıyla onayladınız.<br/>
-                                Vakfınız adına onaylanmış paketlere <a href="#">buradan</a> ulaşabilirsiniz.
                             </div>
                         </c:when>
                         <c:when test="${onaylandi eq 2}">

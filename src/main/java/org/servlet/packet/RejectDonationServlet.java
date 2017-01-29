@@ -4,9 +4,12 @@ import org.db.dao.CompanyOwnPacketDAO;
 import org.db.dao.DonationAcceptUnitDAO;
 import org.db.hibernate.CompanyOwnPacketHibernateImpl;
 import org.db.hibernate.DauHibernateImpl;
+import org.db.hibernate.NotificationHibernateImpl;
 import org.db.hibernate.UserHibernateImpl;
 import org.db.model.CompanyOwnPacket;
 import org.db.model.DauUser;
+import org.db.model.Notification;
+import org.db.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,6 +53,15 @@ public class RejectDonationServlet extends HttpServlet {
             List<CompanyOwnPacket> packet = dauDAO.getWaitingDonation(dauUser.getDau().getUnitName());
             session.setAttribute("packet", packet);
             session.setAttribute("user", dauUser);
+
+            Notification notification = new Notification(
+                    cop.getPacket().getAccountInfo().getOwnerUnit().getUnitName(),
+                    new User(cop.getOwnerCompany().getUserName()),
+                    (cop.getPacket().getTitle() + " paketi için bağış isteğiniz reddedildi."),
+                    new Date(),
+                    "negative"
+            );
+            new NotificationHibernateImpl().saveNotification(notification);
         } else {
             session.setAttribute("onaylandi", 4);
         }

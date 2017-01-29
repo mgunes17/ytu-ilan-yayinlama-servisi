@@ -13,10 +13,9 @@ import javax.servlet.http.HttpSession;
 import org.db.dao.DonationAcceptUnitDAO;
 import org.db.dao.SpendingRequestDAO;
 import org.db.hibernate.DauHibernateImpl;
+import org.db.hibernate.NotificationHibernateImpl;
 import org.db.hibernate.SpendingRequestHibernateImpl;
-import org.db.model.DonationAcceptUnit;
-import org.db.model.SpendingRequest;
-import org.db.model.SpendingRequestState;
+import org.db.model.*;
 
 /**
  * Servlet implementation class SendSpendingRequestServlet
@@ -88,6 +87,18 @@ public class SendSpendingRequestServlet extends HttpServlet {
 					}
 					
 				}
+
+                //Bildirim
+                for(DauUser user: dau.getDauUser()) {
+                    Notification notification = new Notification(
+                            "Admin",
+                            new User(user.getUserName()),
+                            (spendingRequest.getTitle() + " başlıklı harcama isteği gönderildi."),
+                            new Date(),
+                            "info"
+                    );
+                    new NotificationHibernateImpl().saveNotification(notification);
+                }
 				
 				session.setAttribute("harcamaistegi", 1);
 			} else {

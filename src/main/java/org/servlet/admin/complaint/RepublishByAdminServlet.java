@@ -2,7 +2,11 @@ package org.servlet.admin.complaint;
 
 import org.db.dao.AnnouncementDAO;
 import org.db.hibernate.AnnouncementHibernateImpl;
+import org.db.hibernate.NotificationHibernateImpl;
 import org.db.model.Announcement;
+import org.db.model.Complaint;
+import org.db.model.Notification;
+import org.db.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,21 +37,35 @@ public class RepublishByAdminServlet extends HttpServlet {
             List<Announcement> suspendedAnnouncements = announcementDAO.getSuspendedAnnouncements();
             session.setAttribute("cezaliilanlar", suspendedAnnouncements);
             session.setAttribute("iadegun", iadeGun);
+
+            Announcement announcement = new AnnouncementHibernateImpl().getAnnouncement(annId);
+            //Bildirim şirket için
+            Notification notification = new Notification(
+                    "Sistem",
+                    new User(announcement.getOwnerCompany().getUserName()),
+                    (announcement.getTitle() + " başlıklı ilanınız yeniden yayına alındı. Ceza raporlarından detaya erişebilirsiniz."),
+                    new Date(),
+                    "positive"
+            );
+            new NotificationHibernateImpl().saveNotification(notification);
+
+            //Bildirim öğrenci için
+            for(Complaint complaint: announcement.getComplaintList()) {
+                notification = new Notification(
+                        "Admin",
+                        new User(complaint.getStudent().getUserName()),
+                        (complaint.getAnnouncement().getTitle() + " ilanı için yapmış olduğunuz şikayet olumsuz sonuçlandı."),
+                        new Date(),
+                        "negative"
+                );
+                new NotificationHibernateImpl().saveNotification(notification);
+            }
         } else {
             session.setAttribute("yenidenyayin", 2);
         }
 
         response.sendRedirect("admin/onaylanan-sikayetler.jsp");
 
-        //kayıp günlerin hesaplanıp son yayın tarihine eklenmesi
-        //kayıp gün rapordan çıkar son ceza aldığı gün - now
-        //o ilanın current state cezalı olanlarını tarihe göre azalan sırala limit 1 de
-        //o tarih son ceza aldığı tarih
-        //bunu son yayın tarihine ekle
-        //ilan durumunu aktif e çevir
-        //bu ilanı artık reddedilenlerden görebilmen gerek
-        //rapora current_state i yayında olarak ekle
-        //reddedilenlere şikayet edilemez ve cezalı olmayanlar gelecek
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

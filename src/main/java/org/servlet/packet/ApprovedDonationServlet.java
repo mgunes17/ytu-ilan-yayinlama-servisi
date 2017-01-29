@@ -17,11 +17,7 @@ import org.db.dao.AnnouncementPacketStateDAO;
 import org.db.dao.CompanyOwnPacketDAO;
 import org.db.dao.DonationAcceptUnitDAO;
 import org.db.hibernate.*;
-import org.db.model.Accounting;
-import org.db.model.AnnouncementPacketState;
-import org.db.model.CompanyOwnPacket;
-import org.db.model.DauUser;
-import org.db.model.User;
+import org.db.model.*;
 
 /**
  * Servlet implementation class ApprovedDonationServlet
@@ -94,6 +90,16 @@ public class ApprovedDonationServlet extends HttpServlet {
 			
 			AccountingDAO accountingDAO = new AccountingHibernateImpl();
 			accountingDAO.saveAccounting(accounting);
+
+
+			Notification notification = new Notification(
+					cop.getPacket().getAccountInfo().getOwnerUnit().getUnitName(),
+					new User(cop.getOwnerCompany().getUserName()),
+					(cop.getPacket().getTitle() + " paketi için bağış isteğiniz onaylandı."),
+					new Date(),
+                    "positive"
+			);
+			new NotificationHibernateImpl().saveNotification(notification);
 			
 		} else {
 			session.setAttribute("onaylandi", 2);

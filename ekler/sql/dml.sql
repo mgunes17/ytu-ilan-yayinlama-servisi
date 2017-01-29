@@ -7,10 +7,10 @@ INSERT INTO announcement_type VALUES
   (-1, 'Tüm Tipler');
 
 INSERT INTO user_type (type_no, type_name, main_page, unauthorized_page) VALUES
-  (0, 'admin', 'studentmainpage', 'admin/erisim-izni-yok.jsp'),
-  (1, 'donation_accept_unit', 'dau/index.jsp', 'dau/erisim-izni-yok.jsp'),
-  (2, 'company', 'company/index.jsp', 'company/erisim-izni-yok.jsp'),
-  (3, 'student', 'student/index.jsp', 'student/erisim-izni-yok.jsp') ;
+  (0, 'admin', 'directadminmainpageservlet', 'admin/erisim-izni-yok.jsp'),
+  (1, 'donation_accept_unit', 'daumainpage', 'dau/erisim-izni-yok.jsp'),
+  (2, 'company', 'companymainpage', 'company/erisim-izni-yok.jsp'),
+  (3, 'student', 'studentmainpage', 'student/erisim-izni-yok.jsp') ;
 
 INSERT INTO announcement_state VALUES
   (1, 'passive'),

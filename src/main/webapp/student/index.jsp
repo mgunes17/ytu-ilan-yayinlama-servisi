@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <!DOCTYPE html>
@@ -56,12 +57,34 @@
                 <jsp:include page="html/menu.html"/>
                 <div class="jumbotron container-fluid">
                     <div class="row">
-                        <c:if test="${yeniparola eq 1}">
-                            <div class="alert alert-success">
-                                Şifreniz başarıyla güncellendi.
-                            </div>
-                        </c:if>
-                        <h4>Hoşgeldiniz ${user.userName}</h4>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <c:if test="${yeniparola eq 1}">
+                                <div class="alert alert-success">
+                                    Şifreniz başarıyla güncellendi.
+                                </div>
+                            </c:if>
+                            <p>Bildirimleriniz</p>
+                            <c:forEach var="item" items="${notification}">
+                                <c:choose>
+                                    <c:when test="${item.state eq 'positive'}">
+                                        <div class="alert-success">
+                                            <fmt:formatDate pattern="dd-MM-yyyy" value="${item.triggerDate}"/> ${item.description}
+                                        </div><br/>
+                                    </c:when>
+                                    <c:when test="${item.state eq 'negative'}">
+                                        <div class="alert-danger">
+                                            <fmt:formatDate pattern="dd-MM-yyyy" value="${item.triggerDate}"/> ${item.description}
+                                        </div><br/>
+                                    </c:when>
+                                    <c:when test="${item.state eq 'info'}">
+                                        <div class="alert-info">
+                                            <fmt:formatDate pattern="dd-MM-yyyy" value="${item.triggerDate}"/> ${item.description}
+                                        </div><br/>
+                                    </c:when>
+                                </c:choose>
+                            </c:forEach>
+                        </div>
                     </div>
                 </div>
 

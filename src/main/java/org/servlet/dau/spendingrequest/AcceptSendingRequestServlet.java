@@ -13,14 +13,8 @@ import javax.servlet.http.*;
 import org.db.compositePK.AccountingPK;
 import org.db.dao.AccountingDAO;
 import org.db.dao.SpendingRequestDAO;
-import org.db.hibernate.AccountingHibernateImpl;
-import org.db.hibernate.DauHibernateImpl;
-import org.db.hibernate.SpendingRequestHibernateImpl;
-import org.db.hibernate.UserHibernateImpl;
-import org.db.model.Accounting;
-import org.db.model.DauUser;
-import org.db.model.SpendingRequest;
-import org.db.model.SpendingRequestState;
+import org.db.hibernate.*;
+import org.db.model.*;
 
 /**
  * Servlet implementation class AcceptSendingRequestServlet
@@ -102,7 +96,8 @@ public class AcceptSendingRequestServlet extends HttpServlet {
                 }
 
 
-                spendingRequest.setPdfPath(fileName);
+                if(fileName.length() > 6)
+                    spendingRequest.setPdfPath(fileName);
             }
 
             if(request.getPart("image") != null) {
@@ -126,7 +121,7 @@ public class AcceptSendingRequestServlet extends HttpServlet {
             int currentBalance = new DauHibernateImpl().getUnit(user.getDau().getUnitName()).getBalance();
             int spendingAmount = requestDAO.getSpendingRequest(requestId).getAmount();
 
-            if(spendingAmount > currentBalance) {
+            if(spendingAmount > (currentBalance + spendingAmount)) {
                 session.setAttribute("istekguncelle", 5);
             } else {
                 if(requestDAO.updateRequest(spendingRequest)) {
@@ -134,6 +129,16 @@ public class AcceptSendingRequestServlet extends HttpServlet {
                     String query = (String) session.getAttribute("spendingRequestQuery");
                     List<SpendingRequest> spendingRequestList = new SpendingRequestHibernateImpl().getSpendingRequestByQuery(query);
                     session.setAttribute("spendingList", spendingRequestList);
+
+                    //Bildirim
+                    Notification notification = new Notification(
+                            dauUser.getUserName(),
+                            new User("admin"),
+                            (spendingRequest.getTitle() + " başlıklı harcama isteğiniz onaylandı"),
+                            new Date(),
+                            "positive"
+                    );
+                    new NotificationHibernateImpl().saveNotification(notification);
                 } else {
                     session.setAttribute("istekguncelle", 2);
                 }

@@ -13,7 +13,10 @@ import javax.servlet.http.HttpSession;
 import org.db.compositePK.MessagePK;
 import org.db.dao.MessageDAO;
 import org.db.hibernate.MessageHibernateImpl;
+import org.db.hibernate.NotificationHibernateImpl;
 import org.db.model.Message;
+import org.db.model.Notification;
+import org.db.model.User;
 
 @WebServlet(name = "SendMessageServlet", urlPatterns = {"/sendmessageservlet"})
 public class SendMessageServlet extends HttpServlet {
@@ -42,6 +45,15 @@ public class SendMessageServlet extends HttpServlet {
         
         if(messageDAO.sendMessage(message)) {
         	httpSession.setAttribute("gonderildi", 1);
+            //Bildirim
+            Notification notification = new Notification(
+                    (message.getSenderName() + " " + message.getSenderSurname()),
+                    new User("admin"),
+                    "Yeni bir mesajınız var",
+                    new Date(),
+                    "info"
+            );
+            new NotificationHibernateImpl().saveNotification(notification);
         } else {
         	httpSession.setAttribute("gonderildi", 2);
         }

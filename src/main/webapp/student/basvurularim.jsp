@@ -16,7 +16,7 @@
  				<div class="col-md-3"></div>
  				<div class="col-md-7">
  					<h4>Yapmış Olduğunuz Başvurular</h4>
- 					<table class="table table-bordered">
+ 					<table class="table table-hover">
  						<thead>
  							<tr>
  								<th>İlan Adı</th>
@@ -30,7 +30,7 @@
 								<tr>
 									<td>${item.pk.announcement.title }</td>
 									<td>${item.pk.announcement.state.title }</td>
-									<td><fmt:formatDate value="${item.timeToApplication}"/></td>
+									<td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.timeToApplication}"/></td>
 									<td>
 										<form>
 											<input type="hidden" name="deleteUrl" value="myapplications">

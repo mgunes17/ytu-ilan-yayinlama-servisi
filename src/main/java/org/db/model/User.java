@@ -45,13 +45,20 @@ public class User implements Serializable {
 	private int birthDate;
 
 	public User() {
+		super();
 	}
 
 	public User(String userName, String password, UserType userType) {
+	    super();
 		this.userName = userName;
 		this.password = password;
 		this.userType = userType;
 	}
+
+	public User(String username){
+	    super();
+        this.userName = username;
+    }
 
 	public List<CommunicationWay> getCommWays() {
 		return commWays;

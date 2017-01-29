@@ -1,6 +1,7 @@
 package org.servlet.company;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,14 +12,14 @@ import javax.servlet.http.HttpSession;
 
 import org.db.compositePK.CommunicationWayPK;
 import org.db.dao.CompanyDAO;
+import org.db.dao.NotificationDAO;
 import org.db.dao.UserDAO;
 import org.db.dao.UserTypeDAO;
 import org.db.hibernate.CompanyHibernateImpl;
+import org.db.hibernate.NotificationHibernateImpl;
 import org.db.hibernate.UserHibernateImpl;
 import org.db.hibernate.UserTypeHibernateImpl;
-import org.db.model.CommunicationWay;
-import org.db.model.Company;
-import org.db.model.UserType;
+import org.db.model.*;
 
 @WebServlet(name = "CompanySaveServlet", urlPatterns = { "/companysaveservlet" })
 public class CompanySaveServlet extends HttpServlet {
@@ -69,6 +70,17 @@ public class CompanySaveServlet extends HttpServlet {
             httpSession.setAttribute("mersis", request.getParameter("mersis"));
 			response.sendRedirect("sirket-kayit.jsp");
 		} else if (companyDAO.saveCompany(company)) { // başarıyla kaydedildi
+			//bildirim
+			Notification notification = new Notification();
+            notification.setTriggerFactor(company.getUserName());
+            notification.setTriggerTarget(new User("admin"));
+            notification.setDescription(company.getCompanyName() + " şirketinden üyelik isteği geldi.");
+            notification.setTriggerDate(new Date());
+            notification.setState("info");
+
+            NotificationDAO notificationDAO = new NotificationHibernateImpl();
+            notificationDAO.saveNotification(notification);
+
 			httpSession.setAttribute("kayit", 1);
 			response.sendRedirect("companyremoveformattributesservlet");
 		} else { // bir hata meydana geldi

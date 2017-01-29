@@ -3,11 +3,9 @@ package org.servlet.student.complaint;
 import org.db.dao.ComplaintDAO;
 import org.db.hibernate.AnnouncementHibernateImpl;
 import org.db.hibernate.ComplaintHibernateImpl;
+import org.db.hibernate.NotificationHibernateImpl;
 import org.db.hibernate.UserHibernateImpl;
-import org.db.model.Announcement;
-import org.db.model.Complaint;
-import org.db.model.Student;
-import org.db.model.User;
+import org.db.model.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,6 +42,17 @@ public class ComplaintAnnouncementServlet extends HttpServlet {
             session.setAttribute("sikayetvar", 1);
             student = (Student) new UserHibernateImpl().getUser(student.getUserName());
             session.setAttribute("user", student);
+
+            //Bildirim
+            Notification notification = new Notification(
+                    student.getUserName(),
+                    new User("admin"),
+                    (announcement.getTitle() + " başlıklı ilan şikayet edildi."),
+                    new Date(),
+                    "info"
+            );
+            new NotificationHibernateImpl().saveNotification(notification);
+
         } else {
             session.setAttribute("sikayetedildi", 2);
         }

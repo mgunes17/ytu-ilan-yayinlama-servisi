@@ -252,3 +252,12 @@ CREATE TABLE education_info(
 	end_date int DEFAULT 0,
 	degree varchar(40)
 );
+
+CREATE TABLE notification (
+	id int primary key,
+	trigger_factor varchar(50) NOT NULL,
+	trigger_target varchar(20) REFERENCES users(user_name),
+	description text NOT NULL,
+	trigger_date timestamp NOT NULL,
+	state varchar(50) NOT NULL
+);

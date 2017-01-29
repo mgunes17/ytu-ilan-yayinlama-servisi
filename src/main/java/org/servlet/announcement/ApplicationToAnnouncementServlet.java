@@ -15,8 +15,10 @@ import org.db.dao.AnnouncementDAO;
 import org.db.dao.ApplicationDAO;
 import org.db.hibernate.AnnouncementHibernateImpl;
 import org.db.hibernate.ApplicationHibernateImpl;
+import org.db.hibernate.NotificationHibernateImpl;
 import org.db.model.Announcement;
 import org.db.model.Application;
+import org.db.model.Notification;
 import org.db.model.User;
 
 /**
@@ -68,6 +70,15 @@ public class ApplicationToAnnouncementServlet extends HttpServlet {
 			session.setAttribute("basvuruvar", 1);
 			announcement = annDAO.getAnnouncement(annID);
 			session.setAttribute("announcement", announcement);
+
+			Notification notification = new Notification(
+					user.getUserName(),
+					new User(announcement.getOwnerCompany().getUserName()),
+					(announcement.getTitle() + " başlıklı ilanınıza başvuru var."),
+					new Date(),
+                    "info"
+			);
+			new NotificationHibernateImpl().saveNotification(notification);
 		} else {
 			session.setAttribute("basvuruvar", 2);
 			session.setAttribute("basvuruldu", 2); //0 atamaya c set ile dene

@@ -90,7 +90,7 @@
                     <p>Varsa fatura/ödeme bilgisine ait görüntü veya pdf ekleyiniz.</p>
                     <form method="post" action="../acceptsendingrequest" enctype="multipart/form-data">
                         <div class="form-group">
-                            <textarea rows="10" cols="40" name="description">Açıklama..</textarea>
+                            <textarea rows="10" cols="40" name="description" class="form-control">Açıklama..</textarea>
                         </div>
                         <div class="form-group">
                             <label for="file1">Dosya Yükleyin</label>
@@ -122,7 +122,7 @@
                     <p>Harcamayı neden yap(a)madığınıza dair açıklamanız:</p>
                     <form method="post" action="../rejectsendingrequest">
                         <div class="form-group">
-                            <textarea rows="10" cols="40" name="description">Açıklama..</textarea>
+                            <textarea rows="10" cols="40" name="description" class="form-control">Açıklama..</textarea>
                         </div>
                         <input type="hidden" name="requestId" id="requestId2"/>
                         <button type="submit" class="btn btn-default">Gönder</button>

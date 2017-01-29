@@ -45,6 +45,6 @@
     <mapping class="org.db.model.VerificationCode"/>
     <mapping class="org.db.model.GlobalParameter"/>
     <mapping class="org.db.model.EducationInfo"/>
-
+    <mapping class="org.db.model.Notification"/>
   </session-factory>
 </hibernate-configuration>

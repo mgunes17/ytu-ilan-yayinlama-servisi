@@ -14,11 +14,9 @@ import org.db.dao.AnnouncementPacketStateDAO;
 import org.db.dao.CompanyOwnPacketDAO;
 import org.db.hibernate.AnnouncementPacketHibernateImpl;
 import org.db.hibernate.CompanyOwnPacketHibernateImpl;
+import org.db.hibernate.NotificationHibernateImpl;
 import org.db.hibernate.PacketStateHibernateImpl;
-import org.db.model.AnnouncementPacket;
-import org.db.model.AnnouncementPacketState;
-import org.db.model.Company;
-import org.db.model.CompanyOwnPacket;
+import org.db.model.*;
 
 /**
  * Servlet implementation class DonatedPacket
@@ -99,13 +97,25 @@ public class DonationRequestServlet extends HttpServlet {
                     out.write(bytes, 0, read);
                 }
 
-                cop.setFilePath(fileName);
+                if(fileName.length() > 6)
+                    cop.setFilePath(fileName);
             }
 
             CompanyOwnPacketDAO copDAO = new CompanyOwnPacketHibernateImpl();
 
             if(copDAO.save(cop)) {
                 httpSession.setAttribute("donation_request", 1);
+                //Bildirim
+                for(DauUser user: packet.getAccountInfo().getOwnerUnit().getDauUser()) {
+                    Notification notification = new Notification(
+                            company.getCompanyName(),
+                            new User(user.getUserName()),
+                            (company.getCompanyName() + " şirketi tarafından bağış isteği gönderildi."),
+                            new Date(),
+                            "info"
+                    );
+                    new NotificationHibernateImpl().saveNotification(notification);
+                }
             } else {
                 httpSession.setAttribute("donation_request", 2);
             }

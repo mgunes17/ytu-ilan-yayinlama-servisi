@@ -24,8 +24,7 @@
 
                                 <c:if test="${toplamistekler eq 1 }">
                                     <div class="alert alert-warning">
-                                            ${birim} biriminin bakiyesi, yapmış olduğunuz tüm istekleri karşılamaya yetmemektedir.
-                                        <a href="#">Buradan</a> oluşturduğunuz harcama isteklerini düzenleyebilirsiniz.
+                                        ${birim} biriminin bakiyesi, yapmış olduğunuz tüm istekleri karşılamaya yetmemektedir.
                                     </div>
                                 </c:if>
                             </c:when>

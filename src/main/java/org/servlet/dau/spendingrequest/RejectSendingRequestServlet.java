@@ -12,10 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.db.dao.SpendingRequestDAO;
+import org.db.hibernate.NotificationHibernateImpl;
 import org.db.hibernate.SpendingRequestHibernateImpl;
-import org.db.model.DauUser;
-import org.db.model.SpendingRequest;
-import org.db.model.SpendingRequestState;
+import org.db.model.*;
 
 /**
  * Servlet implementation class RejectSendingRequestServlet
@@ -64,6 +63,17 @@ public class RejectSendingRequestServlet extends HttpServlet {
             String query = (String) session.getAttribute("spendingRequestQuery");
             List<SpendingRequest> spendingRequestList = spendingDAO.getSpendingRequestByQuery(query);
 			session.setAttribute("spendingList", spendingRequestList);
+
+			//Bildirim
+            Notification notification = new Notification(
+                    dauUser.getUserName(),
+                    new User("admin"),
+                    (spendingRequest.getTitle() + " başlıklı harcama isteğiniz reddedildi"),
+                    new Date(),
+                    "negative"
+            );
+            new NotificationHibernateImpl().saveNotification(notification);
+
 		} else {
 			session.setAttribute("istekguncelle", 4);
 		}

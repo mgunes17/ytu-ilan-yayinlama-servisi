@@ -2,7 +2,10 @@ package org.servlet.admin.companyapproval;
 
 import org.db.dao.CompanyDAO;
 import org.db.hibernate.CompanyHibernateImpl;
+import org.db.hibernate.NotificationHibernateImpl;
 import org.db.model.Company;
+import org.db.model.Notification;
+import org.db.model.User;
 import org.mail.MailFunction;
 
 import javax.servlet.ServletException;
@@ -12,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +41,15 @@ public class ApproveCompanyServlet extends HttpServlet {
             //Bilgilendirme maili
             MailFunction mailFunction = new MailFunction();
             mailFunction.send(company.getContactMail(), "Kayıt Onayı", "Artık hesabınıza giriş yapabilirsiniz.");
+
+            Notification notification = new Notification(
+                    "Sistem",
+                    new User(company.getUserName()),
+                    ("Sisteme hoşgeldiniz. Hesabınız yönetici tarafından onaylandı."),
+                    new Date(),
+                    "info"
+            );
+            new NotificationHibernateImpl().saveNotification(notification);
 
         } else {
             session.setAttribute("istek", 2);
