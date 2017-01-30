@@ -21,7 +21,7 @@
             <a href="nasil-calisir.jsp">Nasıl Çalışır?</a> sayfamızdan detayları öğrenebilirsiniz
         </h3>
     </div>
-       
+
     <jsp:include page="html/footer.html"/>
 </body>
 </html>

@@ -22,6 +22,7 @@ import java.io.IOException;
 @WebServlet(name = "UpdateCompanyUserServlet", urlPatterns = {"/updatecompanyuser"})
 public class UpdateCompanyUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         session.setAttribute("guncelle", 0);
         session.setAttribute("parolaguncelle", 0);

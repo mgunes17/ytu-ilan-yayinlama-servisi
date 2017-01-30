@@ -111,6 +111,11 @@
                         </tr>
                         </thead>
                         <tbody>
+                            <c:if test="${fn:length(announcements) eq 0}">
+                                <tr>
+                                    <td><i>Cezalı ilanınız yok.</i></td>
+                                </tr>
+                            </c:if>
                             <c:forEach var="item" items="${announcements}">
                                 <tr>
                                     <td>${item.id}</td>

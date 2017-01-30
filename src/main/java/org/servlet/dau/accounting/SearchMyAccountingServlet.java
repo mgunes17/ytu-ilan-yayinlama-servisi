@@ -28,7 +28,7 @@ public class SearchMyAccountingServlet extends HttpServlet {
         String userName = request.getParameter("username");
         String type = request.getParameter("type");
         String start = request.getParameter("from");
-        String end = request.getParameter("end");
+        String end = request.getParameter("to");
 
         StringBuilder query = new StringBuilder();
         query.append("SELECT * FROM accounting WHERE 1 = 1 ");

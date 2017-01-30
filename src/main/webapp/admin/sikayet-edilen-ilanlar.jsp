@@ -27,12 +27,17 @@
                 var brief = _self.data('brief');
                 var company = _self.data('company');
                 var publish = _self.data('publish');
+                var category = _self.data('category');
+                var type = _self.data('type');
 
                 document.getElementById("title1").innerHTML = title;
                 document.getElementById("content1").innerHTML = content;
                 document.getElementById("publish1").innerHTML = publish;
                 document.getElementById("brief1").innerHTML = brief;
                 document.getElementById("company1").innerHTML = company;
+                document.getElementById("category1").innerHTML = category;
+                document.getElementById("type1").innerHTML = type;
+
 
                 $(_self.attr('href')).modal('show');
             });
@@ -70,6 +75,12 @@
 
                         <p><b>Başlık</b></p>
                         <p id="title1"></p>
+
+                        <p><b>Kategori</b></p>
+                        <p id="category1"></p>
+
+                        <p><b>Tip</b></p>
+                        <p id="type1"></p>
 
                         <p><b>Kısa Açıklama</b></p>
                         <p id="brief1"></p>
@@ -206,18 +217,13 @@
                                             data-title="${item.title}"
                                             data-content="${item.content}"
                                             data-brief="${item.brief}"
+                                            data-category="${item.category.categoryName}"
+                                            data-type="${item.announcementType.title}"
                                             data-company="${item.ownerCompany.companyName}"
                                             data-publish="${item.publishDate}"
                                             class="open-detail btn btn-info">
                                             <span class="glyphicon glyphicon-th-large"></span>
                                         </a>
-                                        <a  href="#complaintList"
-                                            title="Şikayet Mesajları"
-                                            data-toggle="modal"
-                                            class="open-complaintList btn btn-success">
-                                            <span class="glyphicon glyphicon-list-alt"></span>
-                                        </a>
-
                                         <a  href="#trueComplaint"
                                             title="Şikayetler Doğru"
                                             data-toggle="modal"

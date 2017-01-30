@@ -36,11 +36,11 @@
                                     <form method="post" action="../savenewpasswordstudent">
                                         <div class="form-group">
                                             <label for="password">Parola</label>
-                                            <input type="text" name="password" id="password" class="form-control">
+                                            <input type="password" name="password" id="password" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="passwordAgain">Parola</label>
-                                            <input type="text" name="passwordAgain" id="passwordAgain" class="form-control">
+                                            <input type="password" name="passwordAgain" id="passwordAgain" class="form-control">
                                         </div>
 
                                         <button type="submit" class="btn btn-success">Kaydet</button>

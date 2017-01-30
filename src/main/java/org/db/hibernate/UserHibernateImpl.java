@@ -30,7 +30,7 @@ public class UserHibernateImpl extends AbstractDAO implements UserDAO {
 	public User getUserByMail(String mail) {
 		String query = "SELECT u.user_name " +
                 " FROM users u, communication_way c " +
-                " WHERE comm_value = '" + mail + "' AND comm_type = 'mail' AND u.user_name = c.user_name;";
+                " WHERE comm_value = '" + mail + "' AND (comm_type = 'mail' OR comm_type = 'Mail') AND u.user_name = c.user_name;";
         String username;
 
         try {

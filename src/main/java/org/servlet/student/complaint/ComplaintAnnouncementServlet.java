@@ -23,6 +23,7 @@ import java.util.Date;
 public class ComplaintAnnouncementServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        session.setAttribute("basvuruldu", 0);
 
         int announcementID = Integer.parseInt(request.getParameter("announcementId"));
         Announcement announcement = new AnnouncementHibernateImpl().getAnnouncement(announcementID);

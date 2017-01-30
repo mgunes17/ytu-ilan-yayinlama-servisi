@@ -41,7 +41,7 @@ public class SearchAnnouncementServlet extends HttpServlet {
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT * FROM announcement WHERE now() between publish_date and expired_date" +
-                " and state <> 4 ");
+                " and state <> 4 and visibility = true ");
 
         //İlan tipi seçildiyse sorguya ekle
         if(annTypeId != -1) {
