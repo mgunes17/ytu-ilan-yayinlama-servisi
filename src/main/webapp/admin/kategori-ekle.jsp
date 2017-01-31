@@ -72,7 +72,7 @@
                                 <label for="categoryName">Yeni İsim:</label>
                                 <input type="text" name="categoryName" id="categoryName" class="form-control"/>
                             </div>
-                            <input formaction="../updatecategory" type="submit" class="btn btn-default" value="Değiştir">
+                            <input formaction="../updatecategory" type="submit" class="btn btn-success" value="Değiştir">
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -194,7 +194,7 @@
                     </c:choose>
 
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Kategori Ekle</div>
+                        <div class="panel-heading"><p>Kategori Ekle</p></div>
                         <div class="panel-body">
                             <form action="../savecategory">
                                 <div class="form-group">
@@ -212,7 +212,7 @@
                                         </c:forEach>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-default">Ekle</button>
+                                <button type="submit" class="btn btn-success">Ekle</button>
                             </form>
                         </div>
                         <div class="panel-footer">

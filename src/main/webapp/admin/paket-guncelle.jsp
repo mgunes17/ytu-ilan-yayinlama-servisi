@@ -73,28 +73,28 @@
                                     <tbody>
                                     <tr>
                                         <td>Paketin adı</td>
-                                        <td><input type="text" name="packet_name" value="${packet.title}"/>
+                                        <td><input type="text" name="packet_name" value="${packet.title}" class="form-control"/>
                                     </tr>
                                     <tr>
                                         <td>Pakette yer alacak ilan sayısı</td>
-                                        <td><input type="text" name="announcement_number" value="${packet.announcementCount}"/></td>
+                                        <td><input type="text" name="announcement_number" value="${packet.announcementCount}" class="form-control"/></td>
                                     </tr>
                                     <tr>
                                         <td>Paketin son kullanım tarihi</td>
-                                        <td><input type="text" id="last_date_used" name="last_date_used" value="${packet.lastDateUsed}"/></td>
+                                        <td><input type="text" id="last_date_used" name="last_date_used" value="${packet.lastDateUsed}" class="form-control"/></td>
                                     </tr>
                                     <tr>
                                         <td>İlanların aktif kalma süresi (Gün)</td>
-                                        <td><input type="text" name="activate_date" value="${packet.activeTime}"/></td>
+                                        <td><input type="text" name="activate_date" value="${packet.activeTime}" class="form-control"/></td>
                                     </tr>
                                     <tr>
                                         <td>Paket fiyatı (TL)</td>
-                                        <td><input type="text" name="price" value="${packet.price}"/></td>
+                                        <td><input type="text" name="price" value="${packet.price}" class="form-control"/></td>
                                     </tr>
                                     <tr>
                                         <td>Vakfa/derneğe ait banka hesabı</td>
                                         <td>
-                                            <select name="account" value="${packet.accountInfo}">
+                                            <select name="account" value="${packet.accountInfo}" class="form-control">
                                                 <c:forEach var="item" items="${accounts}">
                                                     <option value="${item.iban}">
                                                         <c:out value="${item.iban}"/>
@@ -105,7 +105,7 @@
                                     </tr>
                                     <tr>
                                         <td>Para birimi</td>
-                                        <td><select disabled name="currency">
+                                        <td><select disabled name="currency" class="form-control">
                                             <c:forEach var="item" items="${curr}">
                                                 <option value="${item.id}">
                                                     <c:out value="${item.title}"/>
@@ -115,7 +115,7 @@
                                     </tr>
                                     <tr>
                                         <td>Açıklama giriniz</td>
-                                        <td><textarea rows="5" cols="35" name="condition">${packet.condition}</textarea></td>
+                                        <td><textarea rows="5" cols="35" name="condition"  class="form-control">${packet.condition}</textarea></td>
                                     </tr>
                                     <tr>
                                         <input type="hidden" name="id" value="${packet.packetId}">

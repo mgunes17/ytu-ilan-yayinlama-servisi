@@ -43,7 +43,7 @@
 	            		</tr>
 	            		<tr>
 	            			<th>Son Kullanım Tarihi</th>
-	            			<td>${packet.lastDateUsed }</td>
+	            			<td><fmt:formatDate pattern="dd-MM-yyyy" value="${packet.lastDateUsed }"/></td>
 	            		</tr>
 	            		<tr>
 	            			<th>Bir İlan İçin Yayın Süresi (Gün)</th>

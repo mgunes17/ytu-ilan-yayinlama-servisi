@@ -87,7 +87,7 @@
                                 <tr>
                                     <td>${item.unitName}</td>
                                     <td align="right">${item.balance}</td>
-                                    <td><fmt:formatDate type="date" value="${item.createdDate}"/></td>
+                                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.createdDate}"/></td>
                                     <td align="right">${fn:length(item.dauUser)}</td>
                                     <td align="right">${fn:length(item.account)}</td>
                                     <td>

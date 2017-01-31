@@ -200,7 +200,7 @@
                                     <td>${item.title}</td>
                                     <td align="right">${item.price}</td>
                                     <td>${item.accountInfo.ownerUnit.unitName}
-                                    <td><fmt:formatDate value="${item.lastDateUsed}" /></td>
+                                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.lastDateUsed}" /></td>
                                     <td>
                                         <a  href="../packetdetail?packetId=${item.packetId}"
                                             title="Detail"
